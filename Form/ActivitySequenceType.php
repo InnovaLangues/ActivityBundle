@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ActivityType extends AbstractType
+class ActivitySequenceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,14 +26,14 @@ class ActivityType extends AbstractType
 
     public function getName()
     {
-        return 'activity_form';
+        return 'activity_sequence_form';
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
-                'translation_domain' => 'activity'
+                'translation_domain' => 'innova_activity'
             )
         );
     }

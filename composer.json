@@ -1,7 +1,7 @@
 {
     "name": "innova/activity-bundle",
-    "description": "Claroline activity plugin",
-    "keywords": ["Claroline", "Plugin", "Activity"],
+    "description": "Claroline activities sequence plugin",
+    "keywords": ["Claroline", "Plugin", "Activity", "Sequence"],
     "homepage": "http://www.claroline.net",
     "type": "claroline-plugin",
     "license": "MIT",

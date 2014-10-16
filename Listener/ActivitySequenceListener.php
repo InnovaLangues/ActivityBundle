@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Claroline Connect package.
- *
- * (c) Claroline Consortium <consortium@claroline.net>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Innova\ActivityBundle\Listener;
 
 use Claroline\CoreBundle\Event\CreateFormResourceEvent;
@@ -25,16 +16,16 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class ActivityListener extends ContainerAware
+class ActivitySequenceListener extends ContainerAware
 {
     public function onCreateForm(CreateFormResourceEvent $event)
     {
-        $form = $this->container->get('form.factory')->create(new ActivityType, new Activity());
+        $form = $this->container->get('form.factory')->create(new ActivitySequenceType, new ActivitySequence());
         $content = $this->container->get('templating')->render(
             'ClarolineCoreBundle:Resource:createForm.html.twig',
             array(
                 'form' => $form->createView(),
-                'resourceType' => 'innova_activity'
+                'resourceType' => 'innova_activity_sequence'
             )
         );
         $event->setResponseContent($content);
@@ -44,12 +35,12 @@ class ActivityListener extends ContainerAware
     public function onCreate(CreateResourceEvent $event)
     {
         $request = $this->container->get('request');
-        $form = $this->container->get('form.factory')->create(new ActivityType, new Activity());
+        $form = $this->container->get('form.factory')->create(new ActivitySequenceType, new ActivitySequence());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $activity = $form->getData();
-            $event->setResources(array($activity));
+            $activitySequence = $form->getData();
+            $event->setResources(array($activitySequence));
             $event->stopPropagation();
 
             return;
@@ -59,7 +50,7 @@ class ActivityListener extends ContainerAware
             'ClarolineCoreBundle:Resource:createForm.html.twig',
             array(
                 'form' => $form->createView(),
-                'resourceType' => 'innova_activity'
+                'resourceType' => 'innova_activity_sequence'
             )
         );
         $event->setErrorFormContent($content);
@@ -72,8 +63,8 @@ class ActivityListener extends ContainerAware
         $httpKernel = $this->container->get('http_kernel');
         $request = $requestStack->getCurrentRequest();
         $params = array();
-        $params['_controller'] = 'InnovaActivityBundle:Activity:open';
-        $params['activity'] = $event->getResource()->getId();
+        $params['_controller'] = 'InnovaActivityBundle:ActivitySequence:open';
+        $params['activity_sequence'] = $event->getResource()->getId();
         $subRequest = $request->duplicate(array(), null, $params);
         $response = $httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         $event->setResponse($response);
@@ -91,7 +82,7 @@ class ActivityListener extends ContainerAware
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $resource = $event->getResource();
-        $event->setCopy($this->container->get('innova.manager.activity_manager')->copy($resource));
+        $event->setCopy($this->container->get('innova.manager.activity_sequence_manager')->copy($resource));
         $event->stopPropagation();
     }
 }
