@@ -1,0 +1,30 @@
+{
+    "name": "innova/activity-bundle",
+    "description": "Claroline activity plugin",
+    "keywords": ["Claroline", "Plugin", "Activity"],
+    "homepage": "http://www.claroline.net",
+    "type": "claroline-plugin",
+    "license": "MIT",
+    "authors" : [{
+        "name" : "Arnaud Bey",
+        "email" : "arnaud.bey@u-grenoble3.fr"
+        }, {
+        "name" : "Axel Penin",
+        "email" : "axel.penin@u-grenoble3.fr"
+        }, {
+        "name" : "Eric Vincent",
+        "email" : "eric.vincent@u-grenoble3.fr"
+        }, {
+        "name" : "Donovan Tengblad",
+        "email" : "donovan.tengblad@u-grenoble3.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.1",
+        "claroline/core-bundle": "~3.0"
+    },
+    "autoload": {
+        "psr-0": { "Innova\\ActivityBundle": "" }
+    },
+    "target-dir": "Innova/ActivityBundle"
+}

@@ -1,0 +1,10 @@
+plugin:
+  has_options: false
+  icon: res_new.png
+
+  resources:
+    - class: Innova\ActivityBundle\Entity\ActivitySequence
+      name: innova_activity_sequence
+      is_exportable: true
+      icon: res_new.png
+

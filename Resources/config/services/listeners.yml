@@ -1,0 +1,11 @@
+services:
+    innova.listener.activity_listener:
+        class: Innova\ActivityBundle\Listener\ActivityListener
+        calls:
+            - [setContainer, ["@service_container"]]
+        tags:
+            - { name: kernel.event_listener, event: create_form_innova_activity, method: onCreateForm }
+            - { name: kernel.event_listener, event: create_innova_activity, method: onCreate }
+            - { name: kernel.event_listener, event: open_innova_activity, method: onOpen }
+            - { name: kernel.event_listener, event: copy_innova_activity, method: onCopy }
+            - { name: kernel.event_listener, event: delete_innova_activity, method: onDelete }

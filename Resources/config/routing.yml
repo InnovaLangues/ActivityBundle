@@ -1,0 +1,4 @@
+innova_activity:
+    resource: "@InnovaActivityBundle/Controller/ActivityController.php"
+    type:     annotation
+    prefix:   /
