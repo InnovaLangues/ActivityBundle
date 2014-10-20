@@ -8,13 +8,19 @@ use Claroline\CoreBundle\Event\DeleteResourceEvent;
 use Claroline\CoreBundle\Event\CopyResourceEvent;
 use Claroline\CoreBundle\Event\OpenResourceEvent;
 use Claroline\CoreBundle\Event\DeleteUserEvent;
+use Claroline\CoreBundle\Event\CustomActionResourceEvent;
+use Claroline\CoreBundle\Event\PluginOptionsEvent;
 use Claroline\CoreBundle\Event\ImportResourceTemplateEvent;
 use Claroline\CoreBundle\Event\ExportResourceTemplateEvent;
+
 use Innova\ActivityBundle\Entity\Activity;
-use Innova\ActivityBundle\Form\ActivityType;
+use Innova\ActivityBundle\Entity\ActivitySequence;
+use Innova\ActivityBundle\Form\ActivitySequenceType;
+
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use JMS\DiExtraBundle\Annotation as DI;
 
 class ActivitySequenceListener extends ContainerAware
 {
@@ -59,16 +65,19 @@ class ActivitySequenceListener extends ContainerAware
 
     public function onOpen(OpenResourceEvent $event)
     {
-        $requestStack = $this->container->get('request_stack');
-        $httpKernel = $this->container->get('http_kernel');
-        $request = $requestStack->getCurrentRequest();
-        $params = array();
-        $params['_controller'] = 'InnovaActivityBundle:ActivitySequence:open';
-        $params['activity_sequence'] = $event->getResource()->getId();
-        $subRequest = $request->duplicate(array(), null, $params);
-        $response = $httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-        $event->setResponse($response);
-        $event->stopPropagation();
+         $activitySequence = $event->getResource();
+         $route = $this->container
+                ->get('router')
+                ->generate(
+                'activity_sequence_open',
+                array(
+                    'workspaceId' => $activitySequence->getResourceNode()->getWorkspace()->getId(),
+                    'activitySequenceId' => $activitySequence->getId(),
+                )
+            );
+
+            $event->setResponse(new RedirectResponse($route));
+            $event->stopPropagation();
     }
 
     public function onDelete(DeleteResourceEvent $event)
@@ -78,11 +87,22 @@ class ActivitySequenceListener extends ContainerAware
         $event->stopPropagation();
     }
 
-    public function onCopy(CopyResourceEvent $event)
+    /**
+    * @DI\Observe("administrate_innova_activity_sequence")
+    */
+    public function onAdministrate(CustomActionResourceEvent $event)
     {
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $resource = $event->getResource();
-        $event->setCopy($this->container->get('innova.manager.activity_sequence_manager')->copy($resource));
+        $activitySequence = $event->getResource();
+        $workspaceId = $activitySequence->getResourceNode()->getWorkspace()->getId();
+
+        $route = $this->container->get('router')->generate(
+                                                                                    'activity_sequence_administrate',
+                                                                                    array(
+                                                                                        'workspaceId' => $workspaceId,
+                                                                                        'activitySequenceId' => $activitySequence->getId(),
+                                                                                    )
+                                                                            );
+        $event->setResponse(new RedirectResponse($route));
         $event->stopPropagation();
     }
 }

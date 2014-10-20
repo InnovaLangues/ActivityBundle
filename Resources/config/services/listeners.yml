@@ -9,3 +9,5 @@ services:
             - { name: kernel.event_listener, event: open_innova_activity_sequence, method: onOpen }
             - { name: kernel.event_listener, event: copy_innova_activity_sequence, method: onCopy }
             - { name: kernel.event_listener, event: delete_innova_activity_sequence, method: onDelete }
+            - { name: kernel.event_listener, event: administrate_innova_activity_sequence, method: onAdministrate}
+
