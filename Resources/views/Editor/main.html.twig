@@ -37,9 +37,10 @@
                 <strong data-ng-bind="activitySequence.name"></strong>
             </div>
             <div class="panel-body">
-                    <button class="btn btn-default" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0"><span class="fa fa-plus-circle"></span> Ajouter une activité</button> 
-                    <span class="pull-right" data-ng-show="requestCount.count >0"> coucou
+                    <button class="btn btn-default" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0">
+                        <span class="fa fa-plus-circle"></span> Ajouter une activité</button> 
                     </span>
+                    <img class="pull-right" data-ng-show="requestCount.count >0" src="{{ asset('bundles/innovaactivity/images/editor/ajax-loader.gif') }}"/>
                 <ul class="list-group">
                     <li class="list-group-item" data-ng-repeat="activity in activitySequence.activities">
                         {% verbatim %}{{ activity.id }}{% endverbatim %}
