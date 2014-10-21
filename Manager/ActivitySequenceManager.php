@@ -34,10 +34,11 @@ class ActivitySequenceManager
     function addActivity(ActivitySequence $activitySequence){
         $activity = $this->createActivity($activitySequence);
 
-        return $activitySequence;
+        return $activity;
     }
 
-     function createActivity(ActivitySequence $activitySequence){
+     function createActivity(ActivitySequence $activitySequence)
+     {
         $activity = new Activity;
         $activity->setName("");
         $activity->setDescription("");
@@ -47,5 +48,37 @@ class ActivitySequenceManager
         $this->em->flush();
 
         return $activity;
+    }
+
+    function activitySequenceToJson(ActivitySequence $activitySequence)
+    {
+        $activitySequenceActivities = array ();
+        if ($activities = $activitySequence->getActivities() ) {
+            foreach ($activities as $activity) {
+                $activitySequenceActivities[] = array (
+                                                                    "id" => $activity->getId(),
+                                                                    "name" => $activity->getName(),
+                );
+            }
+        }
+
+        $activitySequenceAttrs = array (
+            "id"            => $activitySequence->getId(),
+            "name"      => $activitySequence->getResourceNode()->getName(),
+            "activities" => $activitySequenceActivities,
+        );
+
+        return json_encode($activitySequenceAttrs);
+    }
+
+
+    function activityAttrs(Activity $activity)
+    {
+        $activityAttrs = array (
+                            "id" => $activity->getId(),
+                            "name" => $activity->getName(),
+        );
+
+        return $activityAttrs;
     }
 }
