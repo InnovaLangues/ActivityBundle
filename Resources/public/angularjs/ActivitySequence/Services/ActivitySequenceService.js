@@ -1,16 +1,29 @@
 (function () {
     'use strict';
 
-    angular.module('ActivitySequence').factory('ActivitySequenceService', ['$http', function ($http) {
+    angular.module('ActivitySequence').factory('ActivitySequenceService', ['$http', 'LoaderService', function ($http, LoaderService) {
+        var activitySequence = null;
 
         return {
-            addActivity: function(activitySequenceId) {
-                alert("test "+activitySequenceId);
-                $http.get(Routing.generate('activity_sequence_add_activity', { activitySequenceId: activitySequenceId }))
-                .success(function (data) {
-                    alert("ok "+activitySequenceId);
-                });
+            setActivitySequence: function(data) {
+                activitySequence = data;
+
+                return this;
             },
+
+            getActivitySequence: function() {
+
+                return activitySequence;
+            },     
+
+            addActivity: function() {
+                LoaderService.startRequest();
+                $http.get(Routing.generate('activity_sequence_add_activity', { activitySequenceId: activitySequence.id }))
+                .success(function (data) {
+                    activitySequence.activities.push(data.activity);
+                    LoaderService.endRequest();
+                });
+            }
         };  
     }]);
 })();

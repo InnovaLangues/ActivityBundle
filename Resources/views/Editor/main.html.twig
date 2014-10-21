@@ -30,22 +30,23 @@
 {% endblock %}
 
 {% block content %}
-    <div class="panel panel-default" data-ng-app="App">
+    <div class="panel panel-default" data-ng-app="App" data-ng-cloak="">
         <div data-ng-controller="ActivitySequenceEditController">
             <div class="panel-heading">
                 Séquence d'activités 
                 <strong data-ng-bind="activitySequence.name"></strong>
             </div>
             <div class="panel-body">
+                    <button class="btn btn-default" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0"><span class="fa fa-plus-circle"></span> Ajouter une activité</button> 
+                    <span class="pull-right" data-ng-show="requestCount.count >0"> coucou
+                    </span>
                 <ul class="list-group">
-                    <li class="list-group-item" data-ng-click="addActivity()"><span class="fa fa-plus-circle"></span> Ajouter une activité</li>
                     <li class="list-group-item" data-ng-repeat="activity in activitySequence.activities">
                         {% verbatim %}{{ activity.id }}{% endverbatim %}
                     </li>
                 </ul>
             </div>
         </div>
-
     </div>
 {% endblock %}
 
@@ -79,6 +80,8 @@
     '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
+    '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
+    '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
     '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
