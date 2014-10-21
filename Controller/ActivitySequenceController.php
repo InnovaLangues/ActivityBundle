@@ -4,6 +4,7 @@ namespace Innova\ActivityBundle\Controller;
 
 use Claroline\CoreBundle\Entity\Workspace\Workspace;
 use Innova\ActivityBundle\Entity\ActivitySequence;
+use Innova\ActivityBundle\Entity\Activity;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -78,6 +79,22 @@ class ActivitySequenceController extends Controller
         $activityAttrs = $this->container->get("innova.manager.activity_sequence_manager")->activityAttrs($activity);
 
         return new JsonResponse(array('activity' => $activityAttrs));
+    }
+
+    /**
+     * @Route(
+     *      "/{activityId}/delete",
+     *      name="delete_activity",
+     *      options={"expose" = true}
+     * )
+     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
+     * @Method("DELETE")
+     */
+    public function deleteActivityAction(Activity $activity)
+    {
+        $this->container->get("innova.manager.activity_sequence_manager")->deleteActivity($activity);
+
+        return new JsonResponse();
     }
 
 }

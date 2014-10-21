@@ -19,7 +19,7 @@
                 requestCount.count--;
 
                 return this;
-            },
+            }
 
         };  
     }]);
