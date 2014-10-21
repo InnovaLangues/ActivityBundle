@@ -24,7 +24,7 @@
             {
                 'name': 'editor'|trans({}, 'activity_sequence_editor'),
                 'href': ''
-            }
+            },
         ])
     }}
 {% endblock %}
@@ -33,19 +33,43 @@
     <div class="panel panel-default" data-ng-app="App" data-ng-cloak="">
         <div data-ng-controller="ActivitySequenceEditController">
             <div class="panel-heading">
-                Séquence d'activités 
+                {{ 'activity_sequence'| trans({}, 'activity_sequence_editor') }}
                 <strong data-ng-bind="activitySequence.name"></strong>
+                <img height="24px" class="pull-right" data-ng-show="requestCount.count >0" src="{{ asset('bundles/innovaactivity/images/editor/ajax-loader.gif') }}"/>
             </div>
             <div class="panel-body">
-                    <button class="btn btn-default" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0">
-                        <span class="fa fa-plus-circle"></span> Ajouter une activité</button> 
-                    </span>
-                    <img class="pull-right" data-ng-show="requestCount.count >0" src="{{ asset('bundles/innovaactivity/images/editor/ajax-loader.gif') }}"/>
-                <ul class="list-group">
-                    <li class="list-group-item" data-ng-repeat="activity in activitySequence.activities">
-                        {% verbatim %}{{ activity.id }}{% endverbatim %}
-                    </li>
-                </ul>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <ul class="list-group text-center">
+                                 <li class="list-group-item">
+                                    <button class="btn btn-default btn-xs" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0">
+                                        <span class="fa fa-plus-circle"></span> {{ 'add_activity'| trans({}, 'activity_sequence_editor') }}
+                                    </button>
+                                </li>
+                                <li class="list-group-item" 
+                                        data-ng-repeat="activity in activitySequence.activities" 
+                                        data-ng-click="showActivity(activity.id)"> 
+                                        {% verbatim %}{{ activity.id }}{% endverbatim %}
+                                </li>
+                            </ul>
+                        </div>
+                        {% verbatim %}
+                        <div class="col-md-10">
+                            <div class="panel panel-default" ng-if="currentActivity != null">
+                                <div class="panel-heading">
+                                    {{ currentActivity.name }}
+                                    <button class="btn btn-default btn-xs pull-right" data-ng-click="deleteActivity(currentActivity.id)" data-ng-disabled="requestCount.count >0">
+                                        <i class="fa fa-times"></i>
+                                        Delete
+                                    </button>
+                                </div>
+                                <div class="panel-body">
+                                    {{ currentActivity.id }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endverbatim %}
+                    </div>
             </div>
         </div>
     </div>

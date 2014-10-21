@@ -40,7 +40,7 @@ class ActivitySequenceManager
      function createActivity(ActivitySequence $activitySequence)
      {
         $activity = new Activity;
-        $activity->setName("");
+        $activity->setName("New Activity");
         $activity->setDescription("");
         $activity->setActivitySequence($activitySequence);
         $activity->setOrder($this->countActivities($activitySequence));
@@ -48,6 +48,13 @@ class ActivitySequenceManager
         $this->em->flush();
 
         return $activity;
+    }
+
+    function deleteActivity(Activity $activity) {
+        $this->em->remove($activity);
+        $this->em->flush();
+
+        return $this;
     }
 
     function activitySequenceToJson(ActivitySequence $activitySequence)

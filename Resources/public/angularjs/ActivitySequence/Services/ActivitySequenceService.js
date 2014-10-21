@@ -1,29 +1,55 @@
 (function () {
     'use strict';
 
-    angular.module('ActivitySequence').factory('ActivitySequenceService', ['$http', 'LoaderService', function ($http, LoaderService) {
-        var activitySequence = null;
+    angular.module('ActivitySequence').factory('ActivitySequenceService', [
+        '$http',
+        '$q',
+        'LoaderService',
+        'ActivityService',
+        function ($http, $q, LoaderService, ActivityService) {
+            var activitySequence = null;
 
-        return {
-            setActivitySequence: function(data) {
-                activitySequence = data;
+            return {
+                setActivitySequence: function(data) {
+                    activitySequence = data;
 
-                return this;
-            },
+                    return this;
+                },
 
-            getActivitySequence: function() {
+                getActivitySequence: function() {
 
-                return activitySequence;
-            },     
+                    return activitySequence;
+                },     
 
-            addActivity: function() {
-                LoaderService.startRequest();
-                $http.get(Routing.generate('activity_sequence_add_activity', { activitySequenceId: activitySequence.id }))
-                .success(function (data) {
-                    activitySequence.activities.push(data.activity);
-                    LoaderService.endRequest();
-                });
-            }
+                addActivity: function() {
+                    var deferred = $q.defer();
+                    deferred.notify();
+
+                    LoaderService.startRequest();
+                    $http.get(Routing.generate('activity_sequence_add_activity', { activitySequenceId: activitySequence.id }))
+                    .success(function (data) {
+                        deferred.resolve(data.activity);
+                        activitySequence.activities.push(data.activity);
+                        LoaderService.endRequest();
+                    });
+
+                    return deferred.promise;
+                },
+
+                deleteActivity: function(activityId) {
+                    var deferred = $q.defer();
+                    deferred.notify();
+
+                    LoaderService.startRequest();
+                    $http.delete(Routing.generate('delete_activity', { activityId: activityId }))
+                    .success(function (data) {
+                        deferred.resolve(activityId);
+                        LoaderService.endRequest();
+                    });
+                    
+                    return deferred.promise;
+                },  
+
         };  
     }]);
 })();
