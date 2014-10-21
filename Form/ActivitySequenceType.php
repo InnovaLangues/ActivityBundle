@@ -23,7 +23,7 @@ class ActivitySequenceType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'translation_domain' => 'innova_activity'
+                'translation_domain' => 'resource'
             )
         );
     }
