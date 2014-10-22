@@ -20,6 +20,12 @@
                     return currentActivity;
                 },
 
+                clearCurrentActivity: function(){
+                    currentActivity = null;
+
+                    return currentActivity;
+                }
+
             };  
     }]);
 })();
