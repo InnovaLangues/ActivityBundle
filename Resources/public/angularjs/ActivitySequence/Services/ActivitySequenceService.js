@@ -50,6 +50,15 @@
                     return deferred.promise;
                 },  
 
+                spliceActivity: function(activityId, activities) {
+                    for (var i = activities.length - 1; i >= 0; i--) {
+                        if (activities[i].id == activityId) {
+                            activities.splice(i,1);
+                            return activities;
+                        };
+                    };
+                }
+
         };  
     }]);
 })();
