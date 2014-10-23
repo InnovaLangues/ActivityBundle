@@ -7,6 +7,7 @@ use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -107,6 +108,25 @@ class ActivitySequenceController extends Controller
         $activitySequenceAttrs = $this->activitySequenceManager->activitySequenceToJson($activitySequence);
 
         return new JsonResponse(array('activitySequence' => $activitySequenceAttrs));
+    }
+
+    /**
+     * @Route(
+     *      "/order-activities/{activitySequenceId}",
+     *      name="order_activities",
+     *      options={"expose" = true}
+     * )
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
+     * @Method("POST")
+     */
+    public function orderActivitiesAction(Request $request, ActivitySequence $activitySequence)
+    {
+        $order = $request->get('order');
+
+        $activitySequence = $this->activitySequenceManager->applyOrder($activitySequence, $order);
+        $activitySequenceAttrs = $this->activitySequenceManager->activitySequenceToJson($activitySequence);
+
+        return new JsonResponse(array('activitySequence' => $activitySequenceAttrs, 'order'=>$order));
     }
 
 }

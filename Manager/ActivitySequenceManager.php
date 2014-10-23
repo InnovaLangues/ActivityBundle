@@ -105,4 +105,19 @@ class ActivitySequenceManager
 
         return $activityAttrs;
     }
+
+    function applyOrder(ActivitySequence $activitySequence, $order)
+    {
+        $i=1;
+        $order = json_decode($order);
+        foreach ($order as $activityId) {
+            $activity = $this->em->getRepository('InnovaActivityBundle:Activity')->find($activityId);
+            $activity->setOrder($i);
+            $this->em->persist($activity);
+            $i++;
+        }
+        $this->em->flush();
+
+        return $activitySequence;
+    }
 }
