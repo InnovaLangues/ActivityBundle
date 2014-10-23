@@ -25,10 +25,10 @@ class ActivitySequenceManager
 
     function countActivities(ActivitySequence $activitySequence){
         if(!$count = $activitySequence->getActivities()){
-            $count = 0;
+            $count = 1;
         }
 
-        return count($count);
+        return count($count) + 1;
     }
 
     function addActivity(ActivitySequence $activitySequence){
@@ -51,10 +51,25 @@ class ActivitySequenceManager
     }
 
     function deleteActivity(Activity $activity) {
+        $activitySequence = $activity->getActivitySequence();
         $this->em->remove($activity);
         $this->em->flush();
 
-        return $this;
+        $this->reorderActivitySequence($activitySequence);
+
+        return $activitySequence;
+    }
+
+    function reorderActivitySequence(ActivitySequence $activitySequence){
+        if ($activities = $activitySequence->getActivities() ) {
+            $i = 1;
+            foreach ($activities as $activity) {
+                $activity->setOrder($i);
+                $this->em->persist($activity);
+                $i++;
+            }
+            $this->em->flush(); 
+        }
     }
 
     function activitySequenceToJson(ActivitySequence $activitySequence)
@@ -65,6 +80,7 @@ class ActivitySequenceManager
                 $activitySequenceActivities[] = array (
                                                                     "id" => $activity->getId(),
                                                                     "name" => $activity->getName(),
+                                                                    "order" => $activity->getOrder()
                 );
             }
         }
@@ -84,6 +100,7 @@ class ActivitySequenceManager
         $activityAttrs = array (
                             "id" => $activity->getId(),
                             "name" => $activity->getName(),
+                            "order" => $activity->getOrder()
         );
 
         return $activityAttrs;

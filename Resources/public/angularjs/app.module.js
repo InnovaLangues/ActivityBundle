@@ -3,6 +3,6 @@
 
     angular.module('App', [
         'ActivitySequence',
-        'Activity'
+        'ui.sortable'
     ]);
 })();

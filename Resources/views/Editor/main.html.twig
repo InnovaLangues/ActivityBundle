@@ -41,15 +41,17 @@
                     <div class="row">
                         <div class="col-md-2">
                             <ul class="list-group text-center">
-                                 <li class="list-group-item">
+                                <li class="list-group-item">
                                     <button class="btn btn-default btn-xs" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0">
                                         <span class="fa fa-plus-circle"></span> {{ 'add_activity'| trans({}, 'activity_sequence_editor') }}
                                     </button>
                                 </li>
-                                <li class="list-group-item" 
+                            </ul>
+                            <ul class="list-group text-center" ui-sortable="sortableOptions" ng-model="activitySequence.activities">
+                                <li  class="list-group-item" 
                                         data-ng-repeat="activity in activitySequence.activities" 
                                         data-ng-click="showActivity(activity.id)"> 
-                                        {% verbatim %}{{ activity.id }}{% endverbatim %}
+                                        {% verbatim %}{{ activity.id }}({{ activity.order }}){% endverbatim %}
                                 </li>
                             </ul>
                         </div>
@@ -64,7 +66,7 @@
                                     </button>
                                 </div>
                                 <div class="panel-body">
-                                    {{ currentActivity.id }}
+                                    {{ currentActivity.id }} {{ currentActivity.order }}
                                 </div>
                             </div>
                         </div>
@@ -94,6 +96,7 @@
         '@InnovaAngularUIBootstrapBundle/Resources/public/js/*'
         '@InnovaAngularUITinyMCEBundle/Resources/public/js/*'
         '@InnovaAngularUITranslationBundle/Resources/public/js/*'
+        '@InnovaAngularUISortableBundle/Resources/public/js/*'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -102,9 +105,6 @@
     '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
     '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
     '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
     '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
