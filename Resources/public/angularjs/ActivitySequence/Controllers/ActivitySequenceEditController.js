@@ -5,10 +5,12 @@
         '$scope', 
         'LoaderService',
         'ActivitySequenceService',
+
         function ($scope, LoaderService, ActivitySequenceService) {
             $scope.activitySequence = ActivityEditorApp.activitySequence;
             $scope.requestCount = LoaderService.getRequestCount();
             $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
+
 
             ActivitySequenceService.setActivitySequence(ActivityEditorApp.activitySequence);
 
@@ -24,13 +26,25 @@
             };
 
             $scope.deleteActivity = function (activityId) {
-                
                 var promise = ActivitySequenceService.deleteActivity(activityId);
                 promise.then(function(activitySequence) {
                     $scope.activitySequence = ActivitySequenceService.setActivitySequence(activitySequence);
                     $scope.currentActivity = ActivitySequenceService.clearCurrentActivity();
                 });
             };
+
+            $scope.sortableOptions = {
+                stop: function(e, ui) {
+                    var id = $scope.activitySequence.id;
+                    var order = $scope.activitySequence.activities.map(function(i){return i.id;});
+
+                    var promise = ActivitySequenceService.saveOrder(id, order);
+                    promise.then(function(activitySequence) {
+                        $scope.activitySequence = ActivitySequenceService.setActivitySequence(activitySequence);
+                    });
+                }
+            };
         }
     ]);
 })();
+

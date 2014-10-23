@@ -45,7 +45,6 @@
                     $http.delete(Routing.generate('delete_activity', { activityId: activityId }))
                     .success(function (data) {
                         deferred.resolve(JSON.parse(data.activitySequence));
-                        var activitySequence = JSON.parse(data.activitySequence);
                         LoaderService.endRequest();
                     });
                     
@@ -67,6 +66,20 @@
                     currentActivity = null;
 
                     return currentActivity;
+                },
+
+                saveOrder: function(id, order){
+                   LoaderService.startRequest();
+                   var deferred = $q.defer();
+                    deferred.notify();
+                   
+                   $http.post(Routing.generate('order_activities', { activitySequenceId: id, order: JSON.stringify(order) }))
+                    .success(function (data) {
+                        deferred.resolve(JSON.parse(data.activitySequence));
+                        LoaderService.endRequest();
+                    });
+
+                   return deferred.promise;
                 }
         };  
     }]);
