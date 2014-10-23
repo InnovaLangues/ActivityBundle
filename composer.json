@@ -22,7 +22,7 @@
     "require": {
         "php": ">=5.4.1",
         "claroline/core-bundle": "~3.0",
-        "innova/angular-ui-sortable-bundle" "1.*"
+        "innova/angular-ui-sortable-bundle":"1.*"
     },
     "autoload": {
         "psr-0": { "Innova\\ActivityBundle": "" }
