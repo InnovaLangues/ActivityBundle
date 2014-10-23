@@ -13,6 +13,7 @@ class ActivitySequence extends AbstractResource
 {
     /**
      * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\Activity", mappedBy="activitySequence", indexBy="id")
+     * @ORM\OrderBy({"order" = "ASC"})
      */
     protected $activities;
 

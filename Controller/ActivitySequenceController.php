@@ -18,6 +18,18 @@ use JMS\DiExtraBundle\Annotation as DI;
 
 class ActivitySequenceController extends Controller
 {
+
+     /**
+    * @DI\InjectParams({
+    *   "activitySequenceManager" = @DI\Inject("innova.manager.activity_sequence_manager"),
+    * })
+    */
+    public function __construct($activitySequenceManager)
+    {
+        $this->activitySequenceManager = $activitySequenceManager;
+    }
+
+
     /**
      * @Route(
      *      "workspace/{workspaceId}/activity-sequence/{activitySequenceId}",
@@ -55,9 +67,8 @@ class ActivitySequenceController extends Controller
          if (false === $this->container->get('security.context')->isGranted("ADMINISTRATE", $activitySequence->getResourceNode())){
             throw new AccessDeniedException();
          }
-         $activitySequenceAttrs = $this->container->get("innova.manager.activity_sequence_manager")->activitySequenceToJson($activitySequence);
+         $activitySequenceAttrs = $this->activitySequenceManager->activitySequenceToJson($activitySequence);
         
-
         return array (
             'workspace' => $workspace,
             'activitySequence' => $activitySequenceAttrs,
@@ -75,8 +86,8 @@ class ActivitySequenceController extends Controller
      */
     public function addActivityAction(ActivitySequence $activitySequence)
     {
-        $activity = $this->container->get("innova.manager.activity_sequence_manager")->addActivity($activitySequence);
-        $activityAttrs = $this->container->get("innova.manager.activity_sequence_manager")->activityAttrs($activity);
+        $activity = $this->activitySequenceManager->addActivity($activitySequence);
+        $activityAttrs = $this->activitySequenceManager->activityAttrs($activity);
 
         return new JsonResponse(array('activity' => $activityAttrs));
     }
@@ -92,9 +103,10 @@ class ActivitySequenceController extends Controller
      */
     public function deleteActivityAction(Activity $activity)
     {
-        $this->container->get("innova.manager.activity_sequence_manager")->deleteActivity($activity);
+        $activitySequence = $this->activitySequenceManager->deleteActivity($activity);
+        $activitySequenceAttrs = $this->activitySequenceManager->activitySequenceToJson($activitySequence);
 
-        return new JsonResponse();
+        return new JsonResponse(array('activitySequence' => $activitySequenceAttrs));
     }
 
 }

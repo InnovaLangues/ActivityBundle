@@ -5,30 +5,30 @@
         '$scope', 
         'LoaderService',
         'ActivitySequenceService',
-        'ActivityService',
-        function ($scope, LoaderService, ActivitySequenceService, ActivityService) {
+        function ($scope, LoaderService, ActivitySequenceService) {
             $scope.activitySequence = ActivityEditorApp.activitySequence;
             $scope.requestCount = LoaderService.getRequestCount();
-            $scope.currentActivity = ActivityService.getCurrentActivity();
+            $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
 
             ActivitySequenceService.setActivitySequence(ActivityEditorApp.activitySequence);
 
             $scope.addActivity = function () {
                 var promiseActivity = ActivitySequenceService.addActivity();
                 promiseActivity.then(function(activity) {
-                        $scope.showActivity(activity.id); 
+                        $scope.currentActivity = ActivitySequenceService.setCurrentActivity(activity.id);
                 });
             };
 
             $scope.showActivity = function (activityId) {
-                $scope.currentActivity = ActivityService.setCurrentActivity(activityId);
+                $scope.currentActivity = ActivitySequenceService.setCurrentActivity(activityId);
             };
 
             $scope.deleteActivity = function (activityId) {
-                var promiseActivityId = ActivitySequenceService.deleteActivity(activityId);
-                promiseActivityId.then(function(activityId) {
-                    $scope.currentActivity = ActivityService.setCurrentActivity(null);
-                    ActivitySequenceService.spliceActivity(activityId, $scope.activitySequence.activities);
+                
+                var promise = ActivitySequenceService.deleteActivity(activityId);
+                promise.then(function(activitySequence) {
+                    $scope.activitySequence = ActivitySequenceService.setActivitySequence(activitySequence);
+                    $scope.currentActivity = ActivitySequenceService.clearCurrentActivity();
                 });
             };
         }
