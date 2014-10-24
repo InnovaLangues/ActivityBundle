@@ -41,6 +41,7 @@
                     var promise = ActivitySequenceService.saveOrder(id, order);
                     promise.then(function(activitySequence) {
                         $scope.activitySequence = ActivitySequenceService.setActivitySequence(activitySequence);
+                        $scope.currentActivity = ActivitySequenceService.setCurrentActivity(ActivitySequenceService.getCurrentActivity().id);
                     });
                 }
             };

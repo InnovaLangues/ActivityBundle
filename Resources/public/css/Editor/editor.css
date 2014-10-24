@@ -1,0 +1,21 @@
+.current-activity {
+    background-color:#999999;
+}
+
+.current-activity .badge{
+    background-color:#FFF;
+    color:#999999;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.list-group.activities{
+    margin:0;
+}
+
+.list-group.activities li{
+    border-radius:0;
+    margin:1px;
+}

@@ -38,26 +38,41 @@
             </div>
             <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-2 text-center">
-                            <p>
-                                <button class="btn btn-default btn-xs" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0">
-                                    <span class="fa fa-plus-circle"></span> {{ 'add_activity'| trans({}, 'activity_sequence_editor') }}
-                                </button>
-                            </p>
-                            <ul class="list-group text-center" ui-sortable="sortableOptions" ng-model="activitySequence.activities">
-                                <li  class="list-group-item" 
-                                        data-ng-repeat="activity in activitySequence.activities" 
-                                        data-ng-click="showActivity(activity.id)"> 
-                                        {% verbatim %}{{ activity.id }}({{ activity.order }}){% endverbatim %}
-                                </li>
-                            </ul>
+
+                        <div class="col-md-1 text-center">
+                            <div class="panel panel-default">
+                                <div class="panel-heading no-padding">
+                                    <button class="btn btn-default col-md-12" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0"
+                                            data-toggle="tooltip" data-placement="top" 
+                                            data-original-title="{{ 'add_activity'| trans({}, 'activity_sequence_editor') }}"
+                                    >   
+                                        <span class="fa fa-plus-circle"></span>
+                                    </button>
+                                </div>
+                                <div class="panel-body no-padding">
+                                    <ul class="list-group text-center activities" ui-sortable="sortableOptions" ng-model="activitySequence.activities">
+                                        {% verbatim %}
+                                        <li class="list-group-item" data-toggle="tooltip" data-placement="right" 
+                                                data-original-title="{{ activity.name }} ({{ activity.id }})"
+                                                data-ng-class = "{'current-activity' : currentActivity == activity}"
+                                                data-ng-repeat = "activity in activitySequence.activities"
+                                                data-ng-click = "showActivity(activity.id)"> 
+                                            <a href="#"><span class="badge">{{ activity.order }}</span></a>
+                                        </li>
+                                        {% endverbatim %}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+
                         {% verbatim %}
-                        <div class="col-md-10">
+                        <div class="col-md-11">
                             <div class="panel panel-default" ng-if="currentActivity != null">
                                 <div class="panel-heading">
                                     {{ currentActivity.name }}
-                                    <button class="btn btn-default btn-xs pull-right" data-ng-click="deleteActivity(currentActivity.id)" data-ng-disabled="requestCount.count >0">
+                                    <button class="btn btn-default btn-xs pull-right" 
+                                            data-ng-click="deleteActivity(currentActivity.id)" 
+                                            data-ng-disabled="requestCount.count >0">
                                         <i class="fa fa-times"></i>
                                         Delete
                                     </button>
@@ -68,6 +83,7 @@
                             </div>
                         </div>
                         {% endverbatim %}
+
                     </div>
             </div>
         </div>
