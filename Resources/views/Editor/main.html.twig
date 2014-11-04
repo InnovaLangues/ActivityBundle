@@ -30,70 +30,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="panel panel-default" data-ng-app="App" data-ng-cloak="" data-ng-controller="ActivitySequenceEditController">
-            <div class="panel-heading">
-                {{ 'activity_sequence'| trans({}, 'activity_sequence_editor') }}
-                <strong data-ng-bind="activitySequence.name"></strong>
-                <img height="24px" class="pull-right" data-ng-show="requestCount.count >0" src="{{ asset('bundles/innovaactivity/images/editor/ajax-loader.gif') }}"/>
-            </div>
-            <div class="panel-body">
-                    <div class="row">
-
-                        <div class="col-md-1 text-center">
-                            <div class="panel panel-default">
-                                <div class="panel-heading no-padding">
-                                    <button class="btn btn-default col-md-12" data-ng-click="addActivity()" data-ng-disabled="requestCount.count >0"
-                                            data-toggle="tooltip" data-placement="top" 
-                                            data-original-title="{{ 'add_activity'| trans({}, 'activity_sequence_editor') }}"
-                                    >   
-                                        <span class="fa fa-plus-circle"></span>
-                                    </button>
-                                </div>
-                                <div class="panel-body no-padding">
-                                    <ul class="list-group text-center activities" ui-sortable="sortableOptions" ng-model="activitySequence.activities">
-                                        {% verbatim %}
-                                        <li class="list-group-item" data-toggle="tooltip" data-placement="right" 
-                                                data-original-title="{{ activity.name }} ({{ activity.id }})"
-                                                data-ng-class = "{'current-activity' : currentActivity == activity}"
-                                                data-ng-repeat = "activity in activitySequence.activities"
-                                                data-ng-click = "showActivity(activity.id)"> 
-                                            <a href="#"><span class="badge">{{ activity.order }}</span></a>
-                                        </li>
-                                        {% endverbatim %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        {% verbatim %}
-                        <div class="col-md-11">
-                            <div class="panel panel-default" ng-if="currentActivity != null">
-                                <div class="panel-heading">
-                                    {{ currentActivity.name }}
-                                    <button class="btn btn-default btn-xs pull-right" 
-                                            data-ng-click="deleteActivity(currentActivity.id)" 
-                                            data-ng-disabled="requestCount.count >0">
-                                        <i class="fa fa-times"></i>
-                                        Delete
-                                    </button>
-                                </div>
-                                <div class="panel-body">
-                                    {{ currentActivity.id }}
-                                </div>
-                            </div>
-                        </div>
-                        {% endverbatim %}
-
-                    </div>
-            </div>
-        </div>
+    <div class="ng-cloak"  data-ng-app="App" data-ng-controller="ActivitySequenceEditController" data-ng-cloak>
+            {% include 'InnovaActivityBundle::Editor/components/sequence.html.twig' %}
+            {% include 'InnovaActivityBundle::Editor/components/modales.html.twig' %}
     </div>
 {% endblock %}
 
 {% block javascripts %}
     {# Load Claroline JS #}
     {{ parent() }}
-    
+
     {# Load translations #}
     <script type="text/javascript" src="{{ url('bazinga_exposetranslation_js', { 'domain_name': 'activity_sequence_editor' }) }}"></script>
     {# Angular #}
@@ -103,7 +49,7 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    
+
     {# Angular UI #}
     {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-ui-activitybundle.js'
         '@InnovaAngularUIBootstrapBundle/Resources/public/js/*'
@@ -113,7 +59,7 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    
+
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/editor.js'
     '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
     '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
@@ -124,7 +70,7 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    
+
     {# Set some vars needed by Angular parts #}
     <script type="text/javascript">
         var ActivityEditorApp = {};
