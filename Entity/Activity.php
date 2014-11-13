@@ -3,14 +3,18 @@
 namespace Innova\ActivityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Claroline\CoreBundle\Entity\Resource\AbstractResource;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * 13/11/2014 : updating to abstract class and all columns.
+ */
 
 /**
  * @ORM\Table(name="innova_activity")
  * @ORM\Entity
  */
-class Activity
+abstract class Activity
 {
     /**
      * @var integer
@@ -51,9 +55,30 @@ class Activity
     protected $activitySequence;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdDate", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updatedDate", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedDate;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\User")
+    */
+    protected $author;
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +101,7 @@ class Activity
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -99,7 +124,7 @@ class Activity
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -122,7 +147,7 @@ class Activity
     /**
      * Get order
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrder()
     {
@@ -145,10 +170,79 @@ class Activity
     /**
      * Get activitySequence
      *
-     * @return \Innova\ActivityBundle\Entity\ActivitySequence 
+     * @return \Innova\ActivityBundle\Entity\ActivitySequence
      */
     public function getActivitySequence()
     {
         return $this->activitySequence;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return Activity
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set updatedDate
+     *
+     * @param \DateTime $updatedDate
+     * @return Activity
+     */
+    public function setUpdatedDate($updatedDate)
+    {
+        $this->updatedDate = $updatedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedDate
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedDate()
+    {
+        return $this->updatedDate;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \Claroline\CoreBundle\Entity\User $author
+     * @return Activity
+     */
+    public function setAuthor(\Claroline\CoreBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Claroline\CoreBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

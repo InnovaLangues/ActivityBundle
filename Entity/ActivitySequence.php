@@ -11,11 +11,15 @@ use Claroline\CoreBundle\Entity\Resource\AbstractResource;
  */
 class ActivitySequence extends AbstractResource
 {
+
     /**
-     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\Activity", mappedBy="activitySequence", indexBy="id")
-     * @ORM\OrderBy({"order" = "ASC"})
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $activities;
+    protected $id;
 
     /**
      * @var string
@@ -24,6 +28,11 @@ class ActivitySequence extends AbstractResource
      */
     protected $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\Activity", mappedBy="activitySequence", indexBy="id")
+     * @ORM\OrderBy({"order" = "ASC"})
+     */
+    protected $activities;
 
     /**
      * Constructor
@@ -49,7 +58,7 @@ class ActivitySequence extends AbstractResource
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -82,10 +91,49 @@ class ActivitySequence extends AbstractResource
     /**
      * Get activities
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getActivities()
     {
         return $this->activities;
+    }
+
+    /**
+     * @var \Claroline\CoreBundle\Entity\Resource\ResourceNode
+     */
+    protected $resourceNode;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set resourceNode
+     *
+     * @param \Claroline\CoreBundle\Entity\Resource\ResourceNode $resourceNode
+     * @return ActivitySequence
+     */
+    public function setResourceNode(\Claroline\CoreBundle\Entity\Resource\ResourceNode $resourceNode = null)
+    {
+        $this->resourceNode = $resourceNode;
+
+        return $this;
+    }
+
+    /**
+     * Get resourceNode
+     *
+     * @return \Claroline\CoreBundle\Entity\Resource\ResourceNode
+     */
+    public function getResourceNode()
+    {
+        return $this->resourceNode;
     }
 }
