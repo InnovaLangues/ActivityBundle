@@ -30,9 +30,9 @@ class ActivityVF extends Activity
     protected $questions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Objet", mappedBy="activity", cascade={"remove"})
+    * @ORM\OneToMany(targetEntity="Object", mappedBy="activity", cascade={"remove"})
     */
-    protected $objets;
+    protected $objects;
 
     /**
     * @ORM\OneToMany(targetEntity="Proposition", mappedBy="activity", cascade={"remove"})
@@ -40,9 +40,9 @@ class ActivityVF extends Activity
     protected $propositions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Consigne", mappedBy="activity", cascade={"remove"})
+    * @ORM\OneToMany(targetEntity="Instruction", mappedBy="activity", cascade={"remove"})
     */
-    protected $consignes;
+    protected $instructions;
 
     /**
     * @ORM\OneToMany(targetEntity="Information", mappedBy="activity", cascade={"remove"})
@@ -402,5 +402,71 @@ class ActivityVF extends Activity
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Add objects
+     *
+     * @param \Innova\ActivityBundle\Entity\Object $objects
+     * @return ActivityVF
+     */
+    public function addObject(\Innova\ActivityBundle\Entity\Object $objects)
+    {
+        $this->objects[] = $objects;
+
+        return $this;
+    }
+
+    /**
+     * Remove objects
+     *
+     * @param \Innova\ActivityBundle\Entity\Object $objects
+     */
+    public function removeObject(\Innova\ActivityBundle\Entity\Object $objects)
+    {
+        $this->objects->removeElement($objects);
+    }
+
+    /**
+     * Get objects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getObjects()
+    {
+        return $this->objects;
+    }
+
+    /**
+     * Add instructions
+     *
+     * @param \Innova\ActivityBundle\Entity\Instruction $instructions
+     * @return ActivityVF
+     */
+    public function addInstruction(\Innova\ActivityBundle\Entity\Instruction $instructions)
+    {
+        $this->instructions[] = $instructions;
+
+        return $this;
+    }
+
+    /**
+     * Remove instructions
+     *
+     * @param \Innova\ActivityBundle\Entity\Instruction $instructions
+     */
+    public function removeInstruction(\Innova\ActivityBundle\Entity\Instruction $instructions)
+    {
+        $this->instructions->removeElement($instructions);
+    }
+
+    /**
+     * Get instructions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInstructions()
+    {
+        return $this->instructions;
     }
 }

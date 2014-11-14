@@ -35,6 +35,11 @@ class ActivitySequence extends AbstractResource
     protected $activities;
 
     /**
+     * @var \Claroline\CoreBundle\Entity\Resource\ResourceNode
+     */
+    protected $resourceNode;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -97,11 +102,6 @@ class ActivitySequence extends AbstractResource
     {
         return $this->activities;
     }
-
-    /**
-     * @var \Claroline\CoreBundle\Entity\Resource\ResourceNode
-     */
-    protected $resourceNode;
 
 
     /**
