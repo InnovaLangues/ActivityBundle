@@ -6,12 +6,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Object
+ * Objet
  *
- * @ORM\Table("innova_object")
+ * @ORM\Table("innova_objet")
  * @ORM\Entity
  */
-class Object
+class Objet
 {
     /**
      * @var integer
