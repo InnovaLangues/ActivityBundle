@@ -69,7 +69,7 @@ class ActivitySequenceController extends Controller
             throw new AccessDeniedException();
          }
          $activitySequenceAttrs = $this->activitySequenceManager->activitySequenceToJson($activitySequence);
-        
+
         return array (
             'workspace' => $workspace,
             'activitySequence' => $activitySequenceAttrs,
