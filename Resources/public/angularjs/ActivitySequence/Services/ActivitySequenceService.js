@@ -20,13 +20,12 @@
                 getActivitySequence: function() {
 
                     return activitySequence;
-                },     
+                },
 
                 addActivity: function() {
                     var deferred = $q.defer();
                     deferred.notify();
                     LoaderService.startRequest();
-
                     $http.get(Routing.generate('activity_sequence_add_activity', { activitySequenceId: activitySequence.id }))
                     .success(function (data) {
                         deferred.resolve(data.activity);
@@ -47,18 +46,18 @@
                         deferred.resolve(JSON.parse(data.activitySequence));
                         LoaderService.endRequest();
                     });
-                    
+
                     return deferred.promise;
                 },
 
                 getCurrentActivity: function(){
-                    
+
                     return currentActivity;
                 },
 
                 setCurrentActivity: function(activityId) {
                     currentActivity = $filter('filter')(activitySequence.activities, {id: activityId})[0];
-                    
+
                     return currentActivity;
                 },
 
@@ -72,7 +71,7 @@
                    LoaderService.startRequest();
                    var deferred = $q.defer();
                     deferred.notify();
-                   
+
                    $http.post(Routing.generate('order_activities', { activitySequenceId: id, order: JSON.stringify(order) }))
                     .success(function (data) {
                         deferred.resolve(JSON.parse(data.activitySequence));
@@ -81,6 +80,6 @@
 
                    return deferred.promise;
                 }
-        };  
+        };
     }]);
 })();

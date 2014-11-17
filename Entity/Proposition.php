@@ -30,13 +30,6 @@ class Proposition
     private $title;
 
     /**
-    * @ORM\ManyToOne(targetEntity="activityQru", inversedBy="propositions")
-    * @ORM\ManyToOne(targetEntity="activityVf", inversedBy="propositions")
-    */
-    protected $activity;
-
-
-    /**
      * Get id
      *
      * @return integer
@@ -67,28 +60,5 @@ class Proposition
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set activity
-     *
-     * @param \Innova\ActivityBundle\Entity\activityQRU $activity
-     * @return Proposition
-     */
-    public function setActivity(\Innova\ActivityBundle\Entity\activityQRU $activity = null)
-    {
-        $this->activity = $activity;
-
-        return $this;
-    }
-
-    /**
-     * Get activity
-     *
-     * @return \Innova\ActivityBundle\Entity\activityQRU
-     */
-    public function getActivity()
-    {
-        return $this->activity;
     }
 }

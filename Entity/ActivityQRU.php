@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ActivityQRU extends Activity
 {
+
     /**
      * @var integer
      *
@@ -22,32 +23,64 @@ class ActivityQRU extends Activity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
-    * @ORM\OneToMany(targetEntity="Question", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Question")
+     * @ORM\JoinTable(name="innova_activityqru_question",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="question_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $questions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Object", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Object")
+     * @ORM\JoinTable(name="innova_activityqru_object",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="object_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $objects;
 
     /**
-    * @ORM\OneToMany(targetEntity="Proposition", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Proposition")
+     * @ORM\JoinTable(name="innova_activityqru_proposition",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="proposition_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $propositions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Instruction", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Instruction")
+     * @ORM\JoinTable(name="innova_activityqru_instruction",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="instruction_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $instructions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Information", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Information")
+     * @ORM\JoinTable(name="innova_activityqru_information",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="information_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $informations;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->objects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->propositions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->instructions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->informations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -57,135 +90,6 @@ class ActivityQRU extends Activity
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Activity
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Activity
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set order
-     *
-     * @param integer $order
-     * @return Activity
-     */
-    public function setOrder($order)
-    {
-        $this->order = $order;
-
-        return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return $this->order;
-    }
-
-    /**
-     * Set activitySequence
-     *
-     * @param \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
-     * @return Activity
-     */
-    public function setActivitySequence(\Innova\ActivityBundle\Entity\ActivitySequence $activitySequence = null)
-    {
-        $this->activitySequence = $activitySequence;
-
-        return $this;
-    }
-
-    /**
-     * Get activitySequence
-     *
-     * @return \Innova\ActivityBundle\Entity\ActivitySequence
-     */
-    public function getActivitySequence()
-    {
-        return $this->activitySequence;
-    }
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @var integer
-     */
-    protected $order;
-
-    /**
-     * @var \Innova\ActivityBundle\Entity\ActivitySequence
-     */
-    protected $activitySequence;
-
-    /**
-     * @var \Claroline\CoreBundle\Entity\User
-     */
-    protected $author;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->objets = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->propositions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->consignes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->informations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -222,36 +126,36 @@ class ActivityQRU extends Activity
     }
 
     /**
-     * Add objets
+     * Add objects
      *
-     * @param \Innova\ActivityBundle\Entity\Objet $objets
+     * @param \Innova\ActivityBundle\Entity\Object $objects
      * @return ActivityQRU
      */
-    public function addObjet(\Innova\ActivityBundle\Entity\Objet $objets)
+    public function addObject(\Innova\ActivityBundle\Entity\Object $objects)
     {
-        $this->objets[] = $objets;
+        $this->objects[] = $objects;
 
         return $this;
     }
 
     /**
-     * Remove objets
+     * Remove objects
      *
-     * @param \Innova\ActivityBundle\Entity\Objet $objets
+     * @param \Innova\ActivityBundle\Entity\Object $objects
      */
-    public function removeObjet(\Innova\ActivityBundle\Entity\Objet $objets)
+    public function removeObject(\Innova\ActivityBundle\Entity\Object $objects)
     {
-        $this->objets->removeElement($objets);
+        $this->objects->removeElement($objects);
     }
 
     /**
-     * Get objets
+     * Get objects
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getObjets()
+    public function getObjects()
     {
-        return $this->objets;
+        return $this->objects;
     }
 
     /**
@@ -288,36 +192,36 @@ class ActivityQRU extends Activity
     }
 
     /**
-     * Add consignes
+     * Add instructions
      *
-     * @param \Innova\ActivityBundle\Entity\Consigne $consignes
+     * @param \Innova\ActivityBundle\Entity\Instruction $instructions
      * @return ActivityQRU
      */
-    public function addConsigne(\Innova\ActivityBundle\Entity\Consigne $consignes)
+    public function addInstruction(\Innova\ActivityBundle\Entity\Instruction $instructions)
     {
-        $this->consignes[] = $consignes;
+        $this->instructions[] = $instructions;
 
         return $this;
     }
 
     /**
-     * Remove consignes
+     * Remove instructions
      *
-     * @param \Innova\ActivityBundle\Entity\Consigne $consignes
+     * @param \Innova\ActivityBundle\Entity\Instruction $instructions
      */
-    public function removeConsigne(\Innova\ActivityBundle\Entity\Consigne $consignes)
+    public function removeInstruction(\Innova\ActivityBundle\Entity\Instruction $instructions)
     {
-        $this->consignes->removeElement($consignes);
+        $this->instructions->removeElement($instructions);
     }
 
     /**
-     * Get consignes
+     * Get instructions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getConsignes()
+    public function getInstructions()
     {
-        return $this->consignes;
+        return $this->instructions;
     }
 
     /**
@@ -353,92 +257,4 @@ class ActivityQRU extends Activity
         return $this->informations;
     }
 
-    /**
-     * Set author
-     *
-     * @param \Claroline\CoreBundle\Entity\User $author
-     * @return ActivityQRU
-     */
-    public function setAuthor(\Claroline\CoreBundle\Entity\User $author = null)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return \Claroline\CoreBundle\Entity\User
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Add objects
-     *
-     * @param \Innova\ActivityBundle\Entity\Object $objects
-     * @return ActivityQRU
-     */
-    public function addObject(\Innova\ActivityBundle\Entity\Object $objects)
-    {
-        $this->objects[] = $objects;
-
-        return $this;
-    }
-
-    /**
-     * Remove objects
-     *
-     * @param \Innova\ActivityBundle\Entity\Object $objects
-     */
-    public function removeObject(\Innova\ActivityBundle\Entity\Object $objects)
-    {
-        $this->objects->removeElement($objects);
-    }
-
-    /**
-     * Get objects
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getObjects()
-    {
-        return $this->objects;
-    }
-
-    /**
-     * Add instructions
-     *
-     * @param \Innova\ActivityBundle\Entity\Instruction $instructions
-     * @return ActivityQRU
-     */
-    public function addInstruction(\Innova\ActivityBundle\Entity\Instruction $instructions)
-    {
-        $this->instructions[] = $instructions;
-
-        return $this;
-    }
-
-    /**
-     * Remove instructions
-     *
-     * @param \Innova\ActivityBundle\Entity\Instruction $instructions
-     */
-    public function removeInstruction(\Innova\ActivityBundle\Entity\Instruction $instructions)
-    {
-        $this->instructions->removeElement($instructions);
-    }
-
-    /**
-     * Get instructions
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getInstructions()
-    {
-        return $this->instructions;
-    }
 }

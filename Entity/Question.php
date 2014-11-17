@@ -29,12 +29,6 @@ class Question
      */
     private $title;
 
-    /**
-    * @ORM\ManyToOne(targetEntity="activityQru", inversedBy="questions")
-    * @ORM\ManyToOne(targetEntity="activityVf", inversedBy="questions")
-    */
-    protected $activity;
-
 
     /**
      * Get id
@@ -67,28 +61,5 @@ class Question
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set activity
-     *
-     * @param \Innova\ActivityBundle\Entity\activity $activity
-     * @return Question
-     */
-    public function setActivity(\Innova\ActivityBundle\Entity\activity $activity = null)
-    {
-        $this->activity = $activity;
-
-        return $this;
-    }
-
-    /**
-     * Get activity
-     *
-     * @return \Innova\ActivityBundle\Entity\activity
-     */
-    public function getActivity()
-    {
-        return $this->activity;
     }
 }

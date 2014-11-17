@@ -15,8 +15,8 @@
                 <div class="col-md-2 text-center">
                     <div class="panel panel-default">
                         <div class="panel-heading no-padding">
-                            <button class="btn btn-default col-md-12" 
-                                            data-ng-click="addActivity()" 
+                            <button class="btn btn-default col-md-12"
+                                            data-ng-click="addActivity()"
                                             data-ng-disabled="requestCount.count >0"
                                             style="background-color:#F5F5F5"
                             >
@@ -59,7 +59,7 @@
                         </div>
                         <div class="panel-body" ng-bind="currentActivity.id"></div>
                     </div>
-                    
+
                     <div class="text-center" ng-if="currentActivity == null && activitySequence.activities.length != 0">
                         <div class="alert alert-info" role="alert">
                             {{ 'no_activity_selected'| trans({}, 'activity_sequence_editor') }}

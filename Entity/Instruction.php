@@ -30,12 +30,6 @@ class Instruction
     private $title;
 
     /**
-    * @ORM\ManyToOne(targetEntity="activityQRU", inversedBy="instructions")
-    * @ORM\ManyToOne(targetEntity="activityVF", inversedBy="instructions")
-    */
-    protected $activity;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="instructionType", type="integer")
@@ -100,29 +94,6 @@ class Instruction
     }
 
     /**
-     * Set activity
-     *
-     * @param \Innova\ActivityBundle\Entity\activityQRU $activity
-     * @return Consigne
-     */
-    public function setActivity(\Innova\ActivityBundle\Entity\activityQRU $activity = null)
-    {
-        $this->activity = $activity;
-
-        return $this;
-    }
-
-    /**
-     * Get activity
-     *
-     * @return \Innova\ActivityBundle\Entity\activityQRU
-     */
-    public function getActivity()
-    {
-        return $this->activity;
-    }
-
-    /**
      * Set instructionType
      *
      * @param integer $instructionType
@@ -138,7 +109,7 @@ class Instruction
     /**
      * Get instructionType
      *
-     * @return integer 
+     * @return integer
      */
     public function getInstructionType()
     {

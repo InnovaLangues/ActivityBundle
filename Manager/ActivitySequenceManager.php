@@ -4,6 +4,7 @@ namespace Innova\ActivityBundle\Manager;
 
 use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
+use Innova\ActivityBundle\Entity\ActivityVF;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -39,7 +40,7 @@ class ActivitySequenceManager
 
      function createActivity(ActivitySequence $activitySequence)
      {
-        $activity = new Activity;
+        $activity = new ActivityVF;
         $activity->setName("New Activity");
         $activity->setDescription("");
         $activity->setActivitySequence($activitySequence);
@@ -68,7 +69,7 @@ class ActivitySequenceManager
                 $this->em->persist($activity);
                 $i++;
             }
-            $this->em->flush(); 
+            $this->em->flush();
         }
     }
 

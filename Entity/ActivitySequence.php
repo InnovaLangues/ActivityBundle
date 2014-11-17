@@ -13,13 +13,10 @@ class ActivitySequence extends AbstractResource
 {
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\Activity", mappedBy="activitySequence", indexBy="id")
+     * @ORM\OrderBy({"order" = "ASC"})
      */
-    protected $id;
+    protected $activities;
 
     /**
      * @var string
@@ -27,17 +24,6 @@ class ActivitySequence extends AbstractResource
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\Activity", mappedBy="activitySequence", indexBy="id")
-     * @ORM\OrderBy({"order" = "ASC"})
-     */
-    protected $activities;
-
-    /**
-     * @var \Claroline\CoreBundle\Entity\Resource\ResourceNode
-     */
-    protected $resourceNode;
 
     /**
      * Constructor
@@ -103,6 +89,14 @@ class ActivitySequence extends AbstractResource
         return $this->activities;
     }
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
     /**
      * Get id
@@ -114,26 +108,4 @@ class ActivitySequence extends AbstractResource
         return $this->id;
     }
 
-    /**
-     * Set resourceNode
-     *
-     * @param \Claroline\CoreBundle\Entity\Resource\ResourceNode $resourceNode
-     * @return ActivitySequence
-     */
-    public function setResourceNode(\Claroline\CoreBundle\Entity\Resource\ResourceNode $resourceNode = null)
-    {
-        $this->resourceNode = $resourceNode;
-
-        return $this;
-    }
-
-    /**
-     * Get resourceNode
-     *
-     * @return \Claroline\CoreBundle\Entity\Resource\ResourceNode
-     */
-    public function getResourceNode()
-    {
-        return $this->resourceNode;
-    }
 }

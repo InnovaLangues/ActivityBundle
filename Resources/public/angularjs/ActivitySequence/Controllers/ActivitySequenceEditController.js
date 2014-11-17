@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('ActivitySequence').controller('ActivitySequenceEditController', [
-        '$scope', 
+        '$scope',
         'LoaderService',
         'ActivitySequenceService',
 
@@ -10,7 +10,6 @@
             $scope.activitySequence = ActivityEditorApp.activitySequence;
             $scope.requestCount = LoaderService.getRequestCount();
             $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
-
 
             ActivitySequenceService.setActivitySequence(ActivityEditorApp.activitySequence);
 

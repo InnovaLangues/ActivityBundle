@@ -30,13 +30,6 @@ class Information
     private $title;
 
     /**
-    * @ORM\ManyToOne(targetEntity="activityQru", inversedBy="informations")
-    * @ORM\ManyToOne(targetEntity="activityVf", inversedBy="informations")
-    */
-    protected $activity;
-
-
-    /**
      * Get id
      *
      * @return integer
@@ -69,26 +62,4 @@ class Information
         return $this->title;
     }
 
-    /**
-     * Set activity
-     *
-     * @param \Innova\ActivityBundle\Entity\activityQRU $activity
-     * @return Information
-     */
-    public function setActivity(\Innova\ActivityBundle\Entity\activityQRU $activity = null)
-    {
-        $this->activity = $activity;
-
-        return $this;
-    }
-
-    /**
-     * Get activity
-     *
-     * @return \Innova\ActivityBundle\Entity\activityQRU
-     */
-    public function getActivity()
-    {
-        return $this->activity;
-    }
 }

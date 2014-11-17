@@ -2,15 +2,15 @@
 add_activity : Ajouter une activité
 activity_sequence: Suite d'activités
 
-#d 
-delete_activity: Supprimer 
+#d
+delete_activity: Supprimer l'activité
 
 #e
 editor: Editeur de suite d'activités
-empty_activity_sequence: Cette suite d'activité est vide. Vous pouvez créer des activités via le bouton "Ajouter une activité" à gauche.
+empty_activity_sequence: Cette suite d'activité est vide. Vous pouvez créer des activités via le bouton "Ajouter une activité" situé à gauche.
 
 #i
 identity: Fiche d'identité
 
 #n
-no_activity_selected: Aucune activité de sélectionnée. Vous pouvez en sélectionner via la colonne de gauche.
+no_activity_selected: Aucune activité sélectionnée. Vous pouvez en sélectionner via la colonne de gauche.

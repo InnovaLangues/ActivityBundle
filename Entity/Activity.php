@@ -11,19 +11,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 
 /**
- * @ORM\Table(name="innova_activity")
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  */
 abstract class Activity
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
 
     /**
      * @var string
@@ -74,16 +65,6 @@ abstract class Activity
     * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\User")
     */
     protected $author;
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name
