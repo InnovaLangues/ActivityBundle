@@ -36,14 +36,9 @@ abstract class Activity
      * @var integer
      *
      * @ORM\Column(name="activity_order", type="integer")
+     * @ORM\OrderBy({"activity_order" = "ASC"})
      */
     protected $order;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\ActivitySequence", inversedBy="activities")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $activitySequence;
 
     /**
      * @var \DateTime

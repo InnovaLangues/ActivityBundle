@@ -26,30 +26,55 @@ class ActivityVF extends Activity
     private $id;
 
     /**
-    * @ORM\OneToMany(targetEntity="Question", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Question")
+     * @ORM\JoinTable(name="innova_activityvf_question",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="question_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $questions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Object", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Object")
+     * @ORM\JoinTable(name="innova_activityvf_object",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="object_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $objects;
 
     /**
-    * @ORM\OneToMany(targetEntity="Proposition", mappedBy="activity", cascade={"remove"})
-    */
-
+     * @ORM\ManyToMany(targetEntity="Proposition")
+     * @ORM\JoinTable(name="innova_activityvf_proposition",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="proposition_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $propositions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Instruction", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Instruction")
+     * @ORM\JoinTable(name="innova_activityvf_instruction",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="instruction_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $instructions;
 
     /**
-    * @ORM\OneToMany(targetEntity="Information", mappedBy="activity", cascade={"remove"})
-    */
+     * @ORM\ManyToMany(targetEntity="Information")
+     * @ORM\JoinTable(name="innova_activityvf_information",
+     *      joinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="information_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
     protected $informations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\ActivitySequence", inversedBy="activities")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
+     */
+    protected $activitySequence;
 
     /**
      * Constructor

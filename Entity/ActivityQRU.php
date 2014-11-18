@@ -71,6 +71,13 @@ class ActivityQRU extends Activity
     protected $informations;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\ActivitySequence", inversedBy="activities")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
+     */
+    protected $activitySequence;
+
+
+    /**
      * Constructor
      */
     public function __construct()

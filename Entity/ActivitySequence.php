@@ -13,9 +13,9 @@ class ActivitySequence extends AbstractResource
 {
 
     /**
-     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\Activity", mappedBy="activitySequence", indexBy="id")
-     * @ORM\OrderBy({"order" = "ASC"})
-     */
+    * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityQRU", mappedBy="activitySequence")
+    * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityVF", mappedBy="activitySequence")
+    */
     protected $activities;
 
     /**
