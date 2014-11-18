@@ -42,9 +42,10 @@ class ActivitySequenceManager
      {
         $activity = new ActivityVF;
         $activity->setName("New Activity");
-        $activity->setDescription("");
+        $activity->setDescription("New Description");
         $activity->setActivitySequence($activitySequence);
         $activity->setOrder($this->countActivities($activitySequence));
+        var_dump($activity->getOrder());die();
         $this->em->persist($activity);
         $this->em->flush();
 
