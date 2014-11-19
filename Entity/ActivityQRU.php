@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="innova_activityQru")
  * @ORM\Entity
  */
-class ActivityQRU extends Activity
+class ActivityQRU extends AbstractActivity
 {
 
     /**

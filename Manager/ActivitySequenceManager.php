@@ -2,9 +2,9 @@
 
 namespace Innova\ActivityBundle\Manager;
 
-use Innova\ActivityBundle\Entity\ActivitySequence;
-use Innova\ActivityBundle\Entity\Activity;
-use Innova\ActivityBundle\Entity\ActivityVF;
+use Innova\ActivityBundle\Entity\AbstractActivity;
+/*use Innova\ActivityBundle\Entity\ActivitySequence;
+use Innova\ActivityBundle\Entity\ActivityVF;*/
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -24,7 +24,7 @@ class ActivitySequenceManager
         $this->em = $em;
     }
 
-    function countActivities(ActivitySequence $activitySequence){
+    public function countActivities(ActivitySequence $activitySequence){
         if(!$count = $activitySequence->getActivities()){
             $count = 1;
         }
@@ -32,27 +32,34 @@ class ActivitySequenceManager
         return count($count) + 1;
     }
 
-    function addActivity(ActivitySequence $activitySequence){
+    public function addActivity(ActivitySequence $activitySequence){
+
+//        $activityType = "ActivityVF"; // For tests. Eric.
+//        $activity = $this->createActivity($activitySequence, $activityType);
         $activity = $this->createActivity($activitySequence);
 
         return $activity;
     }
 
-     function createActivity(ActivitySequence $activitySequence)
+//    public function createActivity(ActivitySequence $activitySequence, $activityType)
+    public function createActivity(ActivitySequence $activitySequence)
      {
+
+//        $activityType = "ActivityVF";
+
+//        $activity = $this->em->factory('Innova\ActivityBundle\Entity\\' . $activityType);
         $activity = new ActivityVF;
         $activity->setName("New Activity");
         $activity->setDescription("New Description");
         $activity->setActivitySequence($activitySequence);
-        $activity->setOrder($this->countActivities($activitySequence));
-        var_dump($activity->getOrder());die();
+//        $activity->setOrder($this->countActivities($activitySequence));
         $this->em->persist($activity);
         $this->em->flush();
 
         return $activity;
     }
 
-    function deleteActivity(Activity $activity) {
+    public function deleteActivity(AbstractActivity $activity) {
         $activitySequence = $activity->getActivitySequence();
         $this->em->remove($activity);
         $this->em->flush();
@@ -62,7 +69,7 @@ class ActivitySequenceManager
         return $activitySequence;
     }
 
-    function reorderActivitySequence(ActivitySequence $activitySequence){
+    public function reorderActivitySequence(ActivitySequence $activitySequence){
         if ($activities = $activitySequence->getActivities() ) {
             $i = 1;
             foreach ($activities as $activity) {
@@ -74,22 +81,22 @@ class ActivitySequenceManager
         }
     }
 
-    function activitySequenceToJson(ActivitySequence $activitySequence)
+    public function activitySequenceToJson(ActivitySequence $activitySequence)
     {
         $activitySequenceActivities = array ();
         if ($activities = $activitySequence->getActivities() ) {
             foreach ($activities as $activity) {
                 $activitySequenceActivities[] = array (
-                                                                    "id" => $activity->getId(),
-                                                                    "name" => $activity->getName(),
-                                                                    "order" => $activity->getOrder()
+                                                    "id" => $activity->getId(),
+                                                    "name" => $activity->getName(),
+                                                    "order" => $activity->getOrder()
                 );
             }
         }
 
         $activitySequenceAttrs = array (
-            "id"            => $activitySequence->getId(),
-            "name"      => $activitySequence->getResourceNode()->getName(),
+            "id"         => $activitySequence->getId(),
+            "name"       => $activitySequence->getResourceNode()->getName(),
             "activities" => $activitySequenceActivities,
         );
 
@@ -97,7 +104,7 @@ class ActivitySequenceManager
     }
 
 
-    function activityAttrs(Activity $activity)
+    public function activityAttrs(AbstractActivity $activity)
     {
         $activityAttrs = array (
                             "id" => $activity->getId(),
@@ -108,7 +115,7 @@ class ActivitySequenceManager
         return $activityAttrs;
     }
 
-    function applyOrder(ActivitySequence $activitySequence, $order)
+    public function applyOrder(ActivitySequence $activitySequence, $order)
     {
         $i=1;
         $order = json_decode($order);
