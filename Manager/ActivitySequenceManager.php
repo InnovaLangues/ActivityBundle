@@ -3,9 +3,8 @@
 namespace Innova\ActivityBundle\Manager;
 
 use Innova\ActivityBundle\Entity\AbstractActivity;
-/*use Innova\ActivityBundle\Entity\ActivitySequence;
-use Innova\ActivityBundle\Entity\ActivityVF;*/
 use JMS\DiExtraBundle\Annotation as DI;
+use Innova\ActivityBundle\Entity\ActivitySequence;
 
 /**
  * @DI\Service("innova.manager.activity_sequence_manager")
@@ -14,14 +13,13 @@ class ActivitySequenceManager
 {
     /**
     * @DI\InjectParams({
-    *   "container" = @DI\Inject("service_container"),
-    *   "em" = @DI\Inject("doctrine.orm.entity_manager"),
+    *   "container" = @DI\Inject("service_container")
     * })
     */
-    public function __construct($container, $em)
+    public function __construct($container)
     {
         $this->container = $container;
-        $this->em = $em;
+        $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
     public function countActivities(ActivitySequence $activitySequence){
@@ -34,25 +32,24 @@ class ActivitySequenceManager
 
     public function addActivity(ActivitySequence $activitySequence){
 
-//        $activityType = "ActivityVF"; // For tests. Eric.
-//        $activity = $this->createActivity($activitySequence, $activityType);
-        $activity = $this->createActivity($activitySequence);
+        $activityType = "ActivityQRU"; // For tests. Eric.
+        $activity = $this->createActivity($activitySequence, $activityType);
+//        $activity = $this->createActivity($activitySequence);
 
         return $activity;
     }
 
-//    public function createActivity(ActivitySequence $activitySequence, $activityType)
-    public function createActivity(ActivitySequence $activitySequence)
+    public function createActivity(ActivitySequence $activitySequence, $activityType)
+//    public function createActivity(ActivitySequence $activitySequence)
      {
-
 //        $activityType = "ActivityVF";
 
-//        $activity = $this->em->factory('Innova\ActivityBundle\Entity\\' . $activityType);
-        $activity = new ActivityVF;
+        $activity = $this->em->factory('Innova\ActivityBundle\Entity\\' . $activityType);
+//        $activity = new ActivityVF;
         $activity->setName("New Activity");
         $activity->setDescription("New Description");
         $activity->setActivitySequence($activitySequence);
-//        $activity->setOrder($this->countActivities($activitySequence));
+        $activity->setPosition(1);
         $this->em->persist($activity);
         $this->em->flush();
 
@@ -89,7 +86,7 @@ class ActivitySequenceManager
                 $activitySequenceActivities[] = array (
                                                     "id" => $activity->getId(),
                                                     "name" => $activity->getName(),
-                                                    "order" => $activity->getOrder()
+                                                    "order" => $activity->getPosition()
                 );
             }
         }
@@ -109,7 +106,7 @@ class ActivitySequenceManager
         $activityAttrs = array (
                             "id" => $activity->getId(),
                             "name" => $activity->getName(),
-                            "order" => $activity->getOrder()
+                            "order" => $activity->getPosition()
         );
 
         return $activityAttrs;

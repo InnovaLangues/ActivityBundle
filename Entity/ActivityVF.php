@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 
 /**
- * @ORM\Table(name="innova_activityVf")
+ * @ORM\Table(name="innova_activity_vf")
  * @ORM\Entity
  */
 class ActivityVF extends AbstractActivity

@@ -1,1 +1,6 @@
 display sequence {{ activitySequence.id }}
+
+{% for activity in activitySequence.activities %}
+    <h1>{{ activity.id }} {{ activity.name }}</h1>
+    <p>{{ activity.description }}</p>
+{% endfor %}

@@ -7,7 +7,7 @@ use Claroline\CoreBundle\Entity\Resource\AbstractResource;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="innova_activitySequence")
+ * @ORM\Table(name="innova_activity_sequence")
  */
 class ActivitySequence extends AbstractResource
 {

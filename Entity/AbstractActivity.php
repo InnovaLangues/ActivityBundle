@@ -5,28 +5,17 @@ namespace Innova\ActivityBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Sortable\Entity\Repository\SortableRepository;
-
 
 /**
  * 13/11/2014 : updating to abstract class and all columns.
+ * 19/11/2014 : add SortablePosition on order column.
  */
 
 /**
  * @ORM\MappedSuperclass
- * @ORM\Entity()
  */
 abstract class AbstractActivity
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -45,10 +34,10 @@ abstract class AbstractActivity
     /**
      * Order of the steps relative to his siblings in the path
      * @var integer
-     * @ORM\Column(name="order", type="integer")
+     * @ORM\Column(name="activity_order", type="integer")
      * @Gedmo\SortablePosition
      */
-    private $order;
+    protected $position;
 
     /**
      * @var \DateTime
@@ -56,7 +45,7 @@ abstract class AbstractActivity
      * @ORM\Column(name="createdDate", type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
-    private $createdDate;
+    protected $createdDate;
 
     /**
      * @var \DateTime
@@ -64,12 +53,7 @@ abstract class AbstractActivity
      * @ORM\Column(name="updatedDate", type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
-    private $updatedDate;
-
-    /**
-    * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\User")
-    */
-    protected $author;
+    protected $updatedDate;
 
     /**
      * Set name
@@ -123,9 +107,9 @@ abstract class AbstractActivity
      * @param integer $order
      * @return Activity
      */
-    public function setOrder($order)
+    public function setPosition($order)
     {
-        $this->order = $order;
+        $this->position = $order;
 
         return $this;
     }
@@ -135,9 +119,9 @@ abstract class AbstractActivity
      *
      * @return integer
      */
-    public function getOrder()
+    public function getPosition()
     {
-        return $this->order;
+        return $this->position;
     }
 
     /**
@@ -207,28 +191,5 @@ abstract class AbstractActivity
     public function getUpdatedDate()
     {
         return $this->updatedDate;
-    }
-
-    /**
-     * Set author
-     *
-     * @param \Claroline\CoreBundle\Entity\User $author
-     * @return Activity
-     */
-    public function setAuthor(\Claroline\CoreBundle\Entity\User $author = null)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return \Claroline\CoreBundle\Entity\User
-     */
-    public function getAuthor()
-    {
-        return $this->author;
     }
 }

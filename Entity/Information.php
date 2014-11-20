@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Information
  *
- * @ORM\Table("innova_information")
+ * @ORM\Table("innova_activity_information")
  * @ORM\Entity
  */
 class Information

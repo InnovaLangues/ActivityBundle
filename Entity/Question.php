@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Question
  *
- * @ORM\Table("innova_question")
+ * @ORM\Table("innova_activity_question")
  * @ORM\Entity
  */
 class Question
