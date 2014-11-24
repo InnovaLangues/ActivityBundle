@@ -1,79 +1,68 @@
-{# Properties #}
-ici
-        <div class="panel-body">
-            {# With tutor #}
-            <div class="form-group">
-                <label class="control-label col-md-4" for="with-tutor">{{ 'with_tutor'|trans({}, 'path_editor') }}</label>
-                <div class="col-md-4">
-                    <select class="form-control" name="with-tutor" id="with-tutor" data-ng-change="updateHistory()" data-ng-model="previewStep.withTutor">
-                        <option value=""></option>
-                        <option value="true">{{ 'yes'|trans({}, 'path_editor') }}</option>
-                        <option value="false">{{ 'no'|trans({}, 'path_editor') }}</option>
-                    </select>
-                </div>
-            </div>
-
-            {# Who #}
-            <div class="form-group">
-                <label class="control-label col-md-4" for="step-who">{{ 'step_who'|trans({}, 'path_editor') }}</label>
-                <div class="col-md-8">
-                    <select class="form-control" id="step-who" name="step-who" data-ng-change="updateHistory()" data-ng-model="previewStep.who">
-                        <option value=""></option>
-                        <option value="individual">{{ 'individual'|trans({}, 'platform') }}</option>
-                        <option value="collaborative">{{ 'collaborative'|trans({}, 'platform') }}</option>
-                        <option value="mixed">{{ 'mixed'|trans({}, 'platform') }}</option>
-                    </select>
-                </div>
-            </div>
-
-            {# Where #}
-            <div class="form-group">
-                <label class="control-label col-md-4" for="step-where">{{ 'step_where'|trans({}, 'path_editor') }}</label>
-                <div class="col-md-8">
-                    <select class="form-control" id="step-where" name="step-where" data-ng-change="updateHistory()" data-ng-model="previewStep.where">
-                        <option value=""></option>
-                        <option value="classroom">{{ 'classroom'|trans({}, 'platform') }}</option>
-                        <option value="anywhere">{{ 'anywhere'|trans({}, 'platform') }}</option>
-                    </select>
-                </div>
-            </div>
-
-            {# Duration #}
-            <div class="form-group">
-                <label class="control-label col-md-4" for="duration">{{ 'step_duration'|trans({}, 'path_editor') }}</label>
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <div class="input-group">
-                                <span class="input-group-addon">h</span>
-                                <input class="form-control text-right" type="text" data-ng-model="previewStep.durationHours" data-ng-change="correctDuration('hour')" size="1" />
-                                <div class="btn-group-vertical" style="display: table-cell;">
-                                    <button data-ng-click="incrementDuration('hour')" type="button" class="btn btn-xs btn-default" style="font-size: 9px; border-top-left-radius: 0;">
-                                        <span class="fa fa-chevron-up"></span>
-                                    </button>
-                                    <button data-ng-click="decrementDuration('hour')" type="button" class="btn btn-xs btn-default" style="font-size: 9px; border-bottom-left-radius: 0;">
-                                        <span class="fa fa-chevron-down"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <div class="input-group">
-                                <span class="input-group-addon">min</span>
-                                <input class="form-control text-right" type="text" data-ng-model="previewStep.durationMinutes" data-ng-change="correctDuration('minute')" size="1" />
-                                <div class="btn-group-vertical" style="display: table-cell">
-                                    <button data-ng-click="incrementDuration('minute')" type="button" class="btn btn-xs btn-default" style="font-size: 9px; border-top-left-radius: 0;">
-                                        <span class="fa fa-chevron-up"></span>
-                                    </button>
-                                    <button data-ng-click="decrementDuration('minute')" type="button" class="btn btn-xs btn-default" style="font-size: 9px; border-bottom-left-radius: 0;">
-                                        <span class="fa fa-chevron-down"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{# Properties of form #}
+<div class="panel-body">
+    {# Instruction #}
+    <div class="form-group row">
+        <label class="control-label col-md-4" for="instruction">
+            {{ 'instruction'|trans({}, 'activity_sequence_editor') }}
+        </label>
+        <div class="col-md-8">
+            <input class="form-control ng-invalid ng-invalid-required"
+            type="text" data-ng-model="previewStep.durationHours" data-ng-change=""
+            placeholder="Saisir une consigne" size="10" />
         </div>
-ici2
+    </div> {# End Instruction #}
+
+    {# Information #}
+    <div class="form-group row">
+        <label class="control-label col-md-4" for="information">
+            {{ 'information'|trans({}, 'activity_sequence_editor') }}
+        </label>
+        <div class="col-md-8">
+            <input class="form-control ng-invalid ng-invalid-required"
+            type="text" data-ng-model="previewStep.durationHours" data-ng-change=""
+            placeholder="Saisir une information" size="10" />
+        </div>
+    </div> {# End Information #}
+
+    {# Object #}
+    <div class="form-group row">
+        <label class="control-label col-md-4" for="object">
+            {{ 'object'|trans({}, 'activity_sequence_editor') }}
+        </label>
+        <div class="col-md-8">
+            <input class="form-control ng-invalid ng-invalid-required"
+            type="text" data-ng-model="previewStep.durationHours" data-ng-change=""
+            placeholder="Saisir un objet de la question" size="10" />
+        </div>
+    </div> {# End Object #}
+
+    {# Proposition #}
+    <div class="form-group row">
+        <label class="control-label col-md-4" for="proposition">
+            {{ 'proposition'|trans({}, 'activity_sequence_editor') }}
+        </label>
+        <div class="col-md-8">
+            <input class="form-control ng-invalid ng-invalid-required"
+            type="text" data-ng-model="previewStep.durationHours" data-ng-change=""
+            placeholder="Saisir une proposition" size="10" />
+        </div>
+    </div> {# End Proposition #}
+
+    {# Question #}
+    <div class="form-group row">
+        <label class="control-label col-md-4" for="question">
+            {{ 'question'|trans({}, 'activity_sequence_editor') }}
+        </label>
+        <div class="col-md-8">
+            <input class="form-control ng-invalid ng-invalid-required"
+            type="text" data-ng-model="previewStep.durationHours" data-ng-change=""
+            placeholder="Saisir une question" size="10" />
+        </div>
+    </div> {# End Question #}
+
+    <div class="pull-right">
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-floppy-o"></span> {{ 'save'|trans({}, 'path_editor') }}
+        </button>
+    </div>
+</div> {# End Properties of form #}

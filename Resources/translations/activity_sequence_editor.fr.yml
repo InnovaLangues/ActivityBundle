@@ -1,3 +1,10 @@
+#form
+instruction : Consigne
+information : Information
+object : Objet de la question
+proposition : Proposition
+question: Question
+
 #a
 add_activity : Ajouter une activité
 activity_sequence: Suite d'activités
