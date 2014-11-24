@@ -8,17 +8,124 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated migration based on mapping information: modify it with caution
  *
- * Generation date: 2014/11/20 02:43:14
+ * Generation date: 2014/11/24 02:32:37
  */
-class Version20141120144313 extends AbstractMigration
+class Version20141124143237 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
         $this->addSql("
-            CREATE TABLE innova_activity_instruction (
+            CREATE TABLE innova_activity_question (
                 id SERIAL NOT NULL, 
                 title VARCHAR(255) DEFAULT NULL, 
-                instructionType INT NOT NULL, 
+                PRIMARY KEY(id)
+            )
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_sequence (
+                id SERIAL NOT NULL, 
+                description TEXT DEFAULT NULL, 
+                resourceNode_id INT DEFAULT NULL, 
+                PRIMARY KEY(id)
+            )
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_CA5D5B00B87FAB32 ON innova_activity_sequence (resourceNode_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_vf (
+                id SERIAL NOT NULL, 
+                name VARCHAR(255) NOT NULL, 
+                description TEXT DEFAULT NULL, 
+                activity_order INT NOT NULL, 
+                createdDate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
+                updatedDate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
+                PRIMARY KEY(id)
+            )
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activityvf_question (
+                activity_id INT NOT NULL, 
+                question_id INT NOT NULL, 
+                PRIMARY KEY(activity_id, question_id)
+            )
+        ");
+        $this->addSql("
+            CREATE INDEX IDX_2EE21F2A81C06096 ON innova_activityvf_question (activity_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_2EE21F2A1E27F6BF ON innova_activityvf_question (question_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activityvf_object (
+                activity_id INT NOT NULL, 
+                object_id INT NOT NULL, 
+                PRIMARY KEY(activity_id, object_id)
+            )
+        ");
+        $this->addSql("
+            CREATE INDEX IDX_9DD5D9781C06096 ON innova_activityvf_object (activity_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_9DD5D97232D562B ON innova_activityvf_object (object_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activityvf_proposition (
+                activity_id INT NOT NULL, 
+                proposition_id INT NOT NULL, 
+                PRIMARY KEY(activity_id, proposition_id)
+            )
+        ");
+        $this->addSql("
+            CREATE INDEX IDX_92FBE0E81C06096 ON innova_activityvf_proposition (activity_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_92FBE0EDB96F9E ON innova_activityvf_proposition (proposition_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activityvf_instruction (
+                activity_id INT NOT NULL, 
+                instruction_id INT NOT NULL, 
+                PRIMARY KEY(activity_id, instruction_id)
+            )
+        ");
+        $this->addSql("
+            CREATE INDEX IDX_B5589C0B81C06096 ON innova_activityvf_instruction (activity_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_B5589C0B62A10F76 ON innova_activityvf_instruction (instruction_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activityvf_information (
+                activity_id INT NOT NULL, 
+                information_id INT NOT NULL, 
+                PRIMARY KEY(activity_id, information_id)
+            )
+        ");
+        $this->addSql("
+            CREATE INDEX IDX_E79B65DE81C06096 ON innova_activityvf_information (activity_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_E79B65DE2EF03101 ON innova_activityvf_information (information_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_proposition (
+                id SERIAL NOT NULL, 
+                title VARCHAR(255) DEFAULT NULL, 
+                PRIMARY KEY(id)
+            )
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_object (
+                id SERIAL NOT NULL, 
+                title VARCHAR(255) DEFAULT NULL, 
+                PRIMARY KEY(id)
+            )
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_information (
+                id SERIAL NOT NULL, 
+                title VARCHAR(255) DEFAULT NULL, 
                 PRIMARY KEY(id)
             )
         ");
@@ -99,179 +206,23 @@ class Version20141120144313 extends AbstractMigration
             CREATE UNIQUE INDEX UNIQ_FEEF4F72EF03101 ON innova_activityqru_information (information_id)
         ");
         $this->addSql("
-            CREATE TABLE innova_question (
+            CREATE TABLE innova_activity_instruction (
                 id SERIAL NOT NULL, 
                 title VARCHAR(255) DEFAULT NULL, 
+                instructionType INT NOT NULL, 
                 PRIMARY KEY(id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_proposition (
-                id SERIAL NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id)
-            )
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activity_information (
-                id SERIAL NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id)
-            )
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activity_vf (
-                id SERIAL NOT NULL, 
-                name VARCHAR(255) NOT NULL, 
-                description TEXT DEFAULT NULL, 
-                activity_order INT NOT NULL, 
-                createdDate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
-                updatedDate TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
-                PRIMARY KEY(id)
-            )
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activityvf_question (
-                activity_id INT NOT NULL, 
-                question_id INT NOT NULL, 
-                PRIMARY KEY(activity_id, question_id)
-            )
-        ");
-        $this->addSql("
-            CREATE INDEX IDX_2EE21F2A81C06096 ON innova_activityvf_question (activity_id)
-        ");
-        $this->addSql("
-            CREATE UNIQUE INDEX UNIQ_2EE21F2A1E27F6BF ON innova_activityvf_question (question_id)
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activityvf_object (
-                activity_id INT NOT NULL, 
-                object_id INT NOT NULL, 
-                PRIMARY KEY(activity_id, object_id)
-            )
-        ");
-        $this->addSql("
-            CREATE INDEX IDX_9DD5D9781C06096 ON innova_activityvf_object (activity_id)
-        ");
-        $this->addSql("
-            CREATE UNIQUE INDEX UNIQ_9DD5D97232D562B ON innova_activityvf_object (object_id)
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activityvf_proposition (
-                activity_id INT NOT NULL, 
-                proposition_id INT NOT NULL, 
-                PRIMARY KEY(activity_id, proposition_id)
-            )
-        ");
-        $this->addSql("
-            CREATE INDEX IDX_92FBE0E81C06096 ON innova_activityvf_proposition (activity_id)
-        ");
-        $this->addSql("
-            CREATE UNIQUE INDEX UNIQ_92FBE0EDB96F9E ON innova_activityvf_proposition (proposition_id)
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activityvf_instruction (
-                activity_id INT NOT NULL, 
-                instruction_id INT NOT NULL, 
-                PRIMARY KEY(activity_id, instruction_id)
-            )
-        ");
-        $this->addSql("
-            CREATE INDEX IDX_B5589C0B81C06096 ON innova_activityvf_instruction (activity_id)
-        ");
-        $this->addSql("
-            CREATE UNIQUE INDEX UNIQ_B5589C0B62A10F76 ON innova_activityvf_instruction (instruction_id)
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activityvf_information (
-                activity_id INT NOT NULL, 
-                information_id INT NOT NULL, 
-                PRIMARY KEY(activity_id, information_id)
-            )
-        ");
-        $this->addSql("
-            CREATE INDEX IDX_E79B65DE81C06096 ON innova_activityvf_information (activity_id)
-        ");
-        $this->addSql("
-            CREATE UNIQUE INDEX UNIQ_E79B65DE2EF03101 ON innova_activityvf_information (information_id)
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activity_object (
-                id SERIAL NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id)
-            )
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activitySequence (
-                id SERIAL NOT NULL, 
-                description TEXT DEFAULT NULL, 
-                resourceNode_id INT DEFAULT NULL, 
-                PRIMARY KEY(id)
-            )
-        ");
-        $this->addSql("
-            CREATE UNIQUE INDEX UNIQ_D614C342B87FAB32 ON innova_activitySequence (resourceNode_id)
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activity_qru 
-            ADD CONSTRAINT FK_913DCE68BF396750 FOREIGN KEY (id) 
-            REFERENCES innova_activitySequence (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_question 
-            ADD CONSTRAINT FK_E0B871E681C06096 FOREIGN KEY (activity_id) 
-            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_question 
-            ADD CONSTRAINT FK_E0B871E61E27F6BF FOREIGN KEY (question_id) 
-            REFERENCES innova_question (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_object 
-            ADD CONSTRAINT FK_EDAEE2B781C06096 FOREIGN KEY (activity_id) 
-            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_object 
-            ADD CONSTRAINT FK_EDAEE2B7232D562B FOREIGN KEY (object_id) 
-            REFERENCES innova_activity_object (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_proposition 
-            ADD CONSTRAINT FK_E15A2F2781C06096 FOREIGN KEY (activity_id) 
-            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_proposition 
-            ADD CONSTRAINT FK_E15A2F27DB96F9E FOREIGN KEY (proposition_id) 
-            REFERENCES innova_activity_proposition (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_instruction 
-            ADD CONSTRAINT FK_5D2D0D2281C06096 FOREIGN KEY (activity_id) 
-            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_instruction 
-            ADD CONSTRAINT FK_5D2D0D2262A10F76 FOREIGN KEY (instruction_id) 
-            REFERENCES innova_activity_instruction (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_information 
-            ADD CONSTRAINT FK_FEEF4F781C06096 FOREIGN KEY (activity_id) 
-            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_information 
-            ADD CONSTRAINT FK_FEEF4F72EF03101 FOREIGN KEY (information_id) 
-            REFERENCES innova_activity_information (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+            ALTER TABLE innova_activity_sequence 
+            ADD CONSTRAINT FK_CA5D5B00B87FAB32 FOREIGN KEY (resourceNode_id) 
+            REFERENCES claro_resource_node (id) 
+            ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE
         ");
         $this->addSql("
             ALTER TABLE innova_activity_vf 
             ADD CONSTRAINT FK_353CDA7BF396750 FOREIGN KEY (id) 
-            REFERENCES innova_activitySequence (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+            REFERENCES innova_activity_sequence (id) NOT DEFERRABLE INITIALLY IMMEDIATE
         ");
         $this->addSql("
             ALTER TABLE innova_activityvf_question 
@@ -281,7 +232,7 @@ class Version20141120144313 extends AbstractMigration
         $this->addSql("
             ALTER TABLE innova_activityvf_question 
             ADD CONSTRAINT FK_2EE21F2A1E27F6BF FOREIGN KEY (question_id) 
-            REFERENCES innova_question (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+            REFERENCES innova_activity_question (id) NOT DEFERRABLE INITIALLY IMMEDIATE
         ");
         $this->addSql("
             ALTER TABLE innova_activityvf_object 
@@ -324,66 +275,79 @@ class Version20141120144313 extends AbstractMigration
             REFERENCES innova_activity_information (id) NOT DEFERRABLE INITIALLY IMMEDIATE
         ");
         $this->addSql("
-            ALTER TABLE innova_activitySequence 
-            ADD CONSTRAINT FK_D614C342B87FAB32 FOREIGN KEY (resourceNode_id) 
-            REFERENCES claro_resource_node (id) 
-            ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE
+            ALTER TABLE innova_activity_qru 
+            ADD CONSTRAINT FK_913DCE68BF396750 FOREIGN KEY (id) 
+            REFERENCES innova_activity_sequence (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_question 
+            ADD CONSTRAINT FK_E0B871E681C06096 FOREIGN KEY (activity_id) 
+            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_question 
+            ADD CONSTRAINT FK_E0B871E61E27F6BF FOREIGN KEY (question_id) 
+            REFERENCES innova_activity_question (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_object 
+            ADD CONSTRAINT FK_EDAEE2B781C06096 FOREIGN KEY (activity_id) 
+            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_object 
+            ADD CONSTRAINT FK_EDAEE2B7232D562B FOREIGN KEY (object_id) 
+            REFERENCES innova_activity_object (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_proposition 
+            ADD CONSTRAINT FK_E15A2F2781C06096 FOREIGN KEY (activity_id) 
+            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_proposition 
+            ADD CONSTRAINT FK_E15A2F27DB96F9E FOREIGN KEY (proposition_id) 
+            REFERENCES innova_activity_proposition (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_instruction 
+            ADD CONSTRAINT FK_5D2D0D2281C06096 FOREIGN KEY (activity_id) 
+            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_instruction 
+            ADD CONSTRAINT FK_5D2D0D2262A10F76 FOREIGN KEY (instruction_id) 
+            REFERENCES innova_activity_instruction (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_information 
+            ADD CONSTRAINT FK_FEEF4F781C06096 FOREIGN KEY (activity_id) 
+            REFERENCES innova_activity_qru (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_information 
+            ADD CONSTRAINT FK_FEEF4F72EF03101 FOREIGN KEY (information_id) 
+            REFERENCES innova_activity_information (id) NOT DEFERRABLE INITIALLY IMMEDIATE
         ");
     }
 
     public function down(Schema $schema)
     {
         $this->addSql("
-            ALTER TABLE innova_activityqru_instruction 
-            DROP CONSTRAINT FK_5D2D0D2262A10F76
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityvf_instruction 
-            DROP CONSTRAINT FK_B5589C0B62A10F76
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_question 
-            DROP CONSTRAINT FK_E0B871E681C06096
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_object 
-            DROP CONSTRAINT FK_EDAEE2B781C06096
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_proposition 
-            DROP CONSTRAINT FK_E15A2F2781C06096
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_instruction 
-            DROP CONSTRAINT FK_5D2D0D2281C06096
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_information 
-            DROP CONSTRAINT FK_FEEF4F781C06096
+            ALTER TABLE innova_activityvf_question 
+            DROP CONSTRAINT FK_2EE21F2A1E27F6BF
         ");
         $this->addSql("
             ALTER TABLE innova_activityqru_question 
             DROP CONSTRAINT FK_E0B871E61E27F6BF
         ");
         $this->addSql("
-            ALTER TABLE innova_activityvf_question 
-            DROP CONSTRAINT FK_2EE21F2A1E27F6BF
+            ALTER TABLE innova_activity_vf 
+            DROP CONSTRAINT FK_353CDA7BF396750
         ");
         $this->addSql("
-            ALTER TABLE innova_activityqru_proposition 
-            DROP CONSTRAINT FK_E15A2F27DB96F9E
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityvf_proposition 
-            DROP CONSTRAINT FK_92FBE0EDB96F9E
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityqru_information 
-            DROP CONSTRAINT FK_FEEF4F72EF03101
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activityvf_information 
-            DROP CONSTRAINT FK_E79B65DE2EF03101
+            ALTER TABLE innova_activity_qru 
+            DROP CONSTRAINT FK_913DCE68BF396750
         ");
         $this->addSql("
             ALTER TABLE innova_activityvf_question 
@@ -406,50 +370,62 @@ class Version20141120144313 extends AbstractMigration
             DROP CONSTRAINT FK_E79B65DE81C06096
         ");
         $this->addSql("
-            ALTER TABLE innova_activityqru_object 
-            DROP CONSTRAINT FK_EDAEE2B7232D562B
+            ALTER TABLE innova_activityvf_proposition 
+            DROP CONSTRAINT FK_92FBE0EDB96F9E
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activityqru_proposition 
+            DROP CONSTRAINT FK_E15A2F27DB96F9E
         ");
         $this->addSql("
             ALTER TABLE innova_activityvf_object 
             DROP CONSTRAINT FK_9DD5D97232D562B
         ");
         $this->addSql("
-            ALTER TABLE innova_activity_qru 
-            DROP CONSTRAINT FK_913DCE68BF396750
+            ALTER TABLE innova_activityqru_object 
+            DROP CONSTRAINT FK_EDAEE2B7232D562B
         ");
         $this->addSql("
-            ALTER TABLE innova_activity_vf 
-            DROP CONSTRAINT FK_353CDA7BF396750
+            ALTER TABLE innova_activityvf_information 
+            DROP CONSTRAINT FK_E79B65DE2EF03101
         ");
         $this->addSql("
-            DROP TABLE innova_activity_instruction
+            ALTER TABLE innova_activityqru_information 
+            DROP CONSTRAINT FK_FEEF4F72EF03101
         ");
         $this->addSql("
-            DROP TABLE innova_activity_qru
+            ALTER TABLE innova_activityqru_question 
+            DROP CONSTRAINT FK_E0B871E681C06096
         ");
         $this->addSql("
-            DROP TABLE innova_activityqru_question
+            ALTER TABLE innova_activityqru_object 
+            DROP CONSTRAINT FK_EDAEE2B781C06096
         ");
         $this->addSql("
-            DROP TABLE innova_activityqru_object
+            ALTER TABLE innova_activityqru_proposition 
+            DROP CONSTRAINT FK_E15A2F2781C06096
         ");
         $this->addSql("
-            DROP TABLE innova_activityqru_proposition
+            ALTER TABLE innova_activityqru_instruction 
+            DROP CONSTRAINT FK_5D2D0D2281C06096
         ");
         $this->addSql("
-            DROP TABLE innova_activityqru_instruction
+            ALTER TABLE innova_activityqru_information 
+            DROP CONSTRAINT FK_FEEF4F781C06096
         ");
         $this->addSql("
-            DROP TABLE innova_activityqru_information
+            ALTER TABLE innova_activityvf_instruction 
+            DROP CONSTRAINT FK_B5589C0B62A10F76
         ");
         $this->addSql("
-            DROP TABLE innova_question
+            ALTER TABLE innova_activityqru_instruction 
+            DROP CONSTRAINT FK_5D2D0D2262A10F76
         ");
         $this->addSql("
-            DROP TABLE innova_activity_proposition
+            DROP TABLE innova_activity_question
         ");
         $this->addSql("
-            DROP TABLE innova_activity_information
+            DROP TABLE innova_activity_sequence
         ");
         $this->addSql("
             DROP TABLE innova_activity_vf
@@ -470,10 +446,34 @@ class Version20141120144313 extends AbstractMigration
             DROP TABLE innova_activityvf_information
         ");
         $this->addSql("
+            DROP TABLE innova_activity_proposition
+        ");
+        $this->addSql("
             DROP TABLE innova_activity_object
         ");
         $this->addSql("
-            DROP TABLE innova_activitySequence
+            DROP TABLE innova_activity_information
+        ");
+        $this->addSql("
+            DROP TABLE innova_activity_qru
+        ");
+        $this->addSql("
+            DROP TABLE innova_activityqru_question
+        ");
+        $this->addSql("
+            DROP TABLE innova_activityqru_object
+        ");
+        $this->addSql("
+            DROP TABLE innova_activityqru_proposition
+        ");
+        $this->addSql("
+            DROP TABLE innova_activityqru_instruction
+        ");
+        $this->addSql("
+            DROP TABLE innova_activityqru_information
+        ");
+        $this->addSql("
+            DROP TABLE innova_activity_instruction
         ");
     }
 }
