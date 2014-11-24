@@ -1,5 +1,19 @@
 {# Properties of form #}
 <div class="panel-body">
+
+    {# With typology #}
+    <div class="form-group row">
+        <label class="control-label col-md-4" for="typology">
+            {{ 'typology'|trans({}, 'activity_sequence_editor') }}
+        </label>
+        <div class="col-md-8">
+            <select class="form-control" name="typology" id="typology" data-ng-model="activity.typology">
+                <option value="vf">VF</option>
+                <option value="qru">QRU</option>
+            </select>
+        </div>
+    </div>
+
     {# Instruction #}
     <div class="form-group row">
         <label class="control-label col-md-4" for="instruction">
