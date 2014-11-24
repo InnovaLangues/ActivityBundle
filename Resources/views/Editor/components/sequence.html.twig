@@ -58,6 +58,11 @@
                                 </span>
                         </div>
                         <div class="panel-body" ng-bind="currentActivity.id"></div>
+                        <div class="panel-body" ng-bind="currentActivity.name"></div>
+                        <div class="panel-body" ng-bind="currentActivity.description"></div>
+
+                        <!-- Add form for this activity -->
+                        {% include 'InnovaActivityBundle::Editor/components/form.html.twig' %}
                     </div>
 
                     <div class="text-center" ng-if="currentActivity == null && activitySequence.activities.length != 0">
