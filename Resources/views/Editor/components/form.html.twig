@@ -7,7 +7,7 @@
                 {{ 'typology'|trans({}, 'activity_sequence_editor') }}
             </label>
             <div class="col-md-8">
-                <select class="form-control" name="typology" id="typology" data-ng-model="activity.typology">
+                <select class="form-control" required="true" name="typology" id="typology" data-ng-model="activity.typology">
                     <option value="vf">VF</option>
                     <option value="qru">QRU</option>
                 </select>
@@ -19,12 +19,28 @@
             <label class="control-label col-md-4" for="instruction">
                 {{ 'instruction'|trans({}, 'activity_sequence_editor') }}
             </label>
-            <div class="col-md-8">
-                <input class="form-control" required="true"
-                type="text" data-ng-model="activity.instruction" data-ng-change=""
-                placeholder="Saisir une consigne" size="10" />
+            <div id="panel-description" class="col-md-8 panel-collapse collapse in">
+                <div class="panel-body">
+                    <textarea data-ui-tinymce="tinymceOptions" class="form-control" required="true"
+                    name="instruction" id="instruction" data-ng-change="" data-ng-model="activity.instruction"></textarea>
+                </div>
             </div>
         </div> {# End Instruction #}
+
+        {# Description #}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#panel-description">Description</a>
+                </h4>
+            </div>
+            <div id="panel-description" class="col-md-8 panel-collapse collapse in">
+                <div class="panel-body">
+                    <textarea data-ui-tinymce="tinymceOptions" class="form-control" required="true"
+                    name="description" id="description" data-ng-change="" data-ng-model="activity.description"></textarea>
+                </div>
+            </div>
+        </div>
 
         {# Information #}
         <div class="form-group row">
@@ -32,8 +48,8 @@
                 {{ 'information'|trans({}, 'activity_sequence_editor') }}
             </label>
             <div class="col-md-8">
-                <input class="form-control ng-invalid ng-invalid-required"
-                type="text" data-ng-model="activity.information" data-ng-change=""
+                <input class="form-control" required="true" name="information" id="information" type="text"
+                data-ng-model="activity.information" data-ng-change=""
                 placeholder="Saisir une information" size="10" />
             </div>
         </div> {# End Information #}
@@ -44,8 +60,8 @@
                 {{ 'object'|trans({}, 'activity_sequence_editor') }}
             </label>
             <div class="col-md-8">
-                <input class="form-control ng-invalid ng-invalid-required"
-                type="text" data-ng-model="activity.object" data-ng-change=""
+                <input class="form-control" required="true" name="object" id="object" type="text"
+                data-ng-model="activity.object" data-ng-change=""
                 placeholder="Saisir un objet de la question" size="10" />
             </div>
         </div> {# End Object #}
@@ -56,8 +72,8 @@
                 {{ 'proposition'|trans({}, 'activity_sequence_editor') }}
             </label>
             <div class="col-md-8">
-                <input class="form-control ng-invalid ng-invalid-required"
-                type="text" data-ng-model="activity.proposition" data-ng-change=""
+                <input class="form-control" required="true" name="proposition" id="proposition" type="text"
+                data-ng-model="activity.proposition" data-ng-change=""
                 placeholder="Saisir une proposition" size="10" />
             </div>
         </div> {# End Proposition #}
@@ -68,8 +84,8 @@
                 {{ 'question'|trans({}, 'activity_sequence_editor') }}
             </label>
             <div class="col-md-8">
-                <input class="form-control ng-invalid ng-invalid-required"
-                type="text" data-ng-model="activity.question" data-ng-change=""
+                <input class="form-control" required="true" name="question" id="question" type="text"
+                data-ng-model="activity.question" data-ng-change=""
                 placeholder="Saisir une question" size="10" />
             </div>
         </div> {# End Question #}

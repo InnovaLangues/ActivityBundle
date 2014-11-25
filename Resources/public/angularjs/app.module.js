@@ -4,6 +4,7 @@
     angular.module('App', [
         'ui.sortable',
         'ActivitySequence',
-        'Activity'
+        'Activity',
+        'ui.tinymce'
     ]);
 })();
