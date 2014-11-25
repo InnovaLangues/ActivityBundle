@@ -1,4 +1,5 @@
 typology : Type du protocole
+close_open : Tout ouvrir/tout fermer
 
 #form
 instruction : Consigne
