@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('App', [
+        'ui.sortable',
         'ActivitySequence',
-        'ui.sortable'
+        'Activity'
     ]);
 })();
