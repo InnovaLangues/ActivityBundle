@@ -42,8 +42,11 @@
                 <div class="col-md-10">
                     <div class="panel panel-primary" ng-if="currentActivity != null">
                         <div class="panel-heading">
+                            <div class="input-group">
                                 <span data-ng-bind="currentActivity.order +'/'+ activitySequence.activities.length"></span> -
-                                <span data-ng-bind="currentActivity.name"></span>
+                                <input type="text" class="form-control" name="activity-name" data-ng-model="currentActivity.name">
+                                </input>
+
                                 <span class="buttons pull-right">
                                     <span class="btn btn-default btn-xs" data-toggle="modal" data-target="#current-identity">
                                         <i class="fa fa-file-text-o"></i>
@@ -56,6 +59,7 @@
                                         {{ 'delete_activity'| trans({}, 'activity_sequence_editor') }}
                                     </button>
                                 </span>
+                            </div>
                         </div>
 <!--
                         <div class="panel-body" ng-bind="currentActivity.id"></div>

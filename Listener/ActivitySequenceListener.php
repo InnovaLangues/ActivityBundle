@@ -95,13 +95,14 @@ class ActivitySequenceListener extends ContainerAware
         $activitySequence = $event->getResource();
         $workspaceId = $activitySequence->getResourceNode()->getWorkspace()->getId();
 
-        $route = $this->container->get('router')->generate(
-                                                                                    'activity_sequence_administrate',
-                                                                                    array(
-                                                                                        'workspaceId' => $workspaceId,
-                                                                                        'activitySequenceId' => $activitySequence->getId(),
-                                                                                    )
-                                                                            );
+        $route = $this->container->get('router')
+                ->generate(
+                'activity_sequence_administrate',
+                array(
+                    'workspaceId' => $workspaceId,
+                    'activitySequenceId' => $activitySequence->getId(),
+                    )
+                       );
         $event->setResponse(new RedirectResponse($route));
         $event->stopPropagation();
     }
