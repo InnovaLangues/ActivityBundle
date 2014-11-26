@@ -36,7 +36,49 @@
 
             $scope.save = function () {
                 console.log($scope.activity);
-                ActivityService.save($scope.activity);
+
+                // Init
+                var method = null;
+                var route = null;
+                var data = '';
+
+                // Data affectationS
+                data += 'activity_sequence_template[typology]=' + $scope.activity.typology;
+                data += '&activity_sequence_template[description]=' + scope.activity.description;
+                // TODO : à faire pour le reste des datas.
+
+                // Create new path
+                method = 'POST';
+                route = Routing.generate('activity_sequence_add_activity'); // ActivitySequenceController
+
+                $http({
+                    method: method,
+                    url: route,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    data: data
+                })
+
+                .success(function (data) {
+                    if ('error' != data) {
+                        // No error
+                        formTemplate.id = data;
+                        TemplateFactory.replaceTemplate(formTemplate);
+
+                        AlertFactory.addAlert('success', Translator.get('path_editor:path_template_save_success'));
+                    }
+                    else {
+                        // Server error while saving
+                        AlertFactory.addAlert('danger', Translator.get('path_editor:path_template_save_error'));
+                    }
+
+                    $modalInstance.close();
+                })
+                .error(function(data, status) {
+                    AlertFactory.addAlert('danger', Translator.get('path_editor:path_template_save_error'));
+                });
+
+                // Redirection vers le service : ActivityService.js
+                // ActivityService.save($scope.activity);
             };
         }
     ]);
