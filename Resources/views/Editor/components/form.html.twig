@@ -4,7 +4,6 @@
 
         {# To have collapse/accordion #}
         <div class="panel-group" id="accordion">
-
             {# Typology #}
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -12,9 +11,8 @@
                         <a data-toggle="collapse" href="#panel-all">{{ 'close_open'|trans({}, 'activity_sequence_editor') }}</a>
                     </h4>
                 </div>
-                <div id="panel-all" class="col-md-12 panel-collapse collapse">
+                <div id="panel-all" class="panel-collapse collapse">
                     <div class="panel-body">
-
                         {# Typology #}
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -22,7 +20,7 @@
                                     <a data-toggle="collapse" href="#panel-typology">{{ 'typology'|trans({}, 'activity_sequence_editor') }}</a>
                                 </h4>
                             </div>
-                            <div id="panel-typology" class="col-md-12 panel-collapse collapse in">
+                            <div id="panel-typology" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                 <select class="form-control" required="true" name="typology" id="typology" data-ng-model="activity.typology">
                                     <option value="vf">VF</option>
@@ -39,7 +37,7 @@
                                     <a data-toggle="collapse" href="#panel-instruction">{{ 'instruction'|trans({}, 'activity_sequence_editor') }}</a>
                                 </h4>
                             </div>
-                            <div id="panel-instruction" class="col-md-12 panel-collapse collapse">
+                            <div id="panel-instruction" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <textarea data-ui-tinymce="tinymceOptions" class="form-control" required="true"
                                     name="instruction" id="instruction" data-ng-change="" data-ng-model="activity.instruction"></textarea>
@@ -54,7 +52,7 @@
                                     <a data-toggle="collapse" href="#panel-information">{{ 'information'|trans({}, 'activity_sequence_editor') }}</a>
                                 </h4>
                             </div>
-                            <div id="panel-information" class="col-md-12 panel-collapse collapse">
+                            <div id="panel-information" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <textarea data-ui-tinymce="tinymceOptions" class="form-control" required="true"
                                     name="description" id="description" data-ng-change="" data-ng-model="activity.description"></textarea>
@@ -69,7 +67,7 @@
                                     <a data-toggle="collapse" href="#panel-object">{{ 'object'|trans({}, 'activity_sequence_editor') }}</a>
                                 </h4>
                             </div>
-                            <div id="panel-object" class="col-md-12 panel-collapse collapse">
+                            <div id="panel-object" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <textarea data-ui-tinymce="tinymceOptions" class="form-control" required="true"
                                     name="object" id="object" data-ng-change="" data-ng-model="activity.object"></textarea>
@@ -84,7 +82,7 @@
                                     <a data-toggle="collapse" href="#panel-proposition">{{ 'proposition'|trans({}, 'activity_sequence_editor') }}</a>
                                 </h4>
                             </div>
-                            <div id="panel-proposition" class="col-md-12 panel-collapse collapse">
+                            <div id="panel-proposition" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <textarea data-ui-tinymce="tinymceOptions" class="form-control" required="true"
                                     name="proposition" id="proposition" data-ng-change="" data-ng-model="activity.proposition"></textarea>
@@ -99,7 +97,7 @@
                                     <a data-toggle="collapse" href="#panel-question">{{ 'question'|trans({}, 'activity_sequence_editor') }}</a>
                                 </h4>
                             </div>
-                            <div id="panel-question" class="col-md-12 panel-collapse collapse">
+                            <div id="panel-question" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <textarea data-ui-tinymce="tinymceOptions" class="form-control" required="true"
                                     name="question" id="question" data-ng-change="" data-ng-model="activity.question"></textarea>
