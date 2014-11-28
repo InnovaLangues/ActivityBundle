@@ -20,8 +20,9 @@
                 });
             };
 
-            $scope.showActivity = function (activityId) {
-                $scope.currentActivity = ActivitySequenceService.setCurrentActivity(activityId);
+            $scope.showActivity = function (activity) {
+                ActivitySequenceService.setCurrentActivity(activity);
+                $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
             };
 
             $scope.deleteActivity = function (activityId) {

@@ -30,7 +30,7 @@
                                     data-original-title="{{ activity.name }} ({{ activity.id }})"
                                     data-ng-class = "{'current-activity' : currentActivity == activity}"
                                     data-ng-repeat = "activity in activitySequence.activities"
-                                    data-ng-click = "showActivity(activity.id)">
+                                    data-ng-click = "showActivity(activity)">
                                 <a href="#"><span class="badge" data-ng-bind="activity.order"></span></a>
                             </li>
                             {% endverbatim %}
@@ -56,6 +56,9 @@
                                 </button>
                             </span>
 
+                            {% if currentActivity is empty %}
+                                {{ "titi" }}
+                            {% endif %}
                             <span data-ng-bind="currentActivity.order +'/'+ activitySequence.activities.length"></span> -
                             <input type="text" class="form-control" name="activity-name" data-ng-model="currentActivity.name" />
                         </div>
