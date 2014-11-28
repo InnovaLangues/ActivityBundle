@@ -55,10 +55,10 @@
                     return currentActivity;
                 },
 
-                setCurrentActivity: function(activityId) {
-                    currentActivity = $filter('filter')(activitySequence.activities, {id: activityId})[0];
+                setCurrentActivity: function(activity) {
+                    currentActivity = activity;
 
-                    return currentActivity;
+                    return this;
                 },
 
                 clearCurrentActivity: function(){

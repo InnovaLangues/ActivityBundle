@@ -3,9 +3,10 @@
 
     angular.module('Activity').controller('ActivityEditController', [
         '$scope',
+        'ActivitySequenceService',
         'ActivityService',
-        function ($scope, ActivityService) {
-            $scope.activity = {};
+        function ($scope, ActivitySequenceService, ActivityService) {
+            $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
 
             // Tiny MCE options
             $scope.tinymceOptions = {
@@ -34,8 +35,10 @@
                 }
             };
 
+            // Save function : datas and call Symfony Root controller
             $scope.save = function () {
-                ActivityService.save($scope.activity);
+                ActivityService.save($scope.currentActivity);
+                console.log($scope.currentActivity);
             };
         }
     ]);

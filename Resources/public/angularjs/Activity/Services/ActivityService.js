@@ -8,20 +8,20 @@
                 save: function (activity) {
                     // Init
                     var data = {
-                        typology   : activity.typology,
-                        description: activity.description
+                        id          : activity.id,
+                        typology    : activity.typology,
+                        description : activity.description
                     };
 
                     $http({
-                        method: 'POST',
-                        url: Routing.generate('activity_sequence_add_activity'),
+                        method: 'GET',
+                        url: Routing.generate('activity_sequence_add_activity', {activitySequenceId : activity.id}),
                         data: data
                     })
                     .success(function (data) {
-
                     })
                     .error(function(data, status) {
-
+//                        AlertFactory.addAlert('danger', 'Error while adding activity.');
                     });
                 }
             };

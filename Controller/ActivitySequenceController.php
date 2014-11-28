@@ -82,11 +82,16 @@ class ActivitySequenceController extends Controller
      *      name="activity_sequence_add_activity",
      *      options={"expose" = true}
      * )
-     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
+     * @ParamConverter(
+     *      "activitySequence",
+     *      class="InnovaActivityBundle:ActivitySequence",
+     *      options={"mapping": {"activitySequenceId": "id"}}
+     * )
      * @Method("GET")
      */
     public function addActivityAction(ActivitySequence $activitySequence)
     {
+
         $activity = $this->activitySequenceManager->addActivity($activitySequence);
         $activityAttrs = $this->activitySequenceManager->activityAttrs($activity);
 
