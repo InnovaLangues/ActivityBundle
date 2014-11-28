@@ -6,10 +6,10 @@
         'ActivitySequenceService',
         'ActivityService',
         function ($scope, ActivitySequenceService, ActivityService) {
-            $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
+            this.activity = {};
 
             // Tiny MCE options
-            $scope.tinymceOptions = {
+            this.tinymceOptions = {
                 relative_urls: false,
                 theme: 'modern',
                 browser_spellcheck : true,
@@ -37,8 +37,7 @@
 
             // Save function : datas and call Symfony Root controller
             $scope.save = function () {
-                ActivityService.save($scope.currentActivity);
-                console.log($scope.currentActivity);
+                ActivityService.save(this.activity);
             };
         }
     ]);

@@ -1,27 +1,19 @@
-.current-activity {
-    background-color:#428BCA;
-}
-
-.current-activity .badge{
-    background-color:#FFF;
-    color:#428BCA;
-}
-
-.no-padding {
-    padding: 0;
-}
-
-.list-group.activities {
-    margin:0;
-}
-
-.list-group.activities li {
-    border-radius:0;
-    margin:1px;
-}
-
 [data-ng-cloak] {
   display: none !important;
+}
+
+.nav + .panel {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.panel .panel-group .panel {
+    border-left: medium none;
+    border-radius: 0 !important;
+    border-right: medium none;
+    border-bottom: medium none;
+    margin: 0;
 }
 
 input.form-control.ng-invalid {

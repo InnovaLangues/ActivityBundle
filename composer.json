@@ -6,26 +6,32 @@
     "type": "claroline-plugin",
     "license": "MIT",
     "authors" : [{
-        "name" : "Arnaud Bey",
-        "email" : "arnaud.bey@u-grenoble3.fr"
+            "name" : "Arnaud Bey",
+            "email" : "arnaud.bey@u-grenoble3.fr"
         }, {
-        "name" : "Axel Penin",
-        "email" : "axel.penin@u-grenoble3.fr"
+            "name" : "Axel Penin",
+            "email" : "axel.penin@u-grenoble3.fr"
         }, {
-        "name" : "Eric Vincent",
-        "email" : "eric.vincent@u-grenoble3.fr"
+            "name" : "Eric Vincent",
+            "email" : "eric.vincent@u-grenoble3.fr"
         }, {
-        "name" : "Donovan Tengblad",
-        "email" : "donovan.tengblad@u-grenoble3.fr"
+            "name" : "Donovan Tengblad",
+            "email" : "donovan.tengblad@u-grenoble3.fr"
         }
     ],
     "require": {
         "php": ">=5.4.1",
-        "claroline/core-bundle": "~3.0",
-        "innova/angular-ui-sortable-bundle":"1.*"
+        "claroline/core-bundle" : "~3.0",
+        "innova/angular-js-bundle" : ">=1.0",
+        "innova/angular-ui-bootstrap-bundle" : ">=1.0",
+        "innova/angular-ui-translation-bundle" : ">=2.0",
+        "innova/angular-ui-sortable-bundle" : "1.*",
+        "innova/angular-ui-tinymce-bundle" : ">=1.0"
     },
     "autoload": {
-        "psr-0": { "Innova\\ActivityBundle": "" }
+        "psr-0": {
+            "Innova\\ActivityBundle": ""
+        }
     },
     "target-dir": "Innova/ActivityBundle"
 }

@@ -1,85 +1,55 @@
-<div class="panel panel-default ">
-    <div class="panel-heading">
-        <strong>{{ 'activity_sequence'| trans({}, 'activity_sequence_editor') }}</strong>
-        <span data-ng-bind="activitySequence.name"></span>
-        <span class="buttons pull-right">
-            <img height="18px" data-ng-show="requestCount.count >0" src="{{ asset('bundles/innovaactivity/images/editor/ajax-loader.gif') }}"/>
-            <span class="btn btn-default btn-xs" data-toggle="modal" data-target="#sequence-identity">
-                <i class="fa fa-file-text-o"></i>
-                {{ 'identity'| trans({}, 'activity_sequence_editor') }}
+<form method="post" class="form form-horizontal">
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                {{ 'editor'| trans({}, 'activity_sequence_editor') }}
+                <small data-ng-bind="activitySequence.name"></small>
+            </h3>
+
+            <span class="pull-right">
+                <img height="18px" data-ng-show="requestCount.count >0" src="{{ asset('bundles/innovaactivity/images/editor/ajax-loader.gif') }}" />
             </span>
-        </span>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-2 text-center">
-                <div class="panel panel-default">
-                    <div class="panel-heading no-padding">
-                        <button class="btn btn-default col-md-12"
-                                        data-ng-click="addActivity()"
-                                        data-ng-disabled="requestCount.count >0"
-                                        style="background-color:#F5F5F5"
-                        >
-                            <span>{{ 'add_activity'| trans({}, 'activity_sequence_editor') }}</span>
-                        </button>
-                    </div>
-                    <div class="panel-body no-padding">
-                        <ul class="list-group text-center activities" ui-sortable="sortableOptions" ng-model="activitySequence.activities">
-                            {% verbatim %}
-                            <li class="list-group-item activity" data-toggle="tooltip" data-placement="right"
-                                    data-original-title="{{ activity.name }} ({{ activity.id }})"
-                                    data-ng-class = "{'current-activity' : currentActivity == activity}"
-                                    data-ng-repeat = "activity in activitySequence.activities"
-                                    data-ng-click = "showActivity(activity)">
-                                <a href="#"><span class="badge" data-ng-bind="activity.order"></span></a>
-                            </li>
-                            {% endverbatim %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        </div>
 
-            <div class="col-md-10">
-                <div class="panel panel-primary" ng-if="currentActivity != null">
-                    <div class="panel-heading">
-                        <div class="input-group">
-                            <span class="buttons pull-right">
-                                <span class="btn btn-default btn-xs" data-toggle="modal" data-target="#current-identity">
-                                    <i class="fa fa-file-text-o"></i>
-                                    {{ 'identity'| trans({}, 'activity_sequence_editor') }}
-                                </span>
-                                <button class="btn btn-default btn-xs"
-                                        data-ng-click="deleteActivity(currentActivity.id)"
-                                        data-ng-disabled="requestCount.count >0">
-                                    <i class="fa fa-times"></i>
-                                    {{ 'delete_activity'| trans({}, 'activity_sequence_editor') }}
-                                </button>
-                            </span>
-
-                            {% if currentActivity is empty %}
-                                {{ "titi" }}
-                            {% endif %}
-                            <span data-ng-bind="currentActivity.order +'/'+ activitySequence.activities.length"></span> -
-                            <input type="text" class="form-control" name="activity-name" data-ng-model="currentActivity.name" />
-                        </div>
-                    </div>
-
-                    <!-- Add form for this activity -->
-                    {% include 'InnovaActivityBundle::Editor/components/form.html.twig' %}
-                    <!-- End add form for this activity -->
-                </div>
-
-                <div class="text-center" ng-if="currentActivity == null && activitySequence.activities.length != 0">
-                    <div class="alert alert-info" role="alert">
-                        {{ 'no_activity_selected'| trans({}, 'activity_sequence_editor') }}
-                    </div>
-                </div>
-                <div class="text-center" ng-if="activitySequence.activities.length == 0">
-                    <div class="alert alert-info" role="alert">
-                        {{ 'empty_activity_sequence'| trans({}, 'activity_sequence_editor') }}
-                    </div>
+        <div class="panel-body">
+            <div class="form-group row">
+                <label class="control-label col-md-3 required" for="name"> Nom </label>
+                <div class="col-md-9">
+                    <input id="name" name="activitySequence.name" class="form-control" type="text" data-ng-model="activitySequence.name" required="required" />
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-default" data-ng-click="addActivity()" data-ng-disabled="requestCount.count > 0">
+                <i class="fa fa-plus"></i>
+                <span>{{ 'add_activity'| trans({}, 'activity_sequence_editor') }}</span>
+            </button>
+
+            <br/><br/>
+
+            <ul class="nav nav-pills nav-stacked" data-ui-sortable="sortableOptions" data-ng-model="activitySequence.activities">
+                <li data-ng-repeat = "activity in activitySequence.activities" data-ng-class="{ 'active' : currentActivity == activity }">
+                    <a href="" data-ng-click="showActivity(activity)">
+                        <span class="badge" data-ng-bind="activity.order"></span>
+                        {% verbatim %}
+                        {{ activity.name }}
+                        {% endverbatim %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-10">
+            <activity-form data-activity="currentActivity" data-ng-if="currentActivity"></activity-form>
+
+            <div class="text-center" ng-if="activitySequence.activities.length == 0">
+                <div class="alert alert-info" role="alert">
+                    {{ 'empty_activity_sequence'| trans({}, 'activity_sequence_editor') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

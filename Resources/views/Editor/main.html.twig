@@ -31,8 +31,7 @@
 
 {% block content %}
     <div class="ng-cloak"  data-ng-app="App" data-ng-controller="ActivitySequenceEditController" data-ng-cloak>
-            {% include 'InnovaActivityBundle::Editor/components/sequence.html.twig' %}
-            {% include 'InnovaActivityBundle::Editor/components/modales.html.twig' %}
+        {% include 'InnovaActivityBundle::Editor/components/sequence.html.twig' %}
     </div>
 {% endblock %}
 
@@ -66,6 +65,7 @@
     '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
+    '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
     '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
@@ -77,7 +77,9 @@
     {# Set some vars needed by Angular parts #}
     <script type="text/javascript">
         var ActivityEditorApp = {};
+
         ActivityEditorApp.activitySequence = {{ activitySequence | raw }};
-        ActivityEditorApp.workspaceId = {{ workspace.id }};
+        ActivityEditorApp.workspaceId      = {{ workspace.id }};
+        ActivityEditorApp.webDir           = "{{ asset('') }}";
     </script>
 {% endblock %}

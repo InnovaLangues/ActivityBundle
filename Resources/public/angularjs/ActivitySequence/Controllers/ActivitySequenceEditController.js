@@ -9,7 +9,11 @@
         function ($scope, LoaderService, ActivitySequenceService) {
             $scope.activitySequence = ActivityEditorApp.activitySequence;
             $scope.requestCount = LoaderService.getRequestCount();
-            $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
+
+            $scope.currentActivity = null;
+            if ($scope.activitySequence.activities && $scope.activitySequence.length !== 0) {
+                $scope.currentActivity = $scope.activitySequence.activities[0];
+            }
 
             ActivitySequenceService.setActivitySequence(ActivityEditorApp.activitySequence);
 
@@ -21,15 +25,15 @@
             };
 
             $scope.showActivity = function (activity) {
-                ActivitySequenceService.setCurrentActivity(activity);
-                $scope.currentActivity = ActivitySequenceService.getCurrentActivity();
+                $scope.currentActivity = activity;
+
+                console.log($scope.currentActivity);
             };
 
             $scope.deleteActivity = function (activityId) {
                 var promise = ActivitySequenceService.deleteActivity(activityId);
                 promise.then(function(activitySequence) {
                     $scope.activitySequence = ActivitySequenceService.setActivitySequence(activitySequence);
-                    $scope.currentActivity = ActivitySequenceService.clearCurrentActivity();
                 });
             };
 
@@ -41,7 +45,6 @@
                     var promise = ActivitySequenceService.saveOrder(id, order);
                     promise.then(function(activitySequence) {
                         $scope.activitySequence = ActivitySequenceService.setActivitySequence(activitySequence);
-                        $scope.currentActivity = ActivitySequenceService.setCurrentActivity(ActivitySequenceService.getCurrentActivity().id);
                     });
                 }
             };

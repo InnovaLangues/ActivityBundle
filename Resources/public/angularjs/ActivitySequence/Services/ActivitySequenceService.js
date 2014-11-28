@@ -8,7 +8,6 @@
         'LoaderService',
         function ($http, $q, $filter, LoaderService) {
             var activitySequence = null;
-            var currentActivity = null;
 
             return {
                 setActivitySequence: function(data) {
@@ -48,23 +47,6 @@
                     });
 
                     return deferred.promise;
-                },
-
-                getCurrentActivity: function(){
-
-                    return currentActivity;
-                },
-
-                setCurrentActivity: function(activity) {
-                    currentActivity = activity;
-
-                    return this;
-                },
-
-                clearCurrentActivity: function(){
-                    currentActivity = null;
-
-                    return currentActivity;
                 },
 
                 saveOrder: function(id, order){
