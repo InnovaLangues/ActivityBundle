@@ -6,10 +6,10 @@
         'ActivitySequenceService',
         'ActivityService',
         function ($scope, ActivitySequenceService, ActivityService) {
-            $scope.activity = {};
+            this.activity = {};
 
             // Tiny MCE options
-            $scope.tinymceOptions = {
+            this.tinymceOptions = {
                 relative_urls: false,
                 theme: 'modern',
                 browser_spellcheck : true,
@@ -35,8 +35,9 @@
                 }
             };
 
-            // Save function : datas and call Symfony Root controller
-            $scope.save = function () {
+            // Save function : data and call Symfony Root controller
+            this.save = function () {
+                console.log('save activity');
                 ActivityService.save(this.activity);
             };
         }

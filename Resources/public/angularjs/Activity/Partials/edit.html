@@ -22,7 +22,7 @@
     </div>-->
 
     <div class="pull-right">
-        <button href="#" data-ng-click="save()" class="btn btn-primary">
+        <button href="#" data-ng-click="ctrl.save()" class="btn btn-primary">
             <i class="fa fa-floppy-o"></i>
             <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
         </button>
@@ -62,7 +62,7 @@
                 </div>
                 <div id="panel-instruction" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <textarea data-ui-tinymce="tinymceOptions" class="form-control"
+                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
                                   name="instruction" id="instruction" data-ng-model="ctrl.activity.instruction"></textarea>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div id="panel-information" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <textarea data-ui-tinymce="tinymceOptions" class="form-control"
+                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
                                   name="description" id="description" data-ng-model="ctrl.activity.description"></textarea>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div id="panel-object" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <textarea data-ui-tinymce="tinymceOptions" class="form-control"
+                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
                                   name="object" id="object" data-ng-model="ctrl.activity.object"></textarea>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                 </div>
                 <div id="panel-proposition" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <textarea data-ui-tinymce="tinymceOptions" class="form-control"
+                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
                                   name="proposition" id="proposition" data-ng-model="ctrl.activity.proposition"></textarea>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                 </div>
                 <div id="panel-question" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <textarea data-ui-tinymce="tinymceOptions" class="form-control"
+                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
                                   name="question" id="question" data-ng-model="ctrl.activity.question"></textarea>
                     </div>
                 </div>
