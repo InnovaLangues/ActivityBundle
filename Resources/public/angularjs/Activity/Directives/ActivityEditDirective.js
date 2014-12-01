@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('Activity').directive('activityForm', [
+    angular.module('Activity').directive('activityEdit', [
         function () {
             return {
                 restrict: 'E',

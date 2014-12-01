@@ -6,10 +6,10 @@
         'ActivitySequenceService',
         'ActivityService',
         function ($scope, ActivitySequenceService, ActivityService) {
-            this.activity = {};
+            $scope.activity = {};
 
             // Tiny MCE options
-            this.tinymceOptions = {
+            $scope.tinymceOptions = {
                 relative_urls: false,
                 theme: 'modern',
                 browser_spellcheck : true,

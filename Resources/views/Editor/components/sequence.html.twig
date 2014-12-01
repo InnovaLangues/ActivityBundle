@@ -22,7 +22,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <button class="btn btn-default" data-ng-click="addActivity()" data-ng-disabled="requestCount.count > 0">
                 <i class="fa fa-plus"></i>
                 <span>{{ 'add_activity'| trans({}, 'activity_sequence_editor') }}</span>
@@ -42,8 +42,8 @@
             </ul>
         </div>
 
-        <div class="col-md-10">
-            <activity-form data-activity="currentActivity" data-ng-if="currentActivity"></activity-form>
+        <div class="col-md-9">
+            <activity-edit data-activity="currentActivity" data-ng-if="currentActivity"></activity-edit>
 
             <div class="text-center" ng-if="activitySequence.activities.length == 0">
                 <div class="alert alert-info" role="alert">
