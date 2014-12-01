@@ -20,7 +20,7 @@
             $scope.addActivity = function () {
                 var promiseActivity = ActivitySequenceService.addActivity();
                 promiseActivity.then(function(activity) {
-                        $scope.currentActivity = ActivitySequenceService.setCurrentActivity(activity.id);
+                        $scope.currentActivity = activity;
                 });
             };
 
