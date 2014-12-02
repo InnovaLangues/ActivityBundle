@@ -5,6 +5,7 @@
         '$scope',
         'ActivitySequenceService',
         'ActivityService',
+
         function ($scope, ActivitySequenceService, ActivityService) {
             this.activity = {};
 
@@ -35,11 +36,18 @@
                 }
             };
 
-            // Save function : data and call Symfony Root controller
+            // Delete function : data and call Symfony Root controller
             this.save = function () {
                 console.log('save activity');
                 ActivityService.save(this.activity);
             };
+
+            // Save function : data and call Symfony Root controller
+            this.delete = function () {
+                console.log('delete activity');
+                ActivityService.deleteActivity(this.activity);
+            };
+
         }
     ]);
 })();
