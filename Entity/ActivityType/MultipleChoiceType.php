@@ -32,7 +32,7 @@ class MultipleChoiceType extends AbstractChoiceType
      *
      * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty")
      * @ORM\JoinTable(
-     *      name               = "innova_activity_type_unique_choices",
+     *      name               = "innova_activity_type_multiple_choices",
      *      joinColumns        = { @ORM\JoinColumn(name="type_id",   referencedColumnName="id") },
      *      inverseJoinColumns = { @ORM\JoinColumn(name="choice_id", referencedColumnName="id", unique=true) }
      * )
