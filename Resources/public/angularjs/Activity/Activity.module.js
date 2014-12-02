@@ -4,5 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('Activity', []);
+    angular.module('Activity', [
+        'ActivityType'
+    ]);
 })();

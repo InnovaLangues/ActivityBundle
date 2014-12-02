@@ -17,14 +17,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
 use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * Class ActivityController
+ * @Route(
+ *      "workspace/{workspaceId}/activity",
+ *      name="innova_activity"
+ * )
+ */
 class ActivityController extends Controller
 {
 
-     /**
-    * @DI\InjectParams({
-    *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
-    * })
-    */
+    /**
+     * @DI\InjectParams({
+     *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
+     * })
+     */
     public function __construct($activityManager)
     {
         $this->activityManager = $activityManager;
@@ -33,7 +40,7 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "workspace/{workspaceId}/activity/{activityId}",
+     *      "/{activityId}",
      *      name="activity_open",
      * )
      * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
@@ -55,12 +62,12 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "workspace/{workspaceId}/activity/{activityId}/administrate",
+     *      "administrate/{activityId}",
      *      name="activity_administrate",
      * )
      * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activity": "id"}})
-     * @Method("GET")
+     * @Method("PUT")
      * @Template("InnovaActivityBundle:Editor:main.html.twig")
      */
     public function administrateAction(Workspace $workspace, Activity $activity)
@@ -78,16 +85,11 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/activity/{activityId}/add-activity",
+     *      "/",
      *      name="activity_add_activity",
      *      options={"expose" = true}
      * )
-     * @ParamConverter(
-     *      "activity",
-     *      class="InnovaActivityBundle:Activity",
-     *      options={"mapping": {"activityId": "id"}}
-     * )
-     * @Method("GET")
+     * @Method("POST")
      */
     public function addActivityAction(Activity $activity)
     {
@@ -100,7 +102,7 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/{activityId}/delete",
+     *      "/delete/{activityId}",
      *      name="delete_activity",
      *      options={"expose" = true}
      * )
@@ -114,24 +116,4 @@ class ActivityController extends Controller
 
         return new JsonResponse(array('activity' => $activityAttrs));
     }
-
-    /**
-     * @Route(
-     *      "/order-activities/{activityId}",
-     *      name="order_activities",
-     *      options={"expose" = true}
-     * )
-     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
-     * @Method("POST")
-     */
-    public function orderActivitiesAction(Request $request, Activity $activity)
-    {
-        $order = $request->get('order');
-
-        $activity = $this->activityManager->applyOrder($activity, $order);
-        $activityAttrs = $this->activityManager->activityToJson($activity);
-
-        return new JsonResponse(array('activity' => $activityAttrs, 'order'=>$order));
-    }
-
 }

@@ -1,6 +1,6 @@
 services:
     innova.listener.activity_sequence_listener:
-        class: Innova\ActivityBundle\Listener\ActivitySequenceListener
+        class: Innova\ActivityBundle\Listener\Resource\ActivitySequenceListener
         calls:
             - [setContainer, ["@service_container"]]
         tags:

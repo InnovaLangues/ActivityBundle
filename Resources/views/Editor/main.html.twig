@@ -60,16 +60,18 @@
     {% endjavascripts %}
 
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/editor.js'
-    '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
-    '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

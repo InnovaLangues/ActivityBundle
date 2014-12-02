@@ -19,17 +19,15 @@ use JMS\DiExtraBundle\Annotation as DI;
 
 class ActivitySequenceController extends Controller
 {
-
-     /**
-    * @DI\InjectParams({
-    *   "activitySequenceManager" = @DI\Inject("innova.manager.activity_sequence_manager"),
-    * })
-    */
+    /**
+     * @DI\InjectParams({
+     *   "activitySequenceManager" = @DI\Inject("innova.manager.activity_sequence_manager"),
+     * })
+     */
     public function __construct($activitySequenceManager)
     {
         $this->activitySequenceManager = $activitySequenceManager;
     }
-
 
     /**
      * @Route(

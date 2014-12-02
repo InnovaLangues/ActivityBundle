@@ -15,7 +15,7 @@ class CreateActivityEvent extends AbstractLogResourceEvent
     public function __construct(Activity $activity)
     {
         $details = array(
-            'activity' => array(
+            'activity' => array (
                 'id' => $activity->getId()
             )
         );

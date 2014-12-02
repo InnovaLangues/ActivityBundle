@@ -3,41 +3,63 @@
 
     angular.module('Activity').factory('ActivityService', [
         '$http',
-        '$q',
         '$filter',
         'LoaderService',
-        function ($http, $q, $filter, LoaderService) {
+        function ($http, $filter, LoaderService) {
             return {
-
-                addActivity: function() {
-                    var deferred = $q.defer();
-                    deferred.notify();
+                /*add: function() {
                     LoaderService.startRequest();
                     $http.get(Routing.generate('activity_add_activity', { activityId: activity.id }))
                     .success(function (data) {
-                        deferred.resolve(data.activity);
                         activitySequence.activities.push(data.activity);
                         LoaderService.endRequest();
                     });
+                },*/
 
-                    return deferred.promise;
-                },
-
-                deleteActivity: function(activityId) {
-                    var deferred = $q.defer();
-                    deferred.notify();
+                delete: function(activityId) {
                     LoaderService.startRequest();
 
                     $http.delete(Routing.generate('delete_activity', { activityId: activityId }))
                     .success(function (data) {
-                        deferred.resolve(JSON.parse(data.activity));
                         LoaderService.endRequest();
                     });
-
-                    return deferred.promise;
                 },
 
+                create: function (activity) {
+                    $http({
+                        method: 'POST',
+                        // TODO : use correct URL
+                        url: Routing.generate('activity_add_activity'),
+                        data: data
+                    })
+                    .success(function (data) {
+                        // data == activity
+
+                        activity.id = data.id;
+                    })
+                    .error(function(data, status) {
+//                        AlertFactory.addAlert('danger', 'Error while adding activity.');
+                    });
+                },
+
+                update: function (activity) {
+                    $http({
+                        method: 'PUT',
+                        // TODO : use correct URL
+                        url: Routing.generate('activity_sequence_add_activity', {activitySequenceId : activity.id}),
+                        data: data
+                    })
+                    .success(function (data) {
+
+                    })
+                    .error(function(data, status) {
+//                        AlertFactory.addAlert('danger', 'Error while adding activity.');
+                    });
+                },
+
+                // TODO : to remove when create() and save() method have been developed
                 save: function (activity) {
+
                     // Init
                     var data = {
                         id          : activity.id,

@@ -45,7 +45,7 @@
             // Save function : data and call Symfony Root controller
             this.delete = function () {
                 console.log('delete activity');
-                ActivityService.deleteActivity(this.activity);
+                ActivityService.delete(this.activity);
             };
 
         }
