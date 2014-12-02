@@ -36,17 +36,18 @@
                 }
             };
 
-            // Save function : data and call Symfony Root controller
+            // Delete function : data and call Symfony Root controller
             this.save = function () {
                 console.log('save activity');
                 ActivityService.save(this.activity);
             };
 
-            // Delete function : data and call Symfony Root controller
+            // Save function : data and call Symfony Root controller
             this.delete = function () {
                 console.log('delete activity');
-                ActivityService.save(this.activity);
+                ActivityService.deleteActivity(this.activity);
             };
+
         }
     ]);
 })();
