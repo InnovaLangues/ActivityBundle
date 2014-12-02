@@ -3,7 +3,10 @@
 
     angular.module('Activity').factory('ActivityService', [
         '$http',
-        function ($http) {
+        '$q',
+        '$filter',
+        'LoaderService',
+        function ($http, $q, $filter, LoaderService) {
             return {
 
                 addActivity: function() {
