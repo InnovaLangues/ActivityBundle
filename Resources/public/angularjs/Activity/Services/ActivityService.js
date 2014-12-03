@@ -29,7 +29,7 @@
                     $http({
                         method: 'POST',
                         // TODO : use correct URL
-                        url: Routing.generate('activity_add_activity'),
+                        url: Routing.generate('create_activity'),
                         data: data
                     })
                     .success(function (data) {
@@ -46,7 +46,7 @@
                     $http({
                         method: 'PUT',
                         // TODO : use correct URL
-                        url: Routing.generate('activity_sequence_add_activity', {activitySequenceId : activity.id}),
+                        url: Routing.generate('update_activity', {activitySequenceId : activity.id}),
                         data: data
                     })
                     .success(function (data) {
