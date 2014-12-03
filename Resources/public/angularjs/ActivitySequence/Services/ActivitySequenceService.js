@@ -1,5 +1,6 @@
 /**
  * Doc sur les promise et autre defer : http://www.frangular.com/2012/12/api-promise-angularjs.html
+ * workspaceId : variable définie dans le main.htlm.twig que l'on peut utiliser dans tout le code
  */
 (function () {
     'use strict';
@@ -25,7 +26,7 @@
 
                 create: function() {
                     LoaderService.startRequest();
-                    $http.get(Routing.generate('create_activity_sequence', { activitySequenceId: activitySequence.id }))
+                    $http.get(Routing.generate('create_activity_sequence', { workspaceId: workspaceId, activitySequenceId: activitySequence.id }))
                     .success(function (data) {
                         activitySequence.activities.push(data.activity);
                         LoaderService.endRequest();
