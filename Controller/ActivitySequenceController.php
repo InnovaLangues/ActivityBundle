@@ -17,6 +17,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
 use JMS\DiExtraBundle\Annotation as DI;
 
+
+/**
+ * Class ActivitySequenceController
+ * @Route(
+ *      "workspace/{workspaceId}/activity-sequence",
+ *      name="innova_activity_sequence"
+ * )
+ * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
+ * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
+ */
 class ActivitySequenceController extends Controller
 {
     /**
@@ -31,11 +41,9 @@ class ActivitySequenceController extends Controller
 
     /**
      * @Route(
-     *      "workspace/{workspaceId}/activity-sequence/{activitySequenceId}",
+     *      "/{activitySequenceId}",
      *      name="activity_sequence_open",
      * )
-     * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
-     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("GET")
      * @Template("InnovaActivityBundle:Player:main.html.twig")
      */
@@ -53,11 +61,9 @@ class ActivitySequenceController extends Controller
 
     /**
      * @Route(
-     *      "workspace/{workspaceId}/activity-sequence/{activitySequenceId}/administrate",
+     *      "/{activitySequenceId}/administrate",
      *      name="activity_sequence_administrate",
      * )
-     * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
-     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("GET")
      * @Template("InnovaActivityBundle:Editor:main.html.twig")
      */
@@ -76,36 +82,47 @@ class ActivitySequenceController extends Controller
 
     /**
      * @Route(
-     *      "/activity-sequence/{activitySequenceId}/add-activity",
-     *      name="activity_sequence_add_activity",
+     *      "/{activitySequenceId}",
+     *      name="create_activity_sequence",
      *      options={"expose" = true}
      * )
-     * @ParamConverter(
-     *      "activitySequence",
-     *      class="InnovaActivityBundle:ActivitySequence",
-     *      options={"mapping": {"activitySequenceId": "id"}}
-     * )
-     * @Method("GET")
+     * @Method("POST")
      */
-    public function addActivityAction(ActivitySequence $activitySequence)
+    public function createAction(Workspace $workspace, ActivitySequence $activitySequence)
     {
 
-        $activity = $this->activitySequenceManager->addActivity($activitySequence);
-        $activityAttrs = $this->activitySequenceManager->activityAttrs($activity);
+        $activitySequence = $this->activitySequenceManager->create($activitySequence);
+        $activitySequenceAttrs = $this->activitySequenceManager->activityAttrs($activitySequence);
 
-        return new JsonResponse(array('activity' => $activityAttrs));
+        return new JsonResponse(array('activitySequence' => $activitySequenceAttrs));
     }
 
     /**
      * @Route(
-     *      "/{activityId}/delete",
-     *      name="delete_activity",
+     *      "/{activitySequenceId}",
+     *      name="update_activity_sequence",
      *      options={"expose" = true}
      * )
-     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
+     * @Method("PUT")
+     */
+    public function updateAction(Workspace $workspace, ActivitySequence $activitySequence)
+    {
+
+        $activitySequence = $this->activitySequenceManager->create($activitySequence);
+        $activitySequenceAttrs = $this->activitySequenceManager->activityAttrs($activitySequence);
+
+        return new JsonResponse(array('activitySequence' => $activitySequenceAttrs));
+    }
+
+    /**
+     * @Route(
+     *      "/{activitySequenceId}",
+     *      name="delete_activity_sequence",
+     *      options={"expose" = true}
+     * )
      * @Method("DELETE")
      */
-    public function deleteActivityAction(Activity $activity)
+    public function deleteAction(Workspace $workspace, ActivitySequence $activitySequence)
     {
         $activitySequence = $this->activitySequenceManager->deleteActivity($activity);
         $activitySequenceAttrs = $this->activitySequenceManager->activitySequenceToJson($activitySequence);
@@ -119,10 +136,9 @@ class ActivitySequenceController extends Controller
      *      name="order_activities",
      *      options={"expose" = true}
      * )
-     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("POST")
      */
-    public function orderActivitiesAction(Request $request, ActivitySequence $activitySequence)
+    public function orderActivitiesAction(Request $request, Workspace $workspace, ActivitySequence $activitySequence)
     {
         $order = $request->get('order');
 

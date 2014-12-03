@@ -32,6 +32,11 @@
                     });
                 },
 
+               // TODO : remove when create() is ok
+                addActivity: function() {
+                    console.log('add activity via addActivity');
+                },
+
                 delete: function (activityId) {
                     LoaderService.startRequest();
 

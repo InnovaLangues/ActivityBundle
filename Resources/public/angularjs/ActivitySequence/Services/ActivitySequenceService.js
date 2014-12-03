@@ -57,8 +57,9 @@
 
                 // TODO : remove when create() is ok
                 addActivity: function() {
+                    console.log('add activity via addActivity');
                     LoaderService.startRequest();
-                    $http.get(Routing.generate('cativity_sequence_add_activity', { activitySequenceId: activitySequence.id }))
+                    $http.get(Routing.generate('create_activity', { activitySequenceId: activitySequence.id }))
                     .success(function (data) {
                         activitySequence.activities.push(data.activity);
                         LoaderService.endRequest();
