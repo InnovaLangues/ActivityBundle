@@ -23,6 +23,8 @@ use JMS\DiExtraBundle\Annotation as DI;
  *      "workspace/{workspaceId}/activity",
  *      name="innova_activity"
  * )
+ *
+ * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
  */
 class ActivityController extends Controller
 {
@@ -37,13 +39,12 @@ class ActivityController extends Controller
         $this->activityManager = $activityManager;
     }
 
-
     /**
      * @Route(
      *      "/{activityId}",
      *      name="activity_open",
+     *      options={"expose" = true}
      * )
-     * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("GET")
      * @Template("InnovaActivityBundle:Player:main.html.twig")
@@ -52,34 +53,11 @@ class ActivityController extends Controller
     {
         if (false === $this->container->get('security.context')->isGranted("OPEN", $activity->getResourceNode())){
             throw new AccessDeniedException();
-         }
+        }
 
         return array (
             'workspace' => $workspace,
             'activity' => $activity,
-        );
-    }
-
-    /**
-     * @Route(
-     *      "administrate/{activityId}",
-     *      name="activity_administrate",
-     * )
-     * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
-     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activity": "id"}})
-     * @Method("PUT")
-     * @Template("InnovaActivityBundle:Editor:main.html.twig")
-     */
-    public function administrateAction(Workspace $workspace, Activity $activity)
-    {
-         if (false === $this->container->get('security.context')->isGranted("ADMINISTRATE", $activity->getResourceNode())){
-            throw new AccessDeniedException();
-         }
-         $activityAttrs = $this->activityManager->activityJson($activity);
-
-        return array (
-            'workspace' => $workspace,
-            'activity' => $activityAttrs,
         );
     }
 
@@ -91,9 +69,8 @@ class ActivityController extends Controller
      * )
      * @Method("POST")
      */
-    public function createActivityAction(Activity $activity)
+    public function createAction(Workspace $workspace, Activity $activity)
     {
-
         $activity = $this->activityManager->addActivity($activity);
         $activityAttrs = $this->activityManager->activityAttrs($activity);
 
@@ -108,7 +85,7 @@ class ActivityController extends Controller
      * )
      * @Method("PUT")
      */
-    public function updateActivityAction(Activity $activity)
+    public function updateAction(Workspace $workspace, Activity $activity)
     {
 
         $activity = $this->activityManager->addActivity($activity);
@@ -126,7 +103,7 @@ class ActivityController extends Controller
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("DELETE")
      */
-    public function deleteActivityAction(Activity $activity)
+    public function deleteAction(Workspace $workspace, Activity $activity)
     {
         $activity = $this->activityManager->deleteActivity($activity);
         $activityAttrs = $this->activityManager->activityToJson($activity);
