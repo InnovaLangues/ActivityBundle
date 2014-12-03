@@ -85,7 +85,7 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/",
+     *      "/create/{activityId}",
      *      name="create_activity",
      *      options={"expose" = true}
      * )
@@ -102,7 +102,7 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/",
+     *      "/update/{activityId}",
      *      name="update_activity",
      *      options={"expose" = true}
      * )
