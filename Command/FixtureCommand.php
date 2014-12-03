@@ -24,17 +24,32 @@ class FixtureCommand extends ContainerAwareCommand
             $start = time();
             $em = $this->getContainer()->get('doctrine')->getEntityManager('default');
 
-            /* TYPOLOGY */
+            /* ActivityTypeAvailables */
+            /* id-name-class */
             $activityTypeAvailables = array(
-                array("A", "A1"), array("B", "B1"),
-                array("C", "C1")
+                array("BooleanChoiceType", "BooleanChoiceType"),
+                array("MultipleChoiceType", "MultipleChoiceType"),
+                array("UniqueChoiceType", "UniqueChoiceType")
             );
             foreach ($activityTypeAvailables as $activityTypeAvailable) {
-                $activityType = new ActivityTypeAvailable();
-                $activityType->setName($activityTypeAvailable[0]);
-                $activityType->setClass($activityTypeAvailable[1]);
-                $em->persist($activityType);
-                $output->writeln("Add new activityTypeAvailable (".$activityTypeAvailable[0]." : ".$activityTypeAvailable[1].").");
+                // TODO : remove activityTypeAvailable fixture
+                // 1 : création de la fixture
+                if (!$activityType = $em->getRepository('InnovaActivityBundle:ActivityTypeAvailable')->findOneByName($activityTypeAvailable[0])) {
+                    $activityType = new ActivityTypeAvailable();
+                    $activityType->setName($activityTypeAvailable[0]);
+                    $activityType->setClass($activityTypeAvailable[1]);
+                    $em->persist($activityType);
+                    $output->writeln("Add new activityTypeAvailable (".$activityTypeAvailable[0]." : ".$activityTypeAvailable[1].").");
+                }
+                else
+                // 2 : modification de la fixture
+                {
+                    if ($activityType->getClass() != $activityTypeAvailable[1]) {
+                        $activityType->setClass($activityTypeAvailable[1]);
+                        $em->persist($activityType);
+                        $output->writeln("Edit ".$activityTypeAvailable[0]." description (".$activityTypeAvailable[1].").");
+                    }
+                }
             }
             $em->flush();
 
