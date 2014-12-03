@@ -30,16 +30,16 @@ class ActivityManager
         return count($count) + 1;
     }
 
-    public function addActivity(Activity $activity){
+    public function create(Activity $activity){
 
         $activityType = "ActivityQRU"; // For tests. Eric.
-        $activity = $this->createActivity($activity, $activityType);
+        $activity = $this->add($activity, $activityType);
 //        $activity = $this->createActivity($activitySequence);
 
         return $activity;
     }
 
-    public function createActivity(Activity $activity, $activityType)
+    public function add(Activity $activity, $activityType)
 //    public function createActivity(ActivitySequence $activitySequence)
      {
 //        $activityType = "ActivityVF";
@@ -56,7 +56,7 @@ class ActivityManager
         return $activity;
     }
 
-    public function deleteActivity(AbstractActivity $activity) {
+    public function delete(AbstractActivity $activity) {
         $activity = $activity->getActivity();
         $this->em->remove($activity);
         $this->em->flush();

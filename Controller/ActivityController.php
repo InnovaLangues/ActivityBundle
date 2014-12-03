@@ -45,8 +45,8 @@ class ActivityController extends Controller
      *      name="activity_open",
      *      options={"expose" = true}
      * )
-     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("GET")
+     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Template("InnovaActivityBundle:Player:main.html.twig")
      */
     public function displayAction(Workspace $workspace, Activity $activity)
@@ -63,15 +63,17 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/create/{activityId}",
+     *      "/",
      *      name="create_activity",
      *      options={"expose" = true}
      * )
      * @Method("POST")
      */
-    public function createAction(Workspace $workspace, Activity $activity)
+    public function createAction(Workspace $workspace)
     {
-        $activity = $this->activityManager->addActivity($activity);
+
+        $activity = new Activity();
+        $activity = $this->activityManager->create($activity);
         $activityAttrs = $this->activityManager->activityAttrs($activity);
 
         return new JsonResponse(array('activity' => $activityAttrs));
@@ -79,10 +81,11 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/update/{activityId}",
+     *      "/{activityId}",
      *      name="update_activity",
      *      options={"expose" = true}
      * )
+     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("PUT")
      */
     public function updateAction(Workspace $workspace, Activity $activity)
@@ -96,7 +99,7 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/delete/{activityId}",
+     *      "/{activityId}",
      *      name="delete_activity",
      *      options={"expose" = true}
      * )

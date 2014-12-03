@@ -18,7 +18,8 @@
             ActivitySequenceService.setActivitySequence(ActivityEditorApp.activitySequence);
 
             $scope.addActivity = function () {
-                var promiseActivity = ActivitySequenceService.addActivity();
+                console.log('add activity via scope');
+                var promiseActivity = ActivitySequenceService.create();
                 promiseActivity.then(function(activity) {
                     $scope.currentActivity = activity;
                 });
@@ -31,7 +32,7 @@
             };
 
             $scope.deleteActivity = function (activityId) {
-                var promise = ActivitySequenceService.deleteActivity(activityId);
+                var promise = ActivitySequenceService.delete(activityId);
                 promise.then(function(activitySequence) {
                     $scope.activitySequence = ActivitySequenceService.setActivitySequence(activitySequence);
                 });
