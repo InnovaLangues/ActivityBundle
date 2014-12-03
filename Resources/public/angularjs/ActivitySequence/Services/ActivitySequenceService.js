@@ -24,11 +24,11 @@
                     return activitySequence;
                 },
 
-                addActivity: function() {
+                create: function() {
                     var deferred = $q.defer();
                     deferred.notify();
                     LoaderService.startRequest();
-                    $http.get(Routing.generate('activity_sequence_add_activity', { activitySequenceId: activitySequence.id }))
+                    $http.get(Routing.generate('create_activity_sequence', { activitySequenceId: activitySequence.id }))
                     .success(function (data) {
                         deferred.resolve(data.activity);
                         activitySequence.activities.push(data.activity);
@@ -38,14 +38,43 @@
                     return deferred.promise;
                 },
 
-                deleteActivity: function(activityId) {
+                update: function (activity) {
+                    $http({
+                        method: 'PUT',
+                        url: Routing.generate('update_activity_sequence', {activitySequenceId : activity.id}),
+                        data: data
+                    })
+                    .success(function (data) {
+
+                    })
+                    .error(function(data, status) {
+//                        AlertFactory.addAlert('danger', 'Error while adding activity.');
+                    });
+                },
+
+                delete: function(activityId) {
                     var deferred = $q.defer();
                     deferred.notify();
                     LoaderService.startRequest();
 
-                    $http.delete(Routing.generate('delete_activity', { activityId: activityId }))
+                    $http.delete(Routing.generate('delete_activity_sequence', { activityId: activityId }))
                     .success(function (data) {
                         deferred.resolve(JSON.parse(data.activitySequence));
+                        LoaderService.endRequest();
+                    });
+
+                    return deferred.promise;
+                },
+
+                // TODO : remove when create() is ok
+                addActivity: function() {
+                    var deferred = $q.defer();
+                    deferred.notify();
+                    LoaderService.startRequest();
+                    $http.get(Routing.generate('cativity_sequence_add_activity', { activitySequenceId: activitySequence.id }))
+                    .success(function (data) {
+                        deferred.resolve(data.activity);
+                        activitySequence.activities.push(data.activity);
                         LoaderService.endRequest();
                     });
 

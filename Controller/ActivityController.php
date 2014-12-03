@@ -85,13 +85,30 @@ class ActivityController extends Controller
 
     /**
      * @Route(
-     *      "/",
-     *      name="activity_add_activity",
+     *      "/create/{activityId}",
+     *      name="create_activity",
      *      options={"expose" = true}
      * )
      * @Method("POST")
      */
-    public function addActivityAction(Activity $activity)
+    public function createActivityAction(Activity $activity)
+    {
+
+        $activity = $this->activityManager->addActivity($activity);
+        $activityAttrs = $this->activityManager->activityAttrs($activity);
+
+        return new JsonResponse(array('activity' => $activityAttrs));
+    }
+
+    /**
+     * @Route(
+     *      "/update/{activityId}",
+     *      name="update_activity",
+     *      options={"expose" = true}
+     * )
+     * @Method("PUT")
+     */
+    public function updateActivityAction(Activity $activity)
     {
 
         $activity = $this->activityManager->addActivity($activity);
