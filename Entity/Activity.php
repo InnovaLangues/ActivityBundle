@@ -72,12 +72,16 @@ class Activity
     protected $dateUpdated;
 
     /**
-     * ActivityType class name used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
+     * ActivityTypeAvailable used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
      * @var string
      *
-     * @ORM\Column(name="class", type="string", nullable=false)
+     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityTypeAvailable")
+     * @ORM\JoinTable(name="innova_activity_type_available_activity",
+     *      joinColumns        = { @ORM\JoinColumn(name="activity_id", referencedColumnName="id") },
+     *      inverseJoinColumns = { @ORM\JoinColumn(name="type_id",     referencedColumnName="id", unique=true) }
+     * )
      */
-    protected $class;
+    protected $typeAvailable;
 
     /**
      * ActivityType (populated and persisted by Doctrine Event Listener)
@@ -230,23 +234,14 @@ class Activity
         return $this->dateUpdated;
     }
 
-    /**
-     * Get ActivityType class name
-     * @return string
-     */
-    public function getClass()
+    public function getTypeAvailable()
     {
-        return $this->class;
+        return $this->typeAvailable;
     }
 
-    /**
-     * Set ActivityType class name
-     * @param string $class
-     * @return \Innova\ActivityBundle\Entity\Activity
-     */
-    public function setClass($class)
+    public function setTypeAvailable(ActivityTypeAvailable $typeAvailable)
     {
-        $this->class= $class;
+        $this->typeAvailable = $typeAvailable;
 
         return $this;
     }
