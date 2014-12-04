@@ -25,7 +25,6 @@ use JMS\DiExtraBundle\Annotation as DI;
  *      name="innova_activity_sequence"
  * )
  * @ParamConverter("workspace", class="ClarolineCoreBundle:Workspace\Workspace", options={"mapping": {"workspaceId": "id"}})
- * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
  */
 class ActivitySequenceController extends Controller
 {
@@ -45,6 +44,7 @@ class ActivitySequenceController extends Controller
      *      name="activity_sequence_open",
      * )
      * @Method("GET")
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Template("InnovaActivityBundle:Player:main.html.twig")
      */
     public function displayAction(Workspace $workspace, ActivitySequence $activitySequence)
@@ -103,6 +103,7 @@ class ActivitySequenceController extends Controller
      *      name="update_activity_sequence",
      *      options={"expose" = true}
      * )
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("PUT")
      */
     public function updateAction(Workspace $workspace, ActivitySequence $activitySequence)
@@ -120,6 +121,7 @@ class ActivitySequenceController extends Controller
      *      name="delete_activity_sequence",
      *      options={"expose" = true}
      * )
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("DELETE")
      */
     public function deleteAction(Workspace $workspace, ActivitySequence $activitySequence)
