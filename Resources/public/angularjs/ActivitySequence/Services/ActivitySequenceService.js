@@ -30,12 +30,15 @@
 
                     console.log('create activity via service');
                     LoaderService.startRequest();
-                    $http.get(Routing.generate('create_activity_sequence', { workspaceId: ActivityEditorApp.workspaceId, activitySequenceId: activitySequence.id }))
+                    $http.get(Routing.generate('create_activity_sequence',
+                                                { workspaceId: ActivityEditorApp.workspaceId,
+                                                  activitySequenceId: activitySequence.id
+                                                }
+                                              )
+                             )
                     .success(function (data) {
+                        deferred.resolve(data.activity);
                         activitySequence.activities.push(data.activity);
-
-                        deferred.resolve(data);
-
                         LoaderService.endRequest();
                     })
                     .error(function () {
