@@ -8,8 +8,9 @@
     angular.module('ActivitySequence').factory('ActivitySequenceService', [
         '$http',
         '$filter',
+        '$q',
         'LoaderService',
-        function ($http, $filter, LoaderService) {
+        function ($http, $filter, $q, LoaderService) {
             var activitySequence = null;
 
             return {
@@ -25,13 +26,23 @@
                 },
 
                 create: function() {
+                    var deferred = $q.defer();
+
                     console.log('create activity via service');
                     LoaderService.startRequest();
-                    $http.get(Routing.generate('create_activity_sequence', { workspaceId: workspaceId, activitySequenceId: activitySequence.id }))
+                    $http.get(Routing.generate('create_activity_sequence', { workspaceId: ActivityEditorApp.workspaceId, activitySequenceId: activitySequence.id }))
                     .success(function (data) {
                         activitySequence.activities.push(data.activity);
+
+                        deferred.resolve(data);
+
                         LoaderService.endRequest();
+                    })
+                    .error(function () {
+                        deferred.reject('error');
                     });
+
+                    return deferred.promise;
                 },
 
                 update: function (activity) {
@@ -59,6 +70,8 @@
 
                 // TODO : remove when create() is ok
                 addActivity: function() {
+                    /*Activity.create();*/
+
                     console.log('add activity via addActivity');
                     LoaderService.startRequest();
                     $http.get(Routing.generate('create_activity', { activitySequenceId: activitySequence.id }))

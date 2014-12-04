@@ -20,7 +20,7 @@
             $scope.addActivity = function () {
                 console.log('add activity via scope');
                 var promiseActivity = ActivitySequenceService.create();
-                promiseActivity.then(function(activity) {
+                promiseActivity.then(function (activity) {
                     $scope.currentActivity = activity;
                 });
             };
