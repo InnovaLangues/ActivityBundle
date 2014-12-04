@@ -27,7 +27,7 @@ proposition : Proposition
 question: Question
 
 # s
-save: Sauvegarder
+save: Mettre à jour
 
 # t
 typology : Type du protocole
