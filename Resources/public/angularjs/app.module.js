@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('App', [
+    angular.module('ActivitySequenceApp', [
         'ui.bootstrap',
         'ui.sortable',
         'ui.tinymce',

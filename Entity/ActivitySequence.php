@@ -37,7 +37,7 @@ class ActivitySequence extends AbstractResource
      * List of all Activities of the Sequence
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="activitySequence")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="activitySequence", cascade={ "persist", "remove" })
      */
     protected $activities;
 

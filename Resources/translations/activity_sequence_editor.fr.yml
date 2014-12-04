@@ -1,6 +1,7 @@
 # a
 add_activity : Ajouter une activité
 activity_sequence: Suite d'activités
+activity_sequence_form_name: Nom
 
 # d
 delete_activity: Supprimer

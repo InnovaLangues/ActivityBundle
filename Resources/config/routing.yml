@@ -1,4 +1,4 @@
 innova_activity_sequence:
-    resource: "@InnovaActivityBundle/Controller/ActivitySequenceController.php"
+    resource: "@InnovaActivityBundle/Controller/"
     type:     annotation
     prefix:   /

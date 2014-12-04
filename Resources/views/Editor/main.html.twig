@@ -30,8 +30,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="ng-cloak"  data-ng-app="App" data-ng-controller="ActivitySequenceEditController" data-ng-cloak>
-        {% include 'InnovaActivityBundle::Editor/components/sequence.html.twig' %}
+    <div data-ng-app="ActivitySequenceApp" data-ng-cloak="">
+        <activity-sequence-form data-sequence="{{ activitySequence | raw | escape }}"></activity-sequence-form>
     </div>
 {% endblock %}
 
@@ -41,6 +41,7 @@
 
     {# Load translations #}
     <script type="text/javascript" src="{{ url('bazinga_exposetranslation_js', { 'domain_name': 'activity_sequence_editor' }) }}"></script>
+
     {# Angular #}
     {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-js-activitybundle.js'
         '@InnovaAngularJSBundle/Resources/public/js/angular.min.js'
@@ -62,6 +63,7 @@
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/editor.js'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
@@ -69,6 +71,9 @@
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityTypeAvailable/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityTypeAvailable/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityTypeAvailable/Services/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
         '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
@@ -80,7 +85,6 @@
     <script type="text/javascript">
         var ActivityEditorApp = {};
 
-        ActivityEditorApp.activitySequence = {{ activitySequence | raw }};
         ActivityEditorApp.workspaceId      = {{ workspace.id }};
         ActivityEditorApp.webDir           = "{{ asset('') }}";
     </script>

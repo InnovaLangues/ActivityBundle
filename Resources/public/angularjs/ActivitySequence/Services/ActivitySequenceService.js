@@ -11,44 +11,11 @@
         '$q',
         'LoaderService',
         function ($http, $filter, $q, LoaderService) {
-            var activitySequence = null;
-
             return {
-                setActivitySequence: function(data) {
-                    activitySequence = data;
-
-                    return activitySequence;
-                },
-
-                getActivitySequence: function() {
-
-                    return activitySequence;
-                },
-
-                create: function() {
-                    var deferred = $q.defer();
-
-                    console.log('create activity via service');
-                    LoaderService.startRequest();
-                    $http.get(Routing.generate('create_activity_sequence', { workspaceId: ActivityEditorApp.workspaceId, activitySequenceId: activitySequence.id }))
-                    .success(function (data) {
-                        activitySequence.activities.push(data.activity);
-
-                        deferred.resolve(data);
-
-                        LoaderService.endRequest();
-                    })
-                    .error(function () {
-                        deferred.reject('error');
-                    });
-
-                    return deferred.promise;
-                },
-
                 update: function (activity) {
                     $http({
                         method: 'PUT',
-                        url: Routing.generate('update_activity_sequence', {activitySequenceId : activity.id}),
+                        url: Routing.generate('update_activity_sequence', { activitySequenceId : activity.id }),
                         data: data
                     })
                     .success(function (data) {
@@ -59,29 +26,27 @@
                     });
                 },
 
-                delete: function(activityId) {
-                    LoaderService.startRequest();
+                addActivity: function (sequence) {
+                    console.log(sequence.id);
 
-                    $http.delete(Routing.generate('delete_activity_sequence', { activityId: activityId }))
-                    .success(function (data) {
-                        LoaderService.endRequest();
-                    });
+                    /* Move code into Activity service and then call Activity.create();*/
+
+                    var deferred = $q.defer();
+
+                    LoaderService.startRequest();
+                    $http
+                        .post(Routing.generate('innova_activity_create', { activitySequenceId: sequence.id }))
+                        .success(function (activity) {
+                            sequence.activities.push(activity);
+                            LoaderService.endRequest();
+
+                            deferred.resolve(activity);
+                        });
+
+                    return deferred.promise;
                 },
 
-                // TODO : remove when create() is ok
-                addActivity: function() {
-                    /*Activity.create();*/
-
-                    console.log('add activity via addActivity');
-                    LoaderService.startRequest();
-                    $http.get(Routing.generate('create_activity', { activitySequenceId: activitySequence.id }))
-                    .success(function (data) {
-                        activitySequence.activities.push(data.activity);
-                        LoaderService.endRequest();
-                    });
-                },
-
-                saveOrder: function(id, order){
+                saveOrder: function (id, order){
                    LoaderService.startRequest();
 
                    $http.post(Routing.generate('order_activities', { activitySequenceId: id, order: JSON.stringify(order) }))
@@ -89,6 +54,7 @@
                        LoaderService.endRequest();
                    });
                 }
-        };
-    }]);
+            };
+        }
+    ]);
 })();

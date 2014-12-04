@@ -4,7 +4,6 @@ namespace Innova\ActivityBundle\Controller;
 
 use Claroline\CoreBundle\Entity\Workspace\Workspace;
 use Innova\ActivityBundle\Entity\ActivitySequence;
-use Innova\ActivityBundle\Entity\Activity;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,9 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
-use JMS\DiExtraBundle\Annotation as DI;
 
+use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * Class ActivitySequenceController

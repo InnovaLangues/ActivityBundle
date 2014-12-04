@@ -4,5 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('ActivityType', []);
+    angular.module('ActivityType', [
+        'Loader'
+    ]);
 })();
