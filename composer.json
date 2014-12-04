@@ -17,6 +17,9 @@
         }, {
             "name" : "Donovan Tengblad",
             "email" : "donovan.tengblad@u-grenoble3.fr"
+        }, {
+            "name" : "Patrick Guillou",
+            "email" : "patrick.guillou@u-grenoble3.fr"
         }
     ],
     "require": {
