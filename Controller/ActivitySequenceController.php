@@ -65,6 +65,7 @@ class ActivitySequenceController extends Controller
      *      name="activity_sequence_administrate",
      * )
      * @Method("GET")
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Template("InnovaActivityBundle:Editor:main.html.twig")
      */
     public function administrateAction(Workspace $workspace, ActivitySequence $activitySequence)
