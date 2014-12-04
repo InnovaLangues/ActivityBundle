@@ -25,6 +25,7 @@
                 },
 
                 create: function() {
+                    console.log('create activity via service');
                     LoaderService.startRequest();
                     $http.get(Routing.generate('create_activity_sequence', { workspaceId: workspaceId, activitySequenceId: activitySequence.id }))
                     .success(function (data) {
