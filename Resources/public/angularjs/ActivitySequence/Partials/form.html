@@ -22,26 +22,29 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-            <button class="btn btn-default" data-ng-click="activitySequenceCtrl.addActivity()">
-                <i class="fa fa-plus"></i>
-                <span>{{ 'add_activity'|trans:{}:'activity_sequence_editor' }}</span>
-            </button>
-
-            <br/><br/>
-
-            <ul class="nav nav-pills nav-stacked" data-ui-sortable="sortableOptions" data-ng-model="activitySequence.activities">
-                <li data-ng-repeat = "activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
-                    <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)">
-                        <span class="badge" data-ng-bind="activity.order"></span>
-                        {{ activity.name }}
+        <div class="col-md-12">
+            <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequence.activities">
+                <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
+                    <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
+                        {{ activity.order }}
+                        <span class="sr-only">{{ activity.name }}</span>
+                    </a>
+                </li>
+                <li class="activity-add">
+                    <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_sequence_editor' }}">
+                        <i class="fa fa-plus"></i>
+                        <span class="sr-only">{{ 'add_activity'|trans:{}:'activity_sequence_editor' }}</span>
                     </a>
                 </li>
             </ul>
         </div>
+    </div>
 
-        <div class="col-md-9">
-            <activity-edit data-activity="activitySequenceCtrl.currentActivity" data-ng-if="activitySequenceCtrl.currentActivity"></activity-edit>
+    <br/>
+
+    <div class="row">
+        <div class="col-md-12">
+            <activity-form data-activity="activitySequenceCtrl.currentActivity" data-ng-if="activitySequenceCtrl.currentActivity"></activity-form>
 
             <div class="text-center" ng-if="activitySequenceCtrl.sequence.activities.length == 0">
                 <div class="alert alert-info" role="alert">

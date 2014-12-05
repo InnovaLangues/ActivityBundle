@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('Activity').controller('ActivityEditController', [
+    angular.module('Activity').controller('ActivityFormController', [
         '$scope',
         'ActivitySequenceService',
         'ActivityService',

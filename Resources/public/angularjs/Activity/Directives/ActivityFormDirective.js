@@ -5,14 +5,14 @@
 (function () {
     'use strict';
 
-    angular.module('Activity').directive('activityEdit', [
+    angular.module('Activity').directive('activityForm', [
         function () {
             return {
                 restrict: 'E',
                 replace: true,
-                controller: 'ActivityEditController',
+                controller: 'ActivityFormController',
                 controllerAs: 'ctrl',
-                templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/edit.html',
+                templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form.html',
                 scope: {
                     activity: '='
                 },
