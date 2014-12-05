@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('Activity').controller('ActivityFormController', [
+    angular.module('Activity').controller('ActivityEditController', [
         '$scope',
         'ActivitySequenceService',
         'ActivityService',
@@ -43,14 +43,8 @@
             };
 
             // Save function : data and call Symfony Root controller
-            this.update = function () {
-                console.log('update 2');
-                ActivityService.update(this.activity);
-            };
-
-            // Save function : data and call Symfony Root controller
             this.delete = function () {
-                console.log('delete 2');
+                console.log('delete 1');
                 ActivityService.delete(this.activity);
             };
 

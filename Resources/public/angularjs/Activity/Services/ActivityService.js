@@ -23,6 +23,7 @@
                 },
 
                 update: function (activity) {
+
                     $http.put(Routing.generate('update_activity', {activitySequenceId : activity.id}, activity))
                     .success(function (response) {
 
@@ -35,7 +36,7 @@
                 delete: function (activityId) {
                     LoaderService.startRequest();
 
-                    $http.delete(Routing.generate('delete_activity', { activityId: activityId }))
+                    $http.delete(Routing.generate('delete_activity', { activitySequenceId: activityId }))
                     .success(function (response) {
                         LoaderService.endRequest();
                     });

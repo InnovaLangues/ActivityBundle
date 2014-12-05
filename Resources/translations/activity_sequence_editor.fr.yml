@@ -8,7 +8,7 @@ delete_activity: Supprimer
 
 # e
 editor: Editeur de suite d'activités
-empty_activity_sequence: Cette suite d'activité est vide. Vous pouvez créer des activités via le bouton "Ajouter une activité" situé à gauche.
+empty_activity_sequence: Cette suite d'activité est vide. Vous pouvez créer des activités en cliquant sur le bouton "+ Ajouter une activité" situé à gauche.
 
 # i
 identity: Fiche d'identité
