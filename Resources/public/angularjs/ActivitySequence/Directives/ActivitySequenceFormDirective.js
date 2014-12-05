@@ -22,6 +22,9 @@
                         } else {
                             activitySequenceCtrl.sequence = newValue;
                         }
+
+                        // Show the first activity of the Sequence
+                        activitySequenceCtrl.showActivity();
                     });
                 }
             };

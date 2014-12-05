@@ -31,7 +31,7 @@
             <br/><br/>
 
             <ul class="nav nav-pills nav-stacked" data-ui-sortable="sortableOptions" data-ng-model="activitySequence.activities">
-                <li data-ng-repeat = "activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : currentActivity == activity }">
+                <li data-ng-repeat = "activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)">
                         <span class="badge" data-ng-bind="activity.order"></span>
                         {{ activity.name }}

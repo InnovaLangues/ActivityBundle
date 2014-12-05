@@ -10,11 +10,7 @@
         'ActivitySequenceService',
         function ($scope, $modal, ActivitySequenceService) {
             this.sequence = {};
-
             this.currentActivity = null;
-            if (this.sequence.activities && this.sequence.length !== 0) {
-                this.currentActivity = this.sequence.activities[0];
-            }
 
             /**
              * Add a new Activity to the ActivitySequence
@@ -22,8 +18,8 @@
             this.addActivity = function () {
                 // Open a modal to ask the user to choose the ActivityType
                 /*var modalInstance = $modal.open({
-                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovapath/angularjs/Confirm/Partial/confirm.html',
-                    controller: 'ConfirmModalCtrl'
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityTypeAvailable/Partial/activity-type-available-list.html',
+                    controller: 'ActivityTypeAvailableController'
                 });
 
                 // Create the Activity when User has choosen the ActivityType
@@ -38,7 +34,11 @@
             };
 
             this.showActivity = function (activity) {
-                this.currentActivity = activity;
+                if (activity) {
+                    this.currentActivity = activity;
+                } else if (this.sequence.activities && this.sequence.length !== 0) {
+                    this.currentActivity = this.sequence.activities[0];
+                }
             };
 
             this.deleteActivity = function (activity) {
