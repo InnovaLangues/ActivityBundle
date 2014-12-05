@@ -35,7 +35,10 @@
 
                     LoaderService.startRequest();
                     $http
-                        .post(Routing.generate('innova_activity_create', { activitySequenceId: sequence.id }))
+                        .post(Routing.generate('innova_activity_sequence_add_activity', {
+                            workspaceId: ActivityEditorApp.workspaceId,
+                            activitySequenceId: sequence.id
+                        }))
                         .success(function (activity) {
                             sequence.activities.push(activity);
                             LoaderService.endRequest();

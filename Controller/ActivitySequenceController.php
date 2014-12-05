@@ -4,6 +4,7 @@ namespace Innova\ActivityBundle\Controller;
 
 use Claroline\CoreBundle\Entity\Workspace\Workspace;
 use Innova\ActivityBundle\Entity\ActivitySequence;
+use Innova\ActivityBundle\Entity\Activity;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,17 +82,17 @@ class ActivitySequenceController extends Controller
 
     /**
      * @Route(
-     *      "/{activitySequenceId}",
+     *      "/",
      *      name="create_activity_sequence",
      *      options={"expose" = true}
      * )
      * @Method("POST")
      */
-    public function createAction(Workspace $workspace, ActivitySequence $activitySequence)
+    public function createAction(Workspace $workspace)
     {
 
-        $activitySequence = $this->activitySequenceManager->create($activitySequence);
-        $activitySequenceAttrs = $this->activitySequenceManager->activityAttrs($activitySequence);
+        /*$activitySequence = $this->activitySequenceManager->create($activitySequence);
+        $activitySequenceAttrs = $this->activitySequenceManager->activityAttrs($activitySequence);*/
 
         return new JsonResponse(array('activitySequence' => $activitySequenceAttrs));
     }
@@ -125,7 +126,7 @@ class ActivitySequenceController extends Controller
      */
     public function deleteAction(Workspace $workspace, ActivitySequence $activitySequence)
     {
-        $activitySequence = $this->activitySequenceManager->deleteActivity($activity);
+        /*$activitySequence = $this->activitySequenceManager->deleteActivity($activity);*/
         $activitySequenceAttrs = $this->activitySequenceManager->activitySequenceToJson($activitySequence);
 
         return new JsonResponse(array('activitySequence' => $activitySequenceAttrs));
@@ -149,4 +150,52 @@ class ActivitySequenceController extends Controller
         return new JsonResponse(array('activitySequence' => $activitySequenceAttrs, 'order'=>$order));
     }
 
+    /**
+     * Add a new Activity to the sequence
+     * @Route(
+     *      "/{activitySequenceId}/add-activity",
+     *      name    = "innova_activity_sequence_add_activity",
+     *      options = { "expose" = true }
+     * )
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
+     * @Method("POST")
+     */
+    public function addActivityAction(Workspace $workspace, ActivitySequence $activitySequence)
+    {
+
+        $manager = $this->container->get('innova.manager.activity_sequence_manager');
+
+        $om = $this->container->get('doctrine.orm.entity_manager');
+
+        // Create the new Activity
+        $activity = new Activity();
+
+        $activity->setName('New Activity');
+        $activity->setDescription('New Description');
+
+        // Appel méthode pour ajouter +1 à la position
+        $position = $manager->countActivities($activitySequence);
+
+        $activity->setPosition($position);
+
+        // Attach the Activity to the Sequence
+        $activitySequence->addActivity($activity);
+
+        // Save to the DB
+        $om->flush();
+
+        /*$activity = $this->activityManager->create($activity);
+        $activityAttrs = $this->activityManager->activityAttrs($activity);*/
+
+        return new JsonResponse(array (
+            'id'       => $activity->getId(),
+            'name'     => $activity->getName(),
+            'position' => $activity->getPosition()
+        ));
+    }
+
+    public function removeActivityAction()
+    {
+        // TODO
+    }
 }

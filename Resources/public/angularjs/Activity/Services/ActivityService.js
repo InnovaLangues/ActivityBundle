@@ -7,10 +7,10 @@
         'LoaderService',
         function ($http, $filter, LoaderService) {
             return {
-                create: function (activity) {
+                /*create: function (activity) {
                     $http({
                         method: 'POST',
-                        url: Routing.generate('create_activity', {activitySequenceId : activity.id}),
+                        url: Routing.generate('create_activity'),
                         data: activity
                     })
                     .success(function (response) {
@@ -20,11 +20,11 @@
                     .error(function(response, status) {
 //                        AlertFactory.addAlert('danger', 'Error while adding activity.');
                     });
-                },
+                },*/
 
                 update: function (activity) {
 
-                    $http.put(Routing.generate('update_activity', {activitySequenceId : activity.id}, activity))
+                    $http.put(Routing.generate('update_activity', { activityId : activity.id }, activity))
                     .success(function (response) {
 
                     })
@@ -33,10 +33,10 @@
                     });
                 },
 
-                delete: function (activityId) {
+                delete: function (activity) {
                     LoaderService.startRequest();
 
-                    $http.delete(Routing.generate('delete_activity', { activitySequenceId: activityId }))
+                    $http.delete(Routing.generate('delete_activity', { activityId: activity.id }))
                     .success(function (response) {
                         LoaderService.endRequest();
                     });

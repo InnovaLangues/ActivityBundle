@@ -52,6 +52,7 @@
             this.delete = function () {
                 console.log('delete 2');
                 ActivityService.delete(this.activity);
+                // TODO : supprimer l'activité de sequence.activities
             };
 
         }

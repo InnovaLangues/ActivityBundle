@@ -18,11 +18,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Class ActivityController
  * @Route(
- *      "activity_sequence/{activitySequenceId}/activity",
+ *      "/activity",
  *      name="innova_activity"
  * )
- *
- * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
  */
 class ActivityController extends Controller
 {
@@ -36,7 +34,7 @@ class ActivityController extends Controller
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Template("InnovaActivityBundle:Player:main.html.twig")
      */
-    public function displayAction(ActivitySequence $activitySequence, Activity $activity)
+    public function displayAction(Activity $activity)
     {
         if (false === $this->container->get('security.context')->isGranted("OPEN", $activity->getResourceNode())){
             throw new AccessDeniedException();
@@ -56,10 +54,10 @@ class ActivityController extends Controller
      * )
      * @Method("POST")
      */
-    public function createAction(ActivitySequence $activitySequence)
+    public function createAction()
     {
 
-        $manager = $this->container->get('innova.manager.activity_sequence_manager');
+        /*$manager = $this->container->get('innova.manager.activity_sequence_manager');
 
         $om = $this->container->get('doctrine.orm.entity_manager');
 
@@ -80,14 +78,14 @@ class ActivityController extends Controller
         // Save to the DB
         $om->flush();
 
-        /*$activity = $this->activityManager->create($activity);
-        $activityAttrs = $this->activityManager->activityAttrs($activity);*/
+        $activity = $this->activityManager->create($activity);
+        $activityAttrs = $this->activityManager->activityAttrs($activity);
 
         return new JsonResponse(array (
             'id'       => $activity->getId(),
             'name'     => $activity->getName(),
             'position' => $activity->getPosition()
-        ));
+        ));*/
     }
 
     /**
@@ -99,7 +97,7 @@ class ActivityController extends Controller
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("PUT")
      */
-    public function updateAction(ActivitySequence $activitySequence, Activity $activity)
+    public function updateAction(Activity $activity)
     {
 
 
@@ -120,7 +118,7 @@ echo "update de l'activité";die();
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("DELETE")
      */
-    public function deleteAction(ActivitySequence $activitySequence, Activity $activity)
+    public function deleteAction(Activity $activity)
     {
 
 
