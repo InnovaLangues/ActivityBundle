@@ -58,6 +58,9 @@ class ActivityController extends Controller
      */
     public function createAction(ActivitySequence $activitySequence)
     {
+
+        $manager = $this->container->get('innova.manager.activity_sequence_manager');
+
         $om = $this->container->get('doctrine.orm.entity_manager');
 
         // Create the new Activity
@@ -66,9 +69,8 @@ class ActivityController extends Controller
         $activity->setName('New Activity');
         $activity->setDescription('New Description');
 
-//        $position = $this->countActivities($activitySequence);
         // Appel méthode pour ajouter +1 à la position
-        $position = $om->activityManager->countActivities($activity);
+        $position = $manager->countActivities($activitySequence);
 
         $activity->setPosition($position);
 
@@ -85,27 +87,6 @@ class ActivityController extends Controller
     }
 
     /**
-     * Return count Activity
-     */
-    public function countActivities(ActivitySequence $activitySequence)
-    {
-
-        $om = $this->container->get('doctrine.orm.entity_manager');
-
-        $countAct = 0; // Init
-
-        $countAct = $om->getRepository('ActivityBundle:Activity')->findBy(array(
-                                                                               'activitySequence' => $activitySequence
-                                                                                )
-                                                                        );
-
-        $countAct++; // Next
-
-        return count($countAct);
-
-    }
-
-    /**
      * @Route(
      *      "/{activityId}",
      *      name="update_activity",
@@ -116,6 +97,8 @@ class ActivityController extends Controller
      */
     public function updateAction(ActivitySequence $activitySequence, Activity $activity)
     {
+
+
 
         $activity = $this->activityManager->addActivity($activity);
         $activityAttrs = $this->activityManager->activityAttrs($activity);
