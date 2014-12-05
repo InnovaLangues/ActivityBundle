@@ -103,6 +103,7 @@ class ActivityController extends Controller
     {
 
 
+echo "update de l'activité";die();
 
         $activity = $this->activityManager->addActivity($activity);
         $activityAttrs = $this->activityManager->activityAttrs($activity);
@@ -121,6 +122,10 @@ class ActivityController extends Controller
      */
     public function deleteAction(ActivitySequence $activitySequence, Activity $activity)
     {
+
+
+echo "delete de l'activité";die();
+
         $activity = $this->activityManager->deleteActivity($activity);
         $activityAttrs = $this->activityManager->activityToJson($activity);
 
