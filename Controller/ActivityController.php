@@ -64,7 +64,13 @@ class ActivityController extends Controller
         $activity = new Activity();
 
         $activity->setName('New Activity');
-        $activity->setPosition(1);
+        $activity->setDescription('New Description');
+
+//        $position = $this->countActivities($activitySequence);
+        // Appel méthode pour ajouter +1 à la position
+        $position = $om->activityManager->countActivities($activity);
+
+        $activity->setPosition($position);
 
         // Attach the Activity to the Sequence
         $activitySequence->addActivity($activity);
@@ -76,6 +82,27 @@ class ActivityController extends Controller
         $activityAttrs = $this->activityManager->activityAttrs($activity);*/
 
         return new JsonResponse($activity);
+    }
+
+    /**
+     * Return count Activity
+     */
+    public function countActivities(ActivitySequence $activitySequence)
+    {
+
+        $om = $this->container->get('doctrine.orm.entity_manager');
+
+        $countAct = 0; // Init
+
+        $countAct = $om->getRepository('ActivityBundle:Activity')->findBy(array(
+                                                                               'activitySequence' => $activitySequence
+                                                                                )
+                                                                        );
+
+        $countAct++; // Next
+
+        return count($countAct);
+
     }
 
     /**
