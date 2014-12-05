@@ -22,14 +22,6 @@ class ActivityManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    public function countActivities(Activity $activity){
-        if(!$count = $activity->getActivities()){
-            $count = 1;
-        }
-
-        return count($count) + 1;
-    }
-
     public function create(Activity $activity){
 
         $activityType = "ActivityQRU"; // For tests. Eric.
