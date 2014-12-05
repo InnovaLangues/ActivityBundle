@@ -76,9 +76,9 @@ class ActivityManager
         if ($activities = $activity->getActivities() ) {
             foreach ($activities as $activity) {
                 $activityActivities[] = array (
-                                                    "id" => $activity->getId(),
-                                                    "name" => $activity->getName(),
-                                                    "order" => $activity->getPosition()
+                    "id" => $activity->getId(),
+                    "name" => $activity->getName(),
+                    "position" => $activity->getPosition()
                 );
             }
         }
@@ -96,9 +96,9 @@ class ActivityManager
     public function activityAttrs(AbstractActivity $activity)
     {
         $activityAttrs = array (
-                            "id" => $activity->getId(),
-                            "name" => $activity->getName(),
-                            "order" => $activity->getPosition()
+            "id" => $activity->getId(),
+            "name" => $activity->getName(),
+            "position" => $activity->getPosition()
         );
 
         return $activityAttrs;

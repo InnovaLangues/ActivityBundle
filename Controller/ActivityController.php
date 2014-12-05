@@ -83,7 +83,11 @@ class ActivityController extends Controller
         /*$activity = $this->activityManager->create($activity);
         $activityAttrs = $this->activityManager->activityAttrs($activity);*/
 
-        return new JsonResponse($activity);
+        return new JsonResponse(array (
+            'id'       => $activity->getId(),
+            'name'     => $activity->getName(),
+            'position' => $activity->getPosition()
+        ));
     }
 
     /**

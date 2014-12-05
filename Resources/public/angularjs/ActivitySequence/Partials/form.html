@@ -26,7 +26,7 @@
             <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequence.activities">
                 <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
-                        {{ activity.order }}
+                        {{ activity.position }}
                         <span class="sr-only">{{ activity.name }}</span>
                     </a>
                 </li>

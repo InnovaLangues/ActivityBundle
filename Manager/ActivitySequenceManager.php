@@ -84,9 +84,9 @@ class ActivitySequenceManager
         if ($activities = $activitySequence->getActivities() ) {
             foreach ($activities as $activity) {
                 $activitySequenceActivities[] = array (
-                                                    "id" => $activity->getId(),
-                                                    "name" => $activity->getName(),
-                                                    "order" => $activity->getPosition()
+                    "id" => $activity->getId(),
+                    "name" => $activity->getName(),
+                    "position" => $activity->getPosition()
                 );
             }
         }
@@ -104,9 +104,9 @@ class ActivitySequenceManager
     public function activityAttrs(AbstractActivity $activity)
     {
         $activityAttrs = array (
-                            "id" => $activity->getId(),
-                            "name" => $activity->getName(),
-                            "order" => $activity->getPosition()
+            "id" => $activity->getId(),
+            "name" => $activity->getName(),
+            "position" => $activity->getPosition()
         );
 
         return $activityAttrs;

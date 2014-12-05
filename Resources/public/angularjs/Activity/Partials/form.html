@@ -1,24 +1,4 @@
 <form method="post" class="form form-horizontal">
-    <!--<div class="panel-heading">
-        <div class="input-group">
-
-            <input type="text" class="form-control" name="activity-name" data-ng-model="controller.activity.name" />
-
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-
-                </button>
-
-                <button class="btn btn-danger"
-                        data-ng-click="controller.deleteActivity(controller.activity.id)"
-                        data-ng-disabled="requestCount.count >0">
-                    <i class="fa fa-trash-o"></i>
-                    <span class="sr-only">{{ 'delete_activity' | trans:{}:'activity_sequence_editor' }}</span>
-                </button>
-            </span>
-        </div>
-    </div>-->
-
     <div class="pull-right">
         <button href="#" data-ng-click="ctrl.save()" class="btn btn-primary">
             <i class="fa fa-floppy-o"></i>
@@ -34,7 +14,7 @@
     <ul class="nav nav-tabs">
         <li role="presentation" class="active">
             <a href="">
-                <strong>{{ ctrl.activity.order }}.</strong> {{ ctrl.activity.name }}
+                <strong>{{ ctrl.activity.position }}.</strong> {{ ctrl.activity.name }}
             </a>
         </li>
         <li role="presentation">
