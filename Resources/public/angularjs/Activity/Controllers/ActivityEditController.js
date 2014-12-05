@@ -37,7 +37,7 @@
             };
 
             // Delete function : data and call Symfony Root controller
-            this.save = function () {
+            this.create = function () {
                 console.log('save activity');
                 ActivityService.save(this.activity);
             };
