@@ -18,6 +18,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+use Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -33,10 +37,12 @@ class ActivityController extends Controller
      * @DI\InjectParams({
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      * })
+     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
      */
-    public function __construct($activityManager)
+    public function __construct($activityManager, FormFactoryInterface $formFactory)
     {
         $this->activityManager = $activityManager;
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -103,6 +109,25 @@ class ActivityController extends Controller
         ));*/
     }
 
+
+    /**
+     * Edit an existing activity
+     * @Route(
+     *      "/edit/{id}",
+     *      name         = "innova_activity_editor_edit",
+     *      requirements = {"id" = "\d+"},
+     *      options      = {"expose" = true}
+     * )
+     * @Method({"GET", "PUT"})
+     * @Template("InnovaActivityBundle:Editor:main.html.twig")
+     */
+    public function editAction(Workspace $workspace, Path $path) {
+//        $this->pathManager->checkAccess('EDIT', $path);
+
+//        return $this->renderEditor($workspace, $path, 'PUT');
+    }
+
+
     /**
      * @Route(
      *      "/{activityId}",
@@ -114,6 +139,19 @@ class ActivityController extends Controller
      */
     public function updateAction(Activity $activity)
     {
+
+        /**
+         * TODO : pour plus tard quand le reste sera OK.
+         * Générer le secret CSRF depuis quelque part
+         * ou comme dans le PathBundle
+         * // Create form to validate data
+         * $form = $this->formFactory->create('innova_path_template', $pathTemplate, array (
+         *     'method' => 'PUT',
+         *     'csrf_protection' => false,
+         *));
+         * ...
+         */
+        $csrfSecret = '<generated token>';
 
         /**
          * recopie de EditController du PathBundle
@@ -133,37 +171,31 @@ class ActivityController extends Controller
                 'success', $this->translator->trans('path_save_success', array(), 'path_editor')
             );
 
-            $saveAndClose = $form->get('saveAndClose')->getData();
-            $saveAndClose = filter_var($saveAndClose, FILTER_VALIDATE_BOOLEAN);
+            $updateAndClose = $form->get('update')->getData();
 
-            if (!$saveAndClose) {
-                // Redirect to editor
-                $url = $this->router->generate('innova_path_editor_edit', array(
+            if (!$updateAndClose) {
+                // Redirect to update/editor
+                $url = $this->router->generate('innova_activity_editor_edit', array(
                     'workspaceId' => $workspace->getId(),
                     'id' => $path->getId(),
                 ));
-            } else {
-                // Redirect to list of paths
-                $url = $this->router->generate('claro_workspace_open_tool', array(
-                    'workspaceId' => $workspace->getId(),
-                    'toolName' => 'innova_path',
-                ));
+            // } else {
+            //     // redirect to list of paths
+            //     $url = $this->router->generate('claro_workspace_open_tool', array(
+            //         'workspaceid' => $workspace->getid(),
+            //         'toolname' => 'innova_path',
+            //     ));
             }
 
             // Redirect to list
             return new RedirectResponse($url);
         }
+        else {
+            // Redirect with JSON
 
-        // Get workspace root directory
-        $wsDirectory = $this->resourceManager->getWorkspaceRoot($workspace);
-        $resourceTypes = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceType')->findAll();
-        $resourceIcons = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceIcon')->findByIsShortcut(false);
-
+        }
         return array(
-            'workspace' => $workspace,
-            'wsDirectoryId' => $wsDirectory->getId(),
-            'resourceTypes' => $resourceTypes,
-            'resourceIcons' => $resourceIcons
+            'workspace' => $workspace
         );
         /**
          * FIN recopie de EditController du PathBundle

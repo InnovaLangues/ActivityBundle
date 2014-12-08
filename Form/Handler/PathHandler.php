@@ -14,13 +14,13 @@ class PathHandler
 {
     /**
      * Path manager
-     * @var \Innova\PathBundle\Manager\PathManager
+     * @var \Innova\ActivityBundle\Manager\PathManager
      */
     protected $pathManager;
 
     /**
      * Class constructor
-     * @param \Innova\PathBundle\Manager\PathManager $pathManager
+     * @param \Innova\ActivityBundle\Manager\PathManager $pathManager
      */
     public function __construct(PathManager $pathManager)
     {
@@ -60,7 +60,7 @@ class PathHandler
 
     /**
      * Current data of the form
-     * @var \Innova\PathBundle\Entity\Path\AbstractPath
+     * @var \Innova\ActivityBundle\Entity\Path\AbstractPath
      */
     protected $data;
 
@@ -79,7 +79,7 @@ class PathHandler
     /**
      * Set current request
      * @param  \Symfony\Component\HttpFoundation\Request   $request
-     * @return \Innova\PathBundle\Form\Handler\PathHandler
+     * @return \Innova\ActivityBundle\Form\Handler\PathHandler
      */
     public function setRequest(Request $request = null)
     {
@@ -90,7 +90,7 @@ class PathHandler
 
     /**
      * Get current data of the form
-     * @return \Innova\PathBundle\Entity\Path\AbstractPath
+     * @return \Innova\ActivityBundle\Entity\Path\AbstractPath
      */
     public function getData()
     {
@@ -100,7 +100,7 @@ class PathHandler
     /**
      * Set current form
      * @param  \Symfony\Component\Form\FormInterface $form
-     * @return \Innova\PathBundle\Form\Handler\PathHandler
+     * @return \Innova\ActivityBundle\Form\Handler\PathHandler
      */
     public function setForm(FormInterface $form)
     {
