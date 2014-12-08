@@ -1,13 +1,16 @@
 <?php
 
-namespace Innova\PathBundle\Form\Handler;
+namespace Innova\ActivityBundle\Form\Handler;
 
-use Innova\PathBundle\Manager\PathManager;
+use Innova\ActivityBundle\Manager\PathManager;
+
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Handles path form
  */
-class PathHandler extends Handler
+class PathHandler
 {
     /**
      * Path manager

@@ -5,11 +5,14 @@ namespace Innova\ActivityBundle\Controller;
 use Claroline\CoreBundle\Entity\Workspace\Workspace;
 use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
+use Innova\ActivityBundle\Form\Handler\PathHandler;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\FormFactoryInterface;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -112,7 +115,61 @@ class ActivityController extends Controller
     public function updateAction(Activity $activity)
     {
 
-var_dump($activity);
+        /**
+         * recopie de EditController du PathBundle
+         */
+        $params = array();
+        if (!empty($httpMethod)) {
+            $params['method'] = $httpMethod;
+        }
+        // Create form
+        $form = $this->formFactory->create('innova_path', $path, $params);
+
+        // Try to process data
+        $this->pathHandler->setForm($form);
+        if ($this->pathHandler->process()) {
+            // Add user message
+            $this->session->getFlashBag()->add(
+                'success', $this->translator->trans('path_save_success', array(), 'path_editor')
+            );
+
+            $saveAndClose = $form->get('saveAndClose')->getData();
+            $saveAndClose = filter_var($saveAndClose, FILTER_VALIDATE_BOOLEAN);
+
+            if (!$saveAndClose) {
+                // Redirect to editor
+                $url = $this->router->generate('innova_path_editor_edit', array(
+                    'workspaceId' => $workspace->getId(),
+                    'id' => $path->getId(),
+                ));
+            } else {
+                // Redirect to list of paths
+                $url = $this->router->generate('claro_workspace_open_tool', array(
+                    'workspaceId' => $workspace->getId(),
+                    'toolName' => 'innova_path',
+                ));
+            }
+
+            // Redirect to list
+            return new RedirectResponse($url);
+        }
+
+        // Get workspace root directory
+        $wsDirectory = $this->resourceManager->getWorkspaceRoot($workspace);
+        $resourceTypes = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceType')->findAll();
+        $resourceIcons = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceIcon')->findByIsShortcut(false);
+
+        return array(
+            'workspace' => $workspace,
+            'wsDirectoryId' => $wsDirectory->getId(),
+            'resourceTypes' => $resourceTypes,
+            'resourceIcons' => $resourceIcons
+        );
+        /**
+         * FIN recopie de EditController du PathBundle
+         */
+
+        var_dump($activity);
         $activity = $this->activityManager->create($activity);
         $activityAttrs = $this->activityManager->activityAttrs($activity);
 
