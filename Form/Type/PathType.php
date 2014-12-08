@@ -9,12 +9,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 abstract class AbstractPathType extends AbstractType
 {
     abstract function getInstruction(); // Consigne
-    // A faire pour les autres données : information, objet, proposition, question
+    // A faire pour les autres données ? information, objet, proposition, question ?
 
     public function buildForm(FormBuilderInterface $builder, array $options = array ())
     {
-        $builder->add('name', 'text', array ('required' => true));
-        // A faire pour les autres données : information, objet, proposition, question
+        $builder->add('instruction', 'text', array ('required' => true));
+        $builder->add('information', 'text', array ('required' => true));
+        $builder->add('object', 'text', array ('required' => true));
+        $builder->add('proposition', 'text', array ('required' => true));
+        $builder->add('question', 'text', array ('required' => true));
     }
 
     abstract function getDefaultOptions();
