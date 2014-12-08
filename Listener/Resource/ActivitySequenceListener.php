@@ -70,8 +70,7 @@ class ActivitySequenceListener extends ContainerAware
                 ->get('router')
                 ->generate(
                 'activity_sequence_open',
-                array(
-                    'workspaceId' => $activitySequence->getResourceNode()->getWorkspace()->getId(),
+                array (
                     'activitySequenceId' => $activitySequence->getId(),
                 )
             );
@@ -93,12 +92,10 @@ class ActivitySequenceListener extends ContainerAware
     public function onAdministrate(CustomActionResourceEvent $event)
     {
         $activitySequence = $event->getResource();
-        $workspaceId = $activitySequence->getResourceNode()->getWorkspace()->getId();
 
         $route = $this->container->get('router')->generate(
             'activity_sequence_administrate',
             array (
-                'workspaceId' => $workspaceId,
                 'activitySequenceId' => $activitySequence->getId(),
             )
         );

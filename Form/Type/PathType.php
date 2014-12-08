@@ -6,21 +6,32 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-abstract class AbstractPathType extends AbstractType
+class PathType extends AbstractType
 {
-    abstract function getInstruction(); // Consigne
     // A faire pour les autres données ? information, objet, proposition, question ?
 
     public function buildForm(FormBuilderInterface $builder, array $options = array ())
     {
-        $builder->add('instruction', 'text', array ('required' => true));
+        $builder->add('name', 'text', array ('required' => true));
+
+/*        $builder->add('instruction', 'text', array ('required' => true));
         $builder->add('information', 'text', array ('required' => true));
         $builder->add('object', 'text', array ('required' => true));
         $builder->add('proposition', 'text', array ('required' => true));
-        $builder->add('question', 'text', array ('required' => true));
+        $builder->add('question', 'text', array ('required' => true));*/
     }
 
-    abstract function getDefaultOptions();
+    public function getName()
+    {
+        return 'innova_activity_type';
+    }
+
+    public function getDefaultOptions()
+    {
+        return array (
+            'data_class' => 'Innova\ActivityBundle\Entity\Activity',
+        );
+    }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {

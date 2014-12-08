@@ -9,29 +9,9 @@
     {% endstylesheets %}
 {% endblock %}
 
-{% block breadcrumb %}
-    {{
-        macros.breadcrumbs([
-            {
-                'icon': 'fa fa-book',
-                'name': 'workspaces'|trans({}, 'platform'),
-                'href': path('claro_workspace_list')
-            },
-            {
-                'name': workspace.name ~ ' - ' ~ workspace.code,
-                'href': path('claro_workspace_open', {'workspaceId': workspace.id, 'toolName': 'home'})
-            },
-            {
-                'name': 'editor'|trans({}, 'activity_sequence_editor'),
-                'href': ''
-            },
-        ])
-    }}
-{% endblock %}
-
 {% block content %}
     <div data-ng-app="ActivitySequenceApp" data-ng-cloak="">
-        <activity-sequence-form data-sequence="{{ activitySequence | raw | escape }}"></activity-sequence-form>
+        <activity-sequence-form data-sequence="{{ _resource | json_encode | raw | escape }}"></activity-sequence-form>
     </div>
 {% endblock %}
 
@@ -85,7 +65,6 @@
     <script type="text/javascript">
         var ActivityEditorApp = {};
 
-        ActivityEditorApp.workspaceId      = {{ workspace.id }};
-        ActivityEditorApp.webDir           = "{{ asset('') }}";
+        ActivityEditorApp.webDir = "{{ asset('') }}";
     </script>
 {% endblock %}

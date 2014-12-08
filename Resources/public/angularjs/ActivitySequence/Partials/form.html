@@ -1,14 +1,11 @@
 <form method="post" class="form form-horizontal">
+    <!-- Information about the ActivitySequence -->
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h3 class="panel-title">
                 {{ 'editor'|trans:{}:'activity_sequence_editor' }}
                 <small>{{ activitySequenceCtrl.sequence.name }}</small>
             </h3>
-
-            <!--<span class="pull-right">
-                <img height="18px" data-ng-show="requestCount.count >0" src="{{ asset('bundles/innovaactivity/images/editor/ajax-loader.gif') }}" />
-            </span>-->
         </div>
 
         <div class="panel-body">
@@ -21,27 +18,30 @@
         </div>
     </div>
 
+    <!-- Activities List -->
     <div class="row">
         <div class="col-md-12">
-            <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequence.activities">
+            <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequenceCtrl.sequence.activities">
                 <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
                         {{ activity.position }}
                         <span class="sr-only">{{ activity.name }}</span>
                     </a>
                 </li>
-                <li class="activity-add">
-                    <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_sequence_editor' }}">
-                        <i class="fa fa-plus"></i>
-                        <span class="sr-only">{{ 'add_activity'|trans:{}:'activity_sequence_editor' }}</span>
-                    </a>
-                </li>
             </ul>
+
+            <div class="activity-add pull-right">
+                <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_sequence_editor' }}">
+                    <i class="fa fa-plus"></i>
+                    <span class="sr-only">{{ 'add_activity'|trans:{}:'activity_sequence_editor' }}</span>
+                </a>
+            </div>
         </div>
     </div>
 
     <br/>
 
+    <!-- Display Activity form -->
     <div class="row">
         <div class="col-md-12">
             <activity-form data-activity="activitySequenceCtrl.currentActivity" data-ng-if="activitySequenceCtrl.currentActivity"></activity-form>

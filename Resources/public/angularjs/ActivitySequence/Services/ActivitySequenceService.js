@@ -27,16 +27,12 @@
                 },
 
                 addActivity: function (sequence) {
-                    console.log(sequence.id);
-
-                    /* Move code into Activity service and then call Activity.create();*/
-
                     var deferred = $q.defer();
 
                     LoaderService.startRequest();
+
                     $http
                         .post(Routing.generate('innova_activity_sequence_add_activity', {
-                            workspaceId: ActivityEditorApp.workspaceId,
                             activitySequenceId: sequence.id
                         }))
                         .success(function (activity) {
@@ -49,13 +45,24 @@
                     return deferred.promise;
                 },
 
-                saveOrder: function (id, order){
-                   LoaderService.startRequest();
+                removeActivity: function (sequence, activity) {
+                    var deferred = $q.defer();
 
-                   $http.post(Routing.generate('order_activities', { activitySequenceId: id, order: JSON.stringify(order) }))
-                   .success(function (data) {
-                       LoaderService.endRequest();
-                   });
+                    LoaderService.startRequest();
+
+                    $http
+                        .post(Routing.generate('innova_activity_sequence_remove_activity', {
+                            activitySequenceId: sequence.id,
+                            activityId:         activity.id
+                        }))
+                        .success(function (activity) {
+                            /*sequence.activities.push(activity);*/
+                            LoaderService.endRequest();
+
+                            /*deferred.resolve(activity);*/
+                        });
+
+                    return deferred.promise;
                 }
             };
         }

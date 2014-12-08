@@ -2,11 +2,11 @@
 
 namespace Innova\ActivityBundle\Controller;
 
-use Claroline\CoreBundle\Entity\Workspace\Workspace;
 use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
-use Innova\ActivityBundle\Form\Handler\PathHandler;
+use Innova\ActivityBundle\Form\Handler\ActivityHandler;
 
+use Innova\ActivityBundle\Manager\ActivityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -36,97 +36,19 @@ class ActivityController extends Controller
     /**
      * @DI\InjectParams({
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
+     *   "formFactory"     = @DI\Inject("form.factory"),
+     *   "activityHandler" = @DI\Inject("innova.form.handler.activity_handler")
      * })
+     * @param \Innova\ActivityBundle\Manager\ActivityManager $activityManager
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
+     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler $activityHandler
      */
-    public function __construct($activityManager, FormFactoryInterface $formFactory)
+    public function __construct(ActivityManager $activityManager, FormFactoryInterface $formFactory, ActivityHandler $activityHandler)
     {
         $this->activityManager = $activityManager;
         $this->formFactory = $formFactory;
+        $this->activityHandler = $activityHandler;
     }
-
-    /**
-     * @Route(
-     *      "/{activityId}",
-     *      name="activity_open",
-     *      options={"expose" = true}
-     * )
-     * @Method("GET")
-     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
-     * @Template("InnovaActivityBundle:Player:main.html.twig")
-     */
-    public function displayAction(Activity $activity)
-    {
-        if (false === $this->container->get('security.context')->isGranted("OPEN", $activity->getResourceNode())){
-            throw new AccessDeniedException();
-        }
-
-        return array (
-            'activity' => $activity,
-        );
-    }
-
-    /**
-     * Create a new Activity
-     * @Route(
-     *      "/",
-     *      name    = "innova_activity_create",
-     *      options = { "expose" = true }
-     * )
-     * @Method("POST")
-     */
-    public function createAction()
-    {
-
-        /*$manager = $this->container->get('innova.manager.activity_sequence_manager');
-
-        $om = $this->container->get('doctrine.orm.entity_manager');
-
-        // Create the new Activity
-        $activity = new Activity();
-
-        $activity->setName('New Activity');
-        $activity->setDescription('New Description');
-
-        // Appel méthode pour ajouter +1 à la position
-        $position = $manager->countActivities($activitySequence);
-
-        $activity->setPosition($position);
-
-        // Attach the Activity to the Sequence
-        $activitySequence->addActivity($activity);
-
-        // Save to the DB
-        $om->flush();
-
-        $activity = $this->activityManager->create($activity);
-        $activityAttrs = $this->activityManager->activityAttrs($activity);
-
-        return new JsonResponse(array (
-            'id'       => $activity->getId(),
-            'name'     => $activity->getName(),
-            'position' => $activity->getPosition()
-        ));*/
-    }
-
-
-    /**
-     * Edit an existing activity
-     * @Route(
-     *      "/edit/{id}",
-     *      name         = "innova_activity_editor_edit",
-     *      requirements = {"id" = "\d+"},
-     *      options      = {"expose" = true}
-     * )
-     * @Method({"GET", "PUT"})
-     * @Template("InnovaActivityBundle:Editor:main.html.twig")
-     */
-    public function editAction(Workspace $workspace, Path $path) {
-//        $this->pathManager->checkAccess('EDIT', $path);
-
-//        return $this->renderEditor($workspace, $path, 'PUT');
-    }
-
 
     /**
      * @Route(
@@ -139,7 +61,6 @@ class ActivityController extends Controller
      */
     public function updateAction(Activity $activity)
     {
-
         /**
          * TODO : pour plus tard quand le reste sera OK.
          * Générer le secret CSRF depuis quelque part
@@ -159,73 +80,28 @@ class ActivityController extends Controller
         $params = array();
         if (!empty($httpMethod)) {
             $params['method'] = $httpMethod;
+            $params['csrf_protection'] = false;
         }
         // Create form
-        $form = $this->formFactory->create('innova_path', $path, $params);
+        $form = $this->formFactory->create('innova_activity_type', $activity, $params);
 
         // Try to process data
-        $this->pathHandler->setForm($form);
-        if ($this->pathHandler->process()) {
+        $this->activityHandler->setForm($form);
+        if ($this->activityHandler->process()) {
             // Add user message
-            $this->session->getFlashBag()->add(
+            /*$this->session->getFlashBag()->add(
                 'success', $this->translator->trans('path_save_success', array(), 'path_editor')
-            );
-
-            $updateAndClose = $form->get('update')->getData();
-
-            if (!$updateAndClose) {
-                // Redirect to update/editor
-                $url = $this->router->generate('innova_activity_editor_edit', array(
-                    'workspaceId' => $workspace->getId(),
-                    'id' => $path->getId(),
-                ));
-            // } else {
-            //     // redirect to list of paths
-            //     $url = $this->router->generate('claro_workspace_open_tool', array(
-            //         'workspaceid' => $workspace->getid(),
-            //         'toolname' => 'innova_path',
-            //     ));
-            }
-
-            // Redirect to list
-            return new RedirectResponse($url);
+            );*/
         }
         else {
             // Redirect with JSON
-
+            // SI erreur
         }
-        return array(
-            'workspace' => $workspace
-        );
-        /**
-         * FIN recopie de EditController du PathBundle
-         */
 
         var_dump($activity);
         $activity = $this->activityManager->create($activity);
-        $activityAttrs = $this->activityManager->activityAttrs($activity);
 
-        return new JsonResponse(array('activity' => $activityAttrs));
-    }
-
-    /**
-     * @Route(
-     *      "/{activityId}",
-     *      name="delete_activity",
-     *      options={"expose" = true}
-     * )
-     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
-     * @Method("DELETE")
-     */
-    public function deleteAction(Activity $activity)
-    {
-
-
-echo "delete de l'activité";die();
-
-        $activity = $this->activityManager->deleteActivity($activity);
-        $activityAttrs = $this->activityManager->activityToJson($activity);
-
-        return new JsonResponse(array('activity' => $activityAttrs));
+        // TODO : return soit l'entity mise à jour soit un message erreurs (erreurs de validation de form)
+        return new JsonResponse(array('activity' => $activity));
     }
 }

@@ -16,7 +16,7 @@ use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
  * @ORM\Table("innova_activity")
  * @ORM\EntityListeners({ "Innova\ActivityBundle\Listener\ActivityListener" })
  */
-class Activity
+class Activity implements \JsonSerializable
 {
     /**
      * Unique identifier of the Activity
@@ -172,7 +172,8 @@ class Activity
 
     /**
      * Set activitySequence
-     * @internal
+     *
+     * @internal Do not use, use ActivitySequence::addActivity() instead, to calculate position of the Activity in the Sequence
      * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
      * @return \Innova\ActivityBundle\Entity\Activity
      */
@@ -271,5 +272,21 @@ class Activity
         $this->type = $type;
 
         return $this;
+    }
+
+    /**
+     * Define how to serialize our entity ActivitySequence
+     * @return Array
+     */
+    public function jsonSerialize()
+    {
+        return array (
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'position'    => $this->position,
+            'dateCreated' => $this->dateCreated,
+            'dateUpdated' => $this->dateUpdated,
+            'description' => $this->description,
+        );
     }
 }

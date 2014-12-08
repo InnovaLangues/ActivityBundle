@@ -13,7 +13,7 @@ use Claroline\CoreBundle\Entity\Resource\AbstractResource;
  * @ORM\Entity
  * @ORM\Table(name="innova_activity_sequence")
  */
-class ActivitySequence extends AbstractResource
+class ActivitySequence extends AbstractResource implements \JsonSerializable
 {
     /**
      * Unique identifier of the Sequence
@@ -38,6 +38,7 @@ class ActivitySequence extends AbstractResource
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Activity", mappedBy="activitySequence", cascade={ "persist", "remove" })
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     protected $activities;
 
@@ -91,10 +92,17 @@ class ActivitySequence extends AbstractResource
     public function addActivity(Activity $activity)
     {
         if (!$this->activities->contains($activity)) {
+            // Retrieve current position of the Activity
+            $activityPosition = count($this->activities) + 1;
+
+            // Add Activity to Activities list
             $this->activities->add($activity);
 
             // Update Activity relationship
             $activity->setActivitySequence($this);
+
+            // Update position of the Activity into the sequence
+            $activity->setPosition($activityPosition);
         }
 
         return $this;
@@ -113,6 +121,14 @@ class ActivitySequence extends AbstractResource
 
             // Update Activity relationship
             $activity->setActivitySequence(null);
+
+            // Update Activities position
+            $position = 1;
+            foreach ($this->activities as $activity) {
+                $activity->setPosition($position);
+
+                $position++;
+            }
         }
 
         return $this;
@@ -126,5 +142,18 @@ class ActivitySequence extends AbstractResource
     public function getActivities()
     {
         return $this->activities;
+    }
+
+    /**
+     * Define how to serialize our entity ActivitySequence
+     * @return Array
+     */
+    public function jsonSerialize()
+    {
+        return array (
+            'id'         => $this->id,
+            'name'       => $this->resourceNode->getName(),
+            'activities' => $this->activities->toArray(),
+        );
     }
 }

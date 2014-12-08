@@ -1,18 +1,23 @@
 <?php
 
-namespace Innova\PathBundle\Form\Handler;
+namespace Innova\ActivityBundle\Form\Handler;
+
+use Innova\ActivityBundle\Manager\PathManager;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Handles path form
+ *
+ * @DI\Service("innova.form.handler.activity_handler")
  */
-abstract class Handler
+class ActivityHandler
 {
     /**
      * Current data of the form
-     * @var \Innova\PathBundle\Entity\Path\AbstractPath
+     * @var \Innova\ActivityBundle\Entity\Path\AbstractPath
+     * @todo mettre les bons types
      */
     protected $data;
 
@@ -29,9 +34,25 @@ abstract class Handler
     protected $request;
 
     /**
+     * Path manager
+     * @var \Innova\ActivityBundle\Manager\PathManager
+     */
+    protected $pathManager; // TODO : remplacer le bon manager (ActivityManager)
+
+    /**
+     * Class constructor
+     * @param \Innova\ActivityBundle\Manager\PathManager $pathManager
+     */
+    public function __construct(PathManager $pathManager)
+    {
+        // TODO : injecter le bon manager
+        $this->pathManager = $pathManager;
+    }
+
+    /**
      * Set current request
      * @param  \Symfony\Component\HttpFoundation\Request   $request
-     * @return \Innova\PathBundle\Form\Handler\PathHandler
+     * @return \Innova\ActivityBundle\Form\Handler\PathHandler
      */
     public function setRequest(Request $request = null)
     {
@@ -42,7 +63,7 @@ abstract class Handler
 
     /**
      * Get current data of the form
-     * @return \Innova\PathBundle\Entity\Path\AbstractPath
+     * @return \Innova\ActivityBundle\Entity\Path\AbstractPath
      */
     public function getData()
     {
@@ -52,7 +73,7 @@ abstract class Handler
     /**
      * Set current form
      * @param  \Symfony\Component\Form\FormInterface $form
-     * @return \Innova\PathBundle\Form\Handler\PathHandler
+     * @return \Innova\ActivityBundle\Form\Handler\PathHandler
      */
     public function setForm(FormInterface $form)
     {
@@ -90,15 +111,24 @@ abstract class Handler
         return $success;
     }
 
-    /**
-     * Create a new path
-     * @return boolean
-     */
-    abstract protected function create();
+    public function create()
+    {
+        // TODO
 
-    /**
-     * Edit existing path
-     * @return boolean
-     */
-    abstract protected function edit();
+        // Retrieve current Workspace
+        $workspaceId = $this->request->get('workspaceId');
+        $workspace = $this->pathManager->getWorkspace($workspaceId);
+
+        $this->pathManager->create($this->data, $workspace);
+
+        return true;
+    }
+
+    public function edit()
+    {
+        // TODO
+        $this->pathManager->edit($this->data);
+
+        return true;
+    }
 }

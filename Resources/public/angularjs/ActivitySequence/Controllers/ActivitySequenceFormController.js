@@ -24,11 +24,12 @@
 
             this.sortableOptions = {
                 stop: function (e, ui) {
+                    console.log('coucou');
                     var order = this.sequence.activities.map(function(i){return i.id;});
 
-                    ActivitySequenceService.saveOrder(this.sequence.id, order).then(function(activitySequence) {
+                    /*ActivitySequenceService.saveOrder(this.sequence.id, order).then(function(activitySequence) {*/
                         /*this.sequence = ActivitySequenceService.setActivitySequence(activitySequence);*/
-                    });
+                    /*});*/
                 }.bind(this)
             };
 
@@ -67,7 +68,7 @@
              * Delete an Activity from the ActivitySequence
              * @param activity
              */
-            this.deleteActivity = function (activity) {
+            this.removeActivity = function (activity) {
                 ActivitySequenceService.delete(activity);
             };
 
