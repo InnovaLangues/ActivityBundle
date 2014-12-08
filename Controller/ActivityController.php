@@ -100,9 +100,6 @@ class ActivityController extends Controller
     public function updateAction(Activity $activity)
     {
 
-
-echo "update de l'activité";die();
-
         $activity = $this->activityManager->addActivity($activity);
         $activityAttrs = $this->activityManager->activityAttrs($activity);
 
