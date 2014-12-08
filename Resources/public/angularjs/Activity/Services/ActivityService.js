@@ -26,7 +26,7 @@
 
                     $http.put(Routing.generate('update_activity', { activityId : activity.id }, activity))
                     .success(function (response) {
-
+                        // Réinjecter les données Angular/SF
                     })
                     .error(function(response, status) {
 //                        AlertFactory.addAlert('danger', 'Error while adding activity.');
