@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PathType extends AbstractType
+class ActivityType extends AbstractType
 {
     // A faire pour les autres données ? information, objet, proposition, question ?
 
