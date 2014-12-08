@@ -25,6 +25,7 @@ class ActivityManager
     public function create(Activity $activity){
 
         $activityType = "ActivityQRU"; // For tests. Eric.
+        var_dump($activityType);
         $activity = $this->add($activity, $activityType);
 //        $activity = $this->createActivity($activitySequence);
 
