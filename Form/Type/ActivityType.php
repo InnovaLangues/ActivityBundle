@@ -26,7 +26,7 @@ class ActivityType extends AbstractType
 
     public function getName()
     {
-        return 'innova_activity_type';
+        return 'innova_activity';
     }
 
     public function getDefaultOptions()
