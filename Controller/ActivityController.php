@@ -37,7 +37,7 @@ class ActivityController extends Controller
      * @DI\InjectParams({
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      *   "formFactory"     = @DI\Inject("form.factory"),
-     *   "activityHandler" = @DI\Inject("innova.form.handler.activity")
+     *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")
      * })
      * @param \Innova\ActivityBundle\Manager\ActivityManager        $activityManager
      * @param \Symfony\Component\Form\FormFactoryInterface          $formFactory
@@ -70,7 +70,7 @@ class ActivityController extends Controller
         );
 
         // Create form
-        $form = $this->formFactory->create('innova_activity_type', $activity, $params);
+        $form = $this->formFactory->create('innova_activity', $activity, $params);
 
         $response = array ();
 

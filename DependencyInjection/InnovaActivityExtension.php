@@ -27,6 +27,7 @@ class InnovaActivityExtension extends Extension
         $loader = new YamlFileLoader($container, $locator);
         $loader->load('listeners.yml');
         $loader->load('form_handlers.yml');
+        $loader->load('form_types.yml');
     }
 
     protected function loadParameters(ContainerBuilder $container)

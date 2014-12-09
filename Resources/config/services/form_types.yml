@@ -1,0 +1,6 @@
+services:
+    # Step type
+    innova_activity.form.type.activity:
+        class: %innova_activity.form.type.activity.class%
+        tags:
+          - { name: form.type, alias: innova_activity }
