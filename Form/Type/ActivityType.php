@@ -14,11 +14,14 @@ class ActivityType extends AbstractType
     {
         $builder->add('name', 'text', array ('required' => true));
 
-/*        $builder->add('instruction', 'text', array ('required' => true));
+/*
+        $builder->add('instruction', 'text', array ('required' => true));
         $builder->add('information', 'text', array ('required' => true));
         $builder->add('object', 'text', array ('required' => true));
         $builder->add('proposition', 'text', array ('required' => true));
-        $builder->add('question', 'text', array ('required' => true));*/
+        $builder->add('question', 'text', array ('required' => true));
+*/
+
     }
 
     public function getName()
