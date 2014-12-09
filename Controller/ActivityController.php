@@ -43,10 +43,13 @@ class ActivityController extends Controller
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
      * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler $activityHandler
      */
-    public function __construct(ActivityManager $activityManager, FormFactoryInterface $formFactory, ActivityHandler $activityHandler)
+    public function __construct(
+        ActivityManager      $activityManager,
+        FormFactoryInterface $formFactory,
+        ActivityHandler      $activityHandler)
     {
         $this->activityManager = $activityManager;
-        $this->formFactory = $formFactory;
+        $this->formFactory     = $formFactory;
         $this->activityHandler = $activityHandler;
     }
 
@@ -61,16 +64,15 @@ class ActivityController extends Controller
      */
     public function updateAction(Activity $activity)
     {
-        /**
-         * Inspiré de EditController du PathBundle
-         */
-        $params = array();
-        if (!empty($httpMethod)) {
-            $params['method'] = $httpMethod;
-            $params['csrf_protection'] = false;
-        }
+        $params = array(
+            'method' => 'PUT',
+            'csrf_protection' => false,
+        );
+
         // Create form
         $form = $this->formFactory->create('innova_activity_type', $activity, $params);
+
+        $response = array ();
 
         // Try to process data
         $this->activityHandler->setForm($form);
@@ -79,16 +81,27 @@ class ActivityController extends Controller
             /*$this->session->getFlashBag()->add(
                 'success', $this->translator->trans('path_save_success', array(), 'path_editor')
             );*/
+            $response['status'] = 'OK';
+            $response['data']   = $this->activityHandler->getData();
         }
         else {
-            // Redirect with JSON
-            // SI erreur
+            // Error
+            // List des erreurs symfony (FormError...)
+            $errors = $form->getErrors();
+
+            // SI non fonctionnel du premier coup alors :
+            // - boucler sur les erreurs Symfony
+            // - pour chaque champ, 'nom_du_champ' => 'message'
+
+            // ATTENTION : le nom du champ doit valoir nom_form_type + nom_du_champ (ex. innova_activity_type_name)
+
+            $response['status'] = 'ERROR_VALIDATION';
+            $response['messages'] = array (
+                $form->getErrors(),
+            );
         }
 
-        var_dump($activity);
-        $activity = $this->activityManager->create($activity);
-
         // TODO : return soit l'entity mise à jour soit un message erreurs (erreurs de validation de form)
-        return new JsonResponse(array('activity' => $activity));
+        return new JsonResponse($response);
     }
 }

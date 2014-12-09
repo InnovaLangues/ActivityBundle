@@ -74,13 +74,13 @@ class ActivitySequenceController extends Controller
     /**
      * Display an Activity Sequence
      *
-     * @param  \Innova\ActivityBundle\Entity\ActivitySequence   $activitySequence
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return array
      *
      * @Route(
      *      "/{activitySequenceId}",
-     *      name="activity_sequence_open",
+     *      name="innova_activity_sequence_open",
      * )
      * @Method("GET")
      * @Template()
@@ -105,7 +105,7 @@ class ActivitySequenceController extends Controller
      *
      * @Route(
      *      "/{activitySequenceId}/administrate",
-     *      name = "activity_sequence_administrate",
+     *      name = "innova_activity_sequence_administrate",
      * )
      * @Method("GET")
      * @Template()
@@ -125,17 +125,21 @@ class ActivitySequenceController extends Controller
      * Update an ActivitySequence
      *
      * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      * @Route(
      *      "/{activitySequenceId}",
-     *      name    = "update_activity_sequence",
+     *      name    = "innova_activity_sequence_update",
      *      options = {"expose" = true}
      * )
      * @Method("PUT")
      */
     public function updateAction(ActivitySequence $activitySequence)
     {
+        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
+            throw new AccessDeniedException();
+        }
 
         return new JsonResponse($activitySequence);
     }
@@ -152,17 +156,12 @@ class ActivitySequenceController extends Controller
      */
     public function addActivityAction(ActivitySequence $activitySequence)
     {
+        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
+            throw new AccessDeniedException();
+        }
+
         // Create the new Activity
-        $activity = new Activity();
-
-        $activity->setName('New Activity');
-        $activity->setDescription('New Description');
-
-        // Attach the Activity to the Sequence (it's position will be automatically calculated)
-        $activitySequence->addActivity($activity);
-
-        // Save to the DB
-        $this->om->flush();
+        $activity = $this->activityManager->create($activitySequence);
 
         return new JsonResponse(array (
             'id'       => $activity->getId(),
@@ -176,6 +175,7 @@ class ActivitySequenceController extends Controller
      *
      * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
      * @param  \Innova\ActivityBundle\Entity\Activity         $activity
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      * @Route(
@@ -187,7 +187,9 @@ class ActivitySequenceController extends Controller
      */
     public function updateActivityAction(ActivitySequence $activitySequence, Activity $activity)
     {
-
+        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
+            throw new AccessDeniedException();
+        }
     }
 
     /**
@@ -195,6 +197,7 @@ class ActivitySequenceController extends Controller
      *
      * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
      * @param  \Innova\ActivityBundle\Entity\Activity         $activity
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      * @Route(
@@ -206,6 +209,10 @@ class ActivitySequenceController extends Controller
      */
     public function removeActivityAction(ActivitySequence $activitySequence, Activity $activity)
     {
+        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
+            throw new AccessDeniedException();
+        }
+
         $response = array ();
 
         try {
@@ -221,7 +228,9 @@ class ActivitySequenceController extends Controller
             $response['status'] = 'OK';
         } catch (\Exception $e) {
             $response['status'] = 'ERROR';
-            $response['message'] = $e->getMessage();
+            $response['messages'] = array (
+                $e->getMessage(),
+            );
         }
 
         return new JsonResponse($response);

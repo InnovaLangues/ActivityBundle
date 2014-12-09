@@ -69,7 +69,7 @@ class ActivitySequenceListener extends ContainerAware
          $route = $this->container
                 ->get('router')
                 ->generate(
-                'activity_sequence_open',
+                'innova_activity_sequence_open',
                 array (
                     'activitySequenceId' => $activitySequence->getId(),
                 )
@@ -94,7 +94,7 @@ class ActivitySequenceListener extends ContainerAware
         $activitySequence = $event->getResource();
 
         $route = $this->container->get('router')->generate(
-            'activity_sequence_administrate',
+            'innova_activity_sequence_administrate',
             array (
                 'activitySequenceId' => $activitySequence->getId(),
             )

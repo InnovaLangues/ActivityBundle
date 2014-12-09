@@ -24,32 +24,8 @@
 
             this.sortableOptions = {
                 stop: function (e, ui) {
-                    console.log('coucou');
-                    var order = this.sequence.activities.map(function(i){return i.id;});
 
-                    /*ActivitySequenceService.saveOrder(this.sequence.id, order).then(function(activitySequence) {*/
-                        /*this.sequence = ActivitySequenceService.setActivitySequence(activitySequence);*/
-                    /*});*/
                 }.bind(this)
-            };
-
-            /**
-             * Add a new Activity to the ActivitySequence
-             */
-            this.addActivity = function () {
-                // Open a modal to ask the user to choose the ActivityType
-                /*var modalInstance = $modal.open({
-                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityTypeAvailable/Partials/activity-type-available-list.html',
-                    controller: 'ActivityTypeAvailableController'
-                });*/
-
-                // Create the Activity when User has chosen the ActivityType
-                /*modalInstance.result.then(function (type) {*/
-                    ActivitySequenceService.addActivity(this.sequence).then(function (activity) {
-                        // Display the new Activity
-                        this.showActivity(activity);
-                    }.bind(this));
-                /*}.bind(this));*/
             };
 
             /**
@@ -65,6 +41,25 @@
             };
 
             /**
+             * Add a new Activity to the ActivitySequence
+             */
+            this.addActivity = function () {
+                // Open a modal to ask the user to choose the ActivityType
+                // Create the Activity when User has chosen the ActivityType
+                /*var modalInstance = $modal.open({
+                 templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityTypeAvailable/Partials/activity-type-available-list.html',
+                 controller: 'ActivityTypeAvailableController'
+                 });*/
+                /*modalInstance.result.then(function (type) {*/
+                ActivitySequenceService.addActivity(this.sequence).then(function (activity) {
+                    // Display the new Activity
+                    this.showActivity(activity);
+                }.bind(this));
+                /*}.bind(this));*/
+            };
+
+
+            /**
              * Delete an Activity from the ActivitySequence
              * @param activity
              */
@@ -72,12 +67,30 @@
                 ActivitySequenceService.delete(activity);
             };
 
-            this.nextActivity = function () {
+            /**
+             * Jump to next Activity in the Sequence
+             * @param activity
+             */
+            this.nextActivity = function (activity) {
+                var index = this.sequence.activities.indexOf(activity);
 
+                console.log(index);
+
+                if (false !== index && this.sequence.activities[index + 1]) {
+                    this.showActivity(this.sequence.activities[index + 1]);
+                }
             };
 
-            this.previousActivity = function () {
+            /**
+             * Jump to previous activity in the Sequence
+             * @param activity
+             */
+            this.previousActivity = function (activity) {
+                var index = this.sequence.activities.indexOf(activity);
 
+                if (false !== index && this.sequence.activities[index - 1]) {
+                    this.showActivity(this.sequence.activities[index - 1]);
+                }
             };
         }
     ]);

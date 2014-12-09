@@ -22,23 +22,23 @@ class ActivityManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    public function create(Activity $activity)
+    public function create(ActivitySequence $activitySequence)
     {
         $activityType = "UniqueChoiceType"; // For tests. Eric.
-        var_dump($activityType);
-        $activity = $this->add($activity, $activityType);
-
-        return $activity;
-    }
-
-    public function add(Activity $activity, $activityType)
-    {
 
         $activity = $this->em->factory('Innova\ActivityBundle\Entity\ActivityType\\' . $activityType);
         $activity->setName("New Activity");
         $activity->setDescription("New Description");
-        /*$activity->setActivitySequence($activitySequence);*/
-        $activity->setPosition(1);
+
+        $activity = $this->add($activity, $activityType);
+
+        $activity->setActivitySequence($activitySequence);
+
+        return $this->edit($activity);;
+    }
+
+    public function edit(Activity $activity)
+    {
         $this->em->persist($activity);
         $this->em->flush();
 
@@ -49,8 +49,6 @@ class ActivityManager
     {
         $this->em->remove($activity);
         $this->em->flush();
-
-        $this->reorderActivity($activity);
 
         return $activity;
     }

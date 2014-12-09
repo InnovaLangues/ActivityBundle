@@ -20,7 +20,15 @@
 
     <!-- Activities List -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2">
+            <div class="activity-add">
+                <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_sequence_editor' }}">
+                    <i class="fa fa-plus"></i>
+                    <span class="sr-only">{{ 'add_activity'|trans:{}:'activity_sequence_editor' }}</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-10">
             <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequenceCtrl.sequence.activities">
                 <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
@@ -29,13 +37,6 @@
                     </a>
                 </li>
             </ul>
-
-            <div class="activity-add pull-right">
-                <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_sequence_editor' }}">
-                    <i class="fa fa-plus"></i>
-                    <span class="sr-only">{{ 'add_activity'|trans:{}:'activity_sequence_editor' }}</span>
-                </a>
-            </div>
         </div>
     </div>
 
@@ -44,6 +45,18 @@
     <!-- Display Activity form -->
     <div class="row">
         <div class="col-md-12">
+            <div>
+                <button type="button" role="button" class="btn btn-default" data-ng-click="previousActivity(activitySequenceCtrl.currentActivity)">
+                    <i class="fa fa-angle-double-left"></i>
+                </button>
+
+                {{ activitySequenceCtrl.currentActivity.position }} / {{ activitySequenceCtrl.sequence.activities.length }}
+
+                <button type="button" role="button" class="btn btn-default" data-ng-click="nextActivity(activitySequenceCtrl.currentActivity)">
+                    <i class="fa fa-angle-double-right"></i>
+                </button>
+            </div>
+
             <activity-form data-activity="activitySequenceCtrl.currentActivity" data-ng-if="activitySequenceCtrl.currentActivity"></activity-form>
 
             <div class="text-center" ng-if="activitySequenceCtrl.sequence.activities.length == 0">

@@ -15,7 +15,7 @@
                 update: function (activity) {
                     $http({
                         method: 'PUT',
-                        url: Routing.generate('update_activity_sequence', { activitySequenceId : activity.id }),
+                        url: Routing.generate('innova_activity_sequence_update', { activitySequenceId : activity.id }),
                         data: data
                     })
                     .success(function (data) {
@@ -55,11 +55,17 @@
                             activitySequenceId: sequence.id,
                             activityId:         activity.id
                         }))
-                        .success(function (activity) {
-                            /*sequence.activities.push(activity);*/
+                        .success(function (response) {
+                            if (response.status && 'OK' === status) {
+                                // Remove activity from sequence
+                                if (false !== sequence.activities.indexOf(activity)) {
+                                    sequence.activities.slice(sequence.activities.indexOf(activity), 1);
+                                }
+                            }
+
                             LoaderService.endRequest();
 
-                            /*deferred.resolve(activity);*/
+                            deferred.resolve(response);
                         });
 
                     return deferred.promise;

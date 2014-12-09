@@ -111,10 +111,6 @@ class ActivityHandler
 
     public function create()
     {
-        // Retrieve current Workspace
-        //$workspaceId = $this->request->get('workspaceId');
-        //$workspace = $this->activityManager->getWorkspace($workspaceId);
-
         $this->activityManager->create($this->data);
 
         return true;
@@ -122,7 +118,6 @@ class ActivityHandler
 
     public function edit()
     {
-        // TODO
         $this->activityManager->edit($this->data);
 
         return true;
