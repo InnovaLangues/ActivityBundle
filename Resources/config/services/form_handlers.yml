@@ -1,6 +1,9 @@
 services:
     # Activity handler
     innova_activity.form.handler.activity:
-        class: %innova_activity.form.handler.activity%
-        tags:
-          - { name: form.activity}
+        class: %innova_activity.form.handler.activity.class%
+        arguments:
+            activityManager: @innova.manager.activity_manager
+        calls:
+            - [setRequest, [@request]]
+        scope: request
