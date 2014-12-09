@@ -2,13 +2,13 @@
 
 namespace Innova\ActivityBundle\Form\Handler;
 
-use Innova\ActivityBundle\Manager\PathManager;
+use Innova\ActivityBundle\Manager\ActivityManager;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Handles path form
+ * Handles activity form
  *
  * @DI\Service("innova.form.handler.activity_handler")
  */
@@ -16,8 +16,7 @@ class ActivityHandler
 {
     /**
      * Current data of the form
-     * @var \Innova\ActivityBundle\Entity\Path\AbstractPath
-     * @todo mettre les bons types
+     * @var \Innova\ActivityBundle\Entity\Activity
      */
     protected $data;
 
@@ -34,25 +33,24 @@ class ActivityHandler
     protected $request;
 
     /**
-     * Path manager
-     * @var \Innova\ActivityBundle\Manager\PathManager
+     * Activity manager
+     * @var \Innova\ActivityBundle\Manager\ActivityManager
      */
-    protected $pathManager; // TODO : remplacer le bon manager (ActivityManager)
+    protected $activityManager;
 
     /**
      * Class constructor
-     * @param \Innova\ActivityBundle\Manager\PathManager $pathManager
+     * @param \Innova\ActivityBundle\Manager\ActivityManager $activityManager
      */
-    public function __construct(PathManager $pathManager)
+    public function __construct(ActivityManager $activityManager)
     {
-        // TODO : injecter le bon manager
-        $this->pathManager = $pathManager;
+        $this->activityManager = $activityManager;
     }
 
     /**
      * Set current request
      * @param  \Symfony\Component\HttpFoundation\Request   $request
-     * @return \Innova\ActivityBundle\Form\Handler\PathHandler
+     * @return \Innova\ActivityBundle\Form\Handler\ActivityHandler
      */
     public function setRequest(Request $request = null)
     {
@@ -63,7 +61,7 @@ class ActivityHandler
 
     /**
      * Get current data of the form
-     * @return \Innova\ActivityBundle\Entity\Path\AbstractPath
+     * @return \Innova\ActivityBundle\Entity\Activity
      */
     public function getData()
     {
@@ -73,7 +71,7 @@ class ActivityHandler
     /**
      * Set current form
      * @param  \Symfony\Component\Form\FormInterface $form
-     * @return \Innova\ActivityBundle\Form\Handler\PathHandler
+     * @return \Innova\ActivityBundle\Form\Handler\ActivityHandler
      */
     public function setForm(FormInterface $form)
     {
@@ -94,15 +92,15 @@ class ActivityHandler
             $this->form->submit($this->request);
 
             if ( $this->form->isValid() ) {
-                // Form is valid => create or update the path
+                // Form is valid => create or update the activity
                 $this->data = $this->form->getData();
 
                 if ($this->request->getMethod() == 'POST') {
-                    // Create path
+                    // Create activity
                     $success = $this->create();
                 }
                 else {
-                    // Edit existing path
+                    // Edit existing activity
                     $success = $this->edit();
                 }
             }
@@ -113,13 +111,11 @@ class ActivityHandler
 
     public function create()
     {
-        // TODO
-
         // Retrieve current Workspace
-        $workspaceId = $this->request->get('workspaceId');
-        $workspace = $this->pathManager->getWorkspace($workspaceId);
+        //$workspaceId = $this->request->get('workspaceId');
+        //$workspace = $this->activityManager->getWorkspace($workspaceId);
 
-        $this->pathManager->create($this->data, $workspace);
+        $this->activityManager->create($this->data);
 
         return true;
     }
@@ -127,7 +123,7 @@ class ActivityHandler
     public function edit()
     {
         // TODO
-        $this->pathManager->edit($this->data);
+        $this->activityManager->edit($this->data);
 
         return true;
     }

@@ -24,7 +24,7 @@ class ActivityManager
 
     public function create(Activity $activity)
     {
-        $activityType = "ActivityQRU"; // For tests. Eric.
+        $activityType = "UniqueChoiceType"; // For tests. Eric.
         var_dump($activityType);
         $activity = $this->add($activity, $activityType);
 
@@ -34,7 +34,7 @@ class ActivityManager
     public function add(Activity $activity, $activityType)
     {
 
-        $activity = $this->em->factory('Innova\ActivityBundle\Entity\\' . $activityType);
+        $activity = $this->em->factory('Innova\ActivityBundle\Entity\ActivityType\\' . $activityType);
         $activity->setName("New Activity");
         $activity->setDescription("New Description");
         /*$activity->setActivitySequence($activitySequence);*/

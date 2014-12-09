@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Claroline\KernelBundle\Bundle\AutoConfigurableInterface;
 use Claroline\KernelBundle\Bundle\ConfigurationProviderInterface;
 use Claroline\KernelBundle\Bundle\ConfigurationBuilder;
-use Innova\PathBundle\Installation\AdditionalInstaller;
+use Innova\ActivityBundle\Installation\AdditionalInstaller;
 
 
 class InnovaActivityBundle extends PluginBundle implements AutoConfigurableInterface, ConfigurationProviderInterface
@@ -26,7 +26,7 @@ class InnovaActivityBundle extends PluginBundle implements AutoConfigurableInter
 
     public function suggestConfigurationFor(Bundle $bundle, $environment)
     {
-        
+
     }
 
     public function getAdditionalInstaller()
