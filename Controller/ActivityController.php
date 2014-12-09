@@ -62,20 +62,7 @@ class ActivityController extends Controller
     public function updateAction(Activity $activity)
     {
         /**
-         * TODO : pour plus tard quand le reste sera OK.
-         * Générer le secret CSRF depuis quelque part
-         * ou comme dans le PathBundle
-         * // Create form to validate data
-         * $form = $this->formFactory->create('innova_path_template', $pathTemplate, array (
-         *     'method' => 'PUT',
-         *     'csrf_protection' => false,
-         *));
-         * ...
-         */
-        $csrfSecret = '<generated token>';
-
-        /**
-         * recopie de EditController du PathBundle
+         * Inspiré de EditController du PathBundle
          */
         $params = array();
         if (!empty($httpMethod)) {
