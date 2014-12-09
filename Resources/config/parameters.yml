@@ -1,0 +1,3 @@
+parameters:
+    # Form handlers
+    innova_activity.form.handler.activity.class:      Innova\ActivityBundle\Form\Handler\ActivityHandler

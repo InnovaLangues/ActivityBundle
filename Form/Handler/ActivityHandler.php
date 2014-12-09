@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Handles activity form
  *
- * @DI\Service("innova.form.handler.activity_handler")
  */
 class ActivityHandler
 {
