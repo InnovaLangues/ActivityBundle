@@ -39,9 +39,9 @@ class ActivityController extends Controller
      *   "formFactory"     = @DI\Inject("form.factory"),
      *   "activityHandler" = @DI\Inject("innova.form.handler.activity_handler")
      * })
-     * @param \Innova\ActivityBundle\Manager\ActivityManager $activityManager
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler $activityHandler
+     * @param \Innova\ActivityBundle\Manager\ActivityManager        $activityManager
+     * @param \Symfony\Component\Form\FormFactoryInterface          $formFactory
+     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler   $activityHandler
      */
     public function __construct(
         ActivityManager      $activityManager,
@@ -90,12 +90,18 @@ class ActivityController extends Controller
             $errors = $form->getErrors();
 
             // SI non fonctionnel du premier coup alors :
-            // - boucler sur les erreurs Symfony
             // - pour chaque champ, 'nom_du_champ' => 'message'
 
             // ATTENTION : le nom du champ doit valoir nom_form_type + nom_du_champ (ex. innova_activity_type_name)
+            // Fait.
 
             $response['status'] = 'ERROR_VALIDATION';
+
+            // - boucler sur les erreurs Symfony
+            foreach ($form->getErrors() as $key => $error) {
+                $errors[] = $error->getMessage();
+            }
+
             $response['messages'] = array (
                 $form->getErrors(),
             );
