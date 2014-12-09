@@ -46,13 +46,13 @@
     <div class="row">
         <div class="col-md-12">
             <div>
-                <button type="button" role="button" class="btn btn-default" data-ng-click="previousActivity(activitySequenceCtrl.currentActivity)">
+                <button type="button" role="button" class="btn btn-default" data-ng-click="activitySequenceCtrl.previousActivity(activitySequenceCtrl.currentActivity)">
                     <i class="fa fa-angle-double-left"></i>
                 </button>
 
                 {{ activitySequenceCtrl.currentActivity.position }} / {{ activitySequenceCtrl.sequence.activities.length }}
 
-                <button type="button" role="button" class="btn btn-default" data-ng-click="nextActivity(activitySequenceCtrl.currentActivity)">
+                <button type="button" role="button" class="btn btn-default" data-ng-click="activitySequenceCtrl.nextActivity(activitySequenceCtrl.currentActivity)">
                     <i class="fa fa-angle-double-right"></i>
                 </button>
             </div>

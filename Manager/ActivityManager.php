@@ -2,9 +2,9 @@
 
 namespace Innova\ActivityBundle\Manager;
 
-use Innova\ActivityBundle\Entity\AbstractActivity;
-use JMS\DiExtraBundle\Annotation as DI;
 use Innova\ActivityBundle\Entity\Activity;
+use Innova\ActivityBundle\Entity\ActivitySequence;
+use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * @DI\Service("innova.manager.activity_manager")
@@ -24,15 +24,16 @@ class ActivityManager
 
     public function create(ActivitySequence $activitySequence)
     {
+        // Gérer les types d'activité plus tard
         $activityType = "UniqueChoiceType"; // For tests. Eric.
 
-        $activity = $this->em->factory('Innova\ActivityBundle\Entity\ActivityType\\' . $activityType);
+        /*$activity = $this->em->factory('Innova\ActivityBundle\Entity\ActivityType\\' . $activityType);*/
+
+        $activity = new Activity();
         $activity->setName("New Activity");
         $activity->setDescription("New Description");
 
-        $activity = $this->add($activity, $activityType);
-
-        $activity->setActivitySequence($activitySequence);
+        $activitySequence->addActivity($activity);
 
         return $this->edit($activity);;
     }

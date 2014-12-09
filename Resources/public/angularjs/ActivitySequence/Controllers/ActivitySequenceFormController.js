@@ -74,8 +74,6 @@
             this.nextActivity = function (activity) {
                 var index = this.sequence.activities.indexOf(activity);
 
-                console.log(index);
-
                 if (false !== index && this.sequence.activities[index + 1]) {
                     this.showActivity(this.sequence.activities[index + 1]);
                 }
