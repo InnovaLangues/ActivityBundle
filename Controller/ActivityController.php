@@ -90,9 +90,10 @@ class ActivityController extends Controller
             // List des erreurs symfony (FormError...)
             /*$errors = $form->getErrors();*/
 
+            $response['status'] = 'ERROR_VALIDATION';
             $errors = $this->getFormErrors($form);
 
-            var_dump($errors);
+            var_dump($errors);die();
 
             // SI non fonctionnel du premier coup alors :
             // - pour chaque champ, 'nom_du_champ' => 'message'
@@ -100,15 +101,14 @@ class ActivityController extends Controller
             // ATTENTION : le nom du champ doit valoir nom_form_type + nom_du_champ (ex. innova_activity_type_name)
             // Fait.
 
-            $response['status'] = 'ERROR_VALIDATION';
 
-            // - boucler sur les erreurs Symfony
-            foreach ($form->getErrors() as $key => $error) {
-                $errors[] = $error->getMessage();
-            }
+            // // - boucler sur les erreurs Symfony
+            // foreach ($form->getErrors() as $key => $error) {
+            //     $errors[] = $error->getMessage();
+            // }
 
             $response['messages'] = array (
-                $form->getErrors(),
+                $errors
             );
         }
 
