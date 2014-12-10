@@ -12,18 +12,23 @@
         'LoaderService',
         function ($http, $filter, $q, LoaderService) {
             return {
-                update: function (activity) {
-                    $http({
-                        method: 'PUT',
-                        url: Routing.generate('innova_activity_sequence_update', { activitySequenceId : activity.id }),
-                        data: data
-                    })
-                    .success(function (data) {
+                /**
+                 * Update the ActivitySequence
+                 * @param sequence
+                 */
+                update: function (sequence) {
+                    var deferred = $q.defer();
 
-                    })
-                    .error(function(data, status) {
-//                        AlertFactory.addAlert('danger', 'Error while adding activity.');
-                    });
+                    LoaderService.startRequest();
+
+                    $http
+                        .put(Routing.generate('innova_activity_sequence_update', { activitySequenceId : sequence.id }, sequence))
+                        .success(function (response) {
+                            deferred.resolve(response);
+                        })
+                        .error(function(data, status) {
+                            AlertFactory.addAlert('danger', 'Error while adding activity.');
+                        });
                 },
 
                 addActivity: function (sequence) {
@@ -40,9 +45,29 @@
                             LoaderService.endRequest();
 
                             deferred.resolve(activity);
+                        })
+                        .error(function (response) {
+                            LoaderService.endRequest();
+
+                            deferred.reject(response);
                         });
 
                     return deferred.promise;
+                },
+
+                updateActivity: function (sequence, activity) {
+                    // new url = innova_activity_sequence_update_activity
+                    $http
+                        .put(Routing.generate('update_activity', {
+                            activitySequenceId: sequence.id,
+                            activityId : activity.id
+                        }, activity))
+                        .success(function (response) {
+                            // Réinjecter les données Angular/SF
+                        })
+                        .error(function(response) {
+                            // AlertFactory.addAlert('danger', 'Error while adding activity.');
+                        });
                 },
 
                 removeActivity: function (sequence, activity) {

@@ -58,6 +58,13 @@
                 /*}.bind(this));*/
             };
 
+            /**
+             * Update an Activity of the Sequence
+             * @param activity
+             */
+            this.updateActivity = function (activity) {
+                ActivitySequenceService.updateActivity(this.sequence, activity);
+            };
 
             /**
              * Delete an Activity from the ActivitySequence
