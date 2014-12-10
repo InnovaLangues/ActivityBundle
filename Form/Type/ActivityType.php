@@ -12,7 +12,7 @@ class ActivityType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options = array ())
     {
-        $builder->add('name', 'text', array ('required' => true));
+        $builder->add('name', 'text', array ('required' => true, 'max_length' => 6));
 
 /*
         $builder->add('instruction', 'text', array ('required' => true));
@@ -26,7 +26,7 @@ class ActivityType extends AbstractType
 
     public function getName()
     {
-        return 'innova_activity_type';
+        return 'innova_activity';
     }
 
     public function getDefaultOptions()

@@ -33,6 +33,22 @@
 
         <!-- Activity relationships -->
         <div class="panel-group">
+            <!-- Name -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#panel-name">
+                            {{ 'activity_sequence_form_name' | trans:{}:'activity_sequence_editor' }}
+                        </a>
+                    </h4>
+                </div>
+                <div id="panel-name" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <input class="form-control" name="innova_activity_type_name" id="innova_activity_type_name" data-ng-model="ctrl.activity.name" />
+                    </div>
+                </div>
+            </div>
+
             <!-- Instruction -->
             <div class="panel panel-default">
                 <div class="panel-heading">

@@ -37,11 +37,11 @@ class ActivityController extends Controller
      * @DI\InjectParams({
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      *   "formFactory"     = @DI\Inject("form.factory"),
-     *   "activityHandler" = @DI\Inject("innova.form.handler.activity_handler")
+     *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")
      * })
-     * @param \Innova\ActivityBundle\Manager\ActivityManager $activityManager
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler $activityHandler
+     * @param \Innova\ActivityBundle\Manager\ActivityManager        $activityManager
+     * @param \Symfony\Component\Form\FormFactoryInterface          $formFactory
+     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler   $activityHandler
      */
     public function __construct(
         ActivityManager      $activityManager,
@@ -70,7 +70,7 @@ class ActivityController extends Controller
         );
 
         // Create form
-        $form = $this->formFactory->create('innova_activity_type', $activity, $params);
+        $form = $this->formFactory->create('innova_activity', $activity, $params);
 
         $response = array ();
 
@@ -90,12 +90,18 @@ class ActivityController extends Controller
             $errors = $form->getErrors();
 
             // SI non fonctionnel du premier coup alors :
-            // - boucler sur les erreurs Symfony
             // - pour chaque champ, 'nom_du_champ' => 'message'
 
             // ATTENTION : le nom du champ doit valoir nom_form_type + nom_du_champ (ex. innova_activity_type_name)
+            // Fait.
 
             $response['status'] = 'ERROR_VALIDATION';
+
+            // - boucler sur les erreurs Symfony
+            foreach ($form->getErrors() as $key => $error) {
+                $errors[] = $error->getMessage();
+            }
+
             $response['messages'] = array (
                 $form->getErrors(),
             );
