@@ -36,25 +36,11 @@
                 }
             };
 
-            // Delete function : data and call Symfony Root controller
-            this.create = function () {
-                console.log('save activity');
-                ActivityService.save(this.activity);
-            };
-
             // Save function : data and call Symfony Root controller
             this.update = function () {
                 console.log('update 2');
                 ActivityService.update(this.activity);
             };
-
-            // Save function : data and call Symfony Root controller
-            this.delete = function () {
-                console.log('delete 2');
-                ActivityService.delete(this.activity);
-                // TODO : supprimer l'activité de sequence.activities
-            };
-
         }
     ]);
 })();

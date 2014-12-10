@@ -64,7 +64,10 @@
              * @param activity
              */
             this.removeActivity = function (activity) {
-                ActivitySequenceService.delete(activity);
+                ActivitySequenceService.removeActivity(this.sequence, activity);
+
+                // Update current Activity
+                this.showActivity();
             };
 
             /**

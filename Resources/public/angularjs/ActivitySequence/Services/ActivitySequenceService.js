@@ -51,15 +51,15 @@
                     LoaderService.startRequest();
 
                     $http
-                        .post(Routing.generate('innova_activity_sequence_remove_activity', {
+                        .delete(Routing.generate('innova_activity_sequence_remove_activity', {
                             activitySequenceId: sequence.id,
                             activityId:         activity.id
                         }))
                         .success(function (response) {
-                            if (response.status && 'OK' === status) {
+                            if (response.status && 'OK' === response.status) {
                                 // Remove activity from sequence
                                 if (false !== sequence.activities.indexOf(activity)) {
-                                    sequence.activities.slice(sequence.activities.indexOf(activity), 1);
+                                    sequence.activities.splice(sequence.activities.indexOf(activity), 1);
                                 }
                             }
 

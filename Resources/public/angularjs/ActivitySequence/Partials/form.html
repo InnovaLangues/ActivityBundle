@@ -20,7 +20,7 @@
 
     <!-- Activities List -->
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-1 text-center">
             <div class="activity-add">
                 <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_sequence_editor' }}">
                     <i class="fa fa-plus"></i>
@@ -28,7 +28,8 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-10">
+
+        <div class="col-md-11 text-center">
             <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequenceCtrl.sequence.activities">
                 <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
@@ -45,7 +46,12 @@
     <!-- Display Activity form -->
     <div class="row">
         <div class="col-md-12">
-            <div>
+            <div div class="pull-right">
+                <button href="#" data-ng-click="activitySequenceCtrl.removeActivity(activitySequenceCtrl.currentActivity)" class="btn btn-danger">
+                    <i class="fa fa-trash-o"></i>
+                    <span>{{ 'delete_activity' | trans:{}:'activity_sequence_editor' }}</span>
+                </button>
+
                 <button type="button" role="button" class="btn btn-default" data-ng-click="activitySequenceCtrl.previousActivity(activitySequenceCtrl.currentActivity)">
                     <i class="fa fa-angle-double-left"></i>
                 </button>
