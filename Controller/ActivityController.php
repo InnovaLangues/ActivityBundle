@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Form\FormInterface;
 
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -87,7 +88,11 @@ class ActivityController extends Controller
         else {
             // Error
             // List des erreurs symfony (FormError...)
-            $errors = $form->getErrors();
+            /*$errors = $form->getErrors();*/
+
+            $errors = $this->getFormErrors($form);
+
+            var_dump($errors);
 
             // SI non fonctionnel du premier coup alors :
             // - pour chaque champ, 'nom_du_champ' => 'message'
@@ -109,5 +114,22 @@ class ActivityController extends Controller
 
         // TODO : return soit l'entity mise à jour soit un message erreurs (erreurs de validation de form)
         return new JsonResponse($response);
+    }
+
+    private function getFormErrors(FormInterface $form)
+    {
+        $errors = array();
+        foreach ($form->getErrors() as $key => $error) {
+            $errors[$key] = $error->getMessage();
+        }
+
+        // Get errors from cjhildren
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getFormErrors($child);
+            }
+        }
+
+        return $errors;
     }
 }

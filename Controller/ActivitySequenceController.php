@@ -160,14 +160,27 @@ class ActivitySequenceController extends Controller
             throw new AccessDeniedException();
         }
 
-        // Create the new Activity
-        $activity = $this->activityManager->create($activitySequence);
+        $response = array ();
 
-        return new JsonResponse(array (
-            'id'       => $activity->getId(),
-            'name'     => $activity->getName(),
-            'position' => $activity->getPosition()
-        ));
+        try {
+            // Create the new Activity
+            $activity = $this->activityManager->create($activitySequence);
+
+            // Build response object
+            $response['status'] = 'OK';
+            $response['messages'] = array (
+                'activity_add_success',
+            );
+            $response['data'] = $activitySequence;
+
+        } catch (\Exception $e) {
+            $response['status'] = 'ERROR';
+            $response['messages'] = array (
+                $e->getMessage(),
+            );
+        }
+
+        return new JsonResponse($response);
     }
 
     /**
@@ -225,7 +238,12 @@ class ActivitySequenceController extends Controller
             // Persists changes
             $this->om->flush();
 
+            // Build response
             $response['status'] = 'OK';
+            $response['messages'] = array (
+                'activity_remove_success',
+            );
+            $response['data'] = $activitySequence;
         } catch (\Exception $e) {
             $response['status'] = 'ERROR';
             $response['messages'] = array (
