@@ -46,16 +46,17 @@
             this.addActivity = function () {
                 // Open a modal to ask the user to choose the ActivityType
                 // Create the Activity when User has chosen the ActivityType
-                /*var modalInstance = $modal.open({
-                 templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityTypeAvailable/Partials/activity-type-available-list.html',
-                 controller: 'ActivityTypeAvailableController'
-                 });*/
-                /*modalInstance.result.then(function (type) {*/
-                ActivitySequenceService.addActivity(this.sequence).then(function (activity) {
-                    // Display the new Activity
-                    this.showActivity(activity);
+                var modalInstance = $modal.open({
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityTypeAvailable/Partials/activity-type-select.html',
+                    controller: 'ActivityTypeSelectController'
+                });
+
+                modalInstance.result.then(function (type) {
+                    ActivitySequenceService.addActivity(this.sequence).then(function (activity) {
+                        // Display the new Activity
+                        this.showActivity(activity);
+                    }.bind(this));
                 }.bind(this));
-                /*}.bind(this));*/
             };
 
             /**

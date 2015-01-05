@@ -3,6 +3,7 @@
 
     angular.module('ActivitySequence', [
         'Loader',
-        'Activity'
+        'Activity',
+        'ActivityTypeAvailable'
     ]);
 })();

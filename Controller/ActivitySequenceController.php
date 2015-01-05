@@ -171,7 +171,7 @@ class ActivitySequenceController extends Controller
             $response['messages'] = array (
                 'activity_add_success',
             );
-            $response['data'] = $activitySequence;
+            $response['data'] = $activity;
 
         } catch (\Exception $e) {
             $response['status'] = 'ERROR';

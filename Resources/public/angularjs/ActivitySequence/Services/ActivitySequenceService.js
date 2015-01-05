@@ -40,11 +40,11 @@
                         .post(Routing.generate('innova_activity_sequence_add_activity', {
                             activitySequenceId: sequence.id
                         }))
-                        .success(function (activity) {
-                            sequence.activities.push(activity);
+                        .success(function (response) {
+                            sequence.activities.push(response.data);
                             LoaderService.endRequest();
 
-                            deferred.resolve(activity);
+                            deferred.resolve(response.data);
                         })
                         .error(function (response) {
                             LoaderService.endRequest();
