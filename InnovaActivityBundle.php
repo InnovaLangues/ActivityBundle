@@ -3,18 +3,22 @@
 namespace Innova\ActivityBundle;
 
 use Claroline\CoreBundle\Library\PluginBundle;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Claroline\KernelBundle\Bundle\AutoConfigurableInterface;
-use Claroline\KernelBundle\Bundle\ConfigurationProviderInterface;
 use Claroline\KernelBundle\Bundle\ConfigurationBuilder;
-use Innova\ActivityBundle\Installation\AdditionalInstaller;
 
-
-class InnovaActivityBundle extends PluginBundle implements AutoConfigurableInterface, ConfigurationProviderInterface
+/**
+ * Innova Activity Bundle
+ */
+class InnovaActivityBundle extends PluginBundle implements AutoConfigurableInterface
 {
     public function supports($environment)
     {
         return true;
+    }
+
+    public function getRequiredFixturesDirectory($environment)
+    {
+        return 'DataFixtures/Required';
     }
 
     public function getConfiguration($environment)
@@ -22,15 +26,5 @@ class InnovaActivityBundle extends PluginBundle implements AutoConfigurableInter
         $config = new ConfigurationBuilder();
 
         return $config->addRoutingResource(__DIR__ . '/Resources/config/routing.yml', null, 'innova_activity_sequence');
-    }
-
-    public function suggestConfigurationFor(Bundle $bundle, $environment)
-    {
-
-    }
-
-    public function getAdditionalInstaller()
-    {
-        return new AdditionalInstaller();
     }
 }

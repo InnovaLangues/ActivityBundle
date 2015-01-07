@@ -10,7 +10,7 @@ class CreateActivityEvent extends AbstractLogResourceEvent
     const ACTION = 'resource-innova_activity-create_activity';
 
     /**
-     * @param Subject $subject
+     * @param Activity $activity
      */
     public function __construct(Activity $activity)
     {

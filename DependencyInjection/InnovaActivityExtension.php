@@ -9,7 +9,6 @@ use Symfony\Component\Config\FileLocator;
 
 class InnovaActivityExtension extends Extension
 {
-
     /**
      * @see \Symfony\Component\DependencyInjection\Extension\ExtensionInterface::load()
      */
@@ -25,6 +24,7 @@ class InnovaActivityExtension extends Extension
     {
         $locator = new FileLocator(__DIR__ . '/../Resources/config/services');
         $loader = new YamlFileLoader($container, $locator);
+
         $loader->load('listeners.yml');
         $loader->load('form_handlers.yml');
         $loader->load('form_types.yml');
