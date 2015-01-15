@@ -29,6 +29,7 @@ question: Question
 
 # s
 save: Mettre à jour
+select_available_type: Veuillez sélectionner le type d'Activité que vous désirez créer (Une fois créée, vous ne pourrez plus changer le type de l'Activité).
 
 # t
 typology : Type du protocole

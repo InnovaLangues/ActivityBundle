@@ -4,6 +4,6 @@
     angular.module('ActivitySequence', [
         'Loader',
         'Activity',
-        'ActivityTypeAvailable'
+        'ActivityAvailable'
     ]);
 })();

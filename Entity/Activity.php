@@ -3,6 +3,7 @@
 namespace Innova\ActivityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -72,11 +73,11 @@ class Activity implements \JsonSerializable
     protected $dateUpdated;
 
     /**
-     * ActivityTypeAvailable used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
+     * ActivityAvailable used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityTypeAvailable")
-     * @ORM\JoinTable(name="innova_activity_type_available_activity",
+     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable")
+     * @ORM\JoinTable(name="innova_activity_available_type_activity",
      *      joinColumns        = { @ORM\JoinColumn(name="activity_id", referencedColumnName="id") },
      *      inverseJoinColumns = { @ORM\JoinColumn(name="type_id",     referencedColumnName="id", unique=true) }
      * )
@@ -240,7 +241,7 @@ class Activity implements \JsonSerializable
         return $this->typeAvailable;
     }
 
-    public function setTypeAvailable(ActivityTypeAvailable $typeAvailable)
+    public function setTypeAvailable(TypeAvailable $typeAvailable)
     {
         $this->typeAvailable = $typeAvailable;
 

@@ -47,8 +47,16 @@
                 // Open a modal to ask the user to choose the ActivityType
                 // Create the Activity when User has chosen the ActivityType
                 var modalInstance = $modal.open({
-                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityTypeAvailable/Partials/activity-type-select.html',
-                    controller: 'ActivityTypeSelectController'
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityAvailable/Partials/list.html',
+                    controller: 'ActivityAvailableController as activityAvailableCtrl',
+                    resolve: {
+                        availables: [
+                            'ActivityAvailableService',
+                            function (ActivityAvailableService) {
+                                return ActivityAvailableService.all();
+                            }
+                        ]
+                    }
                 });
 
                 modalInstance.result.then(function (type) {

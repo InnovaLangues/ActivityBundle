@@ -4,7 +4,8 @@ namespace Innova\ActivityBundle\DataFixtures\Required;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Innova\ActivityBundle\Entity\ActivityTypeAvailable;
+use Innova\ActivityBundle\Entity\ActivityAvailable\CategoryAvailable;
+use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 
 class LoadRequiredFixturesData extends AbstractFixture
 {
@@ -13,30 +14,46 @@ class LoadRequiredFixturesData extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        /**
-         * array format:
-         *   - name
-         *   - class
-         */
-        $activityTypes = array (
+        $availableCategories = array (
+            // Choice Type category
             array (
-                'name' => 'BooleanChoiceType', 'class' => 'BooleanChoiceType'
-            ),
-            array (
-                'name' => 'MultipleChoiceType', 'class' => 'MultipleChoiceType'
-            ),
-            array (
-                'name' => 'UniqueChoiceType', 'class' => 'UniqueChoiceType'
-            ),
+                'name' => 'ChoiceType',
+                'icon' => 'fa fa-fw fa-check-square-o',
+                'types' => array (
+                    array (
+                        'name' => 'BooleanChoiceType', 'class' => 'BooleanChoiceType',
+                    ),
+                    array (
+                        'name' => 'UniqueChoiceType', 'class' => 'UniqueChoiceType',
+                    ),
+                    array (
+                        'name' => 'MultipleChoiceType', 'class' => 'MultipleChoiceType'
+                    ),
+                ),
+            )
         );
 
-        foreach ($activityTypes as $activityType) {
-            $entity = new ActivityTypeAvailable();
+        foreach ($availableCategories as $category) {
+            $entityCategory = new CategoryAvailable();
 
-            $entity->setName($activityType['name']);
-            $entity->setClass($activityType['class']);
+            $entityCategory->setName($category['name']);
 
-            $manager->persist($entity);
+            if (!empty($category['icon'])) {
+                $entityCategory->setIcon($category['icon']);
+            }
+
+            if (!empty($category['types'])) {
+                foreach ($category['types'] as $type) {
+                    $entityType = new TypeAvailable();
+
+                    $entityType->setName($type['name']);
+                    $entityType->setClass($type['class']);
+
+                    $entityCategory->addType($entityType);
+                }
+            }
+
+            $manager->persist($entityCategory);
         }
 
         $manager->flush();
