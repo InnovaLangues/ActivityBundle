@@ -4,12 +4,10 @@ namespace Innova\ActivityBundle\Controller;
 
 use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
+use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Form\Handler\ActivityHandler;
 
 use Innova\ActivityBundle\Manager\ActivityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -18,8 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
-use Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Form\FormInterface;
 
@@ -29,11 +25,29 @@ use JMS\DiExtraBundle\Annotation as DI;
  * Class ActivityController
  * @Route(
  *      "/activity",
- *      name="innova_activity"
+ *      name = "innova_activity"
  * )
  */
-class ActivityController extends Controller
+class ActivityController
 {
+    /**
+     * Activity Manager
+     * @var \Innova\ActivityBundle\Manager\ActivityManager
+     */
+    protected $activityManager;
+
+    /**
+     * Form factory
+     * @var \Symfony\Component\Form\FormFactoryInterface
+     */
+    protected $formFactory;
+
+    /**
+     * Activity form handler
+     * @var \Innova\ActivityBundle\Form\Handler\ActivityHandler
+     */
+    protected $activityHandler;
+
     /**
      * @DI\InjectParams({
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
@@ -55,10 +69,42 @@ class ActivityController extends Controller
     }
 
     /**
+     * Create a new Activity
+     * @Route(
+     *      "/{activitySequenceId}/{typeAvailableId}",
+     *      name    = "innova_activity_create",
+     *      options = { "expose" = true }
+     * )
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence",                options = { "mapping" : {"activitySequenceId" : "id"} })
+     * @ParamConverter("typeAvailable",    class="InnovaActivityBundle:ActivityAvailable\TypeAvailable", options = { "mapping" : {"typeAvailableId" : "id"} })
+     * @Method("POST")
+     */
+    public function createAction(ActivitySequence $activitySequence, TypeAvailable $typeAvailable)
+    {
+        $response = array ();
+        try {
+            // Create the new Activity
+            $activity = $this->activityManager->create($activitySequence, $typeAvailable);
+            // Build response object
+            $response['status'] = 'OK';
+            $response['messages'] = array (
+                'activity_create_success',
+            );
+            $response['data'] = $activity;
+        } catch (\Exception $e) {
+            $response['status'] = 'ERROR';
+            $response['messages'] = array (
+                $e->getMessage(),
+            );
+        }
+        return new JsonResponse($response);
+    }
+
+    /**
      * @Route(
      *      "/{activityId}",
-     *      name="update_activity",
-     *      options={"expose" = true}
+     *      name    = "innova_activity_update",
+     *      options = { "expose" = true }
      * )
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("PUT")
@@ -93,8 +139,6 @@ class ActivityController extends Controller
             $response['status'] = 'ERROR_VALIDATION';
             $errors = $this->getFormErrors($form);
 
-            var_dump($errors);die();
-
             // SI non fonctionnel du premier coup alors :
             // - pour chaque champ, 'nom_du_champ' => 'message'
 
@@ -116,6 +160,27 @@ class ActivityController extends Controller
         return new JsonResponse($response);
     }
 
+    /**
+     * @Route(
+     *      "/{activityId}",
+     *      name    = "innova_activity_delete",
+     *      options = { "expose" = true }
+     * )
+     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
+     * @Method("DELETE")
+     */
+    public function deleteAction(Activity $activity)
+    {
+        $deleted = $this->activityManager->delete($activity);
+
+        $response = array (
+            'status' => $deleted ? 'OK' : 'ERROR',
+            'data' => array ()
+        );
+
+        return new JsonResponse($response);
+    }
+
     private function getFormErrors(FormInterface $form)
     {
         $errors = array();
@@ -123,7 +188,7 @@ class ActivityController extends Controller
             $errors[$key] = $error->getMessage();
         }
 
-        // Get errors from cjhildren
+        // Get errors from children
         foreach ($form->all() as $child) {
             if (!$child->isValid()) {
                 $errors[$child->getName()] = $this->getFormErrors($child);

@@ -2,7 +2,6 @@
 
 namespace Innova\ActivityBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -15,8 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use JMS\DiExtraBundle\Annotation as DI;
 
 use Innova\ActivityBundle\Entity\ActivitySequence;
-use Innova\ActivityBundle\Entity\Activity;
-
 use Innova\ActivityBundle\Manager\ActivitySequenceManager;
 use Innova\ActivityBundle\Manager\ActivityManager;
 
@@ -29,13 +26,19 @@ use Innova\ActivityBundle\Manager\ActivityManager;
  * )
  * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
  */
-class ActivitySequenceController extends Controller
+class ActivitySequenceController
 {
     /**
      * Object Manager
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
     protected $om;
+
+    /**
+     * Security
+     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     */
+    protected $security;
 
     /**
      * ActivitySequence Manager
@@ -144,113 +147,8 @@ class ActivitySequenceController extends Controller
         return new JsonResponse($activitySequence);
     }
 
-    /**
-     * Add a new Activity to the sequence
-     *
-     * @Route(
-     *      "/{activitySequenceId}/activity",
-     *      name    = "innova_activity_sequence_add_activity",
-     *      options = { "expose" = true }
-     * )
-     * @Method("POST")
-     */
-    public function addActivityAction(ActivitySequence $activitySequence)
+    public function orderActivitiesAction(ActivitySequence $activitySequence)
     {
-        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
-            throw new AccessDeniedException();
-        }
 
-        $response = array ();
-
-        try {
-            // Create the new Activity
-            $activity = $this->activityManager->create($activitySequence);
-
-            // Build response object
-            $response['status'] = 'OK';
-            $response['messages'] = array (
-                'activity_add_success',
-            );
-            $response['data'] = $activity;
-
-        } catch (\Exception $e) {
-            $response['status'] = 'ERROR';
-            $response['messages'] = array (
-                $e->getMessage(),
-            );
-        }
-
-        return new JsonResponse($response);
-    }
-
-    /**
-     * Update an Activity of the sequence
-     *
-     * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
-     * @param  \Innova\ActivityBundle\Entity\Activity         $activity
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     *
-     * @Route(
-     *      "/{activitySequenceId}/activity/{activityId}",
-     *      name    = "innova_activity_sequence_update_activity",
-     *      options = { "expose" = true }
-     * )
-     * @Method("PUT")
-     */
-    public function updateActivityAction(ActivitySequence $activitySequence, Activity $activity)
-    {
-        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
-            throw new AccessDeniedException();
-        }
-    }
-
-    /**
-     * Delete an Activity from the sequence
-     *
-     * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
-     * @param  \Innova\ActivityBundle\Entity\Activity         $activity
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     *
-     * @Route(
-     *      "/{activitySequenceId}/activity/{activityId}",
-     *      name    = "innova_activity_sequence_remove_activity",
-     *      options = { "expose" = true }
-     * )
-     * @Method("DELETE")
-     */
-    public function removeActivityAction(ActivitySequence $activitySequence, Activity $activity)
-    {
-        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
-            throw new AccessDeniedException();
-        }
-
-        $response = array ();
-
-        try {
-            // Remove Activity from the sequence
-            $activitySequence->removeActivity($activity);
-
-            // Remove activity from the DB
-            $this->om->remove($activity);
-
-            // Persists changes
-            $this->om->flush();
-
-            // Build response
-            $response['status'] = 'OK';
-            $response['messages'] = array (
-                'activity_remove_success',
-            );
-            $response['data'] = $activitySequence;
-        } catch (\Exception $e) {
-            $response['status'] = 'ERROR';
-            $response['messages'] = array (
-                $e->getMessage(),
-            );
-        }
-
-        return new JsonResponse($response);
     }
 }

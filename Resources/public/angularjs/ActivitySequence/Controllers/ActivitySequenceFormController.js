@@ -9,7 +9,8 @@
         '$scope',
         '$modal',
         'ActivitySequenceService',
-        function ($scope, $modal, ActivitySequenceService) {
+        'ActivityService',
+        function ($scope, $modal, ActivitySequenceService, ActivityService) {
             /**
              * The current Activity Sequence
              * @type {{}}
@@ -60,30 +61,20 @@
                 });
 
                 modalInstance.result.then(function (type) {
-                    ActivitySequenceService.addActivity(this.sequence).then(function (activity) {
-                        // Display the new Activity
-                        this.showActivity(activity);
-                    }.bind(this));
+                    ActivityService.create(this.sequence, type).then(function (activity) {
+                        this.sequence.activities.push(activity);
+
+                        this.showActivity(activity); // Display the new Activity
+                    }.bind(this))
                 }.bind(this));
             };
 
-            /**
-             * Update an Activity of the Sequence
-             * @param activity
-             */
-            this.updateActivity = function (activity) {
-                ActivitySequenceService.updateActivity(this.sequence, activity);
-            };
-
-            /**
-             * Delete an Activity from the ActivitySequence
-             * @param activity
-             */
             this.removeActivity = function (activity) {
-                ActivitySequenceService.removeActivity(this.sequence, activity);
+                if (false !== this.sequence.activities.indexOf(activity)) {
+                    this.sequence.activities.splice(this.sequence.activities.indexOf(activity), 1);
+                }
 
-                // Update current Activity
-                this.showActivity();
+                // Recalculate order of activities
             };
 
             /**

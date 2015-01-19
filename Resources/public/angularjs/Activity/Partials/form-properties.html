@@ -1,0 +1,77 @@
+<!-- Activity relationships -->
+<div class="panel-group">
+    <!-- Instruction -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel-instruction">{{ 'instruction' | trans:{}:'activity_sequence_editor' }}</a>
+            </h4>
+        </div>
+        <div id="panel-instruction" class="panel-collapse collapse">
+            <div class="panel-body">
+                <textarea data-ui-tinymce="activityCtrl.tinymceOptions" class="form-control"
+                          name="instruction" id="instruction" data-ng-model="activityCtrl.activity.instruction"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel-information">{{ 'information' | trans:{}:'activity_sequence_editor' }}</a>
+            </h4>
+        </div>
+        <div id="panel-information" class="panel-collapse collapse">
+            <div class="panel-body">
+                <textarea data-ui-tinymce="activityCtrl.tinymceOptions" class="form-control"
+                          name="description" id="description" data-ng-model="activityCtrl.activity.description"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Object -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel-object">{{ 'object' | trans:{}:'activity_sequence_editor' }}</a>
+            </h4>
+        </div>
+        <div id="panel-object" class="panel-collapse collapse">
+            <div class="panel-body">
+                <textarea data-ui-tinymce="activityCtrl.tinymceOptions" class="form-control"
+                          name="object" id="object" data-ng-model="activityCtrl.activity.object"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Proposition -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel-proposition">{{ 'proposition' | trans:{}:'activity_sequence_editor' }}</a>
+            </h4>
+        </div>
+        <div id="panel-proposition" class="panel-collapse collapse">
+            <div class="panel-body">
+                <textarea data-ui-tinymce="activityCtrl.tinymceOptions" class="form-control"
+                          name="proposition" id="proposition" data-ng-model="activityCtrl.activity.proposition"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel-question">{{ 'question' | trans:{}:'activity_sequence_editor' }}</a>
+            </h4>
+        </div>
+        <div id="panel-question" class="panel-collapse collapse">
+            <div class="panel-body">
+                <textarea data-ui-tinymce="activityCtrl.tinymceOptions" class="form-control"
+                          name="question" id="question" data-ng-model="activityCtrl.activity.question"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

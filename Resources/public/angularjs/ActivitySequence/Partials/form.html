@@ -31,7 +31,7 @@
 
         <div class="col-md-11 text-center">
             <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequenceCtrl.sequence.activities">
-                <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
+                <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities | orderBy:'position'" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
                         {{ activity.position }}
                         <span class="sr-only">{{ activity.name }}</span>
@@ -46,28 +46,6 @@
     <!-- Display Activity form -->
     <div class="row">
         <div class="col-md-12">
-            <div div class="pull-right" data-ng-if="activitySequenceCtrl.currentActivity">
-                <button href="#" data-ng-click="activitySequenceCtrl.updateActivity(activitySequenceCtrl.currentActivity)" class="btn btn-primary">
-                    <i class="fa fa-floppy-o"></i>
-                    <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
-                </button>
-
-                <button href="#" data-ng-click="activitySequenceCtrl.removeActivity(activitySequenceCtrl.currentActivity)" class="btn btn-danger">
-                    <i class="fa fa-trash-o"></i>
-                    <span>{{ 'delete_activity' | trans:{}:'activity_sequence_editor' }}</span>
-                </button>
-
-                <button type="button" role="button" class="btn btn-default" data-ng-click="activitySequenceCtrl.previousActivity(activitySequenceCtrl.currentActivity)">
-                    <i class="fa fa-angle-double-left"></i>
-                </button>
-
-                {{ activitySequenceCtrl.currentActivity.position }} / {{ activitySequenceCtrl.sequence.activities.length }}
-
-                <button type="button" role="button" class="btn btn-default" data-ng-click="activitySequenceCtrl.nextActivity(activitySequenceCtrl.currentActivity)">
-                    <i class="fa fa-angle-double-right"></i>
-                </button>
-            </div>
-
             <activity-form data-activity="activitySequenceCtrl.currentActivity" data-ng-if="activitySequenceCtrl.currentActivity"></activity-form>
 
             <div class="text-center" ng-if="activitySequenceCtrl.sequence.activities.length == 0">

@@ -3,10 +3,12 @@
 
     angular.module('Activity').controller('ActivityFormController', [
         '$scope',
-        'ActivitySequenceService',
         'ActivityService',
+        function ($scope, ActivityService) {
+            this.webDir = ActivityEditorApp.webDir;
 
-        function ($scope, ActivitySequenceService, ActivityService) {
+            this.view = 'properties';
+
             this.activity = {};
 
             // Tiny MCE options
@@ -36,10 +38,22 @@
                 }
             };
 
-            // Save function : data and call Symfony Root controller
             this.update = function () {
-                console.log('update 2');
                 ActivityService.update(this.activity);
+
+                // Emit event for the parent ActivitySequence
+                $scope.$emit('activityUpdate', this.activity);
+            };
+
+            this.delete = function () {
+                ActivityService.delete(this.activity);
+
+                // Emit event for the parent ActivitySequence
+                $scope.$emit('activityDelete', this.activity);
+            };
+
+            this.changeView = function (newView) {
+                this.view = newView;
             };
         }
     ]);

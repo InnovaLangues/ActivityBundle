@@ -22,9 +22,19 @@
                         } else {
                             activitySequenceCtrl.sequence = newValue;
                         }
+                    });
 
+                    scope.$watch('sequence.activities', function (newValue) {
                         // Show the first activity of the Sequence
                         activitySequenceCtrl.showActivity();
+                    });
+
+                    // Watch for child Activities delete event
+                    scope.$on('activityDelete', function (event, activity) {
+                        console.log('activity deleted');
+                        console.log(activity);
+
+                        activitySequenceCtrl.removeActivity(activity);
                     });
                 }
             };

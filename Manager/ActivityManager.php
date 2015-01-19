@@ -4,9 +4,14 @@ namespace Innova\ActivityBundle\Manager;
 
 use Innova\ActivityBundle\Entity\Activity;
 use Innova\ActivityBundle\Entity\ActivitySequence;
+use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
+
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
+ * Activity Manager
+ * Performs CRUD actions for Activities
+ *
  * @DI\Service("innova.manager.activity_manager")
  */
 class ActivityManager
@@ -22,20 +27,23 @@ class ActivityManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    public function create(ActivitySequence $activitySequence)
+    /**
+     * Create a new Activity into a sequence
+     * @param ActivitySequence $activitySequence
+     * @param TypeAvailable $typeAvailable
+     * @return Activity
+     */
+    public function create(ActivitySequence $activitySequence, TypeAvailable $typeAvailable)
     {
-        // Gérer les types d'activité plus tard
-        $activityType = "UniqueChoiceType"; // For tests. Eric.
-
-        /*$activity = $this->em->factory('Innova\ActivityBundle\Entity\ActivityType\\' . $activityType);*/
-
         $activity = new Activity();
-        $activity->setName("New Activity");
-        $activity->setDescription("New Description");
 
+        $activity->setName('New Activity');
+        $activity->setTypeAvailable($typeAvailable);
+
+        // Link new Activity to its Sequence
         $activitySequence->addActivity($activity);
 
-        return $this->edit($activity);;
+        return $this->edit($activity);
     }
 
     public function edit(Activity $activity)
@@ -48,9 +56,15 @@ class ActivityManager
 
     public function delete(Activity $activity)
     {
-        $this->em->remove($activity);
-        $this->em->flush();
+        $success = true;
 
-        return $activity;
+        try {
+            $this->em->remove($activity);
+            $this->em->flush();
+        } catch (\Exception $e) {
+            $success = false;
+        }
+
+        return $success;
     }
 }

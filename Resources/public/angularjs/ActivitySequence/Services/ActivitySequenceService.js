@@ -24,11 +24,17 @@
                     $http
                         .put(Routing.generate('innova_activity_sequence_update', { activitySequenceId : sequence.id }, sequence))
                         .success(function (response) {
+                            LoaderService.endRequest();
+
                             deferred.resolve(response);
                         })
                         .error(function(data, status) {
                             AlertFactory.addAlert('danger', 'Error while adding activity.');
+
+                            LoaderService.endRequest();
                         });
+
+                    return deferred.promise;
                 },
 
                 addActivity: function (sequence) {
@@ -53,21 +59,6 @@
                         });
 
                     return deferred.promise;
-                },
-
-                updateActivity: function (sequence, activity) {
-                    // new url = innova_activity_sequence_update_activity
-                    $http
-                        .put(Routing.generate('update_activity', {
-                            activitySequenceId: sequence.id,
-                            activityId : activity.id
-                        }, activity))
-                        .success(function (response) {
-                            // Réinjecter les données Angular/SF
-                        })
-                        .error(function(response) {
-                            // AlertFactory.addAlert('danger', 'Error while adding activity.');
-                        });
                 },
 
                 removeActivity: function (sequence, activity) {

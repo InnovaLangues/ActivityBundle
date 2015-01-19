@@ -76,11 +76,8 @@ class Activity implements \JsonSerializable
      * ActivityAvailable used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable")
-     * @ORM\JoinTable(name="innova_activity_available_type_activity",
-     *      joinColumns        = { @ORM\JoinColumn(name="activity_id", referencedColumnName="id") },
-     *      inverseJoinColumns = { @ORM\JoinColumn(name="type_id",     referencedColumnName="id", unique=true) }
-     * )
+     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     protected $typeAvailable;
 
@@ -282,12 +279,13 @@ class Activity implements \JsonSerializable
     public function jsonSerialize()
     {
         return array (
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'position'    => $this->position,
-            'dateCreated' => $this->dateCreated,
-            'dateUpdated' => $this->dateUpdated,
-            'description' => $this->description,
+            'id'            => $this->id,
+            'name'          => $this->name,
+            'position'      => $this->position,
+            'typeAvailable' => $this->typeAvailable,
+            'dateCreated'   => $this->dateCreated,
+            'dateUpdated'   => $this->dateUpdated,
+            'description'   => $this->description,
         );
     }
 }

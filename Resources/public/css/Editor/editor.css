@@ -32,6 +32,21 @@
     font-size: 16px;
 }
 
+.activity-sequence-editor .navbar {
+    margin-bottom: 0;
+}
+
+.activity-sequence-editor .navbar-brand {
+    color: inherit;
+}
+
+/*.navbar-default .navbar-header > .active,
+.navbar-default .navbar-header > .active:hover,
+.navbar-default .navbar-header > .active:focus {
+    background-color: #e7e7e7;
+    color: #555;
+}*/
+
 .activity-link,
 .activity-add {
     margin: 5px;

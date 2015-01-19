@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <div data-ng-app="ActivitySequenceApp" data-ng-cloak="">
+    <div class="activity-sequence-editor" data-ng-app="ActivitySequenceApp" data-ng-cloak="">
         <activity-sequence-form data-sequence="{{ _resource | json_encode | raw | escape }}"></activity-sequence-form>
     </div>
 {% endblock %}

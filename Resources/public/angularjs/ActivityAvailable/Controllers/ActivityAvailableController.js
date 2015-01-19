@@ -15,8 +15,6 @@
              */
             this.availables = availables;
 
-            console.log(this.availables);
-
             /**
              * Send back selected type and close modal
              */

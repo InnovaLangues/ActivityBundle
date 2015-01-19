@@ -1,121 +1,49 @@
 <form method="post" class="form form-horizontal">
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active">
-            <a href="">
-                <strong>{{ ctrl.activity.position }}.</strong> {{ ctrl.activity.name }}
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="">
-                <i class="fa fa-file-text-o"></i>
-                {{ 'identity' | trans:{}:'activity_sequence_editor' }}
-            </a>
-        </li>
-    </ul>
-
     <div class="panel panel-default">
-        <!-- Activity properties -->
-        <div class="panel-body">
-            <!--{{ 'typology'|trans({}, 'activity_sequence_editor') }}-->
-            <select class="form-control" required="true" name="typology" id="typology" data-ng-model="ctrl.activity.typology">
-                <option value="boolean">VF</option>
-                <option value="unique">QRU</option>
-                <option value="multiple">QRM</option>
-            </select>
-        </div>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#activity-navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-        <!-- Activity relationships -->
-        <div class="panel-group">
-            <!-- Name -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#panel-name">
-                            {{ 'activity_sequence_form_name' | trans:{}:'activity_sequence_editor' }}
-                        </a>
-                    </h4>
+                    <a class="navbar-brand" href="" data-ng-click="activityCtrl.changeView('properties')" data-ng-class="{ 'active': 'properties' == activityCtrl.view }">
+                        <strong>{{ activityCtrl.activity.position }}.</strong> {{ activityCtrl.activity.name }}
+                    </a>
                 </div>
-                <div id="panel-name" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <input class="form-control" name="innova_activity_name" id="innova_activity_name" data-ng-model="ctrl.activity.name" maxlength="6" required />
-                    </div>
+
+                <div class="collapse navbar-collapse" id="activity-navbar">
+                    <ul class="nav navbar-nav">
+                        <li data-ng-class="{ 'active': 'identity' == activityCtrl.view }">
+                            <a href="" data-ng-click="activityCtrl.changeView('identity')">
+                                <span class="fa fa-file-text-o"></span>
+                                Fiche d'identité
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-ng-click="activityCtrl.update()">
+                                <span class="fa fa-floppy-o"></span>
+                                <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" data-ng-click="activityCtrl.delete()">
+                                <span class="fa fa-trash-o"></span>
+                                <span>{{ 'delete_activity' | trans:{}:'activity_sequence_editor' }}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
 
-            <!-- Instruction -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#panel-instruction">{{ 'instruction' | trans:{}:'activity_sequence_editor' }}</a>
-                    </h4>
-                </div>
-                <div id="panel-instruction" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
-                                  name="instruction" id="instruction" data-ng-model="ctrl.activity.instruction"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Information -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#panel-information">{{ 'information' | trans:{}:'activity_sequence_editor' }}</a>
-                    </h4>
-                </div>
-                <div id="panel-information" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
-                                  name="description" id="description" data-ng-model="ctrl.activity.description"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Object -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#panel-object">{{ 'object' | trans:{}:'activity_sequence_editor' }}</a>
-                    </h4>
-                </div>
-                <div id="panel-object" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
-                                  name="object" id="object" data-ng-model="ctrl.activity.object"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Proposition -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#panel-proposition">{{ 'proposition' | trans:{}:'activity_sequence_editor' }}</a>
-                    </h4>
-                </div>
-                <div id="panel-proposition" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
-                                  name="proposition" id="proposition" data-ng-model="ctrl.activity.proposition"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Question -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#panel-question">{{ 'question' | trans:{}:'activity_sequence_editor' }}</a>
-                    </h4>
-                </div>
-                <div id="panel-question" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <textarea data-ui-tinymce="ctrl.tinymceOptions" class="form-control"
-                                  name="question" id="question" data-ng-model="ctrl.activity.question"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="panel-body" data-ng-if="'properties' == activityCtrl.view" data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form-properties.html'"></div>
+        <div class="panel-body" data-ng-if="'identity'   == activityCtrl.view" data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form-identity.html'"></div>
     </div>
 </form>

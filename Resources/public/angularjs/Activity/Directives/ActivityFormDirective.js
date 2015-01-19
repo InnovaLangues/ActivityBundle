@@ -11,14 +11,14 @@
                 restrict: 'E',
                 replace: true,
                 controller: 'ActivityFormController',
-                controllerAs: 'ctrl',
+                controllerAs: 'activityCtrl',
                 templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form.html',
                 scope: {
                     activity: '='
                 },
-                link: function (scope, element, attr, ctrl) {
+                link: function (scope, element, attr, activityCtrl) {
                     scope.$watch('activity', function (newValue) {
-                        ctrl.activity = newValue;
+                        activityCtrl.activity = newValue;
                     });
                 }
             };
