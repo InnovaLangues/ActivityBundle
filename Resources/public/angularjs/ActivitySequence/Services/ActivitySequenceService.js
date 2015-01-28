@@ -11,6 +11,7 @@
         '$q',
         'LoaderService',
         function ($http, $filter, $q, LoaderService) {
+
             return {
                 /**
                  * Update the ActivitySequence
@@ -85,6 +86,29 @@
                         });
 
                     return deferred.promise;
+                },
+
+                saveOrder: function (sequence) {
+                    var deferred = $q.defer();
+                    var order = sequence.activities.map(function(i){return i.id;});
+                    LoaderService.startRequest();
+
+                    $http
+                        .put(Routing.generate('innova_activity_sequence_update_order', { activitySequenceId : sequence.id, order: order  }, sequence))
+                        .success(function (response) {
+                            LoaderService.endRequest();
+                            deferred.resolve(response);
+                        })
+                        .error(function(data, status) {
+                            AlertFactory.addAlert('danger', 'Error while updating order.');
+                            LoaderService.endRequest();
+                        });
+
+                    return deferred.promise;
+                },
+
+                setOrder: function (oldSequence, newSequence) {
+                   
                 }
             };
         }

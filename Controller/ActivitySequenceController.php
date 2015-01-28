@@ -10,9 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
 use JMS\DiExtraBundle\Annotation as DI;
-
 use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Manager\ActivitySequenceManager;
 use Innova\ActivityBundle\Manager\ActivityManager;
@@ -77,7 +75,7 @@ class ActivitySequenceController
     /**
      * Display an Activity Sequence
      *
-     * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return array
      *
@@ -94,7 +92,7 @@ class ActivitySequenceController
             throw new AccessDeniedException();
         }
 
-        return array (
+        return array(
             '_resource' => $activitySequence,
         );
     }
@@ -102,7 +100,7 @@ class ActivitySequenceController
     /**
      * Display form to manage Activity Sequence
      *
-     * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return array
      *
@@ -119,7 +117,7 @@ class ActivitySequenceController
             throw new AccessDeniedException();
         }
 
-        return array (
+        return array(
             '_resource' => $activitySequence,
         );
     }
@@ -127,7 +125,7 @@ class ActivitySequenceController
     /**
      * Update an ActivitySequence
      *
-     * @param  \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
@@ -147,8 +145,29 @@ class ActivitySequenceController
         return new JsonResponse($activitySequence);
     }
 
-    public function orderActivitiesAction(ActivitySequence $activitySequence)
+    /**
+     * Order an ActivitySequence
+     *
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
+     * @Route(
+     *      "/{activitySequenceId}/{order}",
+     *      name    = "innova_activity_sequence_update_order",
+     *      options = {"expose" = true}
+     * )
+     * @Method("PUT")
+     */
+    public function orderActivitiesAction(ActivitySequence $activitySequence, $order)
     {
+        if (false === $this->security->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
+            throw new AccessDeniedException();
+        }
+        $orderedActivityIds = explode(",", $order);
 
+        $this->activitySequenceManager->orderActivities($orderedActivityIds);
+
+        return new JsonResponse($activitySequence);
     }
 }

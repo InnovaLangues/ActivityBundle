@@ -5,7 +5,8 @@
     'use strict';
 
     angular.module('ActivitySequence').directive('activitySequenceForm', [
-        function () {
+        '$filter',
+        function ($filter) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -32,9 +33,8 @@
                     // Watch for child Activities delete event
                     scope.$on('activityDelete', function (event, activity) {
                         console.log('activity deleted');
-                        console.log(activity);
-
                         activitySequenceCtrl.removeActivity(activity);
+                        activitySequenceCtrl.showActivity();
                     });
                 }
             };
