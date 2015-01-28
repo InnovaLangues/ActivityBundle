@@ -20,7 +20,7 @@
 
     <!-- Activities List -->
     <div class="row">
-        <div class="col-md-1 text-center">
+        <div class="col-md-1">
             <div class="activity-add">
                 <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_sequence_editor' }}">
                     <i class="fa fa-plus"></i>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="col-md-11 text-center">
-            <ul class="activity-list" data-ui-sortable="sortableOptions" data-ng-model="activitySequenceCtrl.sequence.activities">
+            <ul class="activity-list" data-ui-sortable="activitySequenceCtrl.sortableOptions" data-ng-model="activitySequenceCtrl.sequence.activities">
                 <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities | orderBy:'position'" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
                         {{ activity.position }}

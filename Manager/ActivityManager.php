@@ -5,7 +5,6 @@ namespace Innova\ActivityBundle\Manager;
 use Innova\ActivityBundle\Entity\Activity;
 use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
-
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -29,8 +28,8 @@ class ActivityManager
 
     /**
      * Create a new Activity into a sequence
-     * @param ActivitySequence $activitySequence
-     * @param TypeAvailable $typeAvailable
+     * @param  ActivitySequence $activitySequence
+     * @param  TypeAvailable    $typeAvailable
      * @return Activity
      */
     public function create(ActivitySequence $activitySequence, TypeAvailable $typeAvailable)
@@ -39,9 +38,8 @@ class ActivityManager
 
         $activity->setName('New Activity');
         $activity->setTypeAvailable($typeAvailable);
-
-        // Link new Activity to its Sequence
-        $activitySequence->addActivity($activity);
+        $activity->setActivitySequence($activitySequence);
+        $activity->setPosition($activitySequence->getActivities()->count() + 1);
 
         return $this->edit($activity);
     }

@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
 
 /**
@@ -50,7 +49,6 @@ class Activity implements \JsonSerializable
      * Position of the Activity into the parent ActivitySequence
      * @var integer
      * @ORM\Column(name="activity_position", type="integer")
-     * @Gedmo\SortablePosition
      */
     protected $position;
 
@@ -107,7 +105,7 @@ class Activity implements \JsonSerializable
 
     /**
      * Set name
-     * @param string $name
+     * @param  string                                 $name
      * @return \Innova\ActivityBundle\Entity\Activity
      */
     public function setName($name)
@@ -128,7 +126,7 @@ class Activity implements \JsonSerializable
 
     /**
      * Set description
-     * @param  string $description
+     * @param  string                                 $description
      * @return \Innova\ActivityBundle\Entity\Activity
      */
     public function setDescription($description)
@@ -149,7 +147,7 @@ class Activity implements \JsonSerializable
 
     /**
      * Set order
-     * @param  integer $order
+     * @param  integer                                $order
      * @return \Innova\ActivityBundle\Entity\Activity
      */
     public function setPosition($order)
@@ -193,7 +191,7 @@ class Activity implements \JsonSerializable
 
     /**
      * Set dateCreated
-     * @param  \DateTime $dateCreated
+     * @param  \DateTime                              $dateCreated
      * @return \Innova\ActivityBundle\Entity\Activity
      */
     public function setDateCreated(\DateTime $dateCreated)
@@ -214,7 +212,7 @@ class Activity implements \JsonSerializable
 
     /**
      * Set dateUpdated
-     * @param \DateTime $dateUpdated
+     * @param  \DateTime                              $dateUpdated
      * @return \Innova\ActivityBundle\Entity\Activity
      */
     public function setDateUpdated(\DateTime $dateUpdated)
@@ -253,7 +251,7 @@ class Activity implements \JsonSerializable
     public function getType()
     {
         // throw an exception if type hasn't been loaded
-        if (empty($this->type) || !($this->type instanceof AbstractType) ) {
+        if (empty($this->type) || !($this->type instanceof AbstractType)) {
             throw new \LogicException('ActivityType has not been correctly loaded.');
         }
 
@@ -278,7 +276,7 @@ class Activity implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array (
+        return array(
             'id'            => $this->id,
             'name'          => $this->name,
             'position'      => $this->position,
