@@ -23,7 +23,7 @@ class ActivitySequenceManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    public function orderActivities($orderedActivityIds)
+    public function orderActivities(array $orderedActivityIds)
     {
         $i = 0;
         foreach ($orderedActivityIds as $activityId) {

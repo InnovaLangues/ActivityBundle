@@ -159,14 +159,16 @@ class ActivitySequenceController
      * )
      * @Method("PUT")
      */
-    public function orderActivitiesAction(ActivitySequence $activitySequence, $order)
+    public function updateActivitiesOrederAction(ActivitySequence $activitySequence, $order)
     {
         if (false === $this->security->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
-        $orderedActivityIds = explode(",", $order);
 
-        $this->activitySequenceManager->orderActivities($orderedActivityIds);
+        $orderedActivityIds = explode(",", $order);
+        if (!empty($orderedActivityIds)) {
+            $this->activitySequenceManager->orderActivities($orderedActivityIds);
+        }
 
         return new JsonResponse($activitySequence);
     }

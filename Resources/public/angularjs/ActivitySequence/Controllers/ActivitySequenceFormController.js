@@ -25,7 +25,7 @@
 
             this.sortableOptions = {
                 stop: function (e, ui) {
-                   this.saveOrder();
+                   this.updateActivitiesOrder();
                 }.bind(this)
             };
 
@@ -41,13 +41,8 @@
                 }
             };
 
-            this.saveOrder = function () {
-                var promise = ActivitySequenceService.saveOrder(this.sequence);
-                promise.then(function(newSequence) {
-                    ActivitySequenceService.setOrder(this.sequence, newSequence);
-                    //this.sequence = sequence;
-                    this.currentActivity = $filter('filter')(sequence.activities, {id: activitySequenceCtrl.currentActivity.id })[0];
-                }.bind(this));
+            this.updateActivitiesOrder = function () {
+                ActivitySequenceService.updateActivitiesOrder(this.sequence);
             };
 
             /**
@@ -81,7 +76,7 @@
             this.removeActivity = function (activity) {
                 if (false !== this.sequence.activities.indexOf(activity)) {
                     this.sequence.activities.splice(this.sequence.activities.indexOf(activity), 1);
-                    this.saveOrder();
+                    this.updateActivitiesOrder();
                 }
                 // Recalculate order of activities
             };

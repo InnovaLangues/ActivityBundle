@@ -103,4 +103,9 @@ class ActivitySequenceListener extends ContainerAware
         $event->setResponse(new RedirectResponse($route));
         $event->stopPropagation();
     }
+
+    public function onCopy(CopyResourceEvent $event)
+    {
+
+    }
 }

@@ -62,41 +62,26 @@
                     return deferred.promise;
                 },
 
-                removeActivity: function (sequence, activity) {
+                updateActivitiesOrder: function (sequence) {
                     var deferred = $q.defer();
+                    var order = sequence.activities.map(function (i) {
+                        return i.id;
+                    });
 
-                    LoaderService.startRequest();
-
-                    $http
-                        .delete(Routing.generate('innova_activity_sequence_remove_activity', {
-                            activitySequenceId: sequence.id,
-                            activityId:         activity.id
-                        }))
-                        .success(function (response) {
-                            if (response.status && 'OK' === response.status) {
-                                // Remove activity from sequence
-                                if (false !== sequence.activities.indexOf(activity)) {
-                                    sequence.activities.splice(sequence.activities.indexOf(activity), 1);
-                                }
-                            }
-
-                            LoaderService.endRequest();
-
-                            deferred.resolve(response);
-                        });
-
-                    return deferred.promise;
-                },
-
-                saveOrder: function (sequence) {
-                    var deferred = $q.defer();
-                    var order = sequence.activities.map(function(i){return i.id;});
                     LoaderService.startRequest();
 
                     $http
                         .put(Routing.generate('innova_activity_sequence_update_order', { activitySequenceId : sequence.id, order: order  }, sequence))
                         .success(function (response) {
                             LoaderService.endRequest();
+
+                            if (response && response.activities) {
+                                // Update activities position
+                                for (var i = 0; i < sequence.activities.length; i++) {
+                                    var activity = sequence.activities[i];
+                                }
+                            }
+
                             deferred.resolve(response);
                         })
                         .error(function(data, status) {
@@ -105,10 +90,6 @@
                         });
 
                     return deferred.promise;
-                },
-
-                setOrder: function (oldSequence, newSequence) {
-                   
                 }
             };
         }
