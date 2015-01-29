@@ -79,6 +79,8 @@
                                 // Update activities position
                                 for (var i = 0; i < sequence.activities.length; i++) {
                                     var activity = sequence.activities[i];
+                                    var updatedActivity = $filter('filter')(response.activities, {id: activity.id })[0];
+                                    activity.position = updatedActivity.position;
                                 }
                             }
 
