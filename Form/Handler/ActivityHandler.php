@@ -3,7 +3,6 @@
 namespace Innova\ActivityBundle\Form\Handler;
 
 use Innova\ActivityBundle\Manager\ActivityManager;
-
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -48,7 +47,7 @@ class ActivityHandler
 
     /**
      * Set current request
-     * @param  \Symfony\Component\HttpFoundation\Request   $request
+     * @param  \Symfony\Component\HttpFoundation\Request           $request
      * @return \Innova\ActivityBundle\Form\Handler\ActivityHandler
      */
     public function setRequest(Request $request = null)
@@ -69,7 +68,7 @@ class ActivityHandler
 
     /**
      * Set current form
-     * @param  \Symfony\Component\Form\FormInterface $form
+     * @param  \Symfony\Component\Form\FormInterface               $form
      * @return \Innova\ActivityBundle\Form\Handler\ActivityHandler
      */
     public function setForm(FormInterface $form)
@@ -86,19 +85,19 @@ class ActivityHandler
     public function process()
     {
         $success = false;
+
         if ($this->request->getMethod() == 'POST' || $this->request->getMethod() == 'PUT') {
             // Correct HTTP method => try to process form
             $this->form->submit($this->request);
 
-            if ( $this->form->isValid() ) {
+            if ($this->form->isValid()) {
                 // Form is valid => create or update the activity
                 $this->data = $this->form->getData();
 
                 if ($this->request->getMethod() == 'POST') {
                     // Create activity
                     $success = $this->create();
-                }
-                else {
+                } else {
                     // Edit existing activity
                     $success = $this->edit();
                 }

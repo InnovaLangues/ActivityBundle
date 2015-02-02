@@ -71,7 +71,10 @@
                     LoaderService.startRequest();
 
                     $http
-                        .put(Routing.generate('innova_activity_sequence_update_order', { activitySequenceId : sequence.id, order: order  }, sequence))
+                        .put(Routing.generate('innova_activity_sequence_update_order', { 
+                            activitySequenceId : sequence.id, 
+                            order: order  
+                        }, sequence))
                         .success(function (response) {
                             LoaderService.endRequest();
 

@@ -6,19 +6,14 @@ use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Form\Handler\ActivityHandler;
-
 use Innova\ActivityBundle\Manager\ActivityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\FormFactoryInterface;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Form\FormInterface;
-
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -54,9 +49,9 @@ class ActivityController
      *   "formFactory"     = @DI\Inject("form.factory"),
      *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")
      * })
-     * @param \Innova\ActivityBundle\Manager\ActivityManager        $activityManager
-     * @param \Symfony\Component\Form\FormFactoryInterface          $formFactory
-     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler   $activityHandler
+     * @param \Innova\ActivityBundle\Manager\ActivityManager      $activityManager
+     * @param \Symfony\Component\Form\FormFactoryInterface        $formFactory
+     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler $activityHandler
      */
     public function __construct(
         ActivityManager      $activityManager,
@@ -81,22 +76,23 @@ class ActivityController
      */
     public function createAction(ActivitySequence $activitySequence, TypeAvailable $typeAvailable)
     {
-        $response = array ();
+        $response = array();
         try {
             // Create the new Activity
             $activity = $this->activityManager->create($activitySequence, $typeAvailable);
             // Build response object
             $response['status'] = 'OK';
-            $response['messages'] = array (
+            $response['messages'] = array(
                 'activity_create_success',
             );
             $response['data'] = $activity;
         } catch (\Exception $e) {
             $response['status'] = 'ERROR';
-            $response['messages'] = array (
+            $response['messages'] = array(
                 $e->getMessage(),
             );
         }
+
         return new JsonResponse($response);
     }
 
@@ -119,7 +115,7 @@ class ActivityController
         // Create form
         $form = $this->formFactory->create('innova_activity', $activity, $params);
 
-        $response = array ();
+        $response = array();
 
         // Try to process data
         $this->activityHandler->setForm($form);
@@ -130,8 +126,7 @@ class ActivityController
             );*/
             $response['status'] = 'OK';
             $response['data']   = $this->activityHandler->getData();
-        }
-        else {
+        } else {
             // Error
             // List des erreurs symfony (FormError...)
             /*$errors = $form->getErrors();*/
@@ -151,8 +146,8 @@ class ActivityController
             //     $errors[] = $error->getMessage();
             // }
 
-            $response['messages'] = array (
-                $errors
+            $response['messages'] = array(
+                $errors,
             );
         }
 
@@ -173,9 +168,9 @@ class ActivityController
     {
         $deleted = $this->activityManager->delete($activity);
 
-        $response = array (
+        $response = array(
             'status' => $deleted ? 'OK' : 'ERROR',
-            'data' => array ()
+            'data' => array(),
         );
 
         return new JsonResponse($response);

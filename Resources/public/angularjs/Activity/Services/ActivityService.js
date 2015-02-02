@@ -33,11 +33,24 @@
                 update: function (activity) {
                     LoaderService.startRequest();
 
+                    function Activity (activity) {
+                        var innova_activity = {
+                            name:activity.name,
+                            description:activity.description
+                        };
+        
+                        return innova_activity;
+                    }
+                    var newActivity = new Activity(activity);
+
                     var deferred = $q.defer();
                     $http
-                        .put(Routing.generate('innova_activity_update', {
-                            activityId : activity.id
-                        }, activity))
+                        .put(
+                            Routing.generate('innova_activity_update', {activityId : activity.id}), 
+                            {
+                                innova_activity: newActivity 
+                            }
+                        )
                         .success(function (response) {
                             LoaderService.endRequest();
 
