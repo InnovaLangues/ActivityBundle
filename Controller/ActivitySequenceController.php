@@ -64,12 +64,14 @@ class ActivitySequenceController
         ObjectManager            $objectManager,
         SecurityContextInterface $securityContext,
         ActivitySequenceManager  $activitySequenceManager,
-        ActivityManager          $activityManager)
+        ActivityManager          $activityManager,
+    )
     {
         $this->om                      = $objectManager;
         $this->security                = $securityContext;
         $this->activitySequenceManager = $activitySequenceManager;
         $this->activityManager         = $activityManager;
+        $this->formFactory             = $formFactory;
     }
 
     /**
