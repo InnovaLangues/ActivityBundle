@@ -94,6 +94,13 @@ class Activity implements \JsonSerializable
      */
     protected $activitySequence;
 
+    // ...
+    /**
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty", mappedBy="activity")
+     **/
+    protected $instructionProperty;
+    
+    
     /**
      * Get id
      * @return integer
@@ -269,7 +276,18 @@ class Activity implements \JsonSerializable
 
         return $this;
     }
+    
+    
+    public function getInstructionProperty() {
+        return $this->instructionProperty;
+    }
 
+    
+    public function setInstructionProperty(InstructionProperty $instructionProperty) {
+        $this->instructionProperty = $instructionProperty;
+        return $this;
+    }
+    
     /**
      * Define how to serialize our entity ActivitySequence
      * @return Array
@@ -284,6 +302,11 @@ class Activity implements \JsonSerializable
             'dateCreated'   => $this->dateCreated,
             'dateUpdated'   => $this->dateUpdated,
             'description'   => $this->description,
+            'instructions'  => array(
+                array('id' => 1, 'title' => "titre1"),
+                array('id' => 2, 'title' => "titre2"),
+                array('id' => 3, 'title' => "titre3"),
+                ),
         );
     }
 }

@@ -6,6 +6,7 @@
 
     angular.module('Activity', [
         'Loader',
-        'ActivityType'
+        'ActivityType',
+        'ActivityProperty'
     ]);
 })();

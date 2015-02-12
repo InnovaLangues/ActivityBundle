@@ -41,6 +41,7 @@
     {% endjavascripts %}
 
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/editor.js'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Directives/*'

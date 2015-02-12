@@ -55,6 +55,21 @@
             this.changeView = function (newView) {
                 this.view = newView;
             };
+            
+            this.addInstruction = function () {
+                this.activity.instructions.push({
+                    id:1 , 
+                    title: "instruction1"
+                });
+            }
+            
+            this.removeInstruction = function (instruction) {
+                for (var i=0; i<this.activity.instructions.length; i++) {
+                    if (this.activity.instructions[i] === instruction) {
+                        this.activity.instructions.splice(i, 1);
+                    }
+                }
+            }
         }
     ]);
 })();

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table("innova_activity_prop_instruction")
  * @ORM\Entity
  */
-class InstructionProperty extends AbstractProperty
+class InstructionProperty extends AbstractProperty implements \JsonSerializable
 {
     /**
      * Unique identifier of the instruction
@@ -22,4 +22,22 @@ class InstructionProperty extends AbstractProperty
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="instructionProperties")
+     * @ORM\JoinColumn(name="id_activity", referencedColumnName="id")
+     **/
+    private $activity;
+    
+    /**
+     * Define how to serialize our entity ActivitySequence
+     * @return Array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'id'            => $this->id,
+            'title'         => $this->title,
+        );
+    }
 }
