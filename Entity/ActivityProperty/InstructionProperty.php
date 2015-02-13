@@ -24,7 +24,7 @@ class InstructionProperty extends AbstractProperty implements \JsonSerializable
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="instructionProperties")
+     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\Activity", inversedBy="instructionProperties")
      * @ORM\JoinColumn(name="id_activity", referencedColumnName="id")
      **/
     private $activity;
