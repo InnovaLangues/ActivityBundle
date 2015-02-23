@@ -25,6 +25,6 @@ class InnovaActivityBundle extends PluginBundle implements AutoConfigurableInter
     {
         $config = new ConfigurationBuilder();
 
-        return $config->addRoutingResource(__DIR__ . '/Resources/config/routing.yml', null, 'innova_activity_sequence');
+        return $config->addRoutingResource(__DIR__ . '/Resources/config/routing.yml', null, 'innova_activity');
     }
 }

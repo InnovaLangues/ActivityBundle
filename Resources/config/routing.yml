@@ -1,4 +1,4 @@
-innova_activity_sequence:
+innova_activity:
     resource: "@InnovaActivityBundle/Controller/"
     type:     annotation
     prefix:   /

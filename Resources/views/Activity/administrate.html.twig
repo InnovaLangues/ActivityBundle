@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="activity-sequence-editor" data-ng-app="ActivitySequenceApp" data-ng-cloak="">
-        <activity-sequence-form data-sequence="{{ _resource | json_encode | raw | escape }}"></activity-sequence-form>
+    <div class="activity-editor" data-ng-app="ActivityApp" data-ng-cloak="">
+        <activity-form data-activity="{{ _resource | json_encode | raw | escape }}"></activity-form>
     </div>
 {% endblock %}
 
@@ -20,7 +20,7 @@
     {{ parent() }}
 
     {# Load translations #}
-    <script type="text/javascript" src="{{ url('bazinga_exposetranslation_js', { 'domain_name': 'activity_sequence_editor' }) }}"></script>
+    <script type="text/javascript" src="{{ url('bazinga_exposetranslation_js', { 'domain_name': 'activity_editor' }) }}"></script>
 
     {# Angular #}
     {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-js-activitybundle.js'
@@ -42,10 +42,10 @@
 
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/editor.js'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Directives/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'

@@ -41,14 +41,14 @@
             this.update = function () {
                 ActivityService.update(this.activity);
 
-                // Emit event for the parent ActivitySequence
+                // Emit event for the parent Activity
                 $scope.$emit('activityUpdate', this.activity);
             };
 
             this.delete = function () {
                 ActivityService.delete(this.activity);
 
-                // Emit event for the parent ActivitySequence
+                // Emit event for the parent Activity
                 $scope.$emit('activityDelete', this.activity);
             };
 

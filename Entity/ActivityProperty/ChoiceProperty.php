@@ -22,4 +22,12 @@ class ChoiceProperty extends AbstractProperty
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+    * Media UUID
+    * @var string
+    *
+    * @ORM\Column(name="media", type="text")
+    */
+    protected $media;
 }

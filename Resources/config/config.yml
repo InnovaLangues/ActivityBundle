@@ -1,12 +1,12 @@
 plugin:
     has_options: false
-    icon: res_activity-sequence.png
+    icon: res_activity.png
 
     resources:
-        - class: Innova\ActivityBundle\Entity\ActivitySequence
-          name: innova_activity_sequence
+        - class: Innova\ActivityBundle\Entity\Activity
+          name: innova_activity
           is_exportable: true
-          icon: res_activity-sequence.png
+          icon: res_activity.png
           actions:
                 - name: administrate
                   menu_name: administrate

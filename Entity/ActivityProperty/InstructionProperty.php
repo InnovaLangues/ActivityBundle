@@ -30,7 +30,7 @@ class InstructionProperty extends AbstractProperty implements \JsonSerializable
     private $activity;
     
     /**
-     * Define how to serialize our entity ActivitySequence
+     * Define how to serialize our entity Activity
      * @return Array
      */
     public function jsonSerialize()
