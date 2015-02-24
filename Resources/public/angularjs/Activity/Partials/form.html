@@ -10,8 +10,8 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="" data-ng-click="activityCtrl.changeView('properties')" data-ng-class="{ 'active': 'properties' == activityCtrl.view }">
-                        <strong>{{ activityCtrl.activity.position }}.</strong> {{ activityCtrl.activity.name }}
+                    <a class="navbar-brand" href="" data-ng-click="activityCtrl.changeView('properties')">
+                        {{ activityCtrl.activity.name }}
                     </a>
                 </div>
 
@@ -27,15 +27,15 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#" data-ng-click="activityCtrl.update()">
+                            <a href="#" data-ng-click="activityCtrl.type()">
                                 <span class="fa fa-floppy-o"></span>
-                                <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
+                                <span>{{ 'type' | trans:{}:'activity_sequence_editor' }}</span>
                             </a>
                         </li>
                         <li>
-                            <a href="" data-ng-click="activityCtrl.delete()">
-                                <span class="fa fa-trash-o"></span>
-                                <span>{{ 'delete_activity' | trans:{}:'activity_sequence_editor' }}</span>
+                            <a href="#" data-ng-click="activityCtrl.update()">
+                                <span class="fa fa-floppy-o"></span>
+                                <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
                             </a>
                         </li>
                     </ul>

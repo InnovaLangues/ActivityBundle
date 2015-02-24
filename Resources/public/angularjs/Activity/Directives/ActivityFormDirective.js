@@ -14,11 +14,15 @@
                 controllerAs: 'activityCtrl',
                 templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form.html',
                 scope: {
-                    activity: '='
+                    activity: '@'
                 },
                 link: function (scope, element, attr, activityCtrl) {
                     scope.$watch('activity', function (newValue) {
-                        activityCtrl.activity = newValue;
+                        if (typeof newValue === 'string') {
+                            activityCtrl.activity = JSON.parse(newValue);
+                        } else {
+                            activityCtrl.activity = newValue;
+                        }
                     });
                 }
             };

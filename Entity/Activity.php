@@ -8,6 +8,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Claroline\CoreBundle\Entity\Resource\AbstractResource;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
+use Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -29,6 +31,14 @@ class Activity extends AbstractResource implements \JsonSerializable
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+    * Description of the Activity
+    * @var string
+    *
+    * @ORM\Column(name="description", type="text", nullable=true)
+    */
+    protected $description;
 
     /**
      * ActivityAvailable used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
@@ -47,9 +57,15 @@ class Activity extends AbstractResource implements \JsonSerializable
 
     // ...
     /**
-     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty", mappedBy="activity")
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty", mappedBy="activity", cascade={"persist","remove"})
      **/
-    protected $instructionProperty;
+    protected $instructions;
+    
+    
+    public function __construct()
+    {
+        $this->instructions = new ArrayCollection();
+    }
     
     
     /**
@@ -59,6 +75,27 @@ class Activity extends AbstractResource implements \JsonSerializable
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+    * Set description
+    * @param string $description
+    * @return \Innova\ActivityBundle\Entity\Activity
+    */
+    public function setDescription($description)
+    {
+    $this->description = $description;
+    
+    return $this;
+    }
+    
+    /**
+    * Get description
+    * @return string
+    */
+    public function getDescription()
+    {
+    return $this->description;
     }
 
     public function getTypeAvailable()
@@ -100,14 +137,40 @@ class Activity extends AbstractResource implements \JsonSerializable
         return $this;
     }
     
-    
-    public function getInstructionProperty() {
-        return $this->instructionProperty;
+    public function getInstructions()
+    {
+        return $this->instructions;
     }
-
     
-    public function setInstructionProperty(InstructionProperty $instructionProperty) {
-        $this->instructionProperty = $instructionProperty;
+    public function addInstruction(InstructionProperty $instruction)
+    {
+        if (!$this->instructions->contains($instruction)) {
+            $this->instructions->add($instruction);
+            $instruction->setActivity($this);
+        }
+        
+        return $this;
+    }
+    
+    public function addInstructions(ArrayCollection $instructions)
+    {
+        foreach ($instructions as $instruction) {
+            if (!$this->instructions->contains($instruction)) {
+                $this->instructions->add($instruction);
+                $instruction->setActivity($this);
+            }
+        }
+        
+        return $this;
+    }
+    
+    public function removeInstruction(InstructionProperty $instruction)
+    {
+        if ($this->instructions->contains($instruction)) {
+            $this->instructions->removeElement($instruction);
+            $instruction->setActivity(null);
+        }
+        
         return $this;
     }
     
@@ -122,11 +185,7 @@ class Activity extends AbstractResource implements \JsonSerializable
             'name'          => $this->resourceNode->getName(),
             'typeAvailable' => $this->typeAvailable,
             'description'   => $this->description,
-            'instructions'  => array(
-                array('id' => 1, 'title' => "titre1"),
-                array('id' => 2, 'title' => "titre2"),
-                array('id' => 3, 'title' => "titre3"),
-                ),
+            'instructions'  => $this->instructions->toArray(),
         );
     }
 }

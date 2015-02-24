@@ -7,13 +7,13 @@
         'LoaderService',
         function ($http, $q, LoaderService) {
             return {
-                create: function (sequence, type) {
+                type: function (activityId, type) {
                     LoaderService.startRequest();
-
+                    
                     var deferred = $q.defer();
                     $http
-                        .post(Routing.generate('innova_activity_create', {
-                            activitySequenceId: sequence.id,
+                        .post(Routing.generate('innova_activity_type', {
+                            activityId: activityId,
                             typeAvailableId: type.id
                         }))
                         .success(function (response) {
@@ -29,14 +29,14 @@
 
                     return deferred.promise;
                 },
-
                 update: function (activity) {
                     LoaderService.startRequest();
 
                     function Activity (activity) {
                         var innova_activity = {
                             name:activity.name,
-                            description:activity.description
+                            description:activity.description,
+                            instructions:activity.instructions
                         };
         
                         return innova_activity;
@@ -52,6 +52,7 @@
                             }
                         )
                         .success(function (response) {
+                            console.log(response);
                             LoaderService.endRequest();
 
                             deferred.resolve(response.data);
@@ -60,23 +61,6 @@
                             LoaderService.endRequest();
 
                             deferred.reject(response);
-                        });
-
-                    return deferred.promise;
-                },
-
-                delete: function (activity) {
-                    LoaderService.startRequest();
-
-                    var deferred = $q.defer();
-                    $http
-                        .delete(Routing.generate('innova_activity_delete', {
-                            activityId: activity.id
-                        }))
-                        .success(function (response) {
-                            LoaderService.endRequest();
-
-                            deferred.resolve(response);
                         });
 
                     return deferred.promise;

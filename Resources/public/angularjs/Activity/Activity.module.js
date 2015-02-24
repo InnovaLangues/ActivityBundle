@@ -7,6 +7,7 @@
     angular.module('Activity', [
         'Loader',
         'ActivityType',
-        'ActivityProperty'
+        'ActivityProperty',
+        'ActivityAvailable'
     ]);
 })();

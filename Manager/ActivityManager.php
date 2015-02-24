@@ -26,15 +26,12 @@ class ActivityManager
     }
 
     /**
-     * Create a new Activity
+     * Type an Activity
      * @param  TypeAvailable    $typeAvailable
      * @return Activity
      */
-    public function create(TypeAvailable $typeAvailable)
+    public function type(Activity $activity, TypeAvailable $typeAvailable)
     {
-        $activity = new Activity();
-
-        $activity->setName('New Activity');
         $activity->setTypeAvailable($typeAvailable);
 
         return $this->edit($activity);

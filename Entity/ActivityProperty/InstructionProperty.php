@@ -3,6 +3,7 @@
 namespace Innova\ActivityBundle\Entity\ActivityProperty;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Innova\ActivityBundle\Entity\Activity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,10 +25,18 @@ class InstructionProperty extends AbstractProperty implements \JsonSerializable
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\Activity", inversedBy="instructionProperties")
+     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\Activity", inversedBy="instructions")
      * @ORM\JoinColumn(name="id_activity", referencedColumnName="id")
      **/
     private $activity;
+    
+    /**
+    * Media UUID
+    * @var string
+    *
+    * @ORM\Column(name="media", type="text")
+    */
+    protected $media;
     
     /**
      * Define how to serialize our entity Activity
@@ -38,6 +47,20 @@ class InstructionProperty extends AbstractProperty implements \JsonSerializable
         return array(
             'id'            => $this->id,
             'title'         => $this->title,
+            'media'         => $this->media
         );
     }
+    
+    public function getActivity() 
+    {
+        return $this->activity;
+    }
+    
+    public function setActivity(Activity $activity = null) 
+    {
+        $this->activity = $activity;
+        
+        return $this;
+    }
+    
 }

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Form\FormInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class ActivityController
@@ -121,25 +122,25 @@ class ActivityController
     
     
     /**
-     * Create a new Activity
+     * Type an Activity
      * @Route(
-     *      "/{typeAvailableId}",
-     *      name    = "innova_activity_create",
+     *      "/{activityId}/{typeAvailableId}",
+     *      name    = "innova_activity_type",
      *      options = { "expose" = true }
      * )
-     * @ParamConverter("typeAvailable",    class="InnovaActivityBundle:ActivityAvailable\TypeAvailable", options = { "mapping" : {"typeAvailableId" : "id"} })
+     * @ParamConverter("typeAvailable", class="InnovaActivityBundle:ActivityAvailable\TypeAvailable", options = { "mapping" : {"typeAvailableId" : "id"} })
      * @Method("POST")
      */
-    public function createAction(TypeAvailable $typeAvailable)
+    public function typeAction(Activity $activity, TypeAvailable $typeAvailable)
     {
         $response = array();
         try {
             // Create the new Activity
-            $activity = $this->activityManager->create($typeAvailable);
+            $activity = $this->activityManager->type($activity, $typeAvailable);
             // Build response object
             $response['status'] = 'OK';
             $response['messages'] = array(
-                'activity_create_success',
+                'activity_type_success',
             );
             $response['data'] = $activity;
         } catch (\Exception $e) {

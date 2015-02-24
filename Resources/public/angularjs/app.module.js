@@ -1,12 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('ActivitySequenceApp', [
+    angular.module('ActivityApp', [
         'ui.bootstrap',
         'ui.sortable',
         'ui.tinymce',
         'ui.translation',
 
-        'ActivitySequence'
+        'Activity'
     ]);
 })();

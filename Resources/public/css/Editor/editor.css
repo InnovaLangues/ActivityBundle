@@ -16,75 +16,13 @@
     margin: 0;
 }
 
-.activity-list,
-.activity-add {
-    padding: 0;
-    margin: 0;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.activity-list > li {
-    list-style-type: none;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 16px;
-}
-
 .activity-sequence-editor .navbar {
     margin-bottom: 0;
 }
 
-.activity-sequence-editor .navbar-brand {
-    color: inherit;
+.navbar-brand{
+    color:black !important;
 }
-
-/*.navbar-default .navbar-header > .active,
-.navbar-default .navbar-header > .active:hover,
-.navbar-default .navbar-header > .active:focus {
-    background-color: #e7e7e7;
-    color: #555;
-}*/
-
-.activity-link,
-.activity-add {
-    margin: 5px;
-    position: relative;
-}
-
-.activity-add {
-    /*margin-left: 10px;*/
-}
-
-.activity-link a,
-.activity-add a {
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    width: 52px;
-    height: 52px;
-    line-height: 52px;
-    color: #333333;
-    background: white;
-    border: 1px solid white;
-    border-radius: 4px;
-}
-
-.activity-link.active a {
-    background: #428BCA !important;
-    color: white !important;
-    border-color: #428BCA !important;
-}
-
-.activity-list a:hover,
-.activity-list a:focus,
-.activity-add a {
-    text-decoration: none;
-    border-color: #428BCA;
-    color: #428BCA;
-}
-
 /* Input validation */
 input.form-control.ng-invalid {
     border-color: #b94a48;

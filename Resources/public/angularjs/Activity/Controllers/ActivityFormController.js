@@ -3,8 +3,9 @@
 
     angular.module('Activity').controller('ActivityFormController', [
         '$scope',
+        '$modal',
         'ActivityService',
-        function ($scope, ActivityService) {
+        function ($scope, $modal, ActivityService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.view = 'properties';
@@ -45,13 +46,6 @@
                 $scope.$emit('activityUpdate', this.activity);
             };
 
-            this.delete = function () {
-                ActivityService.delete(this.activity);
-
-                // Emit event for the parent Activity
-                $scope.$emit('activityDelete', this.activity);
-            };
-
             this.changeView = function (newView) {
                 this.view = newView;
             };
@@ -59,9 +53,10 @@
             this.addInstruction = function () {
                 this.activity.instructions.push({
                     id:1 , 
-                    title: "instruction1"
+                    title: "instruction1" ,
+                    media: "media1"
                 });
-            }
+            };
             
             this.removeInstruction = function (instruction) {
                 for (var i=0; i<this.activity.instructions.length; i++) {
@@ -69,7 +64,28 @@
                         this.activity.instructions.splice(i, 1);
                     }
                 }
-            }
+            };
+            
+            this.type = function () {
+                // Open a modal to ask the user to choose the ActivityType
+                // Create the Activity when User has chosen the ActivityType
+                var modalInstance = $modal.open({
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityAvailable/Partials/list.html',
+                    controller: 'ActivityAvailableController as activityAvailableCtrl',
+                    resolve: {
+                        availables: [
+                            'ActivityAvailableService',
+                            function (ActivityAvailableService) {
+                                return ActivityAvailableService.all();
+                            }
+                        ]
+                    }
+                });
+
+                modalInstance.result.then(function (type) {
+                    ActivityService.type(this.activity.id, type);
+                }.bind(this));
+            };
         }
     ]);
 })();
