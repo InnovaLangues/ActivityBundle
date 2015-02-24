@@ -36,8 +36,16 @@
                         var innova_activity = {
                             name:activity.name,
                             description:activity.description,
-                            instructions:activity.instructions
+                            instructions: []
                         };
+        
+                        for (var instruction in activity.instructions) {
+                            if (activity.instructions.hasOwnProperty(instruction)) {
+                                innova_activity.instructions.push({
+                                    media:activity.instructions[instruction].media
+                                });
+                            }
+                        }
         
                         return innova_activity;
                     }
@@ -52,7 +60,6 @@
                             }
                         )
                         .success(function (response) {
-                            console.log(response);
                             LoaderService.endRequest();
 
                             deferred.resolve(response.data);

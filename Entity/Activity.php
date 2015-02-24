@@ -142,6 +142,15 @@ class Activity extends AbstractResource implements \JsonSerializable
         return $this->instructions;
     }
     
+    public function setInstructions(ArrayCollection $instructions)
+    {
+        foreach ($instructions as $instruction) {
+            $this->addInstruction($instruction);
+        }
+        
+        return $this;
+    }
+    
     public function addInstruction(InstructionProperty $instruction)
     {
         if (!$this->instructions->contains($instruction)) {

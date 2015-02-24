@@ -37,9 +37,15 @@ class ActivityManager
         return $this->edit($activity);
     }
 
+    public function create()
+    {
+        
+    }
+    
     public function edit(Activity $activity)
     {
         $this->em->persist($activity);
+        
         $this->em->flush();
 
         return $activity;

@@ -10,7 +10,7 @@ class InstructionPropertyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', 'text', array('required' => true));
+         $builder->add('media', 'text', array('required' => true));
     }
 
     public function getDefaultOptions()

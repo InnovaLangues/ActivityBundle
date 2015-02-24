@@ -53,7 +53,6 @@
             this.addInstruction = function () {
                 this.activity.instructions.push({
                     id:1 , 
-                    title: "instruction1" ,
                     media: "media1"
                 });
             };

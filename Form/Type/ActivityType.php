@@ -14,7 +14,12 @@ class ActivityType extends AbstractType
     {
         $builder->add('name', 'text', array('required' => true, 'max_length' => 20));
         $builder->add('description', 'text', array('required' => true));
-
+        $builder->add('instructions', 'collection', array(
+            'type' => new InstructionPropertyType(),
+            "allow_add" => true,
+            "allow_delete" => true,
+            "by_reference" => false,
+        ));
 /*
         $builder->add('information', 'text', array ('required' => true));
         $builder->add('object', 'text', array ('required' => true));
