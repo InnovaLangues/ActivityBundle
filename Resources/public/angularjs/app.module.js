@@ -7,6 +7,8 @@
         'ui.tinymce',
         'ui.translation',
 
-        'Activity'
+        'Activity',
+        'Loader',
+        'ActivityAvailable'
     ]);
 })();
