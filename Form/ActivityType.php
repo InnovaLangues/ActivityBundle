@@ -12,6 +12,10 @@ class ActivityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text', array('constraints' => new NotBlank()));
+        $builder->add('typeAvailable', 'entity', array(
+                'class' => 'InnovaActivityBundle:ActivityAvailable\TypeAvailable',
+                'property' => 'name',
+            ));
     }
 
     public function getName()
