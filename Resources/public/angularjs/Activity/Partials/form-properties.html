@@ -17,6 +17,7 @@
             </div>
         </div>
     </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -26,12 +27,12 @@
         <div id="panel-choices" class="panel-collapse collapse" >
             <div class="panel-body">
                 <button data-ng-click="activityCtrl.addChoix()" class="btn btn-default">Ajouter un choix</button>
-                <ul>
+                <!--<ul>
                     <li data-ng-repeat="instruction in activityCtrl.activity.instructions" >
-                        <choice-type data-activity="{{ _resource | json_encode | raw | escape }}"></choice-type>
+                        &lt;!&ndash;<choice-type data-activity="{{ _resource | json_encode | raw | escape }}"></choice-type>&ndash;&gt;
                         <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger" >Supprimer</button>
                     </li>
-                </ul>
+                </ul>-->
             </div>
         </div>
     </div>
