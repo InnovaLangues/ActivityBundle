@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table("innova_activity_prop_choice")
  * @ORM\Entity
  */
-class ChoiceProperty extends AbstractProperty
+class ChoiceProperty extends AbstractProperty implements \JsonSerializable
 {
     /**
      * Unique identifier of the choice
@@ -30,4 +30,12 @@ class ChoiceProperty extends AbstractProperty
     * @ORM\Column(name="media", type="text")
     */
     protected $media;
+    
+    public function jsonSerialize()
+    {
+        return array(
+            'id'            => $this->id,
+            'media'         => $this->media,
+        );
+    }
 }

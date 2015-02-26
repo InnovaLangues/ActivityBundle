@@ -25,7 +25,13 @@
         </div>
         <div id="panel-choices" class="panel-collapse collapse" >
             <div class="panel-body">
-                <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityType/Partials/' + activityCtrl.activity.typeAvailable.name + '-edit.html'"></div>
+                <button data-ng-click="activityCtrl.addChoix()" class="btn btn-default">Ajouter un choix</button>
+                <ul>
+                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions" >
+                        <choice-type data-activity="{{ _resource | json_encode | raw | escape }}"></choice-type>
+                        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger" >Supprimer</button>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

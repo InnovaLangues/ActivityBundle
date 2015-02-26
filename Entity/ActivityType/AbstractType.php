@@ -62,4 +62,16 @@ abstract class AbstractType
 
         return $this;
     }
+    
+    /**
+     * Define how to serialize our entity AbstractType
+     * @return Array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'id'            => $this->id,
+            'activity'      => $this->activity,
+        );
+    }
 }

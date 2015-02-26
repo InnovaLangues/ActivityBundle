@@ -93,4 +93,16 @@ class BooleanChoiceType extends AbstractChoiceType
 
         return $this;
     }
+    
+    /**
+     * Define how to serialize our entity BooleanChoiceType
+     * @return Array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'id'            => $this->id,
+            'choices'       => $this->choices->toArray(),
+        );
+    }
 }

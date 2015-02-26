@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ActivityType').controller('UniqueChoiceTypeController', [
+    angular.module('ActivityType').controller('ChoiceTypeController', [
         '$scope',
 
         function ($scope) {

@@ -195,6 +195,7 @@ class Activity extends AbstractResource implements \JsonSerializable
             'typeAvailable' => $this->typeAvailable,
             'description'   => $this->description,
             'instructions'  => $this->instructions->toArray(),
+            'type'          => $this->type,
         );
     }
 }

@@ -5,13 +5,13 @@
 (function () {
     'use strict';
 
-    angular.module('ActivityType').directive('UniqueChoiceType', [
+    angular.module('ActivityType').directive('ChoiceType', [
         function () {
             return {
                 restrict: 'E',
                 replace: true,
-                controller: 'UniqueChoiceTypeController',
-                controllerAs: 'uniqueChoiceCtrl',
+                controller: 'ChoiceTypeController',
+                controllerAs: 'choiceCtrl',
                 templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityType/Partials/UniqueChoiceType-edit.html',
                 scope: {
                     choice: '@'
