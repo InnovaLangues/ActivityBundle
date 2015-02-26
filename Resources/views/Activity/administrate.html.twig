@@ -20,7 +20,9 @@
     {{ parent() }}
 
     {# Load translations #}
-    <script type="text/javascript" src="{{ url('bazinga_exposetranslation_js', { 'domain_name': 'activity_editor' }) }}"></script>
+    {% javascripts 'js/translations/activity_editor/*.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
     {# Angular #}
     {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-js-activitybundle.js'
@@ -35,7 +37,6 @@
         '@InnovaAngularUIBootstrapBundle/Resources/public/js/*'
         '@InnovaAngularUITinyMCEBundle/Resources/public/js/*'
         '@InnovaAngularUITranslationBundle/Resources/public/js/*'
-        '@InnovaAngularUISortableBundle/Resources/public/js/*'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
