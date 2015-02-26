@@ -28,7 +28,7 @@
         "claroline/core-bundle" : "~4.0",
         "innova/angular-js-bundle" : ">=1.0",
         "innova/angular-ui-bootstrap-bundle" : ">=1.0",
-        "innova/angular-ui-translation-bundle" : "~3.0.1",
+        "innova/angular-ui-translation-bundle" : "3.*",
         "innova/angular-ui-tinymce-bundle" : ">=1.0"
     },
     "autoload": {
