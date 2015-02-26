@@ -25,11 +25,10 @@
     "require": {
         "php": ">=5.4.1",
         "doctrine/doctrine-fixtures-bundle" : "2.2.0",
-        "claroline/core-bundle" : "~3.0",
+        "claroline/core-bundle" : "~4.0",
         "innova/angular-js-bundle" : ">=1.0",
         "innova/angular-ui-bootstrap-bundle" : ">=1.0",
-        "innova/angular-ui-translation-bundle" : ">=2.0",
-        "innova/angular-ui-sortable-bundle" : "1.*",
+        "innova/angular-ui-translation-bundle" : "~3.0.1",
         "innova/angular-ui-tinymce-bundle" : ">=1.0"
     },
     "autoload": {
