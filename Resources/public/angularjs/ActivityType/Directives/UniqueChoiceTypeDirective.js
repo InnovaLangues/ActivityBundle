@@ -5,25 +5,16 @@
 (function () {
     'use strict';
 
-    angular.module('Activity').directive('activityForm', [
+    angular.module('ActivityType').directive('UniqueChoiceType', [
         function () {
             return {
                 restrict: 'E',
                 replace: true,
-                controller: 'ActivityFormController',
-                controllerAs: 'activityCtrl',
-                templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form.html',
+                controller: 'UniqueChoiceTypeController',
+                controllerAs: 'uniqueChoiceCtrl',
+                templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityType/Partials/UniqueChoiceType-edit.html',
                 scope: {
-                    activity: '@'
-                },
-                link: function (scope, element, attr, activityCtrl) {
-                    scope.$watch('activity', function (newValue) {
-                        if (typeof newValue === 'string') {
-                            activityCtrl.activity = JSON.parse(newValue);
-                        } else {
-                            activityCtrl.activity = newValue;
-                        }
-                    });
+                    choice: '@'
                 }
             };
         }

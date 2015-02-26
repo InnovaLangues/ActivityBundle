@@ -19,6 +19,19 @@ class ActivityListener
      */
     public function postLoad(Activity $activity, LifecycleEventArgs $event)
     {
+        $typeAvailable = $activity->getTypeAvailable();
+        
+        if (!empty($typeAvailable)) {
+            $repository = $event->getEntityManager()->getRepository("InnovaActivityBundle:ActivityType\\" . $typeAvailable->getClass());
+            $type = $repository->findOneBy(array(
+                "activity" => $activity->getId(),
+            ));
+            
+            if (!empty($type)) {
+                $activity->setType($type);
+            }
+        }
+        
         return $this;
     }
 
@@ -30,7 +43,11 @@ class ActivityListener
      */
     public function prePersist(Activity $activity, LifecycleEventArgs $event)
     {
-
+        $type = $activity->getType();
+        if (!empty($type) && $type instanceof \Innova\ActivityBundle\Entity\ActivityType\AbstractType) {
+            $event->getEntityManager()->persist($type);
+        }
+        
         return $this;
     }
 }

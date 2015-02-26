@@ -9,6 +9,7 @@
 
         'Activity',
         'Loader',
-        'ActivityAvailable'
+        'ActivityAvailable',
+        'ActivityType'
     ]);
 })();

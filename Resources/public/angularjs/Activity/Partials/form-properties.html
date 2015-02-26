@@ -1,7 +1,32 @@
-<button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default">Ajouter une consigne</button>
-<ul>
-    <li data-ng-repeat="instruction in activityCtrl.activity.instructions" >
-        <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" ></div>
-        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger" >Supprimer</button>
-    </li>
-</ul>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel-instruction">Instructions</a>
+            </h4>
+        </div>
+        <div id="panel-instruction" class="panel-collapse collapse" >
+            <div class="panel-body">
+                <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default">Ajouter une consigne</button>
+                <ul>
+                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions" >
+                        <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" ></div>
+                        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger" >Supprimer</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel-choices">Choices</a>
+            </h4>
+        </div>
+        <div id="panel-choices" class="panel-collapse collapse" >
+            <div class="panel-body">
+                <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityType/Partials/' + activityCtrl.activity.typeAvailable.name + '-edit.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

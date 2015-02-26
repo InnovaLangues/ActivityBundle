@@ -45,9 +45,23 @@ class ActivityListener extends ContainerAware
 
         if ($form->isValid()) {
             $activity = $form->getData();
+            
+            $typeAvailable = $activity->getTypeAvailable();
+        
+            if (!empty($typeAvailable)) {
+                $name = "\\Innova\\ActivityBundle\\Entity\\ActivityType\\" . $typeAvailable->getClass();
+                $type = new $name();
+                
+                $activity->setType($type);
+                
+                $type->setActivity($activity);
+                
+                $this->container->get("doctrine.orm.entity_manager")->persist($type);
+            }
+            
             $event->setResources(array($activity));
             $event->stopPropagation();
-
+            
             return;
         }
 
