@@ -12,7 +12,7 @@ use Innova\ActivityBundle\Entity\Activity;
  *
  * @ORM\MappedSuperclass
  */
-abstract class AbstractType
+abstract class AbstractType implements \JsonSerializable
 {
     /**
      * Unique identifier of the Activity
@@ -70,8 +70,7 @@ abstract class AbstractType
     public function jsonSerialize()
     {
         return array(
-            'id'            => $this->id,
-            'activity'      => $this->activity,
+            'id' => $this->id,
         );
     }
 }

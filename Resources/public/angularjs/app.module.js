@@ -7,8 +7,6 @@
         'ui.translation',
 
         'Activity',
-        'Loader',
-        'ActivityAvailable',
-        'ActivityType'
+        'Loader'
     ]);
 })();

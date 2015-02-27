@@ -11,29 +11,12 @@
                 <ul>
                     <li data-ng-repeat="instruction in activityCtrl.activity.instructions" >
                         <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" ></div>
-                        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger" >Supprimer</button>
+                        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger">Supprimer</button>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#panel-choices">Choices</a>
-            </h4>
-        </div>
-        <div id="panel-choices" class="panel-collapse collapse" >
-            <div class="panel-body">
-                <button data-ng-click="activityCtrl.addChoix()" class="btn btn-default">Ajouter un choix</button>
-                <!--<ul>
-                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions" >
-                        &lt;!&ndash;<choice-type data-activity="{{ _resource | json_encode | raw | escape }}"></choice-type>&ndash;&gt;
-                        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger" >Supprimer</button>
-                    </li>
-                </ul>-->
-            </div>
-        </div>
-    </div>
+    <choice-type-form data-activity-type="activityCtrl.activity.type"></choice-type-form>
 </div>

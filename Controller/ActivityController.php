@@ -30,6 +30,10 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActivityController
 {
     /**
+     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     */
+    protected $security;
+    /**
      * Activity Manager
      * @var \Innova\ActivityBundle\Manager\ActivityManager
      */
@@ -48,15 +52,19 @@ class ActivityController
     protected $activityHandler;
 
     /**
+     * Class constructor
+     *
+     * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
+     * @param \Innova\ActivityBundle\Manager\ActivityManager            $activityManager
+     * @param \Symfony\Component\Form\FormFactoryInterface              $formFactory
+     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler       $activityHandler
+     *
      * @DI\InjectParams({
      *   "securityContext"         = @DI\Inject("security.context"),
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      *   "formFactory"     = @DI\Inject("form.factory"),
      *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")
      * })
-     * @param \Innova\ActivityBundle\Manager\ActivityManager      $activityManager
-     * @param \Symfony\Component\Form\FormFactoryInterface        $formFactory
-     * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler $activityHandler
      */
     public function __construct(
         SecurityContextInterface $securityContext,
@@ -98,7 +106,7 @@ class ActivityController
     /**
      * Display form to manage Activity
      *
-     * @param  \Innova\ActivityBundle\Entity\Activity                   $activity
+     * @param  \Innova\ActivityBundle\Entity\Activity $activity
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return array
      *

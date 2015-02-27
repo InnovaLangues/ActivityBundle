@@ -14,7 +14,7 @@ use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
  * @ORM\Table(name="innova_activity_type_unique")
  * @ORM\Entity
  */
-class UniqueChoiceType extends AbstractChoiceType
+class UniqueChoiceType extends AbstractChoiceType implements \JsonSerializable
 {
     /**
      * Unique identifier of the type

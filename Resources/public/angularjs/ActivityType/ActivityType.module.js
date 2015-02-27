@@ -5,6 +5,7 @@
     'use strict';
 
     angular.module('ActivityType', [
-        'Loader'
+        'Loader',
+        'ActivityProperty'
     ]);
 })();

@@ -12,7 +12,7 @@ use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
  *
  * @ORM\MappedSuperclass
  */
-abstract class AbstractChoiceType extends AbstractType
+abstract class AbstractChoiceType extends AbstractType implements \JsonSerializable
 {
     /**
      * Get all choices

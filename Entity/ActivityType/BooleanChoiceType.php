@@ -14,7 +14,7 @@ use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
  * @ORM\Table(name="innova_activity_type_boolean")
  * @ORM\Entity
  */
-class BooleanChoiceType extends AbstractChoiceType
+class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
 {
     /**
      * Unique identifier of the type

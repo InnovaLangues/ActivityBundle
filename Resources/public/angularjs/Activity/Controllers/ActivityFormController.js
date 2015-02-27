@@ -2,10 +2,8 @@
     'use strict';
 
     angular.module('Activity').controller('ActivityFormController', [
-        '$scope',
-        '$modal',
         'ActivityService',
-        function ($scope, $modal, ActivityService) {
+        function (ActivityService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.view = 'properties';
@@ -41,9 +39,6 @@
 
             this.update = function () {
                 ActivityService.update(this.activity);
-
-                // Emit event for the parent Activity
-                $scope.$emit('activityUpdate', this.activity);
             };
 
             this.changeView = function (newView) {
@@ -52,7 +47,7 @@
             
             this.addInstruction = function () {
                 this.activity.instructions.push({
-                    id:1 , 
+                    id: 1 ,
                     media: "media1"
                 });
             };
