@@ -89,11 +89,20 @@ class ActivityHandler
         if ($this->request->getMethod() == 'POST' || $this->request->getMethod() == 'PUT') {
             // Correct HTTP method => try to process form
             $this->form->submit($this->request);
-
+            
             if ($this->form->isValid()) {
                 // Form is valid => create or update the activity
                 $this->data = $this->form->getData();
 
+                $choices = $this->form->get("choices")->getData();
+
+                foreach ($choices as $choice) {
+                    if (!empty($this->data->getType())) {
+                        $type = $this->data->getType();
+                        $type->addChoice($choice);
+                    }
+                }
+                
                 if ($this->request->getMethod() == 'POST') {
                     // Create activity
                     $success = $this->create();

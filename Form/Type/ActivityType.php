@@ -20,6 +20,13 @@ class ActivityType extends AbstractType
             "allow_delete" => true,
             "by_reference" => false,
         ));
+        $builder->add('choices', 'collection', array(
+            'type' => new ChoicePropertyType(),
+            "allow_add" => true,
+            "allow_delete" => true,
+            "by_reference" => false,
+            "mapped"       => false,
+        ));
 /*
         $builder->add('information', 'text', array ('required' => true));
         $builder->add('object', 'text', array ('required' => true));

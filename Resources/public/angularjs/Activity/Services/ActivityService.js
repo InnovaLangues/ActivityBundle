@@ -36,13 +36,22 @@
                         var innova_activity = {
                             name:activity.name,
                             description:activity.description,
-                            instructions: []
+                            instructions: [],
+                            choices: []
                         };
         
                         for (var instruction in activity.instructions) {
                             if (activity.instructions.hasOwnProperty(instruction)) {
                                 innova_activity.instructions.push({
                                     media:activity.instructions[instruction].media
+                                });
+                            }
+                        }
+        
+                        for (var choice in activity.type.choices) {
+                            if (activity.type.choices.hasOwnProperty(choice)) {
+                                innova_activity.choices.push({
+                                    media:activity.type.choices[choice].media
                                 });
                             }
                         }

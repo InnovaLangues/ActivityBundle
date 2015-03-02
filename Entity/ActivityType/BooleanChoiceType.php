@@ -30,7 +30,7 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
      * List of choices of the Activity
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty")
+     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty", cascade={"persist"})
      * @ORM\JoinTable(
      *      name               = "innova_activity_type_boolean_choices",
      *      joinColumns        = { @ORM\JoinColumn(name="type_id",   referencedColumnName="id") },
@@ -64,6 +64,20 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
     public function getChoices()
     {
         return $this->choices;
+    }
+    
+    /**
+     * 
+     * @param ArrayCollection $choices
+     * @return \Innova\ActivityBundle\Entity\ActivityType\BooleanChoiceType
+     */
+    public function setChoices(ArrayCollection $choices)
+    {
+        foreach ($choices as $choice) {
+            $this->addChoice($choice);
+        }
+        
+        return $this;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Innova\ActivityBundle\Entity\ActivityType;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
 
 /**
@@ -20,6 +21,11 @@ abstract class AbstractChoiceType extends AbstractType implements \JsonSerializa
      */
     abstract function getChoices();
 
+    /**
+     * Set all choices
+     */
+    abstract function setChoices(ArrayCollection $choices);
+    
     /**
      * Add a choice to the list of choices
      * @param  \Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty $choice

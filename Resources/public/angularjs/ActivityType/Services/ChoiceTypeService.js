@@ -7,56 +7,33 @@
         'LoaderService',
         function ($http, $q, LoaderService) {
             return {
-                type: function (activityId, type) {
+                update: function (activityType) {
                     LoaderService.startRequest();
-                    
-                    var deferred = $q.defer();
-                    $http
-                        .post(Routing.generate('innova_activity_type', {
-                            activityId: activityId,
-                            typeAvailableId: type.id
-                        }))
-                        .success(function (response) {
-                            LoaderService.endRequest();
+                    console.log(activityType.choices);
 
-                            deferred.resolve(response.data);
-                        })
-                        .error(function(response) {
-                            LoaderService.endRequest();
-
-                            deferred.reject(response);
-                        });
-
-                    return deferred.promise;
-                },
-                update: function (activity) {
-                    LoaderService.startRequest();
-
-                    function Activity (activity) {
-                        var innova_activity = {
-                            name:activity.name,
-                            description:activity.description,
-                            instructions: []
+                    function ActivityType (activityType) {
+                        var innova_activity_type = {
+                            choices: []
                         };
         
-                        for (var instruction in activity.instructions) {
-                            if (activity.instructions.hasOwnProperty(instruction)) {
-                                innova_activity.instructions.push({
-                                    media:activity.instructions[instruction].media
+                        for (var choice in activityType.choices) {
+                            if (activityType.choices.hasOwnProperty(choice)) {
+                                innova_activity_type.choices.push({
+                                    media:activityType.choices[choice].media
                                 });
                             }
                         }
         
-                        return innova_activity;
+                        return innova_activity_type;
                     }
-                    var newActivity = new Activity(activity);
+                    var newActivityType = new ActivityType(activityType);
 
                     var deferred = $q.defer();
                     $http
                         .put(
-                            Routing.generate('innova_activity_update', {activityId : activity.id}), 
+                            Routing.generate('innova_activity_type_update', {activityTypeId : activityType.id}), 
                             {
-                                innova_activity: newActivity 
+                                innova_activity_type: newActivityType 
                             }
                         )
                         .success(function (response) {

@@ -65,6 +65,20 @@ class UniqueChoiceType extends AbstractChoiceType implements \JsonSerializable
     {
         return $this->choices;
     }
+    
+    /**
+     * 
+     * @param ArrayCollection $choices
+     * @return \Innova\ActivityBundle\Entity\ActivityType\UniqueChoiceType
+     */
+    public function setChoices(ArrayCollection $choices)
+    {
+        foreach ($choices as $choice) {
+            $this->addChoice($choice);
+        }
+        
+        return $this;
+    }
 
     /**
      * Add a choice to the list of choices
