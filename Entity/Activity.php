@@ -55,7 +55,6 @@ class Activity extends AbstractResource implements \JsonSerializable
      */
     protected $type;
 
-    // ...
     /**
      * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty", mappedBy="activity", cascade={"persist","remove"})
      **/
@@ -78,10 +77,10 @@ class Activity extends AbstractResource implements \JsonSerializable
     }
     
     /**
-    * Set description
-    * @param string $description
-    * @return \Innova\ActivityBundle\Entity\Activity
-    */
+     * Set description
+     * @param string $description
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
     public function setDescription($description)
     {
     $this->description = $description;
@@ -90,9 +89,9 @@ class Activity extends AbstractResource implements \JsonSerializable
     }
     
     /**
-    * Get description
-    * @return string
-    */
+     * Get description
+     * @return string
+     */
     public function getDescription()
     {
     return $this->description;
