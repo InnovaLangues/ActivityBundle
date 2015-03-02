@@ -1,3 +1,4 @@
-innova_activity_sequence: Suite d'activités
+innova_activity: Activité InnovaLangues
 administrate: Administrer
-activity_sequence_form_name: Nom de la suite
+activity_form_name: Nom
+activity_form_typeAvailable: Type
