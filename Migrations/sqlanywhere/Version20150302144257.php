@@ -1,6 +1,6 @@
 <?php
 
-namespace Innova\ActivityBundle\Migrations\drizzle_pdo_mysql;
+namespace Innova\ActivityBundle\Migrations\sqlanywhere;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
@@ -8,130 +8,136 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated migration based on mapping information: modify it with caution
  *
- * Generation date: 2015/02/26 04:33:37
+ * Generation date: 2015/03/02 02:42:58
  */
-class Version20150226163335 extends AbstractMigration
+class Version20150302144257 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
         $this->addSql("
             CREATE TABLE innova_activity (
-                id INT AUTO_INCREMENT NOT NULL, 
+                id INT IDENTITY NOT NULL, 
                 type_id INT DEFAULT NULL, 
                 description TEXT DEFAULT NULL, 
                 resourceNode_id INT DEFAULT NULL, 
-                PRIMARY KEY(id), 
-                INDEX IDX_4605013FC54C8C93 (type_id), 
-                UNIQUE INDEX UNIQ_4605013FB87FAB32 (resourceNode_id)
+                PRIMARY KEY (id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_type_multiple (
-                id INT AUTO_INCREMENT NOT NULL, 
+            CREATE INDEX IDX_4605013FC54C8C93 ON innova_activity (type_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_4605013FB87FAB32 ON innova_activity (resourceNode_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_prop_choice (
+                id INT IDENTITY NOT NULL, 
+                media TEXT NOT NULL, 
+                title VARCHAR(255) DEFAULT NULL, 
+                PRIMARY KEY (id)
+            )
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_prop_instruction (
+                id INT IDENTITY NOT NULL, 
                 activity_id INT DEFAULT NULL, 
-                PRIMARY KEY(id), 
-                UNIQUE INDEX UNIQ_E19297AD81C06096 (activity_id)
+                media TEXT NOT NULL, 
+                title VARCHAR(255) DEFAULT NULL, 
+                PRIMARY KEY (id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_type_multiple_choices (
-                type_id INT NOT NULL, 
-                choice_id INT NOT NULL, 
-                PRIMARY KEY(type_id, choice_id), 
-                INDEX IDX_2FBB948CC54C8C93 (type_id), 
-                UNIQUE INDEX UNIQ_2FBB948C998666D1 (choice_id)
-            )
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activity_type_unique (
-                id INT AUTO_INCREMENT NOT NULL, 
-                activity_id INT DEFAULT NULL, 
-                PRIMARY KEY(id), 
-                UNIQUE INDEX UNIQ_215A48CD81C06096 (activity_id)
-            )
-        ");
-        $this->addSql("
-            CREATE TABLE innova_activity_type_unique_choices (
-                type_id INT NOT NULL, 
-                choice_id INT NOT NULL, 
-                PRIMARY KEY(type_id, choice_id), 
-                INDEX IDX_B6753399C54C8C93 (type_id), 
-                UNIQUE INDEX UNIQ_B6753399998666D1 (choice_id)
-            )
+            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
         ");
         $this->addSql("
             CREATE TABLE innova_activity_type_boolean (
-                id INT AUTO_INCREMENT NOT NULL, 
+                id INT IDENTITY NOT NULL, 
                 activity_id INT DEFAULT NULL, 
-                PRIMARY KEY(id), 
-                UNIQUE INDEX UNIQ_A1A02AE481C06096 (activity_id)
+                PRIMARY KEY (id)
             )
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_A1A02AE481C06096 ON innova_activity_type_boolean (activity_id)
         ");
         $this->addSql("
             CREATE TABLE innova_activity_type_boolean_choices (
                 type_id INT NOT NULL, 
                 choice_id INT NOT NULL, 
-                PRIMARY KEY(type_id, choice_id), 
-                INDEX IDX_498A9DC5C54C8C93 (type_id), 
-                UNIQUE INDEX UNIQ_498A9DC5998666D1 (choice_id)
+                PRIMARY KEY (type_id, choice_id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_prop_choice (
-                id INT AUTO_INCREMENT NOT NULL, 
-                media TEXT NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id)
+            CREATE INDEX IDX_498A9DC5C54C8C93 ON innova_activity_type_boolean_choices (type_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_498A9DC5998666D1 ON innova_activity_type_boolean_choices (choice_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_type_multiple (
+                id INT IDENTITY NOT NULL, 
+                activity_id INT DEFAULT NULL, 
+                PRIMARY KEY (id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_prop_instruction (
-                id INT AUTO_INCREMENT NOT NULL, 
-                id_activity INT DEFAULT NULL, 
-                media TEXT NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id), 
-                INDEX IDX_D14D3F56FCAFE5CF (id_activity)
+            CREATE UNIQUE INDEX UNIQ_E19297AD81C06096 ON innova_activity_type_multiple (activity_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_type_multiple_choices (
+                type_id INT NOT NULL, 
+                choice_id INT NOT NULL, 
+                PRIMARY KEY (type_id, choice_id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_prop_info (
-                id INT AUTO_INCREMENT NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id)
+            CREATE INDEX IDX_2FBB948CC54C8C93 ON innova_activity_type_multiple_choices (type_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_2FBB948C998666D1 ON innova_activity_type_multiple_choices (choice_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_type_unique (
+                id INT IDENTITY NOT NULL, 
+                activity_id INT DEFAULT NULL, 
+                PRIMARY KEY (id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_prop_object (
-                id INT AUTO_INCREMENT NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id)
+            CREATE UNIQUE INDEX UNIQ_215A48CD81C06096 ON innova_activity_type_unique (activity_id)
+        ");
+        $this->addSql("
+            CREATE TABLE innova_activity_type_unique_choices (
+                type_id INT NOT NULL, 
+                choice_id INT NOT NULL, 
+                PRIMARY KEY (type_id, choice_id)
             )
         ");
         $this->addSql("
-            CREATE TABLE innova_activity_prop_question (
-                id INT AUTO_INCREMENT NOT NULL, 
-                title VARCHAR(255) DEFAULT NULL, 
-                PRIMARY KEY(id)
-            )
+            CREATE INDEX IDX_B6753399C54C8C93 ON innova_activity_type_unique_choices (type_id)
+        ");
+        $this->addSql("
+            CREATE UNIQUE INDEX UNIQ_B6753399998666D1 ON innova_activity_type_unique_choices (choice_id)
         ");
         $this->addSql("
             CREATE TABLE innova_activity_available_category (
-                id INT AUTO_INCREMENT NOT NULL, 
+                id INT IDENTITY NOT NULL, 
                 name VARCHAR(255) NOT NULL, 
                 icon VARCHAR(50) NOT NULL, 
-                PRIMARY KEY(id)
+                PRIMARY KEY (id)
             )
         ");
         $this->addSql("
             CREATE TABLE innova_activity_available_type (
-                id INT AUTO_INCREMENT NOT NULL, 
+                id INT IDENTITY NOT NULL, 
                 category_id INT DEFAULT NULL, 
                 name VARCHAR(255) NOT NULL, 
                 class VARCHAR(100) NOT NULL, 
-                PRIMARY KEY(id), 
-                INDEX IDX_48C5FD2512469DE2 (category_id)
+                form VARCHAR(100) NOT NULL, 
+                PRIMARY KEY (id)
             )
+        ");
+        $this->addSql("
+            CREATE INDEX IDX_48C5FD2512469DE2 ON innova_activity_available_type (category_id)
         ");
         $this->addSql("
             ALTER TABLE innova_activity 
@@ -143,6 +149,26 @@ class Version20150226163335 extends AbstractMigration
             ADD CONSTRAINT FK_4605013FB87FAB32 FOREIGN KEY (resourceNode_id) 
             REFERENCES claro_resource_node (id) 
             ON DELETE CASCADE
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activity_prop_instruction 
+            ADD CONSTRAINT FK_D14D3F5681C06096 FOREIGN KEY (activity_id) 
+            REFERENCES innova_activity (id)
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activity_type_boolean 
+            ADD CONSTRAINT FK_A1A02AE481C06096 FOREIGN KEY (activity_id) 
+            REFERENCES innova_activity (id)
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activity_type_boolean_choices 
+            ADD CONSTRAINT FK_498A9DC5C54C8C93 FOREIGN KEY (type_id) 
+            REFERENCES innova_activity_type_boolean (id)
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activity_type_boolean_choices 
+            ADD CONSTRAINT FK_498A9DC5998666D1 FOREIGN KEY (choice_id) 
+            REFERENCES innova_activity_prop_choice (id)
         ");
         $this->addSql("
             ALTER TABLE innova_activity_type_multiple 
@@ -175,26 +201,6 @@ class Version20150226163335 extends AbstractMigration
             REFERENCES innova_activity_prop_choice (id)
         ");
         $this->addSql("
-            ALTER TABLE innova_activity_type_boolean 
-            ADD CONSTRAINT FK_A1A02AE481C06096 FOREIGN KEY (activity_id) 
-            REFERENCES innova_activity (id)
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activity_type_boolean_choices 
-            ADD CONSTRAINT FK_498A9DC5C54C8C93 FOREIGN KEY (type_id) 
-            REFERENCES innova_activity_type_boolean (id)
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activity_type_boolean_choices 
-            ADD CONSTRAINT FK_498A9DC5998666D1 FOREIGN KEY (choice_id) 
-            REFERENCES innova_activity_prop_choice (id)
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activity_prop_instruction 
-            ADD CONSTRAINT FK_D14D3F56FCAFE5CF FOREIGN KEY (id_activity) 
-            REFERENCES innova_activity (id)
-        ");
-        $this->addSql("
             ALTER TABLE innova_activity_available_type 
             ADD CONSTRAINT FK_48C5FD2512469DE2 FOREIGN KEY (category_id) 
             REFERENCES innova_activity_available_category (id)
@@ -204,6 +210,14 @@ class Version20150226163335 extends AbstractMigration
     public function down(Schema $schema)
     {
         $this->addSql("
+            ALTER TABLE innova_activity_prop_instruction 
+            DROP FOREIGN KEY FK_D14D3F5681C06096
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activity_type_boolean 
+            DROP FOREIGN KEY FK_A1A02AE481C06096
+        ");
+        $this->addSql("
             ALTER TABLE innova_activity_type_multiple 
             DROP FOREIGN KEY FK_E19297AD81C06096
         ");
@@ -212,24 +226,8 @@ class Version20150226163335 extends AbstractMigration
             DROP FOREIGN KEY FK_215A48CD81C06096
         ");
         $this->addSql("
-            ALTER TABLE innova_activity_type_boolean 
-            DROP FOREIGN KEY FK_A1A02AE481C06096
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activity_prop_instruction 
-            DROP FOREIGN KEY FK_D14D3F56FCAFE5CF
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activity_type_multiple_choices 
-            DROP FOREIGN KEY FK_2FBB948CC54C8C93
-        ");
-        $this->addSql("
-            ALTER TABLE innova_activity_type_unique_choices 
-            DROP FOREIGN KEY FK_B6753399C54C8C93
-        ");
-        $this->addSql("
             ALTER TABLE innova_activity_type_boolean_choices 
-            DROP FOREIGN KEY FK_498A9DC5C54C8C93
+            DROP FOREIGN KEY FK_498A9DC5998666D1
         ");
         $this->addSql("
             ALTER TABLE innova_activity_type_multiple_choices 
@@ -241,7 +239,15 @@ class Version20150226163335 extends AbstractMigration
         ");
         $this->addSql("
             ALTER TABLE innova_activity_type_boolean_choices 
-            DROP FOREIGN KEY FK_498A9DC5998666D1
+            DROP FOREIGN KEY FK_498A9DC5C54C8C93
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activity_type_multiple_choices 
+            DROP FOREIGN KEY FK_2FBB948CC54C8C93
+        ");
+        $this->addSql("
+            ALTER TABLE innova_activity_type_unique_choices 
+            DROP FOREIGN KEY FK_B6753399C54C8C93
         ");
         $this->addSql("
             ALTER TABLE innova_activity_available_type 
@@ -255,6 +261,18 @@ class Version20150226163335 extends AbstractMigration
             DROP TABLE innova_activity
         ");
         $this->addSql("
+            DROP TABLE innova_activity_prop_choice
+        ");
+        $this->addSql("
+            DROP TABLE innova_activity_prop_instruction
+        ");
+        $this->addSql("
+            DROP TABLE innova_activity_type_boolean
+        ");
+        $this->addSql("
+            DROP TABLE innova_activity_type_boolean_choices
+        ");
+        $this->addSql("
             DROP TABLE innova_activity_type_multiple
         ");
         $this->addSql("
@@ -265,27 +283,6 @@ class Version20150226163335 extends AbstractMigration
         ");
         $this->addSql("
             DROP TABLE innova_activity_type_unique_choices
-        ");
-        $this->addSql("
-            DROP TABLE innova_activity_type_boolean
-        ");
-        $this->addSql("
-            DROP TABLE innova_activity_type_boolean_choices
-        ");
-        $this->addSql("
-            DROP TABLE innova_activity_prop_choice
-        ");
-        $this->addSql("
-            DROP TABLE innova_activity_prop_instruction
-        ");
-        $this->addSql("
-            DROP TABLE innova_activity_prop_info
-        ");
-        $this->addSql("
-            DROP TABLE innova_activity_prop_object
-        ");
-        $this->addSql("
-            DROP TABLE innova_activity_prop_question
         ");
         $this->addSql("
             DROP TABLE innova_activity_available_category

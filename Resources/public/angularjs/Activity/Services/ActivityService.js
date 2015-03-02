@@ -37,7 +37,9 @@
                             name:activity.name,
                             description:activity.description,
                             instructions: [],
-                            choices: []
+                            type: {
+                                choices: []
+                            }
                         };
         
                         for (var instruction in activity.instructions) {
@@ -50,8 +52,8 @@
         
                         for (var choice in activity.type.choices) {
                             if (activity.type.choices.hasOwnProperty(choice)) {
-                                innova_activity.choices.push({
-                                    media:activity.type.choices[choice].media
+                                innova_activity.type.choices.push({
+                                    media: activity.type.choices[choice].media
                                 });
                             }
                         }

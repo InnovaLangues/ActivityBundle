@@ -21,13 +21,13 @@ class LoadRequiredFixturesData extends AbstractFixture
                 'icon' => 'fa fa-fw fa-check-square-o',
                 'types' => array (
                     array (
-                        'name' => 'BooleanChoiceType', 'class' => 'BooleanChoiceType',
+                        'name' => 'BooleanChoiceType', 'class' => 'Choice\\BooleanChoiceType', 'form' => 'innova_activity_type_boolean',
                     ),
                     array (
-                        'name' => 'UniqueChoiceType', 'class' => 'UniqueChoiceType',
+                        'name' => 'UniqueChoiceType', 'class' => 'Choice\\UniqueChoiceType', 'form' => 'innova_activity_type_unique',
                     ),
                     array (
-                        'name' => 'MultipleChoiceType', 'class' => 'MultipleChoiceType'
+                        'name' => 'MultipleChoiceType', 'class' => 'Choice\\MultipleChoiceType', 'form' => 'innova_activity_type_multiple',
                     ),
                 ),
             )
@@ -48,6 +48,7 @@ class LoadRequiredFixturesData extends AbstractFixture
 
                     $entityType->setName($type['name']);
                     $entityType->setClass($type['class']);
+                    $entityType->setForm($type['form']);
 
                     $entityCategory->addType($entityType);
                 }

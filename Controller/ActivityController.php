@@ -60,7 +60,7 @@ class ActivityController
      * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler       $activityHandler
      *
      * @DI\InjectParams({
-     *   "securityContext"         = @DI\Inject("security.context"),
+     *   "securityContext" = @DI\Inject("security.context"),
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      *   "formFactory"     = @DI\Inject("form.factory"),
      *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")
@@ -79,7 +79,7 @@ class ActivityController
     }
     
     /**
-     * Display an Activity Seqence
+     * Display an Activity
      *
      * @param  \Innova\ActivityBundle\Entity\Activity                  $activity
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -127,39 +127,6 @@ class ActivityController
             '_resource' => $activity,
         );
     }
-    
-    
-    /**
-     * Type an Activity
-     * @Route(
-     *      "/{activityId}/{typeAvailableId}",
-     *      name    = "innova_activity_type",
-     *      options = { "expose" = true }
-     * )
-     * @ParamConverter("typeAvailable", class="InnovaActivityBundle:ActivityAvailable\TypeAvailable", options = { "mapping" : {"typeAvailableId" : "id"} })
-     * @Method("POST")
-     */
-    public function typeAction(Activity $activity, TypeAvailable $typeAvailable)
-    {
-        $response = array();
-        try {
-            // Create the new Activity
-            $activity = $this->activityManager->type($activity, $typeAvailable);
-            // Build response object
-            $response['status'] = 'OK';
-            $response['messages'] = array(
-                'activity_type_success',
-            );
-            $response['data'] = $activity;
-        } catch (\Exception $e) {
-            $response['status'] = 'ERROR';
-            $response['messages'] = array(
-                $e->getMessage(),
-            );
-        }
-
-        return new JsonResponse($response);
-    }
 
     /**
      * @Route(
@@ -186,57 +153,15 @@ class ActivityController
         $this->activityHandler->setForm($form);
         if ($this->activityHandler->process()) {
             // Add user message
-            /*$this->session->getFlashBag()->add(
-                'success', $this->translator->trans('path_save_success', array(), 'path_editor')
-            );*/
-            $response['status'] = 'OK';
-            $response['data']   = $this->activityHandler->getData();
+            $response['status']   = 'OK';
+            $response['messages'] = array ();
+            $response['data']     = $this->activityHandler->getData();
         } else {
             // Error
-            // List des erreurs symfony (FormError...)
-            /*$errors = $form->getErrors();*/
-
-            $response['status'] = 'ERROR_VALIDATION';
-            $errors = $this->getFormErrors($form);
-
-            // SI non fonctionnel du premier coup alors :
-            // - pour chaque champ, 'nom_du_champ' => 'message'
-
-            // ATTENTION : le nom du champ doit valoir nom_form_type + nom_du_champ (ex. innova_activity_type_name)
-            // Fait.
-
-
-            // // - boucler sur les erreurs Symfony
-            // foreach ($form->getErrors() as $key => $error) {
-            //     $errors[] = $error->getMessage();
-            // }
-
-            $response['messages'] = array(
-                $errors,
-            );
+            $response['status']   = 'ERROR_VALIDATION';
+            $response['messages'] = $this->getFormErrors($form);
+            $response['data']     = null;
         }
-
-        // TODO : return soit l'entity mise à jour soit un message erreurs (erreurs de validation de form)
-        return new JsonResponse($response);
-    }
-
-    /**
-     * @Route(
-     *      "/{activityId}",
-     *      name    = "innova_activity_delete",
-     *      options = { "expose" = true }
-     * )
-     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
-     * @Method("DELETE")
-     */
-    public function deleteAction(Activity $activity)
-    {
-        $deleted = $this->activityManager->delete($activity);
-
-        $response = array(
-            'status' => $deleted ? 'OK' : 'ERROR',
-            'data' => array(),
-        );
 
         return new JsonResponse($response);
     }

@@ -1,6 +1,32 @@
 services:
-    # Step type
+    # Activity type
     innova_activity.form.type.activity:
         class: %innova_activity.form.type.activity.class%
         tags:
           - { name: form.type, alias: innova_activity }
+
+    # Activity Properties
+    innova_activity.form.type.choice_property:
+        class: %innova_activity.form.type.choice_property.class%
+        tags:
+          - { name: form.type, alias: innova_activity_prop_choice }
+
+    innova_activity.form.type.instruction_property:
+        class: %innova_activity.form.type.instruction_property.class%
+        tags:
+          - { name: form.type, alias: innova_activity_prop_instruction }
+
+    innova_activity.form.type.multiple_choice_type:
+        class: %innova_activity.form.type.multiple_choice_type.class%
+        tags:
+          - { name: form.type, alias: innova_activity_type_multiple }
+
+    innova_activity.form.type.unique_choice_type:
+        class: %innova_activity.form.type.unique_choice_type.class%
+        tags:
+          - { name: form.type, alias: innova_activity_type_unique }
+
+    innova_activity.form.type.boolean_choice_type:
+        class: %innova_activity.form.type.boolean_choice_type.class%
+        tags:
+          - { name: form.type, alias: innova_activity_type_boolean }

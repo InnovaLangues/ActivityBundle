@@ -1,6 +1,6 @@
 <?php
 
-namespace Innova\ActivityBundle\Entity\ActivityType;
+namespace Innova\ActivityBundle\Entity\ActivityType\Choice;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,13 +8,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
 
 /**
- * MultipleChoiceType
- * An activity where the response is at least one choice into a list of possible responses
+ * Unique Choice type
+ * An activity where the response is a unique choice into a list of possible responses
  *
- * @ORM\Table(name="innova_activity_type_multiple")
+ * @ORM\Table(name="innova_activity_type_unique")
  * @ORM\Entity
  */
-class MultipleChoiceType extends AbstractChoiceType
+class UniqueChoiceType extends AbstractChoiceType implements \JsonSerializable
 {
     /**
      * Unique identifier of the type
@@ -32,7 +32,7 @@ class MultipleChoiceType extends AbstractChoiceType
      *
      * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty")
      * @ORM\JoinTable(
-     *      name               = "innova_activity_type_multiple_choices",
+     *      name               = "innova_activity_type_unique_choices",
      *      joinColumns        = { @ORM\JoinColumn(name="type_id",   referencedColumnName="id") },
      *      inverseJoinColumns = { @ORM\JoinColumn(name="choice_id", referencedColumnName="id", unique=true) }
      * )
@@ -69,7 +69,7 @@ class MultipleChoiceType extends AbstractChoiceType
     /**
      * 
      * @param ArrayCollection $choices
-     * @return \Innova\ActivityBundle\Entity\ActivityType\MultipleChoiceType
+     * @return \Innova\ActivityBundle\Entity\ActivityType\UniqueChoiceType
      */
     public function setChoices(ArrayCollection $choices)
     {
@@ -109,7 +109,7 @@ class MultipleChoiceType extends AbstractChoiceType
     }
     
     /**
-     * Define how to serialize our entity MultipleChoiceType
+     * Define how to serialize our entity UniqueChoiceType
      * @return Array
      */
     public function jsonSerialize()

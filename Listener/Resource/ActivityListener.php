@@ -45,7 +45,8 @@ class ActivityListener extends ContainerAware
 
         if ($form->isValid()) {
             $activity = $form->getData();
-            
+
+            // TODO : refactoriser le code métier qui suit dans le manager
             $typeAvailable = $activity->getTypeAvailable();
         
             if (!empty($typeAvailable)) {

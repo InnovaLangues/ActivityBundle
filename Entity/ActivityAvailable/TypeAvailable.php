@@ -42,6 +42,15 @@ class TypeAvailable implements \JsonSerializable
     protected $class;
 
     /**
+     * The tag of the form used to configure the Type
+     * @var string
+     *
+     * @ORM\Column(name="form", type="string", length=100)
+     * @Assert\NotBlank
+     */
+    protected $form;
+
+    /**
      * Category of the Type
      * @var CategoryAvailable
      *
@@ -97,6 +106,27 @@ class TypeAvailable implements \JsonSerializable
     public function setClass($class)
     {
         $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get form
+     * @return string
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+    /**
+     * Set form
+     * @param string $form
+     * @return $this
+     */
+    public function setForm($form)
+    {
+        $this->form = $form;
 
         return $this;
     }

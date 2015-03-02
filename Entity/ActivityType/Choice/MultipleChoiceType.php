@@ -1,6 +1,6 @@
 <?php
 
-namespace Innova\ActivityBundle\Entity\ActivityType;
+namespace Innova\ActivityBundle\Entity\ActivityType\Choice;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,13 +8,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
 
 /**
- * Boolean Choice type
- * An activity where the response is TRUE or FALSE
+ * MultipleChoiceType
+ * An activity where the response is at least one choice into a list of possible responses
  *
- * @ORM\Table(name="innova_activity_type_boolean")
+ * @ORM\Table(name="innova_activity_type_multiple")
  * @ORM\Entity
  */
-class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
+class MultipleChoiceType extends AbstractChoiceType
 {
     /**
      * Unique identifier of the type
@@ -30,9 +30,9 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
      * List of choices of the Activity
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty")
      * @ORM\JoinTable(
-     *      name               = "innova_activity_type_boolean_choices",
+     *      name               = "innova_activity_type_multiple_choices",
      *      joinColumns        = { @ORM\JoinColumn(name="type_id",   referencedColumnName="id") },
      *      inverseJoinColumns = { @ORM\JoinColumn(name="choice_id", referencedColumnName="id", unique=true) }
      * )
@@ -69,7 +69,7 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
     /**
      * 
      * @param ArrayCollection $choices
-     * @return \Innova\ActivityBundle\Entity\ActivityType\BooleanChoiceType
+     * @return \Innova\ActivityBundle\Entity\ActivityType\MultipleChoiceType
      */
     public function setChoices(ArrayCollection $choices)
     {
@@ -109,7 +109,7 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
     }
     
     /**
-     * Define how to serialize our entity BooleanChoiceType
+     * Define how to serialize our entity MultipleChoiceType
      * @return Array
      */
     public function jsonSerialize()

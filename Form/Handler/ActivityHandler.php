@@ -93,15 +93,6 @@ class ActivityHandler
             if ($this->form->isValid()) {
                 // Form is valid => create or update the activity
                 $this->data = $this->form->getData();
-
-                $choices = $this->form->get("choices")->getData();
-
-                $type = $this->data->getType();
-                if (!empty($type)) {
-                    foreach ($choices as $choice) {
-                        $type->addChoice($choice);
-                    }
-                }
                 
                 if ($this->request->getMethod() == 'POST') {
                     // Create activity

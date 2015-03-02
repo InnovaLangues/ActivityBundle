@@ -1,10 +1,11 @@
 <?php
 
-namespace Innova\ActivityBundle\Entity\ActivityType;
+namespace Innova\ActivityBundle\Entity\ActivityType\Choice;
 
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
 use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
 
 /**

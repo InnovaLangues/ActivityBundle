@@ -5,34 +5,34 @@ namespace Innova\ActivityBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class ActivityType extends AbstractType
 {
-    // A faire pour les autres données ? information, objet, proposition, question ?
-
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
-        $builder->add('name', 'text', array('required' => true, 'max_length' => 20));
-        $builder->add('description', 'text', array('required' => true));
-        $builder->add('instructions', 'collection', array(
-            'type' => new InstructionPropertyType(),
-            "allow_add" => true,
-            "allow_delete" => true,
-            "by_reference" => false,
+        $builder->add('name',        'text', array ('required' => true));
+        $builder->add('description', 'text', array ('required' => false));
+
+        $builder->add('instructions', 'collection', array (
+            'type'         => 'innova_activity_prop_instruction',
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'by_reference' => false,
         ));
-        $builder->add('choices', 'collection', array(
-            'type' => new ChoicePropertyType(),
-            "allow_add" => true,
-            "allow_delete" => true,
-            "by_reference" => false,
-            "mapped"       => false,
-        ));
-/*
-        $builder->add('information', 'text', array ('required' => true));
-        $builder->add('object', 'text', array ('required' => true));
-        $builder->add('proposition', 'text', array ('required' => true));
-        $builder->add('question', 'text', array ('required' => true));
-*/
+
+        // Get and add the specific form for the current ActivityType
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
+            $activity = $event->getData();
+            $form = $event->getForm();
+
+            $type = $activity->getTypeAvailable();
+            if (!empty($type)) {
+                // Add the form corresponding to this type
+                $form->add('type', $type->getForm());
+            }
+        });
     }
 
     public function getName()
@@ -42,7 +42,7 @@ class ActivityType extends AbstractType
 
     public function getDefaultOptions()
     {
-        return array(
+        return array (
             'data_class' => 'Innova\ActivityBundle\Entity\Activity',
         );
     }

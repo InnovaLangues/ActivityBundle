@@ -3,7 +3,6 @@
 namespace Innova\ActivityBundle\Manager;
 
 use Innova\ActivityBundle\Entity\Activity;
-use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -25,21 +24,11 @@ class ActivityManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    /**
-     * Type an Activity
-     * @param  TypeAvailable    $typeAvailable
-     * @return Activity
-     */
-    public function type(Activity $activity, TypeAvailable $typeAvailable)
-    {
-        $activity->setTypeAvailable($typeAvailable);
-
-        return $this->edit($activity);
-    }
-
     public function create()
     {
-        
+        $activity = new Activity();
+
+        return $this->edit($activity);
     }
     
     public function edit(Activity $activity)
