@@ -96,9 +96,9 @@ class ActivityHandler
 
                 $choices = $this->form->get("choices")->getData();
 
-                foreach ($choices as $choice) {
-                    if (!empty($this->data->getType())) {
-                        $type = $this->data->getType();
+                $type = $this->data->getType();
+                if (!empty($type)) {
+                    foreach ($choices as $choice) {
                         $type->addChoice($choice);
                     }
                 }
