@@ -1,0 +1,3 @@
+activity_type_BooleanChoiceType: Vrai/Faux
+activity_type_MultipleChoiceType: Question à choix multiple
+activity_type_UniqueChoiceType: Question à choix simple
