@@ -31,6 +31,15 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
     */
     protected $media;
     
+    /**
+     * Answer is correct or wrong
+     * @var boolean
+     * 
+     * @ORM\Column(name="correct_answer", type="boolean")
+     */
+    protected $correctAnswer;
+    
+    
     public function getMedia()
     {
         return $this->media;
@@ -43,11 +52,24 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
         return $this;
     }
     
+    public function isCorrectAnswer()
+    {
+        return $this->correctAnswer;
+    }
+    
+    public function setCorrectAnswer($correctAnswer)
+    {
+        $this->correctAnswer = $correctAnswer;
+        
+        return $this;
+    }
+    
     public function jsonSerialize()
     {
         return array(
             'id'            => $this->id,
             'media'         => $this->media,
+            'correctAnswer' => $this->correctAnswer,
         );
     }
 }

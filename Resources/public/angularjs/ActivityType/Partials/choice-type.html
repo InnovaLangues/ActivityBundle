@@ -4,21 +4,21 @@
             <a data-toggle="collapse" href="#panel-choices">Choices</a>
         </h4>
     </div>
-    <!--
-    <a href="#" data-ng-click="choiceTypeCtrl.update()">
-        <span class="fa fa-floppy-o"></span>
-        <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
-    </a>-->
     
     <div id="panel-choices" class="panel-collapse collapse" >
         <div class="panel-body">
-            <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-default">Ajouter un choix</button>
-            <ul>
+            <ul class="list-unstyled">
                 <li data-ng-repeat="choice in choiceTypeCtrl.activityType.choices">
-                    <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
-                    <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger">Supprimer</button>
+                    <div class="panel">
+                        <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-8" ></div>
+                        <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
+                        <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                    </div>
                 </li>
             </ul>
+            <div class="col-md-1">
+                <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-primary">Ajouter</button>
+            </div>
         </div>
     </div>
 </div>

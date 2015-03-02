@@ -53,7 +53,8 @@
                         for (var choice in activity.type.choices) {
                             if (activity.type.choices.hasOwnProperty(choice)) {
                                 innova_activity.type.choices.push({
-                                    media: activity.type.choices[choice].media
+                                    media: activity.type.choices[choice].media,
+                                    correctAnswer: activity.type.choices[choice].correctAnswer
                                 });
                             }
                         }

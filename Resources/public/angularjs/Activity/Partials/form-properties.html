@@ -7,13 +7,18 @@
         </div>
         <div id="panel-instruction" class="panel-collapse collapse" >
             <div class="panel-body">
-                <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default">Ajouter une consigne</button>
-                <ul>
-                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions" >
-                        <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" ></div>
-                        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger">Supprimer</button>
+                <ul class="list-unstyled ">
+                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions" class="list-unstyled">
+                        <div class="panel">
+                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-8" ></div>
+                            <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
+                            <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                        </div>
                     </li>
                 </ul>
+                <div class="col-md-1">
+                    <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default btn-primary">Ajouter</button>
+                </div>
             </div>
         </div>
     </div>

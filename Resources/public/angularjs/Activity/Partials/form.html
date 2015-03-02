@@ -11,7 +11,7 @@
                     </button>
 
                     <a class="navbar-brand" href="" data-ng-click="activityCtrl.changeView('properties')">
-                        {{ activityCtrl.activity.name }}
+                        {{ activityCtrl.activity.name}}
                     </a>
                 </div>
 
@@ -38,6 +38,19 @@
         </nav>
 
         <div class="panel-body" data-ng-if="'properties' == activityCtrl.view" data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form-properties.html'"></div>
-        <div class="panel-body" data-ng-if="'identity'   == activityCtrl.view" data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form-identity.html'"></div>
+        <div class="panel-body" data-ng-if="'identity' == activityCtrl.view" data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/Activity/Partials/form-identity.html'"></div>
+
+        <nav class="navbar navbar-default navbar-foot">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-ng-click="activityCtrl.update()">
+                            <span class="fa fa-floppy-o"></span>
+                            <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
 </form>

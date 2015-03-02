@@ -23,6 +23,11 @@
 .navbar-brand{
     color:black !important;
 }
+
+.navbar-foot {
+    margin-bottom: 0;
+}
+
 /* Input validation */
 input.form-control.ng-invalid {
     border-color: #b94a48;
@@ -46,4 +51,8 @@ input.form-control.ng-valid:focus {
     border-color: #356635;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+}
+
+li {
+    margin-bottom: 5px;
 }

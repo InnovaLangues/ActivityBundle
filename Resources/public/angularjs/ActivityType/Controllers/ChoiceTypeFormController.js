@@ -15,7 +15,7 @@
             this.addChoice = function () {
                 this.activityType.choices.push({
                     id: 1 ,
-                    media: "media1"
+                    media: ""
                 });
             };
 
