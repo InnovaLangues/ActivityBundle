@@ -28,6 +28,10 @@
     margin-bottom: 0;
 }
 
+.btn-save {
+    margin: 10px 15px;
+}
+
 /* Input validation */
 input.form-control.ng-invalid {
     border-color: #b94a48;
