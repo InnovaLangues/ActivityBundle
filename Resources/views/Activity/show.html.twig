@@ -1,4 +1,58 @@
-display activity {{ _resource.id }}
+{% extends "ClarolineCoreBundle:Workspace:layout.html.twig" %}
 
-<h1>{{ _resource.id }} {{ _resource.name }}</h1>
-<p>{{ _resource.description }}</p>
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets debug=false filter='cssmin'  output='vendor/innovaactivity/editor.css'
+        '@InnovaActivityBundle/Resources/public/css/Editor/*'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="panel">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header navbar-brand">
+                    {{ _resource.resourceNode.name }}
+                </div>
+            </div>
+        </nav>
+
+        <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Instructions
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        {% for instruction in _resource.instructions %}
+                            <li>{{ instruction.media }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Choix
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <ul class="list-unstyled">
+                            {% for choice in _resource.type.choices %}
+                                <li><input type="checkbox" value="{{ choice.media }}"> {{ choice.media }}</li>
+                            {% endfor %}
+                        </ul>
+                        <button class="btn btn-primary">Valider</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
