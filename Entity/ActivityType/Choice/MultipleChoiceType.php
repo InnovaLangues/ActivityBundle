@@ -30,7 +30,7 @@ class MultipleChoiceType extends AbstractChoiceType
      * List of choices of the Activity
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty")
+     * @ORM\ManyToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty", cascade={"persist"})
      * @ORM\JoinTable(
      *      name               = "innova_activity_type_multiple_choices",
      *      joinColumns        = { @ORM\JoinColumn(name="type_id",   referencedColumnName="id") },
