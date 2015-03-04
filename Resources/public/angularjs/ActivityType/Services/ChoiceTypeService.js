@@ -9,7 +9,6 @@
             return {
                 update: function (activityType) {
                     LoaderService.startRequest();
-                    console.log(activityType.choices);
 
                     function ActivityType (activityType) {
                         var innova_activity_type = {
