@@ -9,20 +9,31 @@
             this.activityType = {};
 
             this.update = function () {
-                ChoiceTypeService.update(this.activityType);
+                ChoiceTypeService.update(this.activityType.type);
             };
 
             this.addChoice = function () {
-                this.activityType.choices.push({
+                this.activityType.type.choices.push({
                     id: 1 ,
-                    media: ""
+                    media: "",
+                    correctAnswer: false
                 });
             };
 
             this.removeChoice = function (choice) {
-                for (var i=0; i<this.activityType.choices.length; i++) {
-                    if (this.activityType.choices[i] === choice) {
-                        this.activityType.choices.splice(i, 1);
+                for (var i=0; i<this.activityType.type.choices.length; i++) {
+                    if (this.activityType.type.choices[i] === choice) {
+                        this.activityType.type.choices.splice(i, 1);
+                    }
+                }
+            };
+            
+            this.selectChoice = function (selectedChoice) {
+                if (this.activityType.typeAvailable.name !== "MultipleChoiceType") {
+                    for (var i=0; i<this.activityType.type.choices.length; i++) {
+                        if (this.activityType.type.choices[i] !== selectedChoice) {
+                            this.activityType.type.choices[i].correctAnswer = false;
+                        }
                     }
                 }
             };

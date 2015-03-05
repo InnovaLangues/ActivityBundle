@@ -4,11 +4,10 @@
             <a data-toggle="collapse" href="#panel-choices">Choices</a>
         </h4>
     </div>
-    
     <div id="panel-choices" class="panel-collapse collapse" >
         <div class="panel-body">
             <ul class="list-unstyled">
-                <li data-ng-repeat="choice in choiceTypeCtrl.activityType.choices">
+                <li data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices">
                     <div class="panel">
                         <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-8" ></div>
                         <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
