@@ -45,6 +45,14 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
     public function __construct()
     {
         $this->choices = new ArrayCollection();
+        $choice1 = new ChoiceProperty();
+        $choice1->setMedia("oui");
+        $choice1->setCorrectAnswer("0");
+        $this->addChoice($choice1);
+        $choice2 = new ChoiceProperty();
+        $choice2->setMedia("non");
+        $choice2->setCorrectAnswer("1");
+        $this->addChoice($choice2);
     }
 
     /**

@@ -10,12 +10,14 @@
                 <li data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices">
                     <div class="panel">
                         <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-8" ></div>
-                        <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
-                        <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                        <div data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
+                            <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
+                            <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                        </div>
                     </div>
                 </li>
             </ul>
-            <div class="col-md-1">
+            <div class="col-md-1" data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
                 <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-primary fa fa-plus-circle"></button>
             </div>
         </div>
