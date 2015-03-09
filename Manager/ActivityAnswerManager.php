@@ -30,6 +30,9 @@ class ActivityAnswerManager
         $choice = $this->em->getRepository("InnovaActivityBundle:ActivityProperty\ChoiceProperty")->find($choiceId);
                 
         $activityAnswer = new ActivityAnswer();
+        
+        $security = $this->container->get("security.context");
+        $activityAnswer->setUser($security->getToken()->getUser());
         $activityAnswer->setActivity($activity);
         $activityAnswer->addChoiceProperty($choice);
         $this->em->persist($activityAnswer);
