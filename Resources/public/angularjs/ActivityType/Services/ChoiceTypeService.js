@@ -47,6 +47,38 @@
                         });
 
                     return deferred.promise;
+                },
+                
+                updateChoicesOrder: function (activityType) {
+                    var deferred = $q.defer();
+                    var order = activityType.choices.map(function (i) {
+                        return i.id;
+                    });
+
+                    LoaderService.startRequest();
+
+                    $http
+                        .put(Routing.generate('innova_activity_type_update_order', { activitySequenceId : activityType.id, order: order  }, activityType))
+                        .success(function (response) {
+                            LoaderService.endRequest();
+
+                            if (response && response.activities) {
+                                // Update activities position
+                                for (var i = 0; i < activityType.choices.length; i++) {
+                                    var choice = activityType.choices[i];
+                                    var updatedChoice = $filter('filter')(response.choices, {id: choice.id })[0];
+                                    choice.position = updatedChoice.position;
+                                }
+                            }
+
+                            deferred.resolve(response);
+                        })
+                        .error(function(data, status) {
+                            AlertFactory.addAlert('danger', 'Error while updating order.');
+                            LoaderService.endRequest();
+                        });
+
+                    return deferred.promise;
                 }
             };
         }

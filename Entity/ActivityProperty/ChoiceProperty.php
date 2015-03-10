@@ -39,6 +39,14 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
      */
     protected $correctAnswer;
     
+    /**
+     *
+     * Position of the choice in the list
+     * @var integer
+     * 
+     * @ORM\Column(name="position", type="integer")
+     */
+    protected $position;
     
     public function getMedia()
     {
@@ -64,12 +72,25 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
         return $this;
     }
     
+    public function getPosition()
+    {
+        return $this->position;
+    }
+    
+    public function setPosition($position)
+    {
+        $this->position = $position;
+        
+        return $this;
+    }
+    
     public function jsonSerialize()
     {
         return array(
             'id'            => $this->id,
             'media'         => $this->media,
             'correctAnswer' => $this->correctAnswer,
+            'position'      => $this->position,
         );
     }
 }

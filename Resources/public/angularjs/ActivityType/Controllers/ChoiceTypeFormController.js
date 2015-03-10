@@ -7,6 +7,16 @@
             this.webDir = ActivityEditorApp.webDir;
 
             this.activityType = {};
+            
+            this.sortableOptions = {
+                stop: function (e, ui) {
+                    this.updateChoicesOrder();
+                }.bind(this)
+            };
+            
+            this.updateChoicesOrder = function () {
+                ChoiceTypeService.updateChoicesOrder(this.activityType.type);
+            };
 
             this.update = function () {
                 ChoiceTypeService.update(this.activityType.type);

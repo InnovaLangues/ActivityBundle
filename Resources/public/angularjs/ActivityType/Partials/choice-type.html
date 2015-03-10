@@ -6,10 +6,11 @@
     </div>
     <div id="panel-choices" class="panel-collapse collapse" >
         <div class="panel-body">
-            <ul class="list-unstyled">
-                <li data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices">
+            <ul class="list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
+                <li data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" >
                     <div class="panel">
-                        <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-8" ></div>
+                        <i class="fa fa-plus col-md-1"></i>
+                        <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-7" ></div>
                         <div data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
                             <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
                             <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>

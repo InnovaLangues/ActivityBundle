@@ -54,7 +54,8 @@
                             if (activity.type.choices.hasOwnProperty(choice)) {
                                 innova_activity.type.choices.push({
                                     media: activity.type.choices[choice].media,
-                                    correctAnswer: activity.type.choices[choice].correctAnswer
+                                    correctAnswer: activity.type.choices[choice].correctAnswer,
+                                    position: activity.type.choices[choice].position
                                 });
                             }
                         }
