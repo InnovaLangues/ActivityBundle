@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Claroline\CoreBundle\Entity\User;
-
+use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
 
 /**
  * ActivityAnswer

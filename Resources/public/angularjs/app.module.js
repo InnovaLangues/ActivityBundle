@@ -5,6 +5,7 @@
         'ui.bootstrap',
         'ui.tinymce',
         'ui.translation',
+        'ui.sortable',
 
         'Activity',
         'Loader'

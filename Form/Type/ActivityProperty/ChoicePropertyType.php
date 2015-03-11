@@ -10,6 +10,7 @@ class ChoicePropertyType extends AbstractPropertyType
     {
         parent::buildForm($builder, $options);
         $builder->add('correctAnswer', 'checkbox', array ('required' => true));
+        $builder->add('position');
     }
     
     public function getDefaultOptions()

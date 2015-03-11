@@ -15,7 +15,11 @@
             };
             
             this.updateChoicesOrder = function () {
-                ChoiceTypeService.updateChoicesOrder(this.activityType.type);
+                var j=1;
+                for (var i=0; i<this.activityType.type.choices.length; i++) {
+                    this.activityType.type.choices[i].position = j;
+                    j++;
+                }
             };
 
             this.update = function () {
@@ -26,7 +30,8 @@
                 this.activityType.type.choices.push({
                     id: 1 ,
                     media: "",
-                    correctAnswer: false
+                    correctAnswer: false,
+                    position: this.activityType.type.choices.length + 1
                 });
             };
 
