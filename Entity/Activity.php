@@ -39,6 +39,14 @@ class Activity extends AbstractResource implements \JsonSerializable
     * @ORM\Column(name="description", type="text", nullable=true)
     */
     protected $description;
+    
+    /**
+     * Question of the activity
+     * @var string
+     * 
+     * @ORM\Column(name="question", type="text")
+     */
+    protected $question;
 
     /**
      * ActivityAvailable used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
@@ -106,6 +114,24 @@ class Activity extends AbstractResource implements \JsonSerializable
     {
         $this->typeAvailable = $typeAvailable;
 
+        return $this;
+    }
+    
+    /**
+     * Get question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+    /**
+     * @param string $question
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
+    public function setQuestion($question)
+    {
+        $this->question = $question;
+        
         return $this;
     }
 
@@ -192,6 +218,7 @@ class Activity extends AbstractResource implements \JsonSerializable
             'id'            => $this->id,
             'name'          => $this->resourceNode->getName(),
             'typeAvailable' => $this->typeAvailable,
+            'question'      => $this->question,
             'description'   => $this->description,
             'instructions'  => $this->instructions->toArray(),
             'type'          => $this->type,

@@ -36,6 +36,7 @@
                         var innova_activity = {
                             name:activity.name,
                             description:activity.description,
+                            question:activity.question,
                             instructions: [],
                             type: {
                                 choices: []
