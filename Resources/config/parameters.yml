@@ -5,6 +5,7 @@ parameters:
     # Form types
     innova_activity.form.type.activity.class:             Innova\ActivityBundle\Form\Type\ActivityType
     innova_activity.form.type.instruction_property.class: Innova\ActivityBundle\Form\Type\ActivityProperty\InstructionPropertyType
+    innova_activity.form.type.content_property.class:     Innova\ActivityBundle\Form\Type\ActivityProperty\ContentPropertyType
     innova_activity.form.type.choice_property.class:      Innova\ActivityBundle\Form\Type\ActivityProperty\ChoicePropertyType
 
     innova_activity.form.type.multiple_choice_type.class: Innova\ActivityBundle\Form\Type\ActivityType\Choice\MultipleChoiceTypeType

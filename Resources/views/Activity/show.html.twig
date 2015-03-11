@@ -36,7 +36,21 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Instructions
+                        Objets de la question
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        {% for content in _resource.contents %}
+                            <li>{{ content.media }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Consignes
                     </h4>
                 </div>
                 <div class="panel-body">

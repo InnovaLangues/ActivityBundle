@@ -16,6 +16,11 @@ services:
         tags:
           - { name: form.type, alias: innova_activity_prop_instruction }
 
+    innova_activity.form.type.content_property:
+        class: %innova_activity.form.type.content_property.class%
+        tags:
+          - { name: form.type, alias: innova_activity_prop_content }
+          
     innova_activity.form.type.multiple_choice_type:
         class: %innova_activity.form.type.multiple_choice_type.class%
         tags:

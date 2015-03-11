@@ -37,6 +37,7 @@
                             name:activity.name,
                             description:activity.description,
                             question:activity.question,
+                            contents: [],
                             instructions: [],
                             type: {
                                 choices: []
@@ -47,6 +48,14 @@
                             if (activity.instructions.hasOwnProperty(instruction)) {
                                 innova_activity.instructions.push({
                                     media:activity.instructions[instruction].media
+                                });
+                            }
+                        }
+        
+                        for (var content in activity.contents) {
+                            if (activity.contents.hasOwnProperty(content)) {
+                                innova_activity.contents.push({
+                                    media:activity.contents[content].media
                                 });
                             }
                         }

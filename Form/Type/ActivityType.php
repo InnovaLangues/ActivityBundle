@@ -16,6 +16,12 @@ class ActivityType extends AbstractType
         $builder->add('description', 'text', array ('required' => false));
 
         $builder->add('question', 'text', array ('required' => true));
+        $builder->add('contents', 'collection', array(
+            'type'         => 'innova_activity_prop_content',
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+        ));
         $builder->add('instructions', 'collection', array (
             'type'         => 'innova_activity_prop_instruction',
             'allow_add'    => true,

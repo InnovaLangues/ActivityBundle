@@ -59,6 +59,21 @@
                     }
                 }
             };
+            
+            this.addContent = function () {
+                this.activity.contents.push({
+                    id: 1 ,
+                    media: ""
+                });
+            };
+            
+            this.removeContent = function (content) {
+                for (var i=0; i<this.activity.contents.length; i++) {
+                    if (this.activity.contents[i] === content) {
+                        this.activity.contents.splice(i, 1);
+                    }
+                }
+            };
         }
     ]);
 })();

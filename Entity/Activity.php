@@ -9,6 +9,7 @@ use Claroline\CoreBundle\Entity\Resource\AbstractResource;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
 use Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty;
+use Innova\ActivityBundle\Entity\ActivityProperty\ContentProperty;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
@@ -44,7 +45,7 @@ class Activity extends AbstractResource implements \JsonSerializable
      * Question of the activity
      * @var string
      * 
-     * @ORM\Column(name="question", type="text")
+     * @ORM\Column(name="question", type="text", nullable=true)
      */
     protected $question;
 
@@ -67,11 +68,17 @@ class Activity extends AbstractResource implements \JsonSerializable
      * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty", mappedBy="activity", cascade={"persist","remove"})
      **/
     protected $instructions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ContentProperty", mappedBy="activity", cascade={"persist","remove"})
+     **/
+    protected $contents;
     
     
     public function __construct()
     {
         $this->instructions = new ArrayCollection();
+        $this->contents = new ArrayCollection();
     }
     
     
@@ -208,6 +215,52 @@ class Activity extends AbstractResource implements \JsonSerializable
         return $this;
     }
     
+    public function getContents()
+    {
+        return $this->contents;
+    }
+    
+    public function setContents(ArrayCollection $contents)
+    {
+        foreach ($contents as $content) {
+            $this->addContent($content);
+        }
+        
+        return $this;
+    }
+    
+    public function addContent(ContentProperty $content)
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents->add($content);
+            $content->setActivity($this);
+        }
+        
+        return $this;
+    }
+    
+    public function addContents(ArrayCollection $contents)
+    {
+        foreach ($contents as $content) {
+            if (!$this->contents->contains($content)) {
+                $this->contents->add($content);
+                $content->setActivity($this);
+            }
+        }
+        
+        return $this;
+    }
+    
+    public function removeContent(ContentProperty $content)
+    {
+        if ($this->contents->contains($content)) {
+            $this->contents->removeElement($content);
+            $content->setActivity(null);
+        }
+        
+        return $this;
+    }
+    
     /**
      * Define how to serialize our entity Activity
      * @return Array
@@ -221,6 +274,7 @@ class Activity extends AbstractResource implements \JsonSerializable
             'question'      => $this->question,
             'description'   => $this->description,
             'instructions'  => $this->instructions->toArray(),
+            'contents'      => $this->contents->toArray(),
             'type'          => $this->type,
         );
     }
