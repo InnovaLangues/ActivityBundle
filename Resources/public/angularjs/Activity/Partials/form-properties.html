@@ -23,7 +23,7 @@
                 <ul class="list-unstyled " data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents" >
                     <li data-ng-repeat="content in activityCtrl.activity.contents | orderBy: 'position'">
                         <div class="panel">
-                            <i class="fa fa-ellipsis-v col-md-1"></i>
+                            <i class="fa fa-ellipsis-v col-md-1 movable-item"></i>
                             <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" class="col-md-7" ></div>
                             <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
                             <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
@@ -48,7 +48,7 @@
                 <ul class="list-unstyled " data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions" >
                     <li data-ng-repeat="instruction in activityCtrl.activity.instructions | orderBy:'position'" >
                         <div class="panel">
-                            <i class="fa fa-ellipsis-v col-md-1">{{ instruction.position }}</i>
+                            <i class="fa fa-ellipsis-v col-md-1 movable-item"></i>
                             <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" >
                                 <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
                                 <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
@@ -56,21 +56,6 @@
                         </div>
                     </li>
                 </ul>
-                
-                
-                <ul class="list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
-                    <li data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" >
-                        <div class="panel">
-                            <i class="fa fa-ellipsis-v col-md-1">{{ choice.position }}</i>
-                            <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-7" ></div>
-                            <div data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
-                                <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
-                                <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                
                 <div class="col-md-1">
                     <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
                 </div>

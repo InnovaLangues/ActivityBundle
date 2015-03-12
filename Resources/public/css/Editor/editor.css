@@ -32,6 +32,16 @@
     margin: 10px 15px;
 }
 
+.movable-item {
+    margin: 18px 0 18px 0;
+    padding: 10px 20px 10px 40px;
+    background-color: #eeeeee;
+}
+
+.movable-item:hover {
+    cursor: move;
+}
+
 /* Input validation */
 input.form-control.ng-invalid {
     border-color: #b94a48;
