@@ -55,7 +55,8 @@ class InstructionProperty extends AbstractProperty implements \JsonSerializable
     {
         return array(
             'id'            => $this->id,
-            'media'         => $this->media
+            'media'         => $this->media,
+            'position'      => $this->position
         );
     }
     

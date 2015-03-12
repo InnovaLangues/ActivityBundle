@@ -76,7 +76,8 @@
             this.addInstruction = function () {
                 this.activity.instructions.push({
                     id: 1 ,
-                    media: ""
+                    media: "",
+                    position: this.activity.instructions.length + 1
                 });
             };
             
@@ -91,7 +92,8 @@
             this.addContent = function () {
                 this.activity.contents.push({
                     id: 1 ,
-                    media: ""
+                    media: "",
+                    position: this.activity.contents.length + 1
                 });
             };
             

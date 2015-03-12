@@ -9,7 +9,7 @@
             <ul class="list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
                 <li data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" >
                     <div class="panel">
-                        <i class="fa fa-ellipsis-v col-md-1"></i>
+                        <i class="fa fa-ellipsis-v col-md-1">{{ choice.position }}</i>
                         <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-7" ></div>
                         <div data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
                             <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
