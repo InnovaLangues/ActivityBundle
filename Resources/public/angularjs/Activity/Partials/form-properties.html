@@ -20,10 +20,11 @@
         </div>
         <div id="panel-media" class="panel-collapse collapse" >
             <div class="panel-body">
-                <ul class="list-unstyled ">
-                    <li data-ng-repeat="content in activityCtrl.activity.contents" class="list-unstyled">
+                <ul class="list-unstyled " data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents" >
+                    <li data-ng-repeat="content in activityCtrl.activity.contents | orderBy: 'position'">
                         <div class="panel">
-                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" class="col-md-8" ></div>
+                            <i class="fa fa-ellipsis-v col-md-1"></i>
+                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" class="col-md-7" ></div>
                             <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
                             <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
                         </div>
@@ -44,10 +45,11 @@
         </div>
         <div id="panel-instruction" class="panel-collapse collapse" >
             <div class="panel-body">
-                <ul class="list-unstyled ">
-                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions" class="list-unstyled">
+                <ul class="list-unstyled " data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions" >
+                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions | orderBy:'position'" >
                         <div class="panel">
-                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-8" ></div>
+                            <i class="fa fa-ellipsis-v col-md-1"></i>
+                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" ></div>
                             <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
                             <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
                         </div>

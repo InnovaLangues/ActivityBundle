@@ -39,6 +39,15 @@ class ContentProperty extends AbstractProperty implements \JsonSerializable
     protected $media;
     
     /**
+     *
+     * Position of the content in the list
+     * @var integer
+     * 
+     * @ORM\Column(name="position", type="integer")
+     */
+    protected $position;
+    
+    /**
      * Define how to serialize our entity Activity
      * @return Array
      */
@@ -70,6 +79,18 @@ class ContentProperty extends AbstractProperty implements \JsonSerializable
     public function setMedia($media)
     {
         $this->media = $media;
+        
+        return $this;
+    }
+    
+    public function getPosition()
+    {
+        return $this->position;
+    }
+    
+    public function setPosition($position)
+    {
+        $this->position = $position;
         
         return $this;
     }

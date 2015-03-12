@@ -36,6 +36,34 @@
                     }
                 }
             };
+            
+            this.sortableContentsOptions = {
+                stop: function (e, ui) {
+                    this.updateContentsOrder();
+                }.bind(this)
+            };
+            
+            this.updateContentsOrder = function () {
+                var j=1;
+                for (var i=0; i<this.activity.contents.length; i++) {
+                    this.activity.contents[i].position = j;
+                    j++;
+                }
+            };
+            
+            this.sortableInstructionsOptions = {
+                stop: function (e, ui) {
+                    this.updateInstructionsOrder();
+                }.bind(this)
+            };
+            
+            this.updateInstructionsOrder = function () {
+                var j=1;
+                for (var i=0; i<this.activity.instructions.length; i++) {
+                    this.activity.instructions[i].position = j;
+                    j++;
+                }
+            };
 
             this.update = function () {
                 ActivityService.update(this.activity);

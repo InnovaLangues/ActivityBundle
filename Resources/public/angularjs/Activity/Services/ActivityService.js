@@ -47,7 +47,8 @@
                         for (var instruction in activity.instructions) {
                             if (activity.instructions.hasOwnProperty(instruction)) {
                                 innova_activity.instructions.push({
-                                    media:activity.instructions[instruction].media
+                                    media:activity.instructions[instruction].media,
+                                    position: activity.instructions[instruction].position
                                 });
                             }
                         }
@@ -55,7 +56,8 @@
                         for (var content in activity.contents) {
                             if (activity.contents.hasOwnProperty(content)) {
                                 innova_activity.contents.push({
-                                    media:activity.contents[content].media
+                                    media:activity.contents[content].media,
+                                    position: activity.contents[content].position
                                 });
                             }
                         }
