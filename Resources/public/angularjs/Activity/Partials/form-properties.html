@@ -49,10 +49,9 @@
                     <li data-ng-repeat="instruction in activityCtrl.activity.instructions | orderBy:'position'" >
                         <div class="panel">
                             <i class="fa fa-ellipsis-v col-md-1 movable-item"></i>
-                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" >
-                                <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
-                                <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                            </div>
+                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" ></div>
+                            <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
+                            <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
                         </div>
                     </li>
                 </ul>
