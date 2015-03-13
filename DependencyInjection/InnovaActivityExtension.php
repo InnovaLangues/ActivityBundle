@@ -28,6 +28,7 @@ class InnovaActivityExtension extends Extension
         $loader->load('listeners.yml');
         $loader->load('form_handlers.yml');
         $loader->load('form_types.yml');
+        $loader->load('twig.yml');
     }
 
     protected function loadParameters(ContainerBuilder $container)

@@ -68,7 +68,6 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <span>{{ _resource.type.randomlyOrdered }}</span>
                     <form method="POST" action="{{ path('innova_answer_create', { 'activityId': _resource.id }) }}">
                         <ul class="list-unstyled">
                             {{ macros.orderRandomly(_resource.type.choices, _resource.type.randomlyOrdered, _resource.typeAvailable) }}
@@ -100,18 +99,8 @@
 {% macro orderRandomly(choices, random, typeAvailable) %}
     {% import _self as forms %}
     {% if (random == 1) %}
-        {% set newChoices = [] %}
-        {% for i in 0..10 %}
-            {% set randomElement = random(choices) %}
-            {% if (randomElement not in newChoices) %}
-                {{ forms.inputs(typeAvailable, randomElement) }}
-                {% set newChoices = newChoices|merge([randomElement]) %}
-            {% endif %}
-            {% if (newChoices|length == choices|length) %}
-                {% set i = 10 %}
-            {% else %}
-                {% set i = 0 %}
-            {% endif %}
+        {% for choice in choices|shuffle %}
+            {{ forms.inputs(typeAvailable, choice) }}
         {% endfor %}
     {% else %}
         {% for choice in choices %}
