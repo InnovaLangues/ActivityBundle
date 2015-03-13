@@ -40,7 +40,8 @@
                             contents: [],
                             instructions: [],
                             type: {
-                                choices: []
+                                choices: [],
+                                randomlyOrdered: activity.type.randomlyOrdered
                             }
                         };
         

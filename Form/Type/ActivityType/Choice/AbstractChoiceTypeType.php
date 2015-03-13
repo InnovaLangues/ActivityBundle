@@ -20,6 +20,7 @@ abstract class AbstractChoiceTypeType extends AbstractType
             'allow_delete' => true,
             'by_reference' => false,
         ));
+        $builder->add('randomlyOrdered', 'checkbox');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

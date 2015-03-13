@@ -68,11 +68,10 @@
                     </h4>
                 </div>
                 <div class="panel-body">
+                    <span>{{ _resource.type.randomlyOrdered }}</span>
                     <form method="POST" action="{{ path('innova_answer_create', { 'activityId': _resource.id }) }}">
                         <ul class="list-unstyled">
-                            {% for choice in _resource.type.choices %}
-                                {{ macros.inputs(_resource.typeAvailable, choice) }}
-                            {% endfor %}
+                            {{ macros.orderRandomly(_resource.type.choices, _resource.type.randomlyOrdered, _resource.typeAvailable) }}
                         </ul>
                         <button class="btn btn-primary">Valider</button>
                     </form>
@@ -96,4 +95,27 @@
             {{ choice.media }}
         </label>
     </div>
+{% endmacro %}
+
+{% macro orderRandomly(choices, random, typeAvailable) %}
+    {% import _self as forms %}
+    {% if (random == 1) %}
+        {% set newChoices = [] %}
+        {% for i in 0..10 %}
+            {% set randomElement = random(choices) %}
+            {% if (randomElement not in newChoices) %}
+                {{ forms.inputs(typeAvailable, randomElement) }}
+                {% set newChoices = newChoices|merge([randomElement]) %}
+            {% endif %}
+            {% if (newChoices|length == choices|length) %}
+                {% set i = 10 %}
+            {% else %}
+                {% set i = 0 %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% for choice in choices %}
+            {{ forms.inputs(typeAvailable, choice) }}
+        {% endfor %}
+    {% endif %}
 {% endmacro %}

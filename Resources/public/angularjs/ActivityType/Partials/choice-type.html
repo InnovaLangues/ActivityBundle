@@ -21,6 +21,8 @@
             <div class="col-md-1" data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
                 <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-primary fa fa-plus-circle"></button>
             </div>
+            <input type="checkbox" id="randomlyOrdered" data-ng-model="choiceTypeCtrl.activityType.type.randomlyOrdered" />
+            <label for="randomlyOrdered">Random order</label>
         </div>
     </div>
 </div>

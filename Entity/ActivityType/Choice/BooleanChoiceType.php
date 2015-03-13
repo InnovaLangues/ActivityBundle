@@ -38,6 +38,14 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
      * )
      */
     protected $choices;
+    
+    /**
+     * The order of the choices is random or not
+     * @var boolean
+     * 
+     * @ORM\Column(name="randomlyOrdered", type="boolean")
+     */
+    protected $randomlyOrdered;
 
     /**
      * Class constructor
@@ -117,6 +125,26 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
     }
     
     /**
+     * Get if the choices are randomly ordered or not
+     * @return Boolean
+     */
+    public function isRandomlyOrdered()
+    {
+        return $this->randomlyOrdered;
+    }
+    
+    /**
+     * Tell if the choices are randomly ordered or not
+     * @return AbstractChoiceType
+     */
+    public function setRandomlyOrdered($randomlyOrdered)
+    {
+        $this->randomlyOrdered = $randomlyOrdered;
+        
+        return $this;
+    }
+    
+    /**
      * Define how to serialize our entity BooleanChoiceType
      * @return Array
      */
@@ -125,6 +153,7 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
         return array(
             'id'            => $this->id,
             'choices'       => $this->choices->toArray(),
+            'randomlyOrdered'   => $this->randomlyOrdered,
         );
     }
 }

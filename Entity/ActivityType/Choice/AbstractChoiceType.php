@@ -40,4 +40,16 @@ abstract class AbstractChoiceType extends AbstractType implements \JsonSerializa
      * @return \Innova\ActivityBundle\Entity\ActivityType\AbstractChoiceType
      */
     abstract function removeChoice(ChoiceProperty $choice);
+    
+    /**
+     * Get if the choices are randomly ordered or not
+     * @return Boolean
+     */
+    abstract function isRandomlyOrdered();
+    
+    /**
+     * Tell if the choices are randomly ordered or not
+     * @return AbstractChoiceType
+     */
+    abstract function setRandomlyOrdered($randomlyOrdered);
 }
