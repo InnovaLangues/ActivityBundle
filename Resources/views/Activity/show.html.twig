@@ -91,7 +91,7 @@
     <div>
         <label for="choice-{{choice.id}}">
             <input name="choices[]" type="{{ type }}" id="choice-{{choice.id}}" value="{{ choice.id }}">
-            {{ choice.media }}
+            {{ choice.media|raw }}
         </label>
     </div>
 {% endmacro %}
