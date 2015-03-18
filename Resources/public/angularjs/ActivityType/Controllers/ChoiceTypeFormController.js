@@ -2,13 +2,43 @@
     'use strict';
 
     angular.module('ActivityType').controller('ChoiceTypeFormController', [
+        '$document',
+        '$window',
         'ChoiceTypeService', 
-        function (ChoiceTypeService) {
+        function ($document, $window, ChoiceTypeService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.activityType = {};
             
+            this.getSelectedText = function() {
+                var txt = '';
+                if ($window.getSelection) {
+                    txt = $window.getSelection();
+                } else if ($window.document.getSelection) {
+                    txt = $window.document.getSelection();
+                } else if ($window.document.selection) {
+                    txt = $window.document.selection.createRange().text;
+                }
+                return txt;
+            };
+
+            this.manualTextAnnotation = function(text, css) {
+                if (!css) {
+                    $window.document.execCommand('insertHTML', false, css);
+                } else {
+                    $window.document.execCommand('insertHTML', false, '<span class="' + css + '">' + text + '</span>');
+                }
+            };
+            
+            this.annotate = function(color) {
+                var text = this.getSelectedText();
+                if (text !== '') {
+                    this.manualTextAnnotation(text, 'accent-' + color);
+                }
+            };
+            
             this.sortableOptions = {
+                handle: '> .myHandle',
                 stop: function (e, ui) {
                     this.updateChoicesOrder();
                 }.bind(this)

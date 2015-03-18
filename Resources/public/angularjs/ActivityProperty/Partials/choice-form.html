@@ -1,7 +1,8 @@
 <div class="panel">
     <div class="row">
         <div class="col-md-11">
-            <textarea data-ng-model="choice.media" class="form-control" placeholder="Nom du choix" ></textarea>
+            <div contenteditable data-ng-model="choice.media" class="form-control" placeholder="Nom du choix" ></div>
+            <span data-ng-bind-html="choice.media"></span>
         </div>
         <div class="col-md-1">
             <input type="checkbox" data-ng-model="choice.correctAnswer" data-ng-change="choiceTypeCtrl.selectChoice(choice)" />
