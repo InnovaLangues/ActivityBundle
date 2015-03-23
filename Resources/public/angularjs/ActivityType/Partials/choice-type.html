@@ -7,24 +7,25 @@
     <div id="panel-choices" class="panel-collapse collapse" >
         <div class="panel-body">
             <ul class="list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
-                <li class="list-group-item" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" >
+                <li class="list-group-item panel" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
                 <!--    <div class="panel">
                         <i class="fa fa-ellipsis-v col-md-1 movable-item"></i> -->
                     <div class="myHandle"></div>
-                    <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-7" ></div>
+                    <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" class="col-md-9" ></div>
                     <div data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
                         <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
                         <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
                     </div>
+                    {{ $index }}
+                    <div class="annotation-buttons-container text-center col-md-7">
+                        <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-ng-click="choiceTypeCtrl.annotate('blue', $index )" tabIndex="-1">&nbsp;</button>
+                        <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-ng-click="choiceTypeCtrl.annotate('red', $index )" tabIndex="-1">&nbsp;</button>
+                        <button type="button" class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-ng-click="choiceTypeCtrl.annotate('orange', $index)" tabIndex="-1">&nbsp;</button>
+                        <button type="button" class="btn annotation-button black" title="Texte normal" data-color="black" data-ng-click="choiceTypeCtrl.annotate('black', $index )" tabIndex="-1">&nbsp;</button>
+                    </div> <!-- -------------- FIX $index PROBLEM ------------ -->
                 <!--    </div>-->
                 </li>
             </ul>
-            <div class="annotation-buttons-container text-center">
-                <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-ng-click="choiceTypeCtrl.annotate('blue')" tabIndex="-1">&nbsp;</button>
-                <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-ng-click="choiceTypeCtrl.annotate('red')" tabIndex="-1">&nbsp;</button>
-                <button type="button" class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-ng-click="choiceTypeCtrl.annotate('orange')" tabIndex="-1">&nbsp;</button>
-                <button type="button" class="btn annotation-button black" title="Texte normal" data-color="black" data-ng-click="choiceTypeCtrl.annotate('black')" tabIndex="-1">&nbsp;</button>
-            </div>
             <div class="col-md-1" data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'">
                 <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-primary fa fa-plus-circle"></button>
             </div>
