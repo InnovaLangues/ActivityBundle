@@ -49,12 +49,6 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
      */
     protected $position;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\MediaTypeProperty")
-     * @ORM\JoinColumn(name="media_type_id", referencedColumnName="id")
-     **/
-    protected $mediaType;
-    
     public function getMedia()
     {
         return $this->media;
@@ -91,18 +85,6 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
         return $this;
     }
     
-    public function getMediaType()
-    {
-        return $this->mediaType;
-    }
-    
-    public function setMediaType(MediaTypeProperty $mediaType)
-    {
-        $this->mediaType = $mediaType;
-        
-        return $this;
-    }
-    
     public function jsonSerialize()
     {
         return array(
@@ -110,7 +92,6 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
             'media'         => $this->media,
             'correctAnswer' => $this->correctAnswer,
             'position'      => $this->position,
-            'mediaType'     => $this->mediaType,
         );
     }
 }

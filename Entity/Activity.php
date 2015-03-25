@@ -10,6 +10,7 @@ use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
 use Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\ContentProperty;
+use Innova\ActivityBundle\Entity\ActivityProperty\MediaTypeProperty;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
@@ -57,6 +58,12 @@ class Activity extends AbstractResource implements \JsonSerializable
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     protected $typeAvailable;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\MediaTypeProperty")
+     * @ORM\JoinColumn(name="media_type_id", referencedColumnName="id")
+     **/
+    protected $mediaType;
 
     /**
      * ActivityType (populated and persisted by Doctrine Event Listener)
@@ -121,6 +128,18 @@ class Activity extends AbstractResource implements \JsonSerializable
     {
         $this->typeAvailable = $typeAvailable;
 
+        return $this;
+    }
+    
+    public function getMediaType()
+    {
+        return $this->mediaType;
+    }
+    
+    public function setMediaType(MediaTypeProperty $mediaType)
+    {
+        $this->mediaType = $mediaType;
+        
         return $this;
     }
     
@@ -271,6 +290,7 @@ class Activity extends AbstractResource implements \JsonSerializable
             'id'            => $this->id,
             'name'          => $this->resourceNode->getName(),
             'typeAvailable' => $this->typeAvailable,
+            'mediaType'     => $this->mediaType,
             'question'      => $this->question,
             'description'   => $this->description,
             'instructions'  => $this->instructions->toArray(),

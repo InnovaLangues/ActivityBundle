@@ -6,6 +6,14 @@
     </div>
     <div id="panel-choices" class="panel-collapse collapse" >
         <div class="panel-body">
+            <div class="row">
+                <span class="col-md-2">
+                    <label for="mediaTypeSelect">Media type : </label>
+                    <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'">
+                    </select>
+                </span>
+                <span class="col-md-10"></span>
+            </div>
             <ul class="list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
                 <li class="list-group-item panel draggable-row" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
                     <div class="myHandle btn fa fa-arrows"></div>
@@ -14,7 +22,7 @@
                             <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
                         </div>
                         <div class="row">
-                            <div class="annotation-buttons-container text-center col-md-6 col-md-offset-2">
+                            <div class="annotation-buttons-container text-center col-md-8">
                                 <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-ng-click="choiceTypeCtrl.annotate('blue', $index )" tabIndex="-1">&nbsp;</button>
                                 <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-ng-click="choiceTypeCtrl.annotate('red', $index )" tabIndex="-1">&nbsp;</button>
                                 <button type="button" class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-ng-click="choiceTypeCtrl.annotate('orange', $index)" tabIndex="-1">&nbsp;</button>

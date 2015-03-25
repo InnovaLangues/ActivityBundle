@@ -37,6 +37,7 @@
                             name:activity.name,
                             description:activity.description,
                             question:activity.question,
+                            mediaType:activity.mediaType.id,
                             contents: [],
                             instructions: [],
                             type: {
@@ -66,17 +67,10 @@
                         var mediaTypeId;
                         for (var choice in activity.type.choices) {
                             if (activity.type.choices.hasOwnProperty(choice)) {
-                                if (activity.type.choices[choice].mediaType !== null) {
-                                    mediaTypeId = activity.type.choices[choice].mediaType.id;
-                                }
-                                else {
-                                    mediaTypeId = activity.type.choices[choice].mediaType;
-                                }
                                 innova_activity.type.choices.push({
                                     media: activity.type.choices[choice].media,
                                     correctAnswer: activity.type.choices[choice].correctAnswer,
-                                    position: activity.type.choices[choice].position,
-                                    mediaType: mediaTypeId
+                                    position: activity.type.choices[choice].position
                                 });
                             }
                         }
