@@ -1,18 +1,22 @@
-<div class="panel">
-    <div class="row">
-        <div class="col-md-9">
-            <div contenteditable data-ng-model="choice.media" class="form-control" placeholder="Nom du choix" ></div>
-            {{ $index }}
-        <!--    <span data-ng-bind-html="choice.media"></span> -->
-        </div>
-        <div class="col-md-1">
+<div class="row">
+    <div class="col-md-2">
+    <!--    <select class="form-control">
+            <option data-ng-model="choice.mediaType" data-ng-repeat="mediaType in choiceTypeCtrl.mediaTypes" value="{{ mediaType.id }}">{{ mediaType.name }}</option>
+        </select>-->
+    <select class="form-control" data-ng-model="choice.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'">
+    </select>
+    </div>
+    <div class="col-md-6">
+        <div contenteditable data-ng-model="choice.media" class="form-control" placeholder="Nom du choix" ></div>
+    </div>
+    <div class="col-md-3">
+        <label class="btn-checkbox">
             <input type="checkbox" data-ng-model="choice.correctAnswer" data-ng-change="choiceTypeCtrl.selectChoice(choice)" />
-        </div>
-        <div class="col-md-2">
-            <select>
-                <option>Text</option>
-                <option>Prosodic</option>
-            </select>
-        </div>
+            Réponse attendue
+        </label>
+        <span data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
+            <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
+            <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+        </span>
     </div>
 </div>

@@ -10,6 +10,8 @@
 
             this.activityType = {};
             
+            this.mediaTypes = [];
+            
             this.getSelectionParentElement = function() {
                 var parentEl = null, sel;
                 if (window.getSelection) {

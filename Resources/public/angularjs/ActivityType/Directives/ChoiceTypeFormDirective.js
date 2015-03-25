@@ -6,7 +6,10 @@
     'use strict';
 
     angular.module('ActivityType').directive('choiceTypeForm', [
-        function () {
+        'LoaderService',
+        '$http',
+        '$q',
+        function (LoaderService, $http, $q) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -24,6 +27,26 @@
                             choiceTypeCtrl.activityType = newValue;
                         }
                     });
+                    
+                    var deferred = $q.defer();
+                    
+                    $http
+                        .get(Routing.generate('innova_media_type_get'))
+                        .success(function (response) {
+                            LoaderService.endRequest();
+                    
+                            choiceTypeCtrl.mediaTypes = response;
+
+                            deferred.resolve(response.data);
+                        })
+                        .error(function(response) {
+                            LoaderService.endRequest();
+
+                            deferred.reject(response);
+                        });
+
+                    return deferred.promise;
+                    
                 }
             };
         }
