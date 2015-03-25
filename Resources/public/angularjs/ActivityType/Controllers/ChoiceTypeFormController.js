@@ -60,6 +60,14 @@
                 }
             };
             
+            this.stripIfText = function () {
+                if (this.activityType.mediaType.name !== "Prosodic") {
+                    for (var i=0; i<this.activityType.type.choices.length; i++) {
+                        this.activityType.type.choices[i].media = this.activityType.type.choices[i].media.replace(/<(?:.|\n)*?>/gm, '');
+                    }
+                }
+            };
+            
             this.sortableOptions = {
                 handle: '> .myHandle',
                 stop: function (e, ui) {

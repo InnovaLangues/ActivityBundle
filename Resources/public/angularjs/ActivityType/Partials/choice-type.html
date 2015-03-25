@@ -9,7 +9,7 @@
             <div class="row">
                 <span class="col-md-2">
                     <label for="mediaTypeSelect">Media type : </label>
-                    <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'">
+                    <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'" data-ng-change="choiceTypeCtrl.stripIfText()" >
                     </select>
                 </span>
                 <span class="col-md-10"></span>
@@ -21,7 +21,7 @@
                         <div class="row">
                             <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
                         </div>
-                        <div class="row">
+                        <div class="row" data-ng-if="choiceTypeCtrl.activityType.mediaType.name === 'Prosodic'">
                             <div class="annotation-buttons-container text-center col-md-8">
                                 <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-ng-click="choiceTypeCtrl.annotate('blue', $index )" tabIndex="-1">&nbsp;</button>
                                 <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-ng-click="choiceTypeCtrl.annotate('red', $index )" tabIndex="-1">&nbsp;</button>
