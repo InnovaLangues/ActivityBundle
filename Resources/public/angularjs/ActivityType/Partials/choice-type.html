@@ -1,42 +1,25 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a data-toggle="collapse" href="#panel-choices">Choices</a>
+            Choices
         </h4>
     </div>
-    <div id="panel-choices" class="panel-collapse collapse" >
-        <div class="panel-body">
-            <div class="row">
-                <span class="col-md-2">
-                    <label for="mediaTypeSelect">Media type : </label>
-                    <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'" data-ng-change="choiceTypeCtrl.stripIfText()" >
-                    </select>
-                </span>
-                <span class="col-md-10"></span>
-            </div>
-            <ul class="list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
-                <li class="list-group-item panel draggable-row" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
-                    <div class="myHandle btn fa fa-arrows"></div>
-                    <div class="draggable-item">
-                        <div class="row">
-                            <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
-                        </div>
-                        <div class="row" data-ng-if="choiceTypeCtrl.activityType.mediaType.name === 'Prosodic'">
-                            <div class="annotation-buttons-container text-center col-md-8">
-                                <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-ng-click="choiceTypeCtrl.annotate('blue', $index )" tabIndex="-1">&nbsp;</button>
-                                <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-ng-click="choiceTypeCtrl.annotate('red', $index )" tabIndex="-1">&nbsp;</button>
-                                <button type="button" class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-ng-click="choiceTypeCtrl.annotate('orange', $index)" tabIndex="-1">&nbsp;</button>
-                                <button type="button" class="btn annotation-button black" title="Texte normal" data-color="black" data-ng-click="choiceTypeCtrl.annotate('black', $index )" tabIndex="-1">&nbsp;</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="col-md-1" data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'">
-                <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-primary fa fa-plus-circle"></button>
-            </div>
+    <div class="panel-body">
+        <div class="row">
+            <span class="col-md-6">
+                <label for="mediaTypeSelect">Media type : </label>
+                <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'" data-ng-change="choiceTypeCtrl.stripIfText()" >
+                </select>
+            </span>
+            <span class="col-md-6"></span>
+        </div>
+        <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
+        <div class="col-md-10">
             <input type="checkbox" id="randomlyOrdered" data-ng-model="choiceTypeCtrl.activityType.type.randomlyOrdered" />
             <label for="randomlyOrdered">Random order</label>
+        </div>
+        <div class="col-md-2" data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'">
+            <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-primary fa fa-plus-circle"></button>
         </div>
     </div>
 </div>

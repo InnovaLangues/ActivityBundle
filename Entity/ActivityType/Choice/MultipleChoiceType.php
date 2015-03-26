@@ -53,6 +53,7 @@ class MultipleChoiceType extends AbstractChoiceType
     public function __construct()
     {
         $this->choices = new ArrayCollection();
+        $this->randomlyOrdered = 0;
     }
 
     /**

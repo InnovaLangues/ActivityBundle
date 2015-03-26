@@ -1,66 +1,92 @@
-<div class="panel-group">
+<div class="panel-body">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" href="#panel-question">Question</a>
+                Question
             </h4>
         </div>
-        <div id="panel-question" class="panel-collapse collapse" >
-            <div class="panel-body">
-                <textarea data-ng-model="activityCtrl.activity.question" class="form-control" placeholder="Question" ></textarea>
-            </div>
+        <div class="panel-body">
+            <textarea data-ng-model="activityCtrl.activity.question" class="form-control" placeholder="Question" ></textarea>
         </div>
     </div>
     
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#panel-media">Objets de la question</a>
-            </h4>
-        </div>
-        <div id="panel-media" class="panel-collapse collapse" >
-            <div class="panel-body">
-                <ul class="list-unstyled " data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents" >
-                    <li data-ng-repeat="content in activityCtrl.activity.contents | orderBy: 'position'">
-                        <div class="panel">
-                            <i class="fa fa-ellipsis-v col-md-1 movable-item"></i>
-                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" class="col-md-7" ></div>
-                            <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
-                            <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                        </div>
-                    </li>
-                </ul>
-                <div class="col-md-1">
-                    <button data-ng-click="activityCtrl.addContent()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Objets de la question
+                    </h4>
                 </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Media</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents">
+                                <tr data-ng-repeat="content in activityCtrl.activity.contents | orderBy: 'position'">
+                                    <td class="col-md-1">
+                                        <div class="myHandle fa fa-arrows"></div>
+                                    </td>
+                                    <td class="col-md-10">
+                                        <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" ></div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
+                                        <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-md-1">
+                            <button data-ng-click="activityCtrl.addContent()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+                        </div>
+                    </div>
             </div>
         </div>
-    </div>
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#panel-instruction">Consignes</a>
-            </h4>
-        </div>
-        <div id="panel-instruction" class="panel-collapse collapse" >
-            <div class="panel-body">
-                <ul class="list-unstyled " data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions" >
-                    <li data-ng-repeat="instruction in activityCtrl.activity.instructions | orderBy:'position'" >
-                        <div class="panel">
-                            <i class="fa fa-ellipsis-v col-md-1 movable-item"></i>
-                            <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" ></div>
-                            <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
-                            <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                        </div>
-                    </li>
-                </ul>
-                <div class="col-md-1">
-                    <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Consignes
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Consigne</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions">
+                            <tr data-ng-repeat="instruction in activityCtrl.activity.instructions | orderBy:'position'" >
+                                <td class="col-md-1">
+                                    <div class="myHandle fa fa-arrows"></div>
+                                </td>
+                                <td class="col-md-10">
+                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" ></div>
+                                </td>
+                                <td class="col-md-1">
+                                    <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
+                                    <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-1">
+                        <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+                    </div>
                 </div>
             </div>
+            <choice-type-form data-activity-type="activityCtrl.activity"></choice-type-form>
         </div>
     </div>
 
-    <choice-type-form data-activity-type="activityCtrl.activity"></choice-type-form>
 </div>

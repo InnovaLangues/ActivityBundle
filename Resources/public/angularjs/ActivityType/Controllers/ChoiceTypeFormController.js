@@ -69,7 +69,6 @@
             };
             
             this.sortableOptions = {
-                handle: '> .myHandle',
                 stop: function (e, ui) {
                     this.updateChoicesOrder();
                 }.bind(this)

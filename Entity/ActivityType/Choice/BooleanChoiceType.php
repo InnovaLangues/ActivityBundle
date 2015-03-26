@@ -61,6 +61,7 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
         $choice2->setMedia("non");
         $choice2->setCorrectAnswer("1");
         $this->addChoice($choice2);
+        $this->randomlyOrdered = 0;
     }
 
     /**
