@@ -10,6 +10,7 @@ use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
 use Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\ContentProperty;
+use Innova\ActivityBundle\Entity\ActivityProperty\FunctionalInstructionProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\MediaTypeProperty;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -81,11 +82,16 @@ class Activity extends AbstractResource implements \JsonSerializable
      **/
     protected $contents;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\FunctionalInstructionProperty", mappedBy="activity", cascade={"persist","remove"})
+     */
+    protected $functionalInstructions;
     
     public function __construct()
     {
         $this->instructions = new ArrayCollection();
         $this->contents = new ArrayCollection();
+        $this->functionalInstructions = new ArrayCollection();
     }
     
     
@@ -280,6 +286,52 @@ class Activity extends AbstractResource implements \JsonSerializable
         return $this;
     }
     
+    public function getFunctionalInstructions()
+    {
+        return $this->functionalInstructions;
+    }
+    
+    public function setFunctionalInstructions(ArrayCollection $functionalInstructions)
+    {
+        foreach ($functionalInstructions as $functionalInstruction) {
+            $this->addFunctionalInstruction($functionalInstruction);
+        }
+        
+        return $this;
+    }
+    
+    public function addFunctionalInstruction(FunctionalInstructionProperty $functionalInstruction)
+    {
+        if (!$this->functionalInstructions->contains($functionalInstruction)) {
+            $this->functionalInstructions->add($functionalInstruction);
+            $functionalInstruction->setActivity($this);
+        }
+        
+        return $this;
+    }
+    
+    public function addFunctionalInstructions(ArrayCollection $functionalInstructions)
+    {
+        foreach ($functionalInstructions as $functionalInstruction) {
+            if (!$this->functionalInstructions->contains($functionalInstruction)) {
+                $this->functionalInstructions->add($functionalInstruction);
+                $functionalInstruction->setActivity($this);
+            }
+        }
+        
+        return $this;
+    }
+    
+    public function removeFunctionalInstruction(FunctionalInstructionProperty $functionalInstruction)
+    {
+        if ($this->functionalInstructions->contains($functionalInstruction)) {
+            $this->functionalInstructions->removeElement($functionalInstruction);
+            $functionalInstruction->setActivity(null);
+        }
+        
+        return $this;
+    }
+    
     /**
      * Define how to serialize our entity Activity
      * @return Array
@@ -295,6 +347,7 @@ class Activity extends AbstractResource implements \JsonSerializable
             'description'   => $this->description,
             'instructions'  => $this->instructions->toArray(),
             'contents'      => $this->contents->toArray(),
+            'functionalInstructions' => $this->functionalInstructions->toArray(),
             'type'          => $this->type,
         );
     }

@@ -40,6 +40,7 @@
                             mediaType:activity.mediaType.id,
                             contents: [],
                             instructions: [],
+                            functionalInstructions: [],
                             type: {
                                 choices: [],
                                 randomlyOrdered: activity.type.randomlyOrdered
@@ -55,6 +56,15 @@
                             }
                         }
         
+                        for (var functionalInstruction in activity.functionalInstructions) {
+                            if (activity.functionalInstructions.hasOwnProperty(functionalInstruction)) {
+                                innova_activity.functionalInstructions.push({
+                                    media:activity.functionalInstructions[functionalInstruction].media,
+                                    position: activity.functionalInstructions[functionalInstruction].position
+                                });
+                            }
+                        }
+        
                         for (var content in activity.contents) {
                             if (activity.contents.hasOwnProperty(content)) {
                                 innova_activity.contents.push({
@@ -64,7 +74,6 @@
                             }
                         }
         
-                        var mediaTypeId;
                         for (var choice in activity.type.choices) {
                             if (activity.type.choices.hasOwnProperty(choice)) {
                                 innova_activity.type.choices.push({

@@ -1,0 +1,178 @@
+Entity/Activity.php:    protected $instructions;
+Entity/Activity.php:        $this->instructions = new ArrayCollection();
+Entity/Activity.php:        return $this->instructions;
+Entity/Activity.php:    public function setInstructions(ArrayCollection $instructions)
+Entity/Activity.php:        foreach ($instructions as $instruction) {
+Entity/Activity.php:            $this->addInstruction($instruction);
+Entity/Activity.php:    public function addInstruction(InstructionProperty $instruction)
+Entity/Activity.php:        if (!$this->instructions->contains($instruction)) {
+Entity/Activity.php:            $this->instructions->add($instruction);
+Entity/Activity.php:            $instruction->setActivity($this);
+Entity/Activity.php:    public function addInstructions(ArrayCollection $instructions)
+Entity/Activity.php:        foreach ($instructions as $instruction) {
+Entity/Activity.php:            if (!$this->instructions->contains($instruction)) {
+Entity/Activity.php:                $this->instructions->add($instruction);
+Entity/Activity.php:                $instruction->setActivity($this);
+Entity/Activity.php:    public function removeInstruction(InstructionProperty $instruction)
+Entity/Activity.php:        if ($this->instructions->contains($instruction)) {
+Entity/Activity.php:            $this->instructions->removeElement($instruction);
+Entity/Activity.php:            $instruction->setActivity(null);
+Entity/Activity.php:            'instructions'  => $this->instructions->toArray(),
+Entity/ActivityProperty/FunctionalInstructionProperty.php: * @ORM\Table("innova_activity_prop_functional_instruction")
+Entity/ActivityProperty/FunctionalInstructionProperty.php:     * Unique identifier of the functional instruction
+Entity/ActivityProperty/FunctionalInstructionProperty.php:     * Position of the instruction in the list
+Entity/ActivityProperty/InstructionProperty.php: * @ORM\Table("innova_activity_prop_instruction")
+Entity/ActivityProperty/InstructionProperty.php:     * Unique identifier of the instruction
+Entity/ActivityProperty/InstructionProperty.php:     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\Activity", inversedBy="instructions")
+Entity/ActivityProperty/InstructionProperty.php:     * Position of the instruction in the list
+Form/Type/ActivityType.php:        $builder->add('instructions', 'collection', array (
+Form/Type/ActivityType.php:            'type'         => 'innova_activity_prop_instruction',
+Form/Type/ActivityType.php:            'type'         => 'innova_activity_prop_functional_instruction',
+Form/Type/ActivityProperty/InstructionPropertyType.php:        return 'innova_activity_prop_instruction';
+Form/Type/ActivityProperty/FunctionalInstructionPropertyType.php:        return 'innova_activity_prop_functional_instruction';
+Migrations/drizzle_pdo_mysql/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/drizzle_pdo_mysql/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/drizzle_pdo_mysql/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/drizzle_pdo_mysql/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/drizzle_pdo_mysql/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/drizzle_pdo_mysql/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/drizzle_pdo_mysql/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/drizzle_pdo_mysql/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/drizzle_pdo_mysql/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/pdo_sqlite/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_sqlite/Version20150312085416.php:            CREATE TEMPORARY TABLE __temp__innova_activity_prop_instruction AS 
+Migrations/pdo_sqlite/Version20150312085416.php:            FROM innova_activity_prop_instruction
+Migrations/pdo_sqlite/Version20150312085416.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/pdo_sqlite/Version20150312085416.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/pdo_sqlite/Version20150312085416.php:            INSERT INTO innova_activity_prop_instruction (id, activity_id, media, title) 
+Migrations/pdo_sqlite/Version20150312085416.php:            FROM __temp__innova_activity_prop_instruction
+Migrations/pdo_sqlite/Version20150312085416.php:            DROP TABLE __temp__innova_activity_prop_instruction
+Migrations/pdo_sqlite/Version20150312085416.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/pdo_sqlite/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/pdo_sqlite/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/pdo_sqlite/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/pdo_sqlite/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/pdo_sqlite/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/pdo_sqlite/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/oci8/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/oci8/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/oci8/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/oci8/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/oci8/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/oci8/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/oci8/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/oci8/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/oci8/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/oci8/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/oci8/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/ibm_db2/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/ibm_db2/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/ibm_db2/Version20150312085416.php:                'REORG TABLE innova_activity_prop_instruction'
+Migrations/ibm_db2/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/ibm_db2/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/ibm_db2/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/ibm_db2/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/ibm_db2/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/ibm_db2/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/ibm_db2/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/ibm_db2/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/ibm_db2/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/sqlanywhere/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlanywhere/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlanywhere/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/sqlanywhere/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/sqlanywhere/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlanywhere/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlanywhere/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/sqlanywhere/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/sqlanywhere/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/sqlanywhere/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/sqlanywhere/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/pdo_pgsql/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_pgsql/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_pgsql/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/pdo_pgsql/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/pdo_pgsql/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_pgsql/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_pgsql/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/pdo_pgsql/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/pdo_pgsql/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/pdo_pgsql/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/pdo_pgsql/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/pdo_mysql/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_mysql/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_mysql/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/pdo_mysql/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_mysql/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_mysql/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/pdo_mysql/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/pdo_mysql/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/pdo_mysql/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/mysqli/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/mysqli/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/mysqli/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/mysqli/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/mysqli/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/mysqli/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/mysqli/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/mysqli/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/mysqli/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/pdo_oci/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_oci/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_oci/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/pdo_oci/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/pdo_oci/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_oci/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_oci/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/pdo_oci/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/pdo_oci/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/pdo_oci/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/pdo_oci/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/sqlsrv/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlsrv/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlsrv/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/sqlsrv/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/sqlsrv/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlsrv/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/sqlsrv/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/sqlsrv/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/sqlsrv/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/sqlsrv/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/sqlsrv/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Migrations/pdo_sqlsrv/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_sqlsrv/Version20150312085416.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_sqlsrv/Version20150302144257.php:            CREATE TABLE innova_activity_prop_instruction (
+Migrations/pdo_sqlsrv/Version20150302144257.php:            CREATE INDEX IDX_D14D3F5681C06096 ON innova_activity_prop_instruction (activity_id)
+Migrations/pdo_sqlsrv/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_sqlsrv/Version20150302144257.php:            ALTER TABLE innova_activity_prop_instruction 
+Migrations/pdo_sqlsrv/Version20150302144257.php:            DROP TABLE innova_activity_prop_instruction
+Migrations/pdo_sqlsrv/Version20150327150149.php:            CREATE TABLE innova_activity_prop_functional_instruction (
+Migrations/pdo_sqlsrv/Version20150327150149.php:            CREATE INDEX IDX_583F550D81C06096 ON innova_activity_prop_functional_instruction (activity_id)
+Migrations/pdo_sqlsrv/Version20150327150149.php:            ALTER TABLE innova_activity_prop_functional_instruction 
+Migrations/pdo_sqlsrv/Version20150327150149.php:            DROP TABLE innova_activity_prop_functional_instruction
+Resources/config/services/form_types.yml:    innova_activity.form.type.instruction_property:
+Resources/config/services/form_types.yml:        class: %innova_activity.form.type.instruction_property.class%
+Resources/config/services/form_types.yml:          - { name: form.type, alias: innova_activity_prop_instruction }
+Resources/config/parameters.yml:    innova_activity.form.type.instruction_property.class: Innova\ActivityBundle\Form\Type\ActivityProperty\InstructionPropertyType
+Resources/public/angularjs/Activity/Partials/form-properties.html:                        <tbody data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions">
+Resources/public/angularjs/Activity/Partials/form-properties.html:                            <tr data-ng-repeat="instruction in activityCtrl.activity.instructions | orderBy:'position'" >
+Resources/public/angularjs/Activity/Partials/form-properties.html:                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" ></div>
+Resources/public/angularjs/Activity/Partials/form-properties.html:                                    <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
+Resources/public/angularjs/Activity/Partials/form-properties.html:                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/functional-instruction-form.html'" class="col-md-7" ></div>
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:                for (var i=0; i<this.activity.instructions.length; i++) {
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:                    this.activity.instructions[i].position = j;
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:                this.activity.instructions.push({
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:                    position: this.activity.instructions.length + 1
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:            this.removeInstruction = function (instruction) {
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:                for (var i=0; i<this.activity.instructions.length; i++) {
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:                    if (this.activity.instructions[i] === instruction) {
+Resources/public/angularjs/Activity/Controllers/ActivityFormController.js:                        this.activity.instructions.splice(i, 1);
+Resources/public/angularjs/Activity/Services/ActivityService.js:                            instructions: [],
+Resources/public/angularjs/Activity/Services/ActivityService.js:                        for (var instruction in activity.instructions) {
+Resources/public/angularjs/Activity/Services/ActivityService.js:                            if (activity.instructions.hasOwnProperty(instruction)) {
+Resources/public/angularjs/Activity/Services/ActivityService.js:                                innova_activity.instructions.push({
+Resources/public/angularjs/Activity/Services/ActivityService.js:                                    media:activity.instructions[instruction].media,
+Resources/public/angularjs/Activity/Services/ActivityService.js:                                    position: activity.instructions[instruction].position
+Resources/public/angularjs/ActivityProperty/Partials/instruction-form.html:<textarea data-ng-model="instruction.media" class="form-control" placeholder="Instruction" ></textarea>
+Resources/views/Activity/show.html.twig:                                {% for instruction in _resource.instructions %}
+Resources/views/Activity/show.html.twig:                                    <li>{{ instruction.media }}</li>

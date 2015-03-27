@@ -71,7 +71,7 @@
                                     <div class="myHandle fa fa-arrows"></div>
                                 </td>
                                 <td class="col-md-10">
-                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" class="col-md-7" ></div>
+                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" ></div>
                                 </td>
                                 <td class="col-md-1">
                                     <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
@@ -86,6 +86,41 @@
                 </div>
             </div>
             <choice-type-form data-activity-type="activityCtrl.activity"></choice-type-form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Consignes fonctionnelles
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Consigne</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody data-ui-sortable="activityCtrl.sortableFunctionalInstructionsOptions" data-ng-model="activityCtrl.activity.functionalInstructions">
+                            <tr data-ng-repeat="functionalInstruction in activityCtrl.activity.functionalInstructions | orderBy:'position'" >
+                                <td class="col-md-1">
+                                    <div class="myHandle fa fa-arrows"></div>
+                                </td>
+                                <td class="col-md-10">
+                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/functional-instruction-form.html'" ></div>
+                                </td>
+                                <td class="col-md-1">
+                                    <button data-ng-click="activityCtrl.removeFunctionalInstruction(functionalInstruction)" class="btn btn-danger fa fa-trash"></button>
+                                    <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-1">
+                        <button data-ng-click="activityCtrl.addFunctionalInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

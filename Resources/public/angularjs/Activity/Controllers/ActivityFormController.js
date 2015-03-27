@@ -51,6 +51,20 @@
                 }
             };
             
+            this.sortableFunctionalInstructionsOptions = {
+                stop: function (e, ui) {
+                    this.updateFunctionalInstructionsOrder();
+                }.bind(this)
+            };
+            
+            this.updateFunctionalInstructionsOrder = function () {
+                var j=1;
+                for (var i=0; i<this.activity.functionalInstructions.length; i++) {
+                    this.activity.functionalInstructions[i].position = j;
+                    j++;
+                }
+            };
+            
             this.sortableInstructionsOptions = {
                 stop: function (e, ui) {
                     this.updateInstructionsOrder();
@@ -85,6 +99,22 @@
                 for (var i=0; i<this.activity.instructions.length; i++) {
                     if (this.activity.instructions[i] === instruction) {
                         this.activity.instructions.splice(i, 1);
+                    }
+                }
+            };
+            
+            this.addFunctionalInstruction = function () {
+                this.activity.functionalInstructions.push({
+                    id: 1 ,
+                    media: "",
+                    position: this.activity.functionalInstructions.length + 1
+                });
+            };
+            
+            this.removeFunctionalInstruction = function (functionalInstruction) {
+                for (var i=0; i<this.activity.functionalInstructions.length; i++) {
+                    if (this.activity.functionalInstructions[i] === functionalInstruction) {
+                        this.activity.functionalInstructions.splice(i, 1);
                     }
                 }
             };

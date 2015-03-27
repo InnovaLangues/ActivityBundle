@@ -82,6 +82,20 @@
                             </form>
                         </div>
                     </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                Consignes fonctionnelles
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                {% for functionalInstruction in _resource.functionalInstructions %}
+                                    <li>{{ functionalInstruction.media }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </span>
             </div>
         </div>

@@ -32,6 +32,12 @@ class ActivityType extends AbstractType
             'allow_delete' => true,
             'by_reference' => false,
         ));
+        $builder->add('functionalInstructions', 'collection', array (
+            'type'         => 'innova_activity_prop_functional_instruction',
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+        ));
 
         // Get and add the specific form for the current ActivityType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
