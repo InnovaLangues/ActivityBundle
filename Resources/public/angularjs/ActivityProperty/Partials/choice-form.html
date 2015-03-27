@@ -9,9 +9,7 @@
     </thead>
     <tbody data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
         <tr data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
-            <td>
-                <div class="myHandle fa fa-arrows"></div>
-            </td>
+            <td class="myHandle fa fa-arrows"></td>
             <td class="col-md-9">
                 <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/MediaType/' + choiceTypeCtrl.activityType.mediaType.template" ></div>
             </td>
