@@ -3,9 +3,10 @@
 
     angular.module('ActivityType').controller('ChoiceTypeFormController', [
         '$document',
+        '$modal',
         '$window',
         'ChoiceTypeService', 
-        function ($document, $window, ChoiceTypeService) {
+        function ($document, $modal, $window, ChoiceTypeService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.activityType = {};
@@ -97,6 +98,26 @@
             };
 
             this.removeChoice = function (choice) {
+                /*
+                var modalInstance = $modal.open({
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
+                    controller: 'ConfirmModalCtrl',
+                    resolve: {
+                        title: function () { return "Delete choice" },
+                        message: function () { return "Are you sure you want to delete this choice?" },
+                        confirmButton: function () { return "Delete" }
+                    }
+                });
+                
+                modalInstance.result.then(function () {
+                    this.confirmRemoveChoice(choice);
+                });
+                */
+               
+               this.confirmRemoveChoice(choice);
+            };
+            
+            this.confirmRemoveChoice = function (choice) {
                 for (var i=0; i<this.activityType.type.choices.length; i++) {
                     if (this.activityType.type.choices[i] === choice) {
                         this.activityType.type.choices.splice(i, 1);

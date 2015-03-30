@@ -9,6 +9,7 @@
         'ui.sortable',
 
         'Utils',
+        'ConfirmModule',
         'Activity',
         'Loader'
     ]);
