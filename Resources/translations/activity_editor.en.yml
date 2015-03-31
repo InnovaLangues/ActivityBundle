@@ -1,3 +1,53 @@
-activity_type_BooleanChoiceType: Vrai/Faux
-activity_type_MultipleChoiceType: Question à choix multiple
-activity_type_UniqueChoiceType: Question à choix simple
+#a
+
+activity_type_BooleanChoiceType: True/False
+activity_type_MultipleChoiceType: Multiple choices question
+activity_type_UniqueChoiceType: Unique choice question
+
+#c
+
+cancel: Cancel
+choices: Choices
+contents: Contents
+correct_answer: Correct answer
+
+#d
+
+delete: Delete
+description: Description
+
+#f
+
+functional_instructions: Functional instructions
+
+#i
+
+id_card: Identity card
+instruction: Instruction
+instructions: Instructions
+
+#m
+
+media: Media
+media_type: Media type
+
+#n
+
+name: Name
+
+#q
+
+question: Question
+
+#r
+
+random_order: Random order
+
+#s
+
+save: Save
+submit: Submit
+
+#t
+
+type: Type

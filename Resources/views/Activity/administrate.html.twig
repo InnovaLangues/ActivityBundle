@@ -18,11 +18,15 @@
 {% block javascripts %}
     {# Load Claroline JS #}
     {{ parent() }}
-
+    <!-- coucou -->
     {# Load translations #}
     {% javascripts 'js/translations/activity_editor/*.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    
+    
+    <script type="text/javascript" src="{{ url('bazinga_jstranslation_js', { 'domain': 'activity_editor' }) }}"></script>
+
 
     {# Angular #}
     {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-js-activitybundle.js'

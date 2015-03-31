@@ -1,13 +1,13 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
-            Choices
+            {{ 'choices' | trans:{}:'activity_editor' }}
         </h4>
     </div>
     <div class="panel-body">
         <div class="row">
             <span class="col-md-6">
-                <label for="mediaTypeSelect">Media type : </label>
+                <label for="mediaTypeSelect">{{ 'media_type' | trans:{}:'activity_editor' }} : </label>
                 <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'" data-ng-change="choiceTypeCtrl.stripIfText()" >
                 </select>
             </span>
@@ -16,7 +16,7 @@
         <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
         <div class="col-md-10">
             <input type="checkbox" id="randomlyOrdered" data-ng-model="choiceTypeCtrl.activityType.type.randomlyOrdered" />
-            <label for="randomlyOrdered">Random order</label>
+            <label for="randomlyOrdered">{{ 'random_order' | trans:{}:'activity_editor' }}</label>
         </div>
         <div class="col-md-2" data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'">
             <button data-ng-click="choiceTypeCtrl.addChoice()" class="btn btn-primary fa fa-plus-circle"></button>

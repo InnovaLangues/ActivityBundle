@@ -2,9 +2,9 @@
     <thead>
         <tr>
             <th></th>
-            <th>Media</th>
-            <th>Correct answer?</th>
-            <th>Delete</th>
+            <th>{{ 'media' | trans:{}:'activity_editor' }}</th>
+            <th>{{ 'correct_answer' | trans:{}:'activity_editor' }}?</th>
+            <th>{{ 'delete' | trans:{}:'activity_editor' }}</th>
         </tr>
     </thead>
     <tbody data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >

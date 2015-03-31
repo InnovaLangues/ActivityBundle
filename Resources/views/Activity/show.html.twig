@@ -27,7 +27,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            Question
+                            {{ 'question' | trans({}, 'activity_editor') }}
                         </h4>
                     </div>
                     <div class="panel-body">
@@ -40,7 +40,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                Objets de la question
+                                {{ 'contents' | trans({}, 'activity_editor') }}
                             </h4>
                         </div>
                         <div class="panel-body">
@@ -56,7 +56,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                Consignes
+                                {{ 'instructions' | trans({},'activity_editor') }}
                             </h4>
                         </div>
                         <div class="panel-body">
@@ -70,7 +70,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                Choix
+                                {{ 'choices' | trans({},'activity_editor') }}
                             </h4>
                         </div>
                         <div class="panel-body">
@@ -78,14 +78,14 @@
                                 <ul class="list-unstyled">
                                     {{ macros.orderRandomly(_resource.type.choices, _resource.type.randomlyOrdered, _resource.typeAvailable) }}
                                 </ul>
-                                <button class="btn btn-primary">Valider</button>
+                                <button class="btn btn-primary">{{ 'submit' | trans({},'activity_editor') }}</button>
                             </form>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                Consignes fonctionnelles
+                                {{ 'functional_instructions' | trans({},'activity_editor') }}
                             </h4>
                         </div>
                         <div class="panel-body">

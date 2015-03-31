@@ -1,19 +1,19 @@
 <div class="form-group row">
-    <label class="control-label col-md-3">Type</label>
+    <label class="control-label col-md-3">{{ 'type' | trans:{}:'activity_editor' }}</label>
     <div class="col-md-9">
         <p class="form-control-static">{{ activityCtrl.activity.typeAvailable.name }}</p>
     </div>
 </div>
 
 <div class="form-group row">
-    <label class="control-label col-md-3" for="activity_name">Name</label>
+    <label class="control-label col-md-3" for="activity_name">{{ 'name' | trans:{}:'activity_editor' }}</label>
     <div class="col-md-9">
         <input type="text" class="form-control" name="innova_activity_name" id="activity_name" data-ng-model="activityCtrl.activity.name" />
     </div>
 </div>
 
 <div class="form-group row">
-    <label class="control-label col-md-3" for="activity_description">Description</label>
+    <label class="control-label col-md-3" for="activity_description">{{ 'description' | trans:{}:'activity_editor' }}</label>
     <div class="col-md-9">
         <input type="text" class="form-control" name="innova_activity_description" id="activity_description" data-ng-model="activityCtrl.activity.description" />
     </div>

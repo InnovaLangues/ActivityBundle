@@ -1,1 +1,53 @@
+#a
 
+activity_type_BooleanChoiceType: Vrai/Faux
+activity_type_MultipleChoiceType: Question à choix multiple
+activity_type_UniqueChoiceType: Question à choix unique
+
+#c
+
+cancel: Annuler
+choices: Choix
+contents: Objets
+correct_answer: Bonne réponse
+
+#d
+
+delete: Supprimer
+description: Description
+
+#f
+
+functional_instructions: Consignes fonctionnelles
+
+#i
+
+id_card: Fiche d'identité
+instruction: Instruction
+instructions: Instructions
+
+#m
+
+media: Média
+media_type: Type de média
+
+#n
+
+name: Nom
+
+#q
+
+question: Question
+
+#r
+
+random_order: Ordre aléatoire
+
+#s
+
+save: Enregistrer
+submit: Valider
+
+#t
+
+type: Type

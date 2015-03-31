@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                Question
+                {{ 'question' | trans:{}:'activity_editor' }}
             </h4>
         </div>
         <div class="panel-body">
@@ -15,7 +15,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Objets de la question
+                        {{ 'contents' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
                     <div class="panel-body">
@@ -23,8 +23,8 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Media</th>
-                                    <th>Delete</th>
+                                    <th>{{ 'media' | trans:{}:'activity_editor' }}</th>
+                                    <th>{{ 'delete' | trans:{}:'activity_editor' }}</th>
                                 </tr>
                             </thead>
                             <tbody data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents">
@@ -53,7 +53,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Consignes
+                        {{ 'instructions' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -61,8 +61,8 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Consigne</th>
-                                <th>Delete</th>
+                                <th>{{ 'instruction' | trans:{}:'activity_editor' }}</th>
+                                <th>{{ 'delete' | trans:{}:'activity_editor' }}</th>
                             </tr>
                         </thead>
                         <tbody data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions">
@@ -89,7 +89,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Consignes fonctionnelles
+                        {{ 'functional_instructions' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -97,8 +97,8 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Consigne</th>
-                                <th>Delete</th>
+                                <th>{{ 'instruction' | trans:{}:'activity_editor' }}</th>
+                                <th>{{ 'delete' | trans:{}:'activity_editor' }}</th>
                             </tr>
                         </thead>
                         <tbody data-ui-sortable="activityCtrl.sortableFunctionalInstructionsOptions" data-ng-model="activityCtrl.activity.functionalInstructions">

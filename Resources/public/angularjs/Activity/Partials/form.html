@@ -20,7 +20,7 @@
                         <li data-ng-class="{ 'active': 'identity' == activityCtrl.view }">
                             <a href="" data-ng-click="activityCtrl.changeView('identity')">
                                 <span class="fa fa-file-text-o"></span>
-                                Fiche d'identité
+                                {{ 'id_card' | trans:{}:'activity_editor' }}
                             </a>
                         </li>
                     </ul>
@@ -28,7 +28,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <button data-ng-click="activityCtrl.update()" class="btn btn-success btn-save fa fa-floppy-o">
-                                <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
+                                <span>{{ 'save' | trans:{}:'activity_editor' }}</span>
                             </button>
                         </li>
                     </ul>
@@ -44,7 +44,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <button data-ng-click="activityCtrl.update()" class="btn btn-success btn-save fa fa-floppy-o">
-                            <span>{{ 'save' | trans:{}:'activity_sequence_editor' }}</span>
+                            <span>{{ 'save' | trans:{}:'activity_editor' }}</span>
                         </button>
                     </li>
                 </ul>
