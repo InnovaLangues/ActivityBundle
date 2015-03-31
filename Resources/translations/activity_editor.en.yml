@@ -9,6 +9,7 @@ activity_type_UniqueChoiceType: Unique choice question
 cancel: Cancel
 choices: Choices
 contents: Contents
+correct: Correct
 correct_answer: Correct answer
 
 #d
@@ -34,6 +35,7 @@ media_type: Media type
 #n
 
 name: Name
+neutral: Neutral
 
 #q
 
@@ -51,3 +53,7 @@ submit: Submit
 #t
 
 type: Type
+
+#w
+
+wrong: Wrong

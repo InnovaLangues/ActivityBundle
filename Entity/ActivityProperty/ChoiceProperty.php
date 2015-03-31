@@ -34,9 +34,9 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
     
     /**
      * Answer is correct or wrong
-     * @var boolean
+     * @var string
      * 
-     * @ORM\Column(name="correct_answer", type="boolean")
+     * @ORM\Column(name="correct_answer", type="text")
      */
     protected $correctAnswer;
     

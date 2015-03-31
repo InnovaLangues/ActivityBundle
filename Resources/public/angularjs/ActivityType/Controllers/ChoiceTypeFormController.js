@@ -129,7 +129,7 @@
                 if (this.activityType.typeAvailable.name !== "MultipleChoiceType") {
                     for (var i=0; i<this.activityType.type.choices.length; i++) {
                         if (this.activityType.type.choices[i] !== selectedChoice) {
-                            this.activityType.type.choices[i].correctAnswer = false;
+                            this.activityType.type.choices[i].correctAnswer = "wrong";
                         }
                     }
                 }

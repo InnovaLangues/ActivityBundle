@@ -10,18 +10,24 @@
     <tbody data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
         <tr data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
             <td class="myHandle fa fa-arrows"></td>
-            <td class="col-md-9">
+            <td class="col-md-8">
                 <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/MediaType/' + choiceTypeCtrl.activityType.mediaType.template" ></div>
             </td>
-            <td class="col-md-1">
-                <label class="btn-checkbox">
+            <td class="col-md-2">
+            <!--    - {{ choice }}
+                <span data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'MultipleChoiceType'" >
                     <input type="checkbox" data-ng-model="choice.correctAnswer" data-ng-change="choiceTypeCtrl.selectChoice(choice)" />
-                </label>
+                </span>-->
+                <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="correct" > {{ 'correct' | trans:{}:'activity_editor' }}
+                <span data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name === 'MultipleChoiceType'" >
+                    <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="neutral" > {{ 'neutral' | trans:{}:'activity_editor' }}
+                    <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="wrong" > {{ 'wrong' | trans:{}:'activity_editor' }}
+                </span>
             </td>
             <td class="col-md-1">
                 <span data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
                     <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
-                    <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                    <span class="sr-only">{{ 'delete' | trans:{}:'activity_editor' }}</span>
                 </span>
             </td>
         </tr>
