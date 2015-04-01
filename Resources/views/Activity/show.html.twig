@@ -82,20 +82,22 @@
                             </form>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                {{ 'functional_instructions' | trans({},'activity_editor') }}
-                            </h4>
+                    {% if _resource.functionalInstructions|length != 0 %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    {{ 'functional_instructions' | trans({},'activity_editor') }}
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    {% for functionalInstruction in _resource.functionalInstructions %}
+                                        <li>{{ functionalInstruction.media }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <ul>
-                                {% for functionalInstruction in _resource.functionalInstructions %}
-                                    <li>{{ functionalInstruction.media }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
+                    {% endif %}
                 </span>
             </div>
         </div>
