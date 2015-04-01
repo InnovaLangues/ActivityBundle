@@ -92,13 +92,13 @@
                 this.activityType.type.choices.push({
                     id: 1 ,
                     media: "",
-                    correctAnswer: false,
+                    correctAnswer: "wrong",
                     position: this.activityType.type.choices.length + 1
                 });
             };
 
             this.removeChoice = function (choice) {
-                /*
+                
                 var modalInstance = $modal.open({
                     templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
                     controller: 'ConfirmModalCtrl',
@@ -111,10 +111,7 @@
                 
                 modalInstance.result.then(function () {
                     this.confirmRemoveChoice(choice);
-                });
-                */
-               
-               this.confirmRemoveChoice(choice);
+                }.bind(this));
             };
             
             this.confirmRemoveChoice = function (choice) {
