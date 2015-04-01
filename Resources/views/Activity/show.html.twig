@@ -36,6 +36,7 @@
                 </div>
             </span>
             <div class="row">
+                <form method="POST" action="{{ path('innova_answer_create', { 'activityId': _resource.id }) }}">
                 <span class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -74,12 +75,9 @@
                             </h4>
                         </div>
                         <div class="panel-body">
-                            <form method="POST" action="{{ path('innova_answer_create', { 'activityId': _resource.id }) }}">
-                                <ul class="list-unstyled">
-                                    {{ macros.orderRandomly(_resource.type.choices, _resource.type.randomlyOrdered, _resource.typeAvailable) }}
-                                </ul>
-                                <button class="btn btn-primary">{{ 'submit' | trans({},'activity_editor') }}</button>
-                            </form>
+                            <ul class="list-unstyled">
+                                {{ macros.orderRandomly(_resource.type.choices, _resource.type.randomlyOrdered, _resource.typeAvailable) }}
+                            </ul>
                         </div>
                     </div>
                     {% if _resource.functionalInstructions|length != 0 %}
@@ -99,6 +97,8 @@
                         </div>
                     {% endif %}
                 </span>
+                <button class="btn btn-primary col-md-offset-11">{{ 'submit' | trans({},'activity_editor') }}</button>
+                </form>
             </div>
         </div>
     </div>
