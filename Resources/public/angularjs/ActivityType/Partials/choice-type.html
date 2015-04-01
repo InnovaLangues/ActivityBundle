@@ -6,7 +6,7 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <span class="col-md-6">
+            <span class="col-md-6 mediaType">
                 <label for="mediaTypeSelect">{{ 'media_type' | trans:{}:'activity_editor' }} : </label>
                 <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'" data-ng-change="choiceTypeCtrl.stripIfText()" >
                 </select>

@@ -153,13 +153,26 @@ li {
     margin-bottom: 5px;
 }
 
+.list-group {
+    padding: 0 0 10px 0;
+}
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
 .draggable-item {
-    border: 2px dashed #ccc;
     padding: 20px;
-    margin-bottom: 5px;
-    margin-left: 30px;
+}
+
+.draggable-item:hover {
+    background-color: #eeeeee;
 }
 
 .draggable-item .btn-checkbox {
     margin: 10px;
+}
+.mediaType {
+    padding-bottom: 10px;
 }

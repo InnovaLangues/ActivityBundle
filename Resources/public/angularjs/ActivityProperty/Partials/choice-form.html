@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover">
+<!--<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th></th>
@@ -6,26 +6,26 @@
             <th>{{ 'correct_answer' | trans:{}:'activity_editor' }}?</th>
             <th>{{ 'delete' | trans:{}:'activity_editor' }}</th>
         </tr>
-    </thead>
-    <tbody data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
-        <tr data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
-            <td class="myHandle fa fa-arrows"></td>
-            <td class="col-md-8">
+    </thead>-->
+    <ul class="list-group list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
+        <li class="row list-group-item draggable-item" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
+            <span class="myHandle btn btn-default fa fa-arrows"></span>
+            <span class="col-md-7">
                 <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/MediaType/' + choiceTypeCtrl.activityType.mediaType.template" ></div>
-            </td>
-            <td class="col-md-2">
+            </span>
+            <span class="col-md-3">
                 <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="correct" > {{ 'correct' | trans:{}:'activity_editor' }}
                 <span data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name === 'MultipleChoiceType'" >
                     <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="neutral" > {{ 'neutral' | trans:{}:'activity_editor' }}
                     <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="wrong" > {{ 'wrong' | trans:{}:'activity_editor' }}
                 </span>
-            </td>
-            <td class="col-md-1">
+            </span>
+            <span class="col-md-1">
                 <span data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name !== 'BooleanChoiceType'" >
                     <button data-ng-click="choiceTypeCtrl.removeChoice(choice)" class="btn btn-danger fa fa-trash"></button>
                     <span class="sr-only">{{ 'delete' | trans:{}:'activity_editor' }}</span>
                 </span>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            </span>
+        </li>
+    </ul><!--
+</table>-->
