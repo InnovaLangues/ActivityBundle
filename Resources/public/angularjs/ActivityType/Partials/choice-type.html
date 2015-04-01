@@ -13,7 +13,7 @@
             </span>
             <span class="col-md-6"></span>
         </div>
-        <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
+        <div data-ng-if="choiceTypeCtrl.activityType.mediaType !== null" data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
         <div class="col-md-10">
             <input type="checkbox" id="randomlyOrdered" data-ng-model="choiceTypeCtrl.activityType.type.randomlyOrdered" />
             <label for="randomlyOrdered">{{ 'random_order' | trans:{}:'activity_editor' }}</label>
