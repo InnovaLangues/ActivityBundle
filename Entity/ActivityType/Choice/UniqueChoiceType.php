@@ -53,6 +53,16 @@ class UniqueChoiceType extends AbstractChoiceType implements \JsonSerializable
     public function __construct()
     {
         $this->choices = new ArrayCollection();
+        $choice1 = new ChoiceProperty();
+        $choice1->setMedia("");
+        $choice1->setCorrectAnswer("correct");
+        $choice1->setPosition(0);
+        $this->addChoice($choice1);
+        $choice2 = new ChoiceProperty();
+        $choice2->setMedia("");
+        $choice2->setCorrectAnswer("wrong");
+        $choice2->setPosition(1);
+        $this->addChoice($choice2);
         $this->randomlyOrdered = 0;
     }
 
