@@ -2,16 +2,17 @@
     "use strict";
     
     angular.module("Utils").directive("contenteditable", [
-        function contentEditableDirective() {
+        '$timeout',
+        function contentEditableDirective($timeout) {
             
             return {
                 restrict: "A",
                 require: 'ngModel',
                 link: function(scope, element, attrs, ctrl) {
                   // view -> model
-                  element.bind('focusout hashchange', function() {
+                  element.bind('blur keyup paste input', function() {
                         console.log(element.html());
-                    scope.$apply(function() {
+                    $timeout(function() {
                       ctrl.$setViewValue(element.html());
                     });
                   });
