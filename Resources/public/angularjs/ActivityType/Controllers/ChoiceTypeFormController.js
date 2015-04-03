@@ -103,9 +103,9 @@
                     templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
                     controller: 'ConfirmModalCtrl',
                     resolve: {
-                        title: function () { return "Delete choice" },
-                        message: function () { return "Are you sure you want to delete this choice?" },
-                        confirmButton: function () { return "Delete" }
+                        title: function () { return "delete_choice" },
+                        message: function () { return "confirm_delete_choice" },
+                        confirmButton: function () { return "delete" }
                     }
                 });
                 

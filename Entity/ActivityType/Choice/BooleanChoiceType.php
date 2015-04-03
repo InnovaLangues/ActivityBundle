@@ -54,12 +54,12 @@ class BooleanChoiceType extends AbstractChoiceType implements \JsonSerializable
     {
         $this->choices = new ArrayCollection();
         $choice1 = new ChoiceProperty();
-        $choice1->setMedia("oui");
+        $choice1->setMedia("Vrai");
         $choice1->setCorrectAnswer("correct");
         $choice1->setPosition(0);
         $this->addChoice($choice1);
         $choice2 = new ChoiceProperty();
-        $choice2->setMedia("non");
+        $choice2->setMedia("Faux");
         $choice2->setCorrectAnswer("wrong");
         $choice2->setPosition(1);
         $this->addChoice($choice2);

@@ -8,6 +8,7 @@ activity_type_UniqueChoiceType: Unique choice question
 
 cancel: Cancel
 choices: Choices
+confirm_delete_choice: Are you sure you want to delete this choice?
 contents: Contents
 correct: Correct
 correct_answer: Correct answer
@@ -15,6 +16,7 @@ correct_answer: Correct answer
 #d
 
 delete: Delete
+delete_choice: Delete choice
 description: Description
 
 #f
