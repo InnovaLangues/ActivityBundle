@@ -58,5 +58,52 @@ class LoadRequiredFixturesData extends AbstractFixture
         }
 
         $manager->flush();
+        
+        $availableMediaTypes = array (
+            // Choice Type category
+            array (
+                'name' => 'Text',
+                'description' => 'Raw text',
+                'template' => 'text-choice-form.html',
+            ),
+            array (
+                'name' => 'Prosodic',
+                'description' => 'Text containing prosodic annotations',
+                'template' => 'prosodic-choice-form.html',
+            ),
+            array (
+                'name' => 'Picture',
+                'description' => 'Image file',
+                'template' => 'image-choice-form.html',
+            ),
+            array (
+                'name' => 'Video',
+                'description' => 'Video file',
+                'template' => 'video-choice-form.html',
+            ),
+            array (
+                'name' => 'Sound',
+                'description' => 'Sound file',
+                'template' => 'sound-choice-form.html',
+            ),
+        );
+
+        foreach ($availableMediaTypes as $mediaType) {
+            $entityMediaType = new MediaTypeProperty();
+
+            $entityMediaType->setName($mediaType['name']);
+
+            if (!empty($mediaType['description'])) {
+                $entityMediaType->setDescription($mediaType['description']);
+            }
+
+            if (!empty($mediaType['template'])) {
+                $entityMediaType->setTemplate($mediaType['template']);
+            }
+
+            $manager->persist($entityMediaType);
+        }
+
+        $manager->flush();
     }
 }
