@@ -1,0 +1,71 @@
+{% extends "ClarolineCoreBundle:Workspace:layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets debug=false filter='cssmin'  output='vendor/innovaactivity/editor.css'
+        '@InnovaActivityBundle/Resources/public/css/Editor/*'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="activity-sequence-editor" data-ng-app="ActivitySequenceApp" data-ng-cloak="">
+        <activity-sequence-form data-sequence="{{ _resource | json_encode | raw | escape }}"></activity-sequence-form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {# Load Claroline JS #}
+    {{ parent() }}
+
+    {# Load translations #}
+    <script type="text/javascript" src="{{ url('bazinga_exposetranslation_js', { 'domain_name': 'activity_sequence_editor' }) }}"></script>
+
+    {# Angular #}
+    {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-js-activitybundle.js'
+        '@InnovaAngularJSBundle/Resources/public/js/angular.min.js'
+        '@InnovaAngularJSBundle/Resources/public/js/angular-sanitize.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# Angular UI #}
+    {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-ui-activitybundle.js'
+        '@InnovaAngularUIBootstrapBundle/Resources/public/js/*'
+        '@InnovaAngularUITinyMCEBundle/Resources/public/js/*'
+        '@InnovaAngularUITranslationBundle/Resources/public/js/*'
+        '@InnovaAngularUISortableBundle/Resources/public/js/*'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/editor.js'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# Set some vars needed by Angular parts #}
+    <script type="text/javascript">
+        var ActivityEditorApp = {};
+
+        ActivityEditorApp.webDir = "{{ asset('') }}";
+    </script>
+{% endblock %}

@@ -3,7 +3,7 @@ plugin:
     icon: res_activity.png
 
     resources:
-        - class: Innova\ActivityBundle\Entity\Activity
+        - class: Innova\ActivityBundle\Entity\ActivitySequence
           name: innova_activity
           is_exportable: true
           icon: res_activity.png

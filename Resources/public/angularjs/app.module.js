@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ActivityApp', [
+    angular.module('ActivitySequenceApp', [
         'ngSanitize',
         'ui.bootstrap',
         'ui.tinymce',
@@ -10,7 +10,7 @@
 
         'Utils',
         'ConfirmModule',
-        'Activity',
+        'ActivitySequence',
         'Loader'
     ]);
 })();

@@ -5,7 +5,6 @@ namespace Innova\ActivityBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Claroline\CoreBundle\Entity\Resource\AbstractResource;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
 use Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty;
@@ -23,7 +22,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table("innova_activity")
  * @ORM\EntityListeners({ "Innova\ActivityBundle\Listener\ActivityListener" })
  */
-class Activity extends AbstractResource implements \JsonSerializable
+class Activity implements \JsonSerializable
 {
     /**
      * Unique identifier of the Activity
@@ -86,6 +85,40 @@ class Activity extends AbstractResource implements \JsonSerializable
      * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\FunctionalInstructionProperty", mappedBy="activity", cascade={"persist","remove"})
      */
     protected $functionalInstructions;
+    
+    /**
+     * Position of the Activity into the parent ActivitySequence
+     * @var integer
+     * @ORM\Column(name="activity_position", type="integer")
+     */
+    protected $position;
+    
+    /**
+     * Creation date of the Activity
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="date_created", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    protected $dateCreated;
+    
+    /**
+     * Updated date of the Activity
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="date_updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    protected $dateUpdated;
+    
+    /**
+     * Parent ActivitySequence
+     * @var \Innova\ActivityBundle\Entity\ActivitySequence
+     * 
+     * @ORM\ManyToOne(targetEntity="Innova\ActivityBundle\Entity\ActivitySequence", inversedBy="activities")
+     * @ORM\JoinColumn(name="activity_sequence_id", referencedColumnName="id")
+     */
+    protected $activitySequence;
     
     public function __construct()
     {
@@ -333,7 +366,93 @@ class Activity extends AbstractResource implements \JsonSerializable
     }
     
     /**
-     * Define how to serialize our entity Activity
+     * 
+     * @param integer $order
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
+    public function setPosition($order)
+    {
+        $this->position = $order;
+        
+        return $this;
+    }
+    
+    /**
+     * Get order
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+    
+    /**
+     * Set dateCreated
+     * @param \Datetime
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
+    public function setDateCreated(\DateTime $dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+        
+        return $this;
+    }
+    
+    /**
+     * Get dateCreated
+     * @return \Datetime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+    
+    /**
+     * Set dateUpdated
+     * @param \Datetime
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
+    public function setDateUpdated(\DateTime $dateUpdated)
+    {
+        $this->dateUpdated = $dateUpdated;
+        
+        return $this;
+    }
+    
+    /**
+     * Get dateUpdated
+     * @return \Datetime
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+    
+    /**
+     * Set activitySequence
+     * 
+     * @internal Do not use, use ActivitySequence::addActivity() instead, to calculate position of the Activity in the Sequence
+     * @param \Innova\ActivityBundle\Entity\ActivitySequence $activitySequence
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
+    public function setActivitySequence(ActivitySequence $activitySequence = null)
+    {
+        $this->activitySequence = $activitySequence;
+        
+        return $this;
+    }
+    
+    /**
+     * Get activitySequence
+     * @return \Innova\ActivityBundle\Entity\ActivitySequence
+     */
+    public function getActivitySequence()
+    {
+        return $this->activitySequence;
+    }
+    
+    /**
+     * Define how to serialize our entity ActivitySequence
      * @return Array
      */
     public function jsonSerialize()
@@ -349,6 +468,9 @@ class Activity extends AbstractResource implements \JsonSerializable
             'contents'      => $this->contents->toArray(),
             'functionalInstructions' => $this->functionalInstructions->toArray(),
             'type'          => $this->type,
+            'position'      => $this->position,
+            'dateCreated'   => $this->dateCreated,
+            'dateUpdated'   => $this->dateUpdated,
         );
     }
 }

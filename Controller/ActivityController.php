@@ -2,6 +2,7 @@
 
 namespace Innova\ActivityBundle\Controller;
 
+use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Form\Handler\ActivityHandler;

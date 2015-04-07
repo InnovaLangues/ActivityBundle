@@ -2,6 +2,7 @@
 
 namespace Innova\ActivityBundle\Manager;
 
+use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Entity\Activity;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -24,9 +25,12 @@ class ActivityManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    public function create()
+    public function create(ActivitySequence $activitySequence)
     {
         $activity = new Activity();
+        
+        $activity->setActivitySequence($activitySequence);
+        $activity->setPosition($activitySequence->getActivities()->count() + 1);
 
         return $this->edit($activity);
     }
