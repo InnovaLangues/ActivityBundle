@@ -20,7 +20,7 @@
     {{ parent() }}
 
     {# Load translations #}
-    <script type="text/javascript" src="{{ url('bazinga_exposetranslation_js', { 'domain_name': 'activity_sequence_editor' }) }}"></script>
+    <script type="text/javascript" src="{{ url('bazinga_jstranslation_js', { 'domain': 'activity_editor' }) }}"></script>
 
     {# Angular #}
     {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-js-activitybundle.js'
@@ -40,7 +40,11 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/editor.js'
+    {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
+        '@InnovaActivityBundle/Resources/public/angularjs/Utils/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Utils/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Confirm/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Confirm/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'

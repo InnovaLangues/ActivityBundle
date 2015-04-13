@@ -1,13 +1,13 @@
 services:
-    innova.listener.activity_listener:
-        class: Innova\ActivityBundle\Listener\Resource\ActivityListener
+    innova.listener.activity_sequence_listener:
+        class: Innova\ActivityBundle\Listener\Resource\ActivitySequenceListener
         calls:
             - [setContainer, ["@service_container"]]
         tags:
-            - { name: kernel.event_listener, event: create_form_innova_activity, method: onCreateForm }
-            - { name: kernel.event_listener, event: create_innova_activity, method: onCreate }
-            - { name: kernel.event_listener, event: open_innova_activity, method: onOpen }
-            - { name: kernel.event_listener, event: copy_innova_activity, method: onCopy }
-            - { name: kernel.event_listener, event: delete_innova_activity, method: onDelete }
-            - { name: kernel.event_listener, event: administrate_innova_activity, method: onAdministrate}
+            - { name: kernel.event_listener, event: create_form_innova_activity_sequence, method: onCreateForm }
+            - { name: kernel.event_listener, event: create_innova_activity_sequence, method: onCreate }
+            - { name: kernel.event_listener, event: open_innova_activity_sequence, method: onOpen }
+            - { name: kernel.event_listener, event: copy_innova_activity_sequence, method: onCopy }
+            - { name: kernel.event_listener, event: delete_innova_activity_sequence, method: onDelete }
+            - { name: kernel.event_listener, event: administrate_innova_activity_sequence, method: onAdministrate}
 

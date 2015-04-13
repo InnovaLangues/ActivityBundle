@@ -3,6 +3,7 @@ parameters:
     innova_activity.form.handler.activity.class:                        Innova\ActivityBundle\Form\Handler\ActivityHandler
 
     # Form types
+    innova_activity.form.type.activity_sequence.class:                  Innova\ActivityBundle\Form\Type\ActivitySequenceType
     innova_activity.form.type.activity.class:                           Innova\ActivityBundle\Form\Type\ActivityType
     innova_activity.form.type.instruction_property.class:               Innova\ActivityBundle\Form\Type\ActivityProperty\InstructionPropertyType
     innova_activity.form.type.functional_instruction_property.class:    Innova\ActivityBundle\Form\Type\ActivityProperty\FunctionalInstructionPropertyType

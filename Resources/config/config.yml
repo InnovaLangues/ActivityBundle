@@ -4,7 +4,7 @@ plugin:
 
     resources:
         - class: Innova\ActivityBundle\Entity\ActivitySequence
-          name: innova_activity
+          name: innova_activity_sequence
           is_exportable: true
           icon: res_activity.png
           actions:

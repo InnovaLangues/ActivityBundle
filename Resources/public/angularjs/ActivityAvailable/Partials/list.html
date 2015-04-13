@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">Select Activity Type</h4>
+</div>
+
+<div class="modal-body">
+    <p class="alert alert-info">
+        <span class="fa fa-info-circle"></span>
+        {{ 'select_available_type' | trans:{}:'activity_sequence_editor' }}
+    </p>
+
+    <div data-ng-repeat="category in activityAvailableCtrl.availables">
+        <h4>
+            <span class="{{ category.icon }}" date-ng-if="category.icon"></span>
+            {{ category.name }}
+        </h4>
+        <div class="list-group" data-ng-if="category.types">
+            <a href="" class="list-group-item" data-ng-repeat="type in category.types" data-ng-click="activityAvailableCtrl.select(type)">
+                {{ type.name }}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-default cancel" ng-click="activityAvailableCtrl.cancel()">Cancel</button>
+</div>

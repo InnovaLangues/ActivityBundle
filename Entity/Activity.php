@@ -35,6 +35,15 @@ class Activity implements \JsonSerializable
     protected $id;
     
     /**
+     * Name of the activity
+     * @var string
+     * 
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank
+     */
+    protected $name;
+    
+    /**
     * Description of the Activity
     * @var string
     *
@@ -135,6 +144,27 @@ class Activity implements \JsonSerializable
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Set name
+     * @param  string                                 $name
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+    
+    /**
+     * Get name
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
     
     /**
@@ -457,9 +487,10 @@ class Activity implements \JsonSerializable
      */
     public function jsonSerialize()
     {
+        
         return array(
             'id'            => $this->id,
-            'name'          => $this->resourceNode->getName(),
+            'name'          => $this->name,
             'typeAvailable' => $this->typeAvailable,
             'mediaType'     => $this->mediaType,
             'question'      => $this->question,

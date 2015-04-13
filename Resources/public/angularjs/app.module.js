@@ -10,7 +10,6 @@
 
         'Utils',
         'ConfirmModule',
-        'ActivitySequence',
-        'Loader'
+        'ActivitySequence'
     ]);
 })();

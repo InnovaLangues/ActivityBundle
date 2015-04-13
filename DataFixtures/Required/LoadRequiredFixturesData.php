@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Innova\ActivityBundle\Entity\ActivityAvailable\CategoryAvailable;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
+use Innova\ActivityBundle\Entity\ActivityProperty\MediaTypeProperty;
 
 class LoadRequiredFixturesData extends AbstractFixture
 {

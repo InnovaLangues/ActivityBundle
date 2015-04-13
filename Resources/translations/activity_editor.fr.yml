@@ -1,8 +1,10 @@
 #a
 
+activity_sequence_form_name: Nom
 activity_type_BooleanChoiceType: Vrai/Faux
 activity_type_MultipleChoiceType: Question à choix multiple
 activity_type_UniqueChoiceType: Question à choix unique
+add_activity : Ajouter une activité
 
 #c
 
@@ -18,6 +20,10 @@ correct_answer: Bonne réponse
 delete: Supprimer
 delete_choice: Supprimer un choix
 description: Description
+
+#e
+
+empty_activity_sequence: Cette suite d'activité est vide. Vous pouvez créer des activités en cliquant sur le bouton "+" situé au dessus.
 
 #f
 

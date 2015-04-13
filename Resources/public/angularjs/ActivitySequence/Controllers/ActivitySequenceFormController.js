@@ -65,6 +65,8 @@
                 });
 
                 modalInstance.result.then(function (type) {
+                    console.log(this.sequence);
+                    console.log(type);
                     ActivityService.create(this.sequence, type).then(function (activity) {
                         this.sequence.activities.push(activity);
 

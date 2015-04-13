@@ -5,6 +5,11 @@ services:
         tags:
           - { name: form.type, alias: innova_activity }
 
+    innova_activity.form.type.activity_sequence:
+        class: %innova_activity.form.type.activity_sequence.class%
+        tags:
+          - { name: form.type, alias: innova_activity_sequence }
+
     # Activity Properties
     innova_activity.form.type.choice_property:
         class: %innova_activity.form.type.choice_property.class%

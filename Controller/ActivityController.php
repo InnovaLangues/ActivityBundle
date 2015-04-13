@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  *      "/activity",
  *      name = "innova_activity"
  * )
- * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
+ * @ParamConverter("activity", class="InnovaActivityBundle:Activity", isOptional=true, options={"mapping": {"activityId": "id"}})
 
  */
 class ActivityController
@@ -127,6 +127,40 @@ class ActivityController
         return array(
             '_resource' => $activity,
         );
+    }
+    
+        /**
+     * Create a new Activity
+     * @Route(
+     *      "/{activitySequenceId}/{typeAvailableId}",
+     *      name    = "innova_activity_create",
+     *      options = { "expose" = true }
+     * )
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence",                options = { "mapping" : {"activitySequenceId" : "id"} })
+     * @ParamConverter("typeAvailable",    class="InnovaActivityBundle:ActivityAvailable\TypeAvailable", options = { "mapping" : {"typeAvailableId" : "id"} })
+     * @Method("POST")
+     */
+    public function createAction(ActivitySequence $activitySequence, TypeAvailable $typeAvailable)
+    {
+        $response = array();
+        try {
+            // Create the new Activity
+            $activity = $this->activityManager->create($activitySequence, $typeAvailable);
+        
+            // Build response object
+            $response['status'] = 'OK';
+            $response['messages'] = array(
+                'activity_create_success',
+            );
+            $response['data'] = $activity;
+        } catch (\Exception $e) {
+            $response['status'] = 'ERROR';
+            $response['messages'] = array(
+                $e->getMessage(),
+            );
+        }
+        
+        return new JsonResponse($response);
     }
 
     /**
