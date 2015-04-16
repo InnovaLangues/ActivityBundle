@@ -43,7 +43,16 @@ class ActivityListener
      */
     public function prePersist(Activity $activity, LifecycleEventArgs $event)
     {
+        
         $type = $activity->getType();
+        
+        // Créer le type
+        if (null === $type) {
+            $class = "Innova\ActivityBundle\Entity\ActivityType\\" . $activity->getTypeAvailable()->getClass();
+            $type = new $class();
+            $type->setActivity($activity);
+        }
+        
         if (!empty($type) && $type instanceof \Innova\ActivityBundle\Entity\ActivityType\AbstractType) {
             $event->getEntityManager()->persist($type);
         }

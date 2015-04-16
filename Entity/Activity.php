@@ -237,11 +237,6 @@ class Activity implements \JsonSerializable
      */
     public function getType()
     {
-        // throw an exception if type hasn't been loaded
-        if (empty($this->type) || !($this->type instanceof AbstractType)) {
-            throw new \LogicException('ActivityType has not been correctly loaded.');
-        }
-
         return $this->type;
     }
 
@@ -482,7 +477,7 @@ class Activity implements \JsonSerializable
     }
     
     /**
-     * Define how to serialize our entity ActivitySequence
+     * Define how to serialize our entity Activity
      * @return Array
      */
     public function jsonSerialize()

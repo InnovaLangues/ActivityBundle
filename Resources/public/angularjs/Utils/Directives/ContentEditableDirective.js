@@ -11,7 +11,6 @@
                 link: function(scope, element, attrs, ctrl) {
                   // view -> model
                   element.bind('blur keyup paste input', function() {
-                        console.log(element.html());
                     $timeout(function() {
                       ctrl.$setViewValue(element.html());
                     });

@@ -12,6 +12,7 @@ class ActivityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
+        $builder->add('name', 'text', array('required' => true));
         $builder->add('description', 'text', array ('required' => false));
 
         $builder->add('mediaType', 'entity', array(

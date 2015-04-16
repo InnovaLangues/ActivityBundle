@@ -76,7 +76,7 @@ class ActivitySequence extends AbstractResource implements \JsonSerializable
     /**
      * Get description
      *
-     * @return string
+     * @return stringprotected
      */
     public function getDescription()
     {

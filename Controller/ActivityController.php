@@ -123,7 +123,7 @@ class ActivityController
         if (false === $this->security->isGranted('ADMINISTRATE', $activity->getResourceNode())) {
             throw new AccessDeniedException();
         }
-
+        
         return array(
             '_resource' => $activity,
         );

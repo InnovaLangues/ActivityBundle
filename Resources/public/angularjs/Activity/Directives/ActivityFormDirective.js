@@ -19,7 +19,7 @@
                 link: function (scope, element, attr, activityCtrl) {
                     scope.$watch('activity', function (newValue) {
                         if (typeof newValue === 'string') {
-                            activityCtrl.activity = JSON.parse(newValue);
+                        activityCtrl.activity = JSON.parse(newValue);
                         } else {
                             activityCtrl.activity = newValue;
                         }

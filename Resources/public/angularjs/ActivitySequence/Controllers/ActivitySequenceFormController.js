@@ -34,6 +34,7 @@
              * @param activity
              */
             this.showActivity = function (activity) {
+                console.log(activity);
                 if (activity) {
                     this.currentActivity = activity;
                 } else if (this.sequence.activities && this.sequence.length !== 0) {
@@ -71,7 +72,7 @@
                         this.sequence.activities.push(activity);
 
                         this.showActivity(activity); // Display the new Activity
-                    }.bind(this))
+                    }.bind(this));
                 }.bind(this));
             };
 
