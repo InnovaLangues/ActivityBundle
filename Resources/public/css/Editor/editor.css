@@ -36,6 +36,10 @@
     margin-bottom: 0;
 }
 
+.activity-link {
+    float: left;
+}
+
 .activity-link,
 .activity-add {
     margin: 5px;
