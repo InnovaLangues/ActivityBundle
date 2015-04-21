@@ -1,6 +1,6 @@
 #a
 
-activity_sequence_form_name: Name
+activity_sequence_form_name: Activity sequence
 activity_type_BooleanChoiceType: True/False
 activity_type_MultipleChoiceType: Multiple choices question
 activity_type_UniqueChoiceType: Unique choice question
@@ -44,6 +44,11 @@ media_type: Media type
 
 name: Name
 neutral: Neutral
+next_activity: Next activity
+
+#p
+
+previous_activity: Previous activity
 
 #q
 

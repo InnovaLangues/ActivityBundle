@@ -1,6 +1,6 @@
 #a
 
-activity_sequence_form_name: Nom
+activity_sequence_form_name: Suite d'activités
 activity_type_BooleanChoiceType: Vrai/Faux
 activity_type_MultipleChoiceType: Question à choix multiple
 activity_type_UniqueChoiceType: Question à choix unique
@@ -44,6 +44,11 @@ media_type: Type de média
 
 name: Nom
 neutral: Neutre
+next_activity: Activité suivante
+
+#p
+
+previous_activity: Activité précédente
 
 #q
 

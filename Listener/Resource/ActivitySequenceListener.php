@@ -65,13 +65,13 @@ class ActivitySequenceListener extends ContainerAware
 
     public function onOpen(OpenResourceEvent $event)
     {
-         $activity = $event->getResource();
+         $activitySequence = $event->getResource();
          $route = $this->container
                 ->get('router')
                 ->generate(
-                'innova_activity_open',
+                'innova_activity_sequence_open',
                 array (
-                    'activityId' => $activity->getId(),
+                    'activitySequenceId' => $activitySequence->getId(),
                 )
             );
 

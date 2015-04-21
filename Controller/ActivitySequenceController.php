@@ -142,7 +142,7 @@ class ActivitySequenceController
         if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
-
+        
         return new JsonResponse($activitySequence);
     }
 
@@ -160,7 +160,7 @@ class ActivitySequenceController
      * )
      * @Method("PUT")
      */
-    public function updateActivitiesOrederAction(ActivitySequence $activitySequence, $order)
+    public function updateActivitiesOrderAction(ActivitySequence $activitySequence, $order)
     {
         if (false === $this->security->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
