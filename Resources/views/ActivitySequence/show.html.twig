@@ -1,6 +1,81 @@
-display sequence {{ _resource.id }}
+{% extends "ClarolineCoreBundle:Workspace:layout.html.twig" %}
 
-{% for activity in _resource.activities %}
-    <h1>{{ activity.id }} {{ activity.name }}</h1>
-    <p>{{ activity.description }}</p>
-{% endfor %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets debug=false filter='cssmin'  output='vendor/innovaactivity/editor.css'
+        '@InnovaActivityBundle/Resources/public/css/Editor/*'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="activity-player" data-ng-app="ActivitySequenceApp" data-ng-cloak="">
+        <activity-player data-sequence="{{ _resource | json_encode | raw | escape }}"></activity-player>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {# Load Claroline JS #}
+    {{ parent() }}
+
+    {# Load translations #}
+    <script type="text/javascript" src="{{ url('bazinga_jstranslation_js', { 'domain': 'activity_editor' }) }}"></script>
+
+    {# Angular #}
+    {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-js-activitybundle.js'
+        '@InnovaAngularJSBundle/Resources/public/js/angular.min.js'
+        '@InnovaAngularJSBundle/Resources/public/js/angular-sanitize.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# Angular UI #}
+    {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-ui-activitybundle.js'
+        '@InnovaAngularUIBootstrapBundle/Resources/public/js/*'
+        '@InnovaAngularUITinyMCEBundle/Resources/public/js/*'
+        '@InnovaAngularUITranslationBundle/Resources/public/js/*'
+        '@InnovaAngularUISortableBundle/Resources/public/js/*'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
+        '@InnovaActivityBundle/Resources/public/angularjs/Utils/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Utils/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Confirm/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Confirm/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Directives/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Controllers/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# Set some vars needed by Angular parts #}
+    <script type="text/javascript">
+        var ActivityEditorApp = {};
+
+        ActivityEditorApp.webDir = "{{ asset('') }}";
+    </script>
+{% endblock %}

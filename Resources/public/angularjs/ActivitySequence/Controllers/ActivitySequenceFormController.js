@@ -26,7 +26,9 @@
             this.sortableOptions = {
                 stop: function (e, ui) {
                    this.updateActivitiesOrder();
-                }.bind(this)
+                }.bind(this),
+                cancel: ".unsortable",
+                items: "li:not(.unsortable)"
             };
 
             /**
@@ -65,8 +67,6 @@
                 });
 
                 modalInstance.result.then(function (type) {
-                    console.log(this.sequence);
-                    console.log(type);
                     ActivityService.create(this.sequence, type).then(function (activity) {
                         this.sequence.activities.push(activity);
 

@@ -21,6 +21,12 @@
     <!-- Activities List -->
     <div class="row">
         <div class="col-md-1">
+            <div class="activity-prev-next" >
+                <a href="" data-ng-click="activitySequenceCtrl.previousActivity(activitySequenceCtrl.currentActivity)" data-toggle="tooltip" data-container="body" title="{{ 'previous_activity' | trans:{}:'activity_editor' }}" >
+                    <i class="fa fa-arrow-left"></i>
+                    <span class="sr-only">{{ 'previous_activity' | trans:{}:'activity_editor' }}</span>
+                </a>
+            </div>
             <div class="activity-add">
                 <a href="" data-ng-click="activitySequenceCtrl.addActivity()" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_editor' }}">
                     <i class="fa fa-plus"></i>
@@ -28,30 +34,23 @@
                 </a>
             </div>
         </div>
-
         <div class="col-md-10 text-center">
             <ul class="activity-list list-unstyled" data-ui-sortable="activitySequenceCtrl.sortableOptions" data-ng-model="activitySequenceCtrl.sequence.activities">
-                <li class="activity-prev-next" >
-                    <a href="" data-ng-click="activitySequenceCtrl.previousActivity(activitySequenceCtrl.currentActivity)" data-toggle="tooltip" data-container="body" title="{{ 'previous_activity' | trans:{}:'activity_editor' }}" >
-                        <i class="fa fa-arrow-left"></i>
-                        <span class="sr-only">{{ 'previous_activity' | trans:{}:'activity_editor' }}</span>
-                    </a>
-                </li>
                 <li class="activity-link" data-ng-repeat="activity in activitySequenceCtrl.sequence.activities | orderBy:'position'" data-ng-class="{ 'active' : activitySequenceCtrl.currentActivity == activity }">
                     <a href="" data-ng-click="activitySequenceCtrl.showActivity(activity)" data-toggle="tooltip" data-container="body" title="{{ activity.name }}">
                         {{ activity.position }}
                         <span class="sr-only">{{ activity.name }}</span>
                     </a>
                 </li>
-                <li class="activity-prev-next" >
-                    <a href="" data-ng-click="activitySequenceCtrl.nextActivity(activitySequenceCtrl.currentActivity)" data-toggle="tooltip" data-container="body" title="{{ 'next_activity' | trans:{}:'activity_editor' }}" >
-                        <i class="fa fa-arrow-right"></i>
-                        <span class="sr-only">{{ 'next_activity' | trans:{}:'activity_editor' }}</span>
-                    </a>
-                </li>
             </ul>
         </div>
         <div class="col-md-1">
+            <div class="activity-prev-next" >
+                <a href="" data-ng-click="activitySequenceCtrl.nextActivity(activitySequenceCtrl.currentActivity)" data-toggle="tooltip" data-container="body" title="{{ 'next_activity' | trans:{}:'activity_editor' }}" >
+                    <i class="fa fa-arrow-right"></i>
+                    <span class="sr-only">{{ 'next_activity' | trans:{}:'activity_editor' }}</span>
+                </a>
+            </div>
             <div class="activity-remove">
                 <a href="" data-ng-click="activitySequenceCtrl.removeActivity(activitySequenceCtrl.currentActivity)" data-toggle="tooltip" data-container="body" title="{{ 'add_activity' | trans:{}:'activity_editor' }}">
                     <i class="fa fa-trash"></i>
