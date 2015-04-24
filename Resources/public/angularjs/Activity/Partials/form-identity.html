@@ -15,6 +15,6 @@
 <div class="form-group row">
     <label class="control-label col-md-3" for="activity_description">{{ 'description' | trans:{}:'activity_editor' }}</label>
     <div class="col-md-9">
-        <input type="text" class="form-control" name="innova_activity_description" id="activity_description" data-ng-model="activityCtrl.activity.description" />
+        <textarea data-ui-tinymce="activityCtrl.tinymceOptions" class="form-control" name="innova_activity_description" id="activity_description" data-ng-model="activityCtrl.activity.description"></textarea>
     </div>
 </div>
