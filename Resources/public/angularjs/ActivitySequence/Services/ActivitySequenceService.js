@@ -40,6 +40,7 @@
                 
                 removeActivity: function (sequence, activity) {
                     var deferred = $q.defer();
+                    var that = this;
                     
                     LoaderService.startRequest();
                     
@@ -50,6 +51,7 @@
                         }))
                         .success(function (response) {
                             sequence.activities.splice(sequence.activities.indexOf(activity), 1);
+                            that.updateActivitiesOrder(sequence);
                             LoaderService.endRequest();
                             
                             deferred.resolve(response.data);
