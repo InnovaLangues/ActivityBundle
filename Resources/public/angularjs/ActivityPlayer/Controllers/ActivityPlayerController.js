@@ -8,7 +8,7 @@
 
             this.view = 'properties';
 
-            this.activity = {};
+            this.sequence = {};
 
             // Tiny MCE options
             this.tinymceOptions = {

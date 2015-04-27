@@ -37,6 +37,31 @@
 
                     return deferred.promise;
                 },
+                
+                removeActivity: function (sequence, activity) {
+                    var deferred = $q.defer();
+                    
+                    LoaderService.startRequest();
+                    
+                    $http
+                        .post(Routing.generate('innova_activity_sequence_remove_activity', {
+                            activitySequenceId: sequence.id,
+                            activityId: activity.id
+                        }))
+                        .success(function (response) {
+                            sequence.activities.splice(sequence.activities.indexOf(activity), 1);
+                            LoaderService.endRequest();
+                            
+                            deferred.resolve(response.data);
+                        })
+                        .error(function (response) {
+                            LoaderService.endRequest();
+                    
+                            deferred.reject(response);
+                        });
+                        
+                        return deferred.promise;
+                },
 
                 addActivity: function (sequence) {
                     var deferred = $q.defer();

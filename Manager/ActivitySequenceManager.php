@@ -37,4 +37,17 @@ class ActivitySequenceManager
         
         return $this;
     }
+    
+    public function removeActivity($activitySequenceId, $activityId)
+    {
+        $activity = $this->em->getRepository('InnovaActivityBundle:Activity')->find($activityId);
+        $activitySequence = $this->em->getRepository('InnovaActivityBundle:ActivitySequence')->find($activitySequenceId);
+        
+        $activitySequence->removeActivity($activity);
+        $this->em->persist($activitySequence);
+        
+        $this->em->flush();
+        
+        return $this;
+    }
 }

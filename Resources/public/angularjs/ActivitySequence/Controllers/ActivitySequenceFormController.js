@@ -77,7 +77,8 @@
 
             this.removeActivity = function (activity) {
                 if (false !== this.sequence.activities.indexOf(activity)) {
-                    this.sequence.activities.splice(this.sequence.activities.indexOf(activity), 1);
+                //    this.sequence.activities.splice(this.sequence.activities.indexOf(activity), 1);
+                    ActivitySequenceService.removeActivity(this.sequence, activity);
                     this.updateActivitiesOrder();
                 }
                 // Recalculate order of activities

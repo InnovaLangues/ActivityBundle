@@ -173,4 +173,27 @@ class ActivitySequenceController
 
         return new JsonResponse($activitySequence);
     }
+
+    /**
+     * Remove an Activity in an ActivitySequence
+     *
+     * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
+     * @param  \Innova\ActivityBundle\Entity\Activity                           $activity
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
+     * @Route(
+     *      "/{activitySequenceId}/{activityId}",
+     *      name    = "innova_activity_sequence_remove_activity",
+     *      options = {"expose" = true}
+     * )
+     * @Method("POST")
+     */
+    public function removeActivityAction(ActivitySequence $activitySequence, $activity)
+    {
+        $this->activitySequenceManager->removeActivity($activitySequence->getId(), $activity->getId());
+
+        return new JsonResponse($activitySequence);
+    }
 }
