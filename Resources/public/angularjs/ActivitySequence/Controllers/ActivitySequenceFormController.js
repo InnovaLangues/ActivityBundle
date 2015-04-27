@@ -24,6 +24,7 @@
             this.currentActivity = {};
 
             this.sortableOptions = {
+                placeholder: "placeholder",
                 stop: function (e, ui) {
                    this.updateActivitiesOrder();
                 }.bind(this),

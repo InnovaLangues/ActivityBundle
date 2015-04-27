@@ -16,6 +16,17 @@
     margin: 0;
 }
 
+.placeholder {
+    display: inline-block;
+    float: left;
+    margin: 5px;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    border: 2px dotted #428BCA;
+    border-radius: 4px;
+}
+
 .activity-list,
 .activity-add,
 .activity-remove,
