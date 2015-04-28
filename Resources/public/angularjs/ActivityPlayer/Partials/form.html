@@ -1,5 +1,29 @@
 <div class="panel">
-    {{ activityPlayerCtrl }}
-    
-    Test
+    <!--   {{ activityPlayerCtrl }} -->
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <span>{{ activityPlayerCtrl.sequence.name}}</span>
+                    <span> - {{ activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].name }}</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="panel-body" data-ng-include="activityPlayerCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityPlayer/Partials/form-activity.html'"></div>
+
+    <nav class="navbar navbar-default navbar-foot">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button data-ng-click="activityPlayerCtrl.next()" class="btn btn-primary btn-save">
+                        <span>{{ 'next' | trans:{}:'activity_editor' }}</span>
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </div>

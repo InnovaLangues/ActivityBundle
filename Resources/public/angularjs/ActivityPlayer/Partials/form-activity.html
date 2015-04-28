@@ -1,0 +1,85 @@
+<!--<div class="panel-body">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                {{ 'question' | trans:{}:'activity_editor' }}
+            </h4>
+        </div>
+        <div class="panel-body">
+            <textarea data-ng-model="activityCtrl.activity.question" class="form-control" placeholder="Question" ></textarea>
+        </div>
+    </div>
+</div>-->
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{ 'question' | trans:{}:'activity_editor' }}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <span>{{ activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].question}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{ 'contents' | trans:{}:'activity_editor' }}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li data-ng-repeat="content in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].contents">{{ content.media}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{ 'instructions' | trans:{}:'activity_editor' }}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li data-ng-repeat="instruction in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].instructions">{{ instruction.media}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{ 'choices' | trans:{}:'activity_editor' }}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <!--    {{ macros.orderRandomly(activity.type.choices, activity.type.randomlyOrdered, activity.typeAvailable)}} -->
+                        <li data-ng-repeat="choice in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].type.choices">{{ choice.media}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default" data-ng-if="activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].functionalInstructions.length !== 0">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{ 'functional_instructions' | trans:{}:'activity_editor' }}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <!--    {{ macros.orderRandomly(activity.type.choices, activity.type.randomlyOrdered, activity.typeAvailable)}} -->
+                        <li data-ng-repeat="functionalInstruction in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].functionalInstructions">{{ functionalInstruction.media}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

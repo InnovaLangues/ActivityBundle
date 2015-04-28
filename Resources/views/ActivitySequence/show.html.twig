@@ -11,9 +11,6 @@
 
 {% block content %}
     <div class="activity-player" data-ng-app="ActivitySequenceApp" data-ng-cloak="">
-        {% for activity in _resource.activities %}
-            {{ activity.name }}
-        {% endfor %}
         <activity-player-form data-sequence="{{ _resource | json_encode | raw | escape }}"></activity-player-form>
     </div>
 {% endblock %}
