@@ -5,23 +5,23 @@
 (function () {
     'use strict';
 
-    angular.module('ActivityPlayer').directive('activityPlayer', [
+    angular.module('ActivityPlayer').directive('activityPlayerForm', [
         function () {
             return {
                 restrict: 'E',
                 replace: true,
-                controller: 'ActivityPlayerController',
+                controller: 'ActivityPlayerFormController',
                 controllerAs: 'activityPlayerCtrl',
                 templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityPlayer/Partials/form.html',
                 scope: {
-                    activity: '@'
+                    sequence: '@'
                 },
                 link: function (scope, element, attr, activityPlayerCtrl) {
-                    scope.$watch('activity', function (newValue) {
+                    scope.$watch('sequence', function (newValue) {
                         if (typeof newValue === 'string') {
-                            activityPlayerCtrl.activity = JSON.parse(newValue);
+                            activityPlayerCtrl.sequence = JSON.parse(newValue);
                         } else {
-                            activityPlayerCtrl.activity = newValue;
+                            activityPlayerCtrl.sequence = newValue;
                         }
                     });
                 }

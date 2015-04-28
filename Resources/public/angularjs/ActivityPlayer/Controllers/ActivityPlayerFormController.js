@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ActivityPlayer').controller('ActivityPlayerController', [
+    angular.module('ActivityPlayer').controller('ActivityPlayerFormController', [
         'ActivityPlayerService',
         function (ActivityPlayerService) {
             this.webDir = ActivityEditorApp.webDir;

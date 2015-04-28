@@ -84,7 +84,7 @@
                             </li>
                         </ul>
                     <div class="col-md-1">
-                        <button data-ng-click="activityCtrl.addFunctionalInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+                        <button data-ng-if="activityCtrl.activity.functionalInstructions.length === 0" data-ng-click="activityCtrl.addFunctionalInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
                     </div>
                 </div>
             </div>
