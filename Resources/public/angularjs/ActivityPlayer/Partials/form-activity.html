@@ -62,8 +62,11 @@
                 </div>
                 <div class="panel-body">
                     <ul class="list-unstyled">
-                        <!--    {{ macros.orderRandomly(activity.type.choices, activity.type.randomlyOrdered, activity.typeAvailable)}} -->
-                        <li data-ng-repeat="choice in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].type.choices">{{ choice.media}}</li>
+                        <li data-ng-repeat="choice in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].type.choices">
+                            <input name="choices[]" type="checkbox" id="choice-{{ choice.id }}" value="{{ choice.id }}" data-ng-if="activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].typeAvailable.name === 'MultipleChoiceType'" />
+                            <input name="choices[]" type="radio" id="choice-{{ choice.id }}" value="{{ choice.id }}" data-ng-if="activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].typeAvailable.name !== 'MultipleChoiceType'" />
+                            <span data-ng-bind-html="choice.media"></span>
+                        </li>
                     </ul>
                 </div>
             </div>
