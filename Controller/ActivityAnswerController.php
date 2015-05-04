@@ -3,6 +3,7 @@
 namespace Innova\ActivityBundle\Controller;
 
 use Innova\ActivityBundle\Entity\Activity;
+use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Manager\ActivityAnswerManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,6 +26,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  *      name = "innova_activity_answer"
  * )
  * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
+ * @ParamConverter("choice", class="InnovaActivityBundle:ActivityProperty\ChoiceProperty", options = { "mapping" : {"answerId" : "id"} })
 
  */
 class ActivityAnswerController
@@ -65,26 +67,33 @@ class ActivityAnswerController
     }
     
     /**
-     * Display an Activity
-     *
-     * @param  \Innova\ActivityBundle\Entity\Activity                  $activity
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @return array
-     *
+     * Save an answer
      * @Route(
-     *      "/{activityId}",
+     *      "/{activityId}/{answerId}",
      *      name="innova_answer_create",
+     *      options = { "expose" = true }
      * )
      * @Method("POST")
      */
-    public function answerCreateAction(Activity $activity, Request $request)
+    public function answerCreateAction(Activity $activity, ChoiceProperty $choice)
     {
-        $choiceIds = $request->request->get("choices");
+        $response = array();
+        try {
+            // Create the new Activity
+            $this->activityAnswerManager->create($activity, $choice);
         
-        foreach ($choiceIds as $choiceId) {
-            $this->activityAnswerManager->create($activity, $choiceId);
+            // Build response object
+            $response['status'] = 'OK';
+            $response['messages'] = array(
+                'activity_create_success',
+            );
+        } catch (\Exception $e) {
+            $response['status'] = 'ERROR';
+            $response['messages'] = array(
+                $e->getMessage(),
+            );
         }
         
-        return new RedirectResponse($this->router->generate("innova_activity_open", array("activityId" => $activity->getId())));
+        return new JsonResponse($response);
     }
 }

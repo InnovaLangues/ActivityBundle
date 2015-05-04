@@ -7,14 +7,15 @@
         'LoaderService',
         function ($http, $q, LoaderService) {
             return {
-                type: function (activityId, type) {
+                saveAnswer: function (activityId, answerId) {
                     LoaderService.startRequest();
                     
                     var deferred = $q.defer();
+                    
                     $http
-                        .post(Routing.generate('innova_activity_type', {
+                        .post(Routing.generate('innova_answer_create', { 
                             activityId: activityId,
-                            typeAvailableId: type.id
+                            answerId: answerId
                         }))
                         .success(function (response) {
                             LoaderService.endRequest();
@@ -26,7 +27,7 @@
 
                             deferred.reject(response);
                         });
-
+                    
                     return deferred.promise;
                 }
             };

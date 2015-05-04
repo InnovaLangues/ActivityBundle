@@ -12,13 +12,17 @@
         </div>
     </nav>
 
-    <div class="panel-body" data-ng-include="activityPlayerCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityPlayer/Partials/form-activity.html'"></div>
+    <div class="panel-body" data-ng-include="activityPlayerCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityPlayer/Partials/form-activity-' + activityPlayerCtrl.currentFile + '.html'"></div>
 
     <nav class="navbar navbar-default navbar-foot">
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <button data-ng-click="activityPlayerCtrl.next()" class="btn btn-primary btn-save">
+                    <button data-ng-if="activityPlayerCtrl.currentFile === 'edit'" data-ng-click="activityPlayerCtrl.save()" class="btn btn-primary btn-save">
+                        <span>{{ 'next' | trans:{}:'activity_editor' }}</span>
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                    <button data-ng-if="activityPlayerCtrl.currentFile === 'feedback'" data-ng-click="activityPlayerCtrl.next()" class="btn btn-primary btn-save">
                         <span>{{ 'next' | trans:{}:'activity_editor' }}</span>
                         <i class="fa fa-arrow-right"></i>
                     </button>

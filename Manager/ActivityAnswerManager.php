@@ -4,6 +4,7 @@ namespace Innova\ActivityBundle\Manager;
 
 use Innova\ActivityBundle\Entity\ActivityAnswer;
 use Innova\ActivityBundle\Entity\Activity;
+use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -25,9 +26,9 @@ class ActivityAnswerManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    public function create(Activity $activity, $choiceId)
+    public function create(Activity $activity, ChoiceProperty $choice)
     {
-        $choice = $this->em->getRepository("InnovaActivityBundle:ActivityProperty\ChoiceProperty")->find($choiceId);
+        //$choice = $this->em->getRepository("InnovaActivityBundle:ActivityProperty\ChoiceProperty")->find($choiceId);
                 
         $activityAnswer = new ActivityAnswer();
         

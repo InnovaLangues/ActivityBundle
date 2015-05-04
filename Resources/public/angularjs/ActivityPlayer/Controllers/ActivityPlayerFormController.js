@@ -9,8 +9,37 @@
             this.view = 'properties';
 
             this.sequence = {};
+            this.currentFile = 'edit';
             
             this.iterator = 0;
+            
+            this.answers = [];
+            
+            this.inputs = [];
+            this.input = null;
+            
+            this.checkInputs = function() {
+                console.log(this.inputs);
+                this.answers = [];
+                for (var i=0; i<this.sequence.activities[this.iterator].type.choices.length; i++) {
+                    this.answers.push({
+                        id: this.sequence.activities[this.iterator].type.choices[i].id,
+                        checked: this.inputs[i]
+                    });
+                }
+                
+                console.log(this.answers);
+            };
+            
+            this.radioInputs = function(choice) {
+                console.log(choice);
+                this.answers = [];
+                this.answers.push({
+                    id: choice,
+                    checked: true
+                });
+                console.log(this.answers);
+            };
             
             this.randomSort = function(choice) {
                 this.value = null;
@@ -23,8 +52,22 @@
                 return this.value;
             }.bind(this);
             
+            this.save = function () {
+                for (var i=0; i<this.answers.length; i++) {
+                    console.log(this.answers[0].checked);
+                    if (this.answers[i].checked === true) {
+                        ActivityPlayerService.saveAnswer(this.sequence.activities[this.iterator].id, this.answers[0].id);
+                        console.log("save");
+                    }
+                }
+                this.currentFile = 'feedback';
+            };
+            
             this.next = function () {
                 this.iterator = this.iterator + 1;
+                this.answers = [];
+                this.inputs = [];
+                this.currentFile = 'edit';
             };
         }
     ]);
