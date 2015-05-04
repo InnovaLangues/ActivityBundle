@@ -31,6 +31,39 @@
                 console.log(this.answers);
             };
             
+            this.isChecked = function(choiceId) {
+                var checked = false;
+                for (var i=0; i<this.answers.length; i++) {
+                    if (this.answers[i].id === choiceId && this.answers[i].checked) {
+                        checked = true;
+                    }
+                }
+                
+                return checked;
+            };
+            
+            this.isCorrect = function(correctAnswer, checked) {
+                if (correctAnswer === "correct" && checked) {
+                    return "success";
+                }
+                else if (correctAnswer === "correct" && !checked) {
+                    return "warning";
+                }
+                else if (correctAnswer === "wrong" && checked) {
+                    return "danger";
+                }
+                else {
+                    return "";
+                }
+            };
+            
+            this.next = function () {
+                this.iterator = this.iterator + 1;
+                this.answers = [];
+                this.inputs = [];
+                this.currentFile = 'edit';
+            };
+            
             this.radioInputs = function(choice) {
                 console.log(choice);
                 this.answers = [];
@@ -61,13 +94,6 @@
                     }
                 }
                 this.currentFile = 'feedback';
-            };
-            
-            this.next = function () {
-                this.iterator = this.iterator + 1;
-                this.answers = [];
-                this.inputs = [];
-                this.currentFile = 'edit';
             };
         }
     ]);
