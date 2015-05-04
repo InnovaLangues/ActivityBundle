@@ -1,0 +1,10 @@
+<div class="panel">
+    <h1>{{ activityPlayerCtrl.sequence.name}}</h1>
+    <span>description</span>
+    <ul>
+        <li data-ng-repeat="activity in activityPlayerCtrl.sequence.activities"><a href="#" data-ng-click="activityPlayerCtrl.jumpTo($index)">{{ $index }}. {{ activity.name}}</a></li>
+    </ul>
+    <button data-ng-click="activityPlayerCtrl.start()" class="btn btn-primary btn-save">
+        <span>{{ 'start' | trans:{}:'activity_editor' }}</span>
+    </button>
+</div>

@@ -9,7 +9,7 @@
             this.view = 'properties';
 
             this.sequence = {};
-            this.currentFile = 'edit';
+            this.currentFile = 'intro';
             
             this.iterator = 0;
             
@@ -57,6 +57,11 @@
                 }
             };
             
+            this.jumpTo = function (index) {
+                this.iterator = index;
+                this.currentFile = 'edit';
+            };
+            
             this.next = function () {
                 this.iterator = this.iterator + 1;
                 this.answers = [];
@@ -94,6 +99,10 @@
                     }
                 }
                 this.currentFile = 'feedback';
+            };
+            
+            this.start = function () {
+                this.currentFile = 'edit';
             };
         }
     ]);
