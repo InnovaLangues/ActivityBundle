@@ -129,6 +129,7 @@ class Activity implements \JsonSerializable
     
     public function __construct()
     {
+        $this->questions = new ArrayCollection();
         $this->instructions = new ArrayCollection();
         $this->contents = new ArrayCollection();
         $this->functionalInstructions = new ArrayCollection();
