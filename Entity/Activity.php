@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
+use Innova\ActivityBundle\Entity\ActivityProperty\QuestionProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\ContentProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\FunctionalInstructionProperty;
@@ -52,12 +53,9 @@ class Activity implements \JsonSerializable
     protected $description;
     
     /**
-     * Question of the activity
-     * @var string
-     * 
-     * @ORM\Column(name="question", type="text", nullable=true)
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\QuestionProperty", mappedBy="activity", cascade={"persist","remove"})
      */
-    protected $question;
+    protected $questions;
 
     /**
      * ActivityAvailable used to retrieve the correct ActivityType Entity when the Activity is loaded (using Doctrine Event Listener)
@@ -212,20 +210,48 @@ class Activity implements \JsonSerializable
         return $this;
     }
     
-    /**
-     * Get question
-     */
-    public function getQuestion()
+    public function getQuestions()
     {
-        return $this->question;
+        return $this->questions;
     }
-    /**
-     * @param string $question
-     * @return \Innova\ActivityBundle\Entity\Activity
-     */
-    public function setQuestion($question)
+    
+    public function setQuestions(ArrayCollection $questions)
     {
-        $this->question = $question;
+        foreach ($questions as $question) {
+            $this->addQuestion($question);
+        }
+        
+        return $this;
+    }
+    
+    public function addQuestion(QuestionProperty $question)
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions->add($question);
+            $question->setActivity($this);
+        }
+        
+        return $this;
+    }
+    
+    public function addQuestions(ArrayCollection $questions)
+    {
+        foreach ($questions as $question) {
+            if (!$this->questions->contains($question)) {
+                $this->questions->add($question);
+                $question->setActivity($this);
+            }
+        }
+        
+        return $this;
+    }
+    
+    public function removeQuestion(QuestionProperty $question)
+    {
+        if ($this->questions->contains($question)) {
+            $this->questions->removeElement($question);
+            $question->setActivity(null);
+        }
         
         return $this;
     }
@@ -488,7 +514,7 @@ class Activity implements \JsonSerializable
             'name'          => $this->name,
             'typeAvailable' => $this->typeAvailable,
             'mediaType'     => $this->mediaType,
-            'question'      => $this->question,
+            'questions'     => $this->questions->toArray(),
             'description'   => $this->description,
             'instructions'  => $this->instructions->toArray(),
             'contents'      => $this->contents->toArray(),

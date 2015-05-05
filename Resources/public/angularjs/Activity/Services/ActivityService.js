@@ -58,7 +58,7 @@
                         var innova_activity = {
                             name:activity.name,
                             description:activity.description,
-                            question:activity.question,
+                            questions: [],
                             mediaType:activity.mediaType.id,
                             contents: [],
                             instructions: [],
@@ -68,6 +68,15 @@
                                 randomlyOrdered: activity.type.randomlyOrdered
                             }
                         };
+        
+                        for (var question in activity.questions) {
+                            if (activity.questions.hasOwnProperty(question)) {
+                                innova_activity.questions.push({
+                                    media:activity.questions[question].media,
+                                    position: activity.questions[question].position
+                                });
+                            }
+                        }
         
                         for (var instruction in activity.instructions) {
                             if (activity.instructions.hasOwnProperty(instruction)) {

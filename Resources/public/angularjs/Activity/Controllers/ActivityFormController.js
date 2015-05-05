@@ -78,6 +78,20 @@
                     j++;
                 }
             };
+            
+            this.sortableQuestionsOptions = {
+                stop: function (e, ui) {
+                    this.updateQuestionsOrder();
+                }.bind(this)
+            };
+            
+            this.updateQuestionsOrder = function () {
+                var j=1;
+                for (var i=0; i<this.activity.questions.length; i++) {
+                    this.activity.questions[i].position = j;
+                    j++;
+                }
+            };
 
             this.update = function () {
                 ActivityService.update(this.activity);
@@ -85,6 +99,22 @@
 
             this.changeView = function (newView) {
                 this.view = newView;
+            };
+            
+            this.addQuestion = function () {
+                this.activity.questions.push({
+                    id: 1 ,
+                    media: "",
+                    position: this.activity.questions.length + 1
+                });
+            };
+            
+            this.removeQuestion = function (question) {
+                for (var i=0; i<this.activity.questions.length; i++) {
+                    if (this.activity.questions[i] === question) {
+                        this.activity.questions.splice(i, 1);
+                    }
+                }
             };
             
             this.addInstruction = function () {

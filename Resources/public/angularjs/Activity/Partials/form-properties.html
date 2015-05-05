@@ -2,14 +2,28 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                {{ 'question' | trans:{}:'activity_editor' }}
+                {{ 'instructions' | trans:{}:'activity_editor' }}
             </h4>
         </div>
         <div class="panel-body">
-            <textarea data-ng-model="activityCtrl.activity.question" class="form-control" placeholder="Question" ></textarea>
+            <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions">
+                <li class="row list-group-item draggable-item" data-ng-repeat="instruction in activityCtrl.activity.instructions| orderBy:'position'" >
+                    <span class="myHandle btn btn-default fa fa-arrows"></span>
+                    <span class="col-md-10">
+                        <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" ></div>
+                    </span>
+                    <span class="col-md-1">
+                        <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
+                        <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                    </span>
+                </li>
+            </ul>
+            <div class="col-md-1">
+                <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+            </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -18,23 +32,23 @@
                         {{ 'contents' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
-                    <div class="panel-body">
-                            <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents">
-                                <li class="row list-group-item draggable-item" data-ng-repeat="content in activityCtrl.activity.contents | orderBy: 'position'">
-                                    <span class="myHandle btn btn-default fa fa-arrows"></span>
-                                    <span class="col-md-10">
-                                        <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" ></div>
-                                    </span>
-                                    <span class="col-md-1">
-                                        <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
-                                        <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                                    </span>
-                                </li>
-                            </ul>
-                        <div class="col-md-1">
-                            <button data-ng-click="activityCtrl.addContent()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
-                        </div>
+                <div class="panel-body">
+                    <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents">
+                        <li class="row list-group-item draggable-item" data-ng-repeat="content in activityCtrl.activity.contents| orderBy: 'position'">
+                            <span class="myHandle btn btn-default fa fa-arrows"></span>
+                            <span class="col-md-10">
+                                <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" ></div>
+                            </span>
+                            <span class="col-md-1">
+                                <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
+                                <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="col-md-1">
+                        <button data-ng-click="activityCtrl.addContent()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -42,24 +56,24 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        {{ 'instructions' | trans:{}:'activity_editor' }}
+                        {{ 'question' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
                 <div class="panel-body">
-                        <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableInstructionsOptions" data-ng-model="activityCtrl.activity.instructions">
-                            <li class="row list-group-item draggable-item" data-ng-repeat="instruction in activityCtrl.activity.instructions | orderBy:'position'" >
-                                <span class="myHandle btn btn-default fa fa-arrows"></span>
-                                <span class="col-md-10">
-                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/instruction-form.html'" ></div>
-                                </span>
-                                <span class="col-md-1">
-                                    <button data-ng-click="activityCtrl.removeInstruction(instruction)" class="btn btn-danger fa fa-trash"></button>
-                                    <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                                </span>
-                            </li>
-                        </ul>
+                    <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableQuestionsOptions" data-ng-model="activityCtrl.activity.questions">
+                        <li class="row list-group-item draggable-item" data-ng-repeat="question in activityCtrl.activity.questions| orderBy: 'position'">
+                            <span class="myHandle btn btn-default fa fa-arrows"></span>
+                            <span class="col-md-10">
+                                <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/question-form.html'" ></div>
+                            </span>
+                            <span class="col-md-1">
+                                <button data-ng-click="activityCtrl.removeQuestion(question)" class="btn btn-danger fa fa-trash"></button>
+                                <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                            </span>
+                        </li>
+                    </ul>
                     <div class="col-md-1">
-                        <button data-ng-click="activityCtrl.addInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+                        <button data-ng-click="activityCtrl.addQuestion()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
                     </div>
                 </div>
             </div>
@@ -71,18 +85,18 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                        <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableFunctionalInstructionsOptions" data-ng-model="activityCtrl.activity.functionalInstructions">
-                            <li class="row list-group-item draggable-item" data-ng-repeat="functionalInstruction in activityCtrl.activity.functionalInstructions | orderBy:'position'" >
-                                <span class="myHandle btn btn-default fa fa-arrows"></span>
-                                <span class="col-md-10">
-                                    <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/functional-instruction-form.html'" ></div>
-                                </span>
-                                <span class="col-md-1">
-                                    <button data-ng-click="activityCtrl.removeFunctionalInstruction(functionalInstruction)" class="btn btn-danger fa fa-trash"></button>
-                                    <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                                </span>
-                            </li>
-                        </ul>
+                    <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableFunctionalInstructionsOptions" data-ng-model="activityCtrl.activity.functionalInstructions">
+                        <li class="row list-group-item draggable-item" data-ng-repeat="functionalInstruction in activityCtrl.activity.functionalInstructions| orderBy:'position'" >
+                            <span class="myHandle btn btn-default fa fa-arrows"></span>
+                            <span class="col-md-10">
+                                <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/functional-instruction-form.html'" ></div>
+                            </span>
+                            <span class="col-md-1">
+                                <button data-ng-click="activityCtrl.removeFunctionalInstruction(functionalInstruction)" class="btn btn-danger fa fa-trash"></button>
+                                <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                            </span>
+                        </li>
+                    </ul>
                     <div class="col-md-1">
                         <button data-ng-if="activityCtrl.activity.functionalInstructions.length === 0" data-ng-click="activityCtrl.addFunctionalInstruction()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
                     </div>

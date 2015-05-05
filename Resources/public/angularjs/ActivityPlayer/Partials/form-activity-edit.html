@@ -4,11 +4,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        {{ 'question' | trans:{}:'activity_editor' }}
+                        {{ 'instructions' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <span>{{ activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].question}}</span>
+                    <ul>
+                        <li data-ng-repeat="instruction in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].instructions">{{ instruction.media}}</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -32,12 +34,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        {{ 'instructions' | trans:{}:'activity_editor' }}
+                        {{ 'question' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
                 <div class="panel-body">
                     <ul>
-                        <li data-ng-repeat="instruction in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].instructions">{{ instruction.media}}</li>
+                        <li data-ng-repeat="question in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].questions">{{ question.media }}</li>
                     </ul>
                 </div>
             </div>
