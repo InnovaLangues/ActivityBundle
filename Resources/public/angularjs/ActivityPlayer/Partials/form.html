@@ -18,11 +18,10 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <button data-ng-if="activityPlayerCtrl.currentFile === 'edit'" data-ng-click="activityPlayerCtrl.save()" class="btn btn-primary btn-save">
-                        <span>{{ 'next' | trans:{}:'activity_editor' }}</span>
-                        <i class="fa fa-arrow-right"></i>
+                    <button data-ng-if="activityPlayerCtrl.currentAction === 'edit'" data-ng-click="activityPlayerCtrl.save()" class="btn btn-primary btn-save">
+                        <span>{{ 'submit' | trans:{}:'activity_editor' }}</span>
                     </button>
-                    <button data-ng-if="activityPlayerCtrl.currentFile === 'feedback'" data-ng-click="activityPlayerCtrl.next()" class="btn btn-primary btn-save">
+                    <button data-ng-if="activityPlayerCtrl.currentAction === 'feedback'" data-ng-click="activityPlayerCtrl.next()" class="btn btn-primary btn-save">
                         <span>{{ 'next' | trans:{}:'activity_editor' }}</span>
                         <i class="fa fa-arrow-right"></i>
                     </button>

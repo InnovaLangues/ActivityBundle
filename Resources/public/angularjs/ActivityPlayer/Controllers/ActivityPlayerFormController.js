@@ -10,6 +10,7 @@
 
             this.sequence = {};
             this.currentFile = 'intro';
+            this.currentAction = '';
             
             this.iterator = 0;
             
@@ -42,15 +43,24 @@
                 return checked;
             };
             
-            this.isCorrect = function(correctAnswer, checked) {
-                if (correctAnswer === "correct" && checked) {
-                    return "success";
+            this.isCorrect = function(correctAnswer, choiceId) {
+                var checked = false;
+                for (var i=0; i<this.answers.length; i++) {
+                    if (this.answers[i].id === choiceId) {
+                        checked = this.answers[i].checked;
+                    }
                 }
-                else if (correctAnswer === "correct" && !checked) {
-                    return "warning";
+                
+                if (correctAnswer === "correct") {
+                    if (checked) {
+                        return "fa fa-check check-blue";
+                    }
+                    else {
+                        return "fa fa-check";
+                    }
                 }
-                else if (correctAnswer === "wrong" && checked) {
-                    return "danger";
+                else if (checked && correctAnswer !== "correct") {
+                    return "fa fa-close close-red";
                 }
                 else {
                     return "";
@@ -60,13 +70,14 @@
             this.jumpTo = function (index) {
                 this.iterator = index;
                 this.currentFile = 'edit';
+                this.currentAction = 'edit';
             };
             
             this.next = function () {
                 this.iterator = this.iterator + 1;
                 this.answers = [];
                 this.inputs = [];
-                this.currentFile = 'edit';
+                this.currentAction = 'edit';
             };
             
             this.radioInputs = function(choice) {
@@ -98,10 +109,11 @@
                         console.log("save");
                     }
                 }
-                this.currentFile = 'feedback';
+                this.currentAction = 'feedback';
             };
             
             this.start = function () {
+                this.currentAction = 'edit';
                 this.currentFile = 'edit';
             };
         }
