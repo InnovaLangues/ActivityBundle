@@ -21,6 +21,11 @@ services:
         tags:
           - { name: form.type, alias: innova_activity_prop_question }
 
+    innova_activity.form.type.complementary_info_property:
+        class: %innova_activity.form.type.complementary_info_property.class%
+        tags:
+          - { name: form.type, alias: innova_activity_prop_complementary_info }
+
     innova_activity.form.type.instruction_property:
         class: %innova_activity.form.type.instruction_property.class%
         tags:

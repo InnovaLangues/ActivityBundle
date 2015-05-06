@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Innova\ActivityBundle\Entity\ActivityAvailable\TypeAvailable;
 use Innova\ActivityBundle\Entity\ActivityType\AbstractType;
 use Innova\ActivityBundle\Entity\ActivityProperty\QuestionProperty;
+use Innova\ActivityBundle\Entity\ActivityProperty\ComplementaryInfoProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\ContentProperty;
 use Innova\ActivityBundle\Entity\ActivityProperty\FunctionalInstructionProperty;
@@ -79,6 +80,11 @@ class Activity implements \JsonSerializable
     protected $type;
 
     /**
+     * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\ComplementaryInfoProperty", mappedBy="activity", cascade={"persist","remove"})
+     **/
+    protected $complementaryInfos;
+
+    /**
      * @ORM\OneToMany(targetEntity="Innova\ActivityBundle\Entity\ActivityProperty\InstructionProperty", mappedBy="activity", cascade={"persist","remove"})
      **/
     protected $instructions;
@@ -129,6 +135,7 @@ class Activity implements \JsonSerializable
     
     public function __construct()
     {
+        $this->complementaryInfos = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->instructions = new ArrayCollection();
         $this->contents = new ArrayCollection();
@@ -276,6 +283,52 @@ class Activity implements \JsonSerializable
     {
         $this->type = $type;
 
+        return $this;
+    }
+    
+    public function getComplementaryInfos()
+    {
+        return $this->complementaryInfos;
+    }
+    
+    public function setComplementaryInfos(ArrayCollection $complementaryInfos)
+    {
+        foreach ($complementaryInfos as $complementaryInfo) {
+            $this->addComplementaryInfo($complementaryInfo);
+        }
+        
+        return $this;
+    }
+    
+    public function addComplementaryInfo(ComplementaryInfoProperty $complementaryInfo)
+    {
+        if (!$this->complementaryInfos->contains($complementaryInfo)) {
+            $this->complementaryInfos->add($complementaryInfo);
+            $complementaryInfo->setActivity($this);
+        }
+        
+        return $this;
+    }
+    
+    public function addComplementaryInfos(ArrayCollection $complementaryInfos)
+    {
+        foreach ($complementaryInfos as $complementaryInfo) {
+            if (!$this->complementaryInfos->contains($complementaryInfo)) {
+                $this->complementaryInfos->add($complementaryInfo);
+                $complementaryInfo->setActivity($this);
+            }
+        }
+        
+        return $this;
+    }
+    
+    public function removeComplementaryInfo(ComplementaryInfoProperty $complementaryInfo)
+    {
+        if ($this->complementaryInfos->contains($complementaryInfo)) {
+            $this->complementaryInfos->removeElement($complementaryInfo);
+            $complementaryInfo->setActivity(null);
+        }
+        
         return $this;
     }
     
@@ -517,6 +570,7 @@ class Activity implements \JsonSerializable
             'mediaType'     => $this->mediaType,
             'questions'     => $this->questions->toArray(),
             'description'   => $this->description,
+            'complementaryInfos' => $this->complementaryInfos->toArray(),
             'instructions'  => $this->instructions->toArray(),
             'contents'      => $this->contents->toArray(),
             'functionalInstructions' => $this->functionalInstructions->toArray(),

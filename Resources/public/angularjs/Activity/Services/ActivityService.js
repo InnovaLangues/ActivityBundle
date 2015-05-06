@@ -62,6 +62,7 @@
                             mediaType:activity.mediaType.id,
                             contents: [],
                             instructions: [],
+                            complementaryInfos: [],
                             functionalInstructions: [],
                             type: {
                                 choices: [],
@@ -74,6 +75,15 @@
                                 innova_activity.questions.push({
                                     media:activity.questions[question].media,
                                     position: activity.questions[question].position
+                                });
+                            }
+                        }
+        
+                        for (var complementaryInfo in activity.complementaryInfos) {
+                            if (activity.complementaryInfos.hasOwnProperty(complementaryInfo)) {
+                                innova_activity.complementaryInfos.push({
+                                    media:activity.complementaryInfos[complementaryInfo].media,
+                                    position: activity.complementaryInfos[complementaryInfo].position
                                 });
                             }
                         }

@@ -10,6 +10,7 @@ add_activity : Ajouter une activité
 
 cancel: Annuler
 choices: Choix
+complementary_infos: Informations complémentaires
 confirm_delete_choice: Êtes-vous sûr de vouloir supprimer ce choix?
 contents: Objets
 correct: Correcte

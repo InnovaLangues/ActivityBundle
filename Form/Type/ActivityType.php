@@ -31,6 +31,12 @@ class ActivityType extends AbstractType
             'allow_delete' => true,
             'by_reference' => false,
         ));
+        $builder->add('complementaryInfos', 'collection', array (
+            'type'         => 'innova_activity_prop_complementary_info',
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+        ));
         $builder->add('instructions', 'collection', array (
             'type'         => 'innova_activity_prop_instruction',
             'allow_add'    => true,

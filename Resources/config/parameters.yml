@@ -6,6 +6,7 @@ parameters:
     innova_activity.form.type.activity_sequence.class:                  Innova\ActivityBundle\Form\Type\ActivitySequenceType
     innova_activity.form.type.activity.class:                           Innova\ActivityBundle\Form\Type\ActivityType
     innova_activity.form.type.question_property.class:                  Innova\ActivityBundle\Form\Type\ActivityProperty\QuestionPropertyType
+    innova_activity.form.type.complementary_info_property.class:        Innova\ActivityBundle\Form\Type\ActivityProperty\ComplementaryInfoPropertyType
     innova_activity.form.type.instruction_property.class:               Innova\ActivityBundle\Form\Type\ActivityProperty\InstructionPropertyType
     innova_activity.form.type.functional_instruction_property.class:    Innova\ActivityBundle\Form\Type\ActivityProperty\FunctionalInstructionPropertyType
     innova_activity.form.type.content_property.class:                   Innova\ActivityBundle\Form\Type\ActivityProperty\ContentPropertyType
