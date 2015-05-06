@@ -9,6 +9,14 @@
                     <span> - {{ activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].name }}</span>
                 </div>
             </div>
+            <div class="dots">
+                <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('intro')">
+                    <i class="fa {{ activityPlayerCtrl.isSelectedDot(-1) }}" data-toggle="tooltip" data-container="body" title="Introduction"></i>
+                </a>
+                <a href="#" data-ng-repeat="activity in activityPlayerCtrl.sequence.activities" data-ng-click="activityPlayerCtrl.jumpTo($index)">
+                    <i class="fa {{ activityPlayerCtrl.isSelectedDot($index) }}" data-toggle="tooltip" data-container="body" title="{{ activity.name }}"></i>
+                </a>
+            </div>
         </div>
     </nav>
 

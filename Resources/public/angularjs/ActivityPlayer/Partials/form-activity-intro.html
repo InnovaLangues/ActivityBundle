@@ -1,10 +1,13 @@
 <div class="panel">
-    <h1>{{ activityPlayerCtrl.sequence.name}}</h1>
-    <span>description</span>
-    <ul>
-        <li data-ng-repeat="activity in activityPlayerCtrl.sequence.activities"><a href="#" data-ng-click="activityPlayerCtrl.jumpTo($index)">{{ $index }}. {{ activity.name}}</a></li>
-    </ul>
-    <button data-ng-click="activityPlayerCtrl.start()" class="btn btn-primary btn-save">
-        <span>{{ 'start' | trans:{}:'activity_editor' }}</span>
-    </button>
+    <div class="activity-intro">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                {{ 'end_sequence' | trans:{}:'activity_editor' }}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <button data-ng-click="activityPlayerCtrl.start()" class="btn btn-primary btn-save">
+            <span>{{ 'start' | trans:{}:'activity_editor' }}</span>
+        </button>
+    </div>
 </div>

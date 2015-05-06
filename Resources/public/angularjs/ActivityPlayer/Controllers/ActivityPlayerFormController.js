@@ -67,10 +67,34 @@
                 }
             };
             
+            this.isSelectedDot = function (index) {
+                if (index === -1) {
+                    if (this.currentFile === "intro") {
+                        return "fa-square dot-selected";
+                    }
+                    else {
+                        return "fa-square-o dot-unselected";
+                    }
+                }
+                else if (index === this.iterator && this.currentFile !== "intro") {
+                    return "fa-circle dot-selected";
+                }
+                else {
+                    return "fa-circle-thin dot-unselected";
+                }
+            };
+            
             this.jumpTo = function (index) {
-                this.iterator = index;
-                this.currentFile = 'edit';
-                this.currentAction = 'edit';
+                if (index === "intro") {
+                    this.currentFile = 'intro';
+                    this.iterator = 0;
+                    this.currentAction = '';
+                }
+                else {
+                    this.iterator = index;
+                    this.currentFile = 'edit';
+                    this.currentAction = 'edit';
+                }
             };
             
             this.next = function () {
@@ -81,13 +105,11 @@
             };
             
             this.radioInputs = function(choice) {
-                console.log(choice);
                 this.answers = [];
                 this.answers.push({
                     id: choice,
                     checked: true
                 });
-                console.log(this.answers);
             };
             
             this.randomSort = function(choice) {
@@ -103,10 +125,8 @@
             
             this.save = function () {
                 for (var i=0; i<this.answers.length; i++) {
-                    console.log(this.answers[0].checked);
                     if (this.answers[i].checked === true) {
                         ActivityPlayerService.saveAnswer(this.sequence.activities[this.iterator].id, this.answers[0].id);
-                        console.log("save");
                     }
                 }
                 this.currentAction = 'feedback';
