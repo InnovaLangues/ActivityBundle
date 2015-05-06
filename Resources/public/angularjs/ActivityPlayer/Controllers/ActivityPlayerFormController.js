@@ -74,14 +74,18 @@
                 if (correctAnswer === "correct") {
                     if (checked) {
                         this.correctAnswers.push("correct");
-                        return "fa fa-check check-blue";
+                        return "fa fa-check check-green";
                     }
                     else {
                         this.correctAnswers.push("wrong");
-                        return "fa fa-check";
+                        return "";
                     }
                 }
-                else if (checked && correctAnswer !== "correct") {
+                else if (checked && correctAnswer === "neutral") {
+                    this.correctAnswers.push("correct");
+                    return "fa fa-check check-blue";
+                }
+                else if (checked && correctAnswer === "wrong") {
                         this.correctAnswers.push("wrong");
                     return "fa fa-close close-red";
                 }
