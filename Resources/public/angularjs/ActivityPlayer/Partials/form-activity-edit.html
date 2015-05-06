@@ -72,6 +72,7 @@
                             </span>
                         </li>
                     </ul>
+                    <span data-ng-if="activityPlayerCtrl.currentAction === 'feedback'">{{ activityPlayerCtrl.genericFeedback() | trans:{}:'activity_editor' }}</span>
                 </div>
             </div>
             <div class="panel panel-default" data-ng-if="activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].functionalInstructions.length !== 0">

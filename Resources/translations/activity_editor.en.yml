@@ -5,6 +5,9 @@ activity_type_BooleanChoiceType: True/False
 activity_type_MultipleChoiceType: Multiple choices question
 activity_type_UniqueChoiceType: Unique choice question
 add_activity : Add an activity
+answer_is_correct: Your answer is correct
+answer_is_incorrect: Your answer is incorrect. Click on the icon(s) to get more informations.
+answer_is_partially_correct: Your answer is partially correct. Click on the icon(s) to get more informations.
 
 #c
 

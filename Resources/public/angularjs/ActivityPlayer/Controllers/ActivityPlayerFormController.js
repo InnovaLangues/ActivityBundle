@@ -15,12 +15,12 @@
             this.iterator = 0;
             
             this.answers = [];
+            this.correctAnswers = [];
             
             this.inputs = [];
             this.input = null;
             
             this.checkInputs = function() {
-                console.log(this.inputs);
                 this.answers = [];
                 for (var i=0; i<this.sequence.activities[this.iterator].type.choices.length; i++) {
                     this.answers.push({
@@ -28,8 +28,28 @@
                         checked: this.inputs[i]
                     });
                 }
-                
-                console.log(this.answers);
+            };
+            
+            this.genericFeedback = function() {
+                var correct = false;
+                var wrong = false;
+                for (var i=0; i<this.correctAnswers.length; i++) {
+                    if (this.correctAnswers[i] === "correct") {
+                        correct = true;
+                    }
+                    else if (this.correctAnswers[i] === "wrong") {
+                        wrong = true;
+                    }
+                }
+                if (correct && !wrong) {
+                    return "answer_is_correct";
+                }
+                else if (correct && wrong) {
+                    return "answer_is_partially_correct";
+                }
+                else {
+                    return "answer_is_incorrect";
+                }
             };
             
             this.isChecked = function(choiceId) {
@@ -53,13 +73,16 @@
                 
                 if (correctAnswer === "correct") {
                     if (checked) {
+                        this.correctAnswers.push("correct");
                         return "fa fa-check check-blue";
                     }
                     else {
+                        this.correctAnswers.push("wrong");
                         return "fa fa-check";
                     }
                 }
                 else if (checked && correctAnswer !== "correct") {
+                        this.correctAnswers.push("wrong");
                     return "fa fa-close close-red";
                 }
                 else {
