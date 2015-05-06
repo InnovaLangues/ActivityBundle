@@ -25,6 +25,7 @@ description: Description
 #e
 
 empty_activity_sequence: Cette suite d'activité est vide. Vous pouvez créer des activités en cliquant sur le bouton "+" situé au dessus.
+end_sequence: Vous êtes arrivé(e) à la fin de cette série d'activité. Cliquez sur le bouton "suite" pour revenir à la page de garde de cette série.
 
 #f
 

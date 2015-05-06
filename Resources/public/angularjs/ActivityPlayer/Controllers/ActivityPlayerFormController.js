@@ -76,7 +76,15 @@
                         return "fa-square-o dot-unselected";
                     }
                 }
-                else if (index === this.iterator && this.currentFile !== "intro") {
+                else if (index === "end") {
+                    if (this.currentFile === "end") {
+                        return "fa-square dot-selected";
+                    }
+                    else {
+                        return "fa-square-o dot-unselected";
+                    }
+                }
+                else if (index === this.iterator && this.currentFile === "edit") {
                     return "fa-circle dot-selected";
                 }
                 else {
@@ -101,7 +109,12 @@
                 this.iterator = this.iterator + 1;
                 this.answers = [];
                 this.inputs = [];
-                this.currentAction = 'edit';
+                if (this.iterator >= this.sequence.activities.length) {
+                    this.currentFile = 'end';
+                }
+                else {
+                    this.currentAction = 'edit';
+                }
             };
             
             this.radioInputs = function(choice) {

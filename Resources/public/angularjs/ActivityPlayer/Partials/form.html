@@ -16,6 +16,9 @@
                 <a href="#" data-ng-repeat="activity in activityPlayerCtrl.sequence.activities" data-ng-click="activityPlayerCtrl.jumpTo($index)">
                     <i class="fa {{ activityPlayerCtrl.isSelectedDot($index) }}" data-toggle="tooltip" data-container="body" title="{{ activity.name }}"></i>
                 </a>
+                <a href="#">
+                    <i class="fa {{ activityPlayerCtrl.isSelectedDot('end') }}" data-toggle="tooltip" data-container="body" title="Fin"></i>
+                </a>
             </div>
         </div>
     </nav>

@@ -25,6 +25,7 @@ description: Description
 #e
 
 empty_activity_sequence: This activity sequence is empty. You can create activities by clicking the "+" button above.
+end_sequence: You reached the end of this sequence. Please click the "next" button to go back to the beginning of this sequence.
 
 #f
 
