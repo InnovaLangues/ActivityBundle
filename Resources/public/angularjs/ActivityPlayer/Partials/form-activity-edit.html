@@ -68,7 +68,7 @@
                             <input data-ng-model="activityPlayerCtrl.inputs[$index]" name="choices[]" type="radio" id="choice-{{ choice.id }}" value="{{ choice.id }}"  data-ng-if="activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].typeAvailable.name !== 'MultipleChoiceType'" data-ng-click="activityPlayerCtrl.radioInputs(choice.id)" />
                             <span data-ng-bind-html="choice.media"></span>
                             <span data-ng-if="activityPlayerCtrl.currentAction === 'feedback'">
-                                <i class="{{ activityPlayerCtrl.isCorrect(choice.correctAnswer, choice.id) }}"></i>
+                                <i class="{{ activityPlayerCtrl.isCorrect(choice.correctAnswer, choice.id) }}" data-toggle="tooltip" data-container="body" title="{{ activityPlayerCtrl.specificFeedback(choice.correctAnswer, choice.id) | trans:{}:'activity_editor' }}"></i>
                             </span>
                         </li>
                     </ul>

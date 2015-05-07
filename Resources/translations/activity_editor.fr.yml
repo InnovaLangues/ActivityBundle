@@ -8,6 +8,9 @@ add_activity : Ajouter une activité
 answer_is_correct: Votre réponse est correcte.
 answer_is_incorrect: Votre réponse est incorrecte. Cliquez sur la ou les icône(s) pour obtenir plus d'informations.
 answer_is_partially_correct: Votre réponse est partiellement correcte. Cliquez sur la ou les icône(s) pour obtenir plus d'informations.
+answer_spe_is_correct: Cette réponse est correcte.
+answer_spe_is_incorrect: Cette réponse n'est pas correcte.
+answer_spe_is_neutral: Cette réponse est acceptée, même si ce n'est pas la meilleure réponse.
 
 #c
 

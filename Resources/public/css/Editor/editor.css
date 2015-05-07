@@ -259,15 +259,15 @@ input.form-control.ng-valid:focus {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
 }
 
-.check-green {
+.answer_spe_is_correct {
     color: #5CB85C;
 }
 
-.check-blue {
+.answer_spe_is_neutral {
     color: #428BCA;
 }
 
-.close-red {
+.answer_spe_is_wrong {
     color: #d9534f;
 }
 

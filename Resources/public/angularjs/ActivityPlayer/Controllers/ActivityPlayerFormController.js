@@ -74,7 +74,7 @@
                 if (correctAnswer === "correct") {
                     if (checked) {
                         this.correctAnswers.push("correct");
-                        return "fa fa-check check-green";
+                        return "fa fa-check answer_spe_is_correct";
                     }
                     else {
                         this.correctAnswers.push("wrong");
@@ -83,11 +83,11 @@
                 }
                 else if (checked && correctAnswer === "neutral") {
                     this.correctAnswers.push("correct");
-                    return "fa fa-check check-blue";
+                    return "fa fa-check answer_spe_is_neutral";
                 }
                 else if (checked && correctAnswer === "wrong") {
                         this.correctAnswers.push("wrong");
-                    return "fa fa-close close-red";
+                    return "fa fa-close answer_spe_is_wrong";
                 }
                 else {
                     return "";
@@ -170,6 +170,37 @@
                     }
                 }
                 this.currentAction = 'feedback';
+            };
+            
+            this.specificFeedback = function(correctAnswer, choiceId) {
+                var checked = false;
+                for (var i=0; i<this.answers.length; i++) {
+                    if (this.answers[i].id === choiceId) {
+                        checked = this.answers[i].checked;
+                    }
+                }
+                
+                if (correctAnswer === "correct") {
+                    if (checked) {
+                        this.correctAnswers.push("correct");
+                        return "answer_spe_is_correct";
+                    }
+                    else {
+                        this.correctAnswers.push("wrong");
+                        return "";
+                    }
+                }
+                else if (checked && correctAnswer === "neutral") {
+                    this.correctAnswers.push("correct");
+                    return "answer_spe_is_neutral";
+                }
+                else if (checked && correctAnswer === "wrong") {
+                        this.correctAnswers.push("wrong");
+                    return "answer_spe_is_incorrect";
+                }
+                else {
+                    return "";
+                }
             };
             
             this.start = function () {
