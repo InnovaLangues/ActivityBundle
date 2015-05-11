@@ -29,30 +29,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        {{ 'contents' | trans:{}:'activity_editor' }}
-                    </h4>
-                </div>
-                <div class="panel-body">
-                    <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents">
-                        <li class="row list-group-item draggable-item" data-ng-repeat="content in activityCtrl.activity.contents| orderBy: 'position'">
-                            <span class="myHandle btn btn-default fa fa-arrows"></span>
-                            <span class="col-md-10">
-                                <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" ></div>
-                            </span>
-                            <span class="col-md-1">
-                                <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
-                                <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
-                            </span>
-                        </li>
-                    </ul>
-                    <div class="col-md-1">
-                        <button data-ng-click="activityCtrl.addContent()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
                         {{ 'complementary_infos' | trans:{}:'activity_editor' }}
                     </h4>
                 </div>
@@ -71,6 +47,30 @@
                     </ul>
                     <div class="col-md-1">
                         <button data-ng-click="activityCtrl.addComplementaryInfo()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{ 'contents' | trans:{}:'activity_editor' }}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group list-unstyled" data-ui-sortable="activityCtrl.sortableContentsOptions" data-ng-model="activityCtrl.activity.contents">
+                        <li class="row list-group-item draggable-item" data-ng-repeat="content in activityCtrl.activity.contents| orderBy: 'position'">
+                            <span class="myHandle btn btn-default fa fa-arrows"></span>
+                            <span class="col-md-10">
+                                <div data-ng-include="activityCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/content-form.html'" ></div>
+                            </span>
+                            <span class="col-md-1">
+                                <button data-ng-click="activityCtrl.removeContent(content)" class="btn btn-danger fa fa-trash"></button>
+                                <span class="sr-only">{{ 'delete' | trans:{}:'activity_sequence_editor' }}</span>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="col-md-1">
+                        <button data-ng-click="activityCtrl.addContent()" class="btn btn-default btn-primary fa fa-plus-circle"></button>
                     </div>
                 </div>
             </div>

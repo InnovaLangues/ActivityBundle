@@ -17,6 +17,18 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <div class="panel panel-default" data-ng-if="activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].complementaryInfos.length !== 0">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{ 'complementary_infos' | trans:{}:'activity_editor' }}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li data-ng-repeat="complementaryInfo in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].complementaryInfos">{{ complementaryInfo.media}}</li>
+                    </ul>
+                </div>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -26,18 +38,6 @@
                 <div class="panel-body">
                     <ul>
                         <li data-ng-repeat="content in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].contents">{{ content.media}}</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        {{ 'complementary_infos' | trans:{}:'activity_editor' }}
-                    </h4>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                        <li data-ng-repeat="complementaryInfo in activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].complementaryInfos">{{ complementaryInfo.media}}</li>
                     </ul>
                 </div>
             </div>
