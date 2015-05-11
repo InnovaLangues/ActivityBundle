@@ -20,12 +20,20 @@
             this.inputs = [];
             this.input = null;
             
-            this.checkInputs = function() {
+            this.checkInputs = function(choice) {
                 this.answers = [];
-                for (var i=0; i<this.sequence.activities[this.iterator].type.choices.length; i++) {
+                if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
+                    for (var i=0; i<this.sequence.activities[this.iterator].type.choices.length; i++) {
+                        this.answers.push({
+                            id: this.sequence.activities[this.iterator].type.choices[i].id,
+                            checked: this.inputs[i]
+                        });
+                    }
+                }
+                else {
                     this.answers.push({
-                        id: this.sequence.activities[this.iterator].type.choices[i].id,
-                        checked: this.inputs[i]
+                        id: choice,
+                        checked: true
                     });
                 }
             };
@@ -49,6 +57,15 @@
                 }
                 else {
                     return "answer_is_incorrect";
+                }
+            };
+            
+            this.inputType = function() {
+                if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
+                    return "checkbox";
+                }
+                else {
+                    return "radio";
                 }
             };
             
@@ -136,20 +153,17 @@
                 this.iterator = this.iterator + 1;
                 this.answers = [];
                 this.inputs = [];
+                this.correctAnswers = [];
                 if (this.iterator >= this.sequence.activities.length) {
                     this.currentFile = 'end';
                 }
                 else {
                     this.currentAction = 'edit';
                 }
-            };
-            
-            this.radioInputs = function(choice) {
-                this.answers = [];
-                this.answers.push({
-                    id: choice,
-                    checked: true
-                });
+                var inputs = document.getElementsByName('choices[]');
+                for (var i=0; i<inputs.length; i++) {
+                    inputs[i].removeAttribute('disabled');
+                }
             };
             
             this.randomSort = function(choice) {
@@ -170,6 +184,10 @@
                     }
                 }
                 this.currentAction = 'feedback';
+                var inputs = document.getElementsByName('choices[]');
+                for (var i=0; i<inputs.length; i++) {
+                    inputs[i].setAttribute('disabled', 'disabled');
+                }
             };
             
             this.specificFeedback = function(correctAnswer, choiceId) {
