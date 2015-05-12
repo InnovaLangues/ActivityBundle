@@ -6,7 +6,7 @@
             <div class="navbar-header">
                 <div class="navbar-brand">
                     <span>{{ activityPlayerCtrl.sequence.name}}</span>
-                    <span> - {{ activityPlayerCtrl.sequence.activities[activityPlayerCtrl.iterator].name }}</span>
+                    <span data-ng-if="activityPlayerCtrl.currentFile === 'edit'"> - {{ activityPlayerCtrl.iterator + 1 }}</span>
                 </div>
             </div>
             <div class="dots">
