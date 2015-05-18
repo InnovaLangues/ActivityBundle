@@ -43,6 +43,9 @@ functional_instructions: Functional instructions
 id_card: Identity card
 instruction: Instruction
 instructions: Instructions
+innova_activity_type_boolean: Yes/No
+innova_activity_type_unique: Unique choice
+innova_activity_type_multiple: Multiple choice
 
 #m
 
