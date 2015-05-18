@@ -9,6 +9,8 @@
             this.view = 'properties';
 
             this.sequence = {};
+            this.previousAnswers = [];
+            
             this.currentFile = 'intro';
             this.currentAction = '';
             
@@ -224,6 +226,10 @@
             this.start = function () {
                 this.currentAction = 'edit';
                 this.currentFile = 'edit';
+            };
+            
+            this.test = function () {
+                console.log(this.previousAnswers);
             };
         }
     ]);

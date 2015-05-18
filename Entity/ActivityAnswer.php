@@ -16,7 +16,7 @@ use Innova\ActivityBundle\Entity\ActivityProperty\ChoiceProperty;
  * @ORM\Entity
  * @ORM\Table("innova_activity_answer")
  */
-class ActivityAnswer
+class ActivityAnswer implements \JsonSerializable
 {
     /**
      * Unique identifier of the ActivityAnswer
@@ -49,6 +49,14 @@ class ActivityAnswer
      * 
      */
     protected $choiceProperties;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->choiceProperties = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     /**
      * Get id
@@ -97,14 +105,6 @@ class ActivityAnswer
         
         return $this;
     }
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->choiceProperties = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add choiceProperties
@@ -137,5 +137,20 @@ class ActivityAnswer
     public function getChoiceProperties()
     {
         return $this->choiceProperties;
+    }
+    
+    /**
+     * Define how to serialize our entity ActivityAnswer
+     * @return Array
+     */
+    public function jsonSerialize()
+    {
+        
+        return array(
+            'id'                => $this->id,
+            'user'              => $this->user,
+            'activity'          => $this->activity,
+            'choiceProperties'  => $this->choiceProperties->toArray(),
+        );
     }
 }

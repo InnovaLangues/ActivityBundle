@@ -6,7 +6,10 @@
     'use strict';
 
     angular.module('ActivityPlayer').directive('activityPlayerForm', [
-        function () {
+        'LoaderService',
+        '$http',
+        '$q',
+        function (LoaderService, $http, $q) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -24,6 +27,25 @@
                             activityPlayerCtrl.sequence = newValue;
                         }
                     });
+                    
+                    var deferred = $q.defer();
+                    
+                    $http
+                        .get(Routing.generate('innova_users_answers_get'))
+                        .success(function (response) {
+                            LoaderService.endRequest();
+                    
+                            activityPlayerCtrl.previousAnswers = response;
+
+                            deferred.resolve(response.data);
+                        })
+                        .error(function(response) {
+                            LoaderService.endRequest();
+
+                            deferred.reject(response);
+                        });
+
+                    return deferred.promise;
                 }
             };
         }

@@ -49,6 +49,11 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
      */
     protected $position;
     
+    public function getid()
+    {
+        return $this->id;
+    }
+    
     public function getMedia()
     {
         return $this->media;
