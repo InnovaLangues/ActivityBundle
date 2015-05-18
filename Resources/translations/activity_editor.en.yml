@@ -27,6 +27,7 @@ correct_answer: Correct answer
 delete: Delete
 delete_choice: Delete choice
 description: Description
+del_activity: Delete activity
 
 #e
 
@@ -42,6 +43,9 @@ functional_instructions: Functional instructions
 id_card: Identity card
 instruction: Instruction
 instructions: Instructions
+innova_activity_type_boolean: Yes/No
+innova_activity_type_unique: Unique choice
+innova_activity_type_multiple: Multiple choice
 
 #m
 
@@ -72,6 +76,7 @@ random_order: Random order
 save: Save
 start: Start
 submit: Submit
+select_available_type: Select a type by clicking on it
 
 #t
 
