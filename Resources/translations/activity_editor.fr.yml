@@ -42,6 +42,9 @@ functional_instructions: Consignes fonctionnelles
 id_card: Fiche d'identité
 instruction: Instruction
 instructions: Instructions
+innova_activity_type_boolean: Oui/Non
+innova_activity_type_unique: Choix unique
+innova_activity_type_multiple: Choix multiple
 
 #m
 
