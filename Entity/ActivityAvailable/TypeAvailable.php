@@ -162,6 +162,7 @@ class TypeAvailable implements \JsonSerializable
             'id'    => $this->id,
             'name'  => $this->name,
             'class' => $this->class,
+            'form' => $this->form,
         );
     }
 }
