@@ -5,7 +5,7 @@
         '$document',
         '$modal',
         '$window',
-        'ChoiceTypeService', 
+        'ChoiceTypeService',
         function ($document, $modal, $window, ChoiceTypeService) {
             this.webDir = ActivityEditorApp.webDir;
 
@@ -128,6 +128,32 @@
                         if (this.activityType.type.choices[i] !== selectedChoice) {
                             this.activityType.type.choices[i].correctAnswer = "wrong";
                         }
+                    }
+                }
+            };
+            
+            
+              // Resource Picker base config
+            this.resourcePickerConfig = {
+                isPickerMultiSelectAllowed: false,
+                webPath: ActivityEditorApp.webDir,
+                appPath: ActivityEditorApp.appDir,
+                directoryId: ActivityEditorApp.wsDirectoryId,
+                resourceTypes: ActivityEditorApp.resourceTypes
+            };
+           
+            // Activity resource picker config
+            this.activitySequenceAudioResourcePicker = {
+                name: 'picker-audio',
+                parameters: angular.copy(this.resourcePickerConfig)
+            };
+
+            //this.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['media-resource'];
+            this.activitySequenceAudioResourcePicker.parameters.callback = function (nodes) {
+                if (typeof nodes === 'object' && nodes.length !== 0) {
+                    for (var nodeId in nodes) {
+                        console.log(nodes[nodeId]);
+                        
                     }
                 }
             };

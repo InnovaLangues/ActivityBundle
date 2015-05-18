@@ -41,6 +41,11 @@
     {% endjavascripts %}
 
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
+
+        '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Confirm/*'
@@ -65,8 +70,6 @@
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Services/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
         '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

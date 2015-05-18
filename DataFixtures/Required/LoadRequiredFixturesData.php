@@ -87,6 +87,11 @@ class LoadRequiredFixturesData extends AbstractFixture
                 'description' => 'Sound file',
                 'template' => 'sound-choice-form.html',
             ),
+            array (
+                'name' => 'Segment',
+                'description' => 'Segment from media resource',
+                'template' => 'segment-choice-form.html',
+            ),
         );
 
         foreach ($availableMediaTypes as $mediaType) {
