@@ -578,6 +578,7 @@ class Activity implements \JsonSerializable
             'position'      => $this->position,
             'dateCreated'   => $this->dateCreated,
             'dateUpdated'   => $this->dateUpdated,
+            'activitySequenceId' => $this->activitySequence->getId(),
         );
     }
 }

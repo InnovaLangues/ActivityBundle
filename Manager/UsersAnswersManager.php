@@ -28,8 +28,8 @@ class UsersAnswersManager
 
     public function get()
     {
-        $list = $this->em->getRepository("InnovaActivityBundle:ActivityAnswer")->findAll();
-    //    $id1 = $list[0]->getChoiceProperties()->getId();
+        $security = $this->container->get("security.context");
+        $list = $this->em->getRepository("InnovaActivityBundle:ActivityAnswer")->findByUser($security->getToken()->getUser());
         return $list;
     }
    
