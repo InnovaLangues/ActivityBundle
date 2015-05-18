@@ -14,6 +14,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Manager\ActivitySequenceManager;
 use Innova\ActivityBundle\Manager\ActivityManager;
+use Claroline\CoreBundle\Manager\ResourceManager;
 
 /**
  * Class ActivitySequenceController
@@ -49,6 +50,12 @@ class ActivitySequenceController
      * @var \Innova\ActivityBundle\Manager\ActivityManager
      */
     protected $activityManager;
+    
+    /**
+     * Resource Manager
+     * @var \Claroline\CoreBundle\Manager\ResourceManager 
+     */
+    protected $resourceManager;
 
     /**
      * Class constructor
@@ -58,19 +65,22 @@ class ActivitySequenceController
      *      "securityContext"         = @DI\Inject("security.context"),
      *      "activitySequenceManager" = @DI\Inject("innova.manager.activity_sequence_manager"),
      *      "activityManager"         = @DI\Inject("innova.manager.activity_manager"),
+     *      "resourceManager"         = @DI\Inject("claroline.manager.resource_manager"),
      * })
      */
     public function __construct(
         ObjectManager            $objectManager,
         SecurityContextInterface $securityContext,
         ActivitySequenceManager  $activitySequenceManager,
-        ActivityManager          $activityManager
+        ActivityManager          $activityManager,
+        ResourceManager          $resourceManager 
     )
     {
         $this->om                      = $objectManager;
         $this->security                = $securityContext;
         $this->activitySequenceManager = $activitySequenceManager;
         $this->activityManager         = $activityManager;
+        $this->resourceManager          = $resourceManager;
     }
 
     /**
@@ -117,10 +127,19 @@ class ActivitySequenceController
         if (false === $this->security->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
+        
+        // Get workspace root directory
+        $workspace = $activitySequence->getResourceNode()->getWorkspace();
+        $wsDirectory = $this->resourceManager->getWorkspaceRoot($workspace);
+        $resourceTypes = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceType')->findAll();
 
         return array(
-            '_resource' => $activitySequence,
+            'workspace' => $workspace,
+            'wsDirectoryId' => $wsDirectory->getId(),
+            'resourceTypes' => $resourceTypes,
+             '_resource' => $activitySequence,
         );
+
     }
 
     /**

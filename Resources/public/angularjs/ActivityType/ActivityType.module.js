@@ -7,6 +7,7 @@
     angular.module('ActivityType', [
         'Loader',
         'ConfirmModule',
-        'ActivityProperty'
+        'ActivityProperty',
+        'ui.resourcePicker'
     ]);
 })();
