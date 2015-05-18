@@ -15,7 +15,7 @@
         </h4>
         <div class="list-group" data-ng-if="category.types">
             <a href="" class="list-group-item" data-ng-repeat="type in category.types" data-ng-click="activityAvailableCtrl.select(type)">
-                {{ type.name }}
+                {{ type.form | trans:{}:'activity_editor' }}
             </a>
         </div>
     </div>
