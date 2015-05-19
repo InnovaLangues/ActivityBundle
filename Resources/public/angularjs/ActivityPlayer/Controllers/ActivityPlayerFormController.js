@@ -98,9 +98,20 @@
             
             this.getExecutedActivities = function(index) {
                 var j=0;
+                var activities = [];
+                var alreadySaved;
                 for (var i=0; i<this.previousAnswers.length; i++) {
                     if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id && this.previousAnswers[i].numTrial === index) {
-                        j++;
+                        alreadySaved = false;
+                        for (var k=0; k<activities.length; k++) {
+                            if (activities[k] === this.previousAnswers[i].activity.id) {
+                                alreadySaved = true;
+                            }
+                        }
+                        if (!alreadySaved) {
+                            activities.push(this.previousAnswers[i].activity.id);
+                            j++;
+                        }
                     }
                 }
                 if (this.sequence.activities.length === j) {
