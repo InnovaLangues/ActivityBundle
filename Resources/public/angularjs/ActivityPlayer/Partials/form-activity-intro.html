@@ -16,12 +16,28 @@
             <div class="col-md-2"></div>
         </div>
         
-    <!--    <table>
+        <table class="table-striped" data-ng-if="activityPlayerCtrl.answersGiven()" >
             <tr>
+                <th>N°</th>
+                <th>{{ 'start_date_hour' | trans:{}:'activity_editor' }}</th>
+                <th>{{ 'end_date_hour' | trans:{}:'activity_editor' }}</th>
+                <th>{{ 'executed_activities' | trans:{}:'activity_editor' }}</th>
+                <th>{{ 'right_answers_found' | trans:{}:'activity_editor' }}</th>
+                <th>{{ 'after_trials' | trans:{}:'activity_editor' }}</th>
+                <th>{{ 'answers_not_found' | trans:{}:'activity_editor' }}</th>
+                <th>{{ 'clues_asked' | trans:{}:'activity_editor' }}</th>
+            </tr>
+            <tr data-ng-repeat="answer in activityPlayerCtrl.getUsersPreviousAnswers()" >
+                <td>{{ $index + 1 }}</td>
+                <td>{{ activityPlayerCtrl.getDate(-1) }}</td>
+                <td>{{ activityPlayerCtrl.getDate(1) }}</td>
+                <td>{{ activityPlayerCtrl.getExecutedActivities($index + 1) }}</td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
             </tr>
-        </table>-->
+        </table>
         
         <button data-ng-click="activityPlayerCtrl.start()" class="btn btn-primary btn-save">
             <span>{{ 'start' | trans:{}:'activity_editor' }}</span>

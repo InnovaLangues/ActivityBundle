@@ -5,17 +5,20 @@ activity_type_BooleanChoiceType: True/False
 activity_type_MultipleChoiceType: Multiple choices question
 activity_type_UniqueChoiceType: Unique choice question
 add_activity : Add an activity
+after_trials: After ... trials (average)
 answer_is_correct: Your answer is correct
 answer_is_incorrect: Your answer is incorrect. Click on the icon(s) to get more informations.
 answer_is_partially_correct: Your answer is partially correct. Click on the icon(s) to get more informations.
 answer_spe_is_correct: This answer is correct.
 answer_spe_is_incorrect: This answer is not correct.
 answer_spe_is_neutral: This answer is accepted, though it is not the best answer.
+answers_not_found: Answer(s) not found
 
 #c
 
 cancel: Cancel
 choices: Choices
+clues_asked: Asked_clues
 complementary_infos: Complementary informations
 confirm_delete_choice: Are you sure you want to delete this choice?
 contents: Contents
@@ -32,7 +35,9 @@ del_activity: Delete activity
 #e
 
 empty_activity_sequence: This activity sequence is empty. You can create activities by clicking the "+" button above.
+end_date_hour: End Date (Hour)
 end_sequence: You reached the end of this sequence. Please click the "next" button to go back to the beginning of this sequence.
+executed_activities: Executed activities
 
 #f
 
@@ -70,13 +75,15 @@ question: Question
 #r
 
 random_order: Random order
+right_answers_found: Right answers found
 
 #s
 
 save: Save
-start: Start
-submit: Submit
 select_available_type: Select a type by clicking on it
+start: Start
+start_date_hour: Start Date (Hour)
+submit: Submit
 
 #t
 

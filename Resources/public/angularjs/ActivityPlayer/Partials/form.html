@@ -9,6 +9,9 @@
                     <span data-ng-if="activityPlayerCtrl.currentFile === 'edit'"> - {{ activityPlayerCtrl.iterator + 1 }}</span>
                 </div>
             </div>
+            <div>
+                <span>{{ activityPlayerCtrl.trial }}</span>
+            </div>
             <div class="dots">
                 <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('intro')">
                     <i class="fa {{ activityPlayerCtrl.isSelectedDot(-1) }}" data-toggle="tooltip" data-container="body" title="Introduction"></i>

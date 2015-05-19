@@ -5,17 +5,20 @@ activity_type_BooleanChoiceType: Vrai/Faux
 activity_type_MultipleChoiceType: Question à choix multiple
 activity_type_UniqueChoiceType: Question à choix unique
 add_activity : Ajouter une activité
+after_trials: Après ... essais (moyenne)
 answer_is_correct: Votre réponse est correcte.
 answer_is_incorrect: Votre réponse est incorrecte. Cliquez sur la ou les icône(s) pour obtenir plus d'informations.
 answer_is_partially_correct: Votre réponse est partiellement correcte. Cliquez sur la ou les icône(s) pour obtenir plus d'informations.
 answer_spe_is_correct: Cette réponse est correcte.
 answer_spe_is_incorrect: Cette réponse n'est pas correcte.
 answer_spe_is_neutral: Cette réponse est acceptée, même si ce n'est pas la meilleure réponse.
+answers_not_found: Solution(s) non trouvée(s)
 
 #c
 
 cancel: Annuler
 choices: Choix
+clues_asked: Indice(s) demandé(s)
 complementary_infos: Informations complémentaires
 confirm_delete_choice: Êtes-vous sûr de vouloir supprimer ce choix?
 contents: Objets
@@ -32,7 +35,9 @@ del_activity: Supprimer l'activité
 #e
 
 empty_activity_sequence: Cette suite d'activité est vide. Vous pouvez créer des activités en cliquant sur le bouton "+" situé au dessus.
+end_date_hour: Fin Date (Heure)
 end_sequence: Vous êtes arrivé(e) à la fin de cette série d'activité. Cliquez sur le bouton "suite" pour revenir à la page de garde de cette série.
+executed_activities: Activités réalisées
 
 #f
 
@@ -70,11 +75,13 @@ question: Question
 #r
 
 random_order: Ordre aléatoire
+right_answers_found: Solutions trouvées
 
 #s
 
 save: Enregistrer
 start: Commencer
+start_date_hour: Début Date (Heure)
 submit: Valider
 select_available_type: Selectionner un type en cliquant dessus
 
