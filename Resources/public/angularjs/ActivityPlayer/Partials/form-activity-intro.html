@@ -14,35 +14,34 @@
                 Proin elementum, sapien vel malesuada aliquet, enim lorem consectetur est, in finibus lorem lacus a felis. 
             </div>
             <div class="col-md-2"></div>
-        </div>
         
-        <table class="table-striped" data-ng-if="activityPlayerCtrl.answersGiven()" >
-            <tr>
-                <th>N°</th>
-                <th>{{ 'start_date_hour' | trans:{}:'activity_editor' }}</th>
-                <th>{{ 'end_date_hour' | trans:{}:'activity_editor' }}</th>
-                <th>{{ 'executed_activities' | trans:{}:'activity_editor' }}</th>
-                <th>{{ 'right_answers_found' | trans:{}:'activity_editor' }}</th>
-                <th>{{ 'after_trials' | trans:{}:'activity_editor' }}</th>
-                <th>{{ 'answers_not_found' | trans:{}:'activity_editor' }}</th>
-                <th>{{ 'clues_asked' | trans:{}:'activity_editor' }}</th>
-            </tr>
-            <tr data-ng-repeat="answer in activityPlayerCtrl.getUsersPreviousAnswers()" >
-                <td>{{ $index + 1 }}</td>
-                <td>{{ activityPlayerCtrl.getDate(-1) }}</td>
-                <td>{{ activityPlayerCtrl.getDate(1) }}</td>
-                <td>{{ activityPlayerCtrl.getExecutedActivities($index + 1) }}</td>
-                <td>{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, true) }}</td>
-                <td></td>
-                <td>{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, false) }}</td>
-                <td></td>
-            </tr>
-        </table>
+            <table class="table-striped col-md-offset-1 col-md-10" data-ng-if="activityPlayerCtrl.answersGiven()" >
+                <tr>
+                    <th class="intro-th">N°</th>
+                    <th class="intro-th">{{ 'start_date_hour' | trans:{}:'activity_editor' }}</th>
+                    <th class="intro-th">{{ 'end_date_hour' | trans:{}:'activity_editor' }}</th>
+                    <th class="intro-th">{{ 'executed_activities' | trans:{}:'activity_editor' }}</th>
+                    <th class="intro-th">{{ 'right_answers_found' | trans:{}:'activity_editor' }}</th>
+                    <th class="intro-th">{{ 'after_trials' | trans:{}:'activity_editor' }}</th>
+                    <th class="intro-th">{{ 'answers_not_found' | trans:{}:'activity_editor' }}</th>
+                    <th class="intro-th">{{ 'clues_asked' | trans:{}:'activity_editor' }}</th>
+                </tr>
+                <tr data-ng-repeat="answer in activityPlayerCtrl.getUsersPreviousAnswers()" >
+                    <td class="intro-td">{{ $index + 1 }}</td>
+                    <td class="intro-td">{{ activityPlayerCtrl.getDate($index + 1, -1) }}</td>
+                    <td class="intro-td">{{ activityPlayerCtrl.getDate($index + 1, 1) }}</td>
+                    <td class="intro-td">{{ activityPlayerCtrl.getExecutedActivities($index + 1) }}</td>
+                    <td class="intro-td">{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, true) }}</td>
+                    <td class="intro-td"></td>
+                    <td class="intro-td">{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, false) }}</td>
+                    <td class="intro-td"></td>
+                </tr>
+            </table>
+            <div class="col-md-1"></div>
+        </div>
         
         <button data-ng-click="activityPlayerCtrl.start()" class="btn btn-primary btn-save">
             <span>{{ 'start' | trans:{}:'activity_editor' }}</span>
         </button>
-        
-        <button data-ng-click="activityPlayerCtrl.test()">Test</button>
     </div>
 </div>

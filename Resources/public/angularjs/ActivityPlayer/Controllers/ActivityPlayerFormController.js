@@ -73,11 +73,11 @@
                 }
             };
             
-            this.getDate = function(order) {
+            this.getDate = function(index, order) {
                 var datetime = "";
                 var previousDate;
                 for (var i=0; i<this.previousAnswers.length; i++) {
-                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id && this.previousAnswers[i].numTrial === index) {
                         previousDate = this.previousAnswers[i].dateCreated;
                         if (previousDate.date.localeCompare(datetime.date) === order || datetime === "") {
                             datetime = this.previousAnswers[i].dateCreated;
@@ -148,7 +148,7 @@
                 for (var i=0; i<this.previousAnswers.length; i++) {
                     if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
                         alreadySaved = false;
-                        for (var j=0; j<usersPreviousAnswers;j++) {
+                        for (var j=0; j<usersPreviousAnswers.length;j++) {
                             if (usersPreviousAnswers[j] === this.previousAnswers[i].numTrial) {
                                 alreadySaved = true;
                             }
@@ -334,10 +334,6 @@
                         }
                     }
                 }
-            };
-            
-            this.test = function () {
-                console.log(this.previousAnswers);
             };
         }
     ]);

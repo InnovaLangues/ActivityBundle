@@ -112,6 +112,10 @@
     text-align: center;
 }
 
+.intro-th, .intro-td {
+    padding: 5px;
+}
+
 .dots {
     float: right;
     margin: 10px;
