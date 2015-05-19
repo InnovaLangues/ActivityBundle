@@ -51,6 +51,15 @@
                 }
             };
             
+            this.formatDate = function(number) {
+                if (number < 10) {
+                    return "0" + number;
+                }
+                else {
+                    return number;
+                }
+            };
+            
             this.genericFeedback = function() {
                 var correct = false;
                 var wrong = false;
@@ -87,8 +96,8 @@
                 var regex=/^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) (?:([0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
                 var parts=datetime.date.replace(regex,"$1 $2 $3 $4 $5 $6").split(' ');
                 var date = new Date(parts[0],parts[1]-1,parts[2],parts[3],parts[4],parts[5]);
-                var formated_date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-                var formated_hour = "(" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ")";
+                var formated_date = this.formatDate(date.getDate()) + "/" + this.formatDate(date.getMonth() + 1) + "/" + date.getFullYear();
+                var formated_hour = "(" + date.getHours() + ":" + this.formatDate(date.getMinutes()) + ":" + this.formatDate(date.getSeconds()) + ")";
                 var formated_date_hour = formated_date + " " + formated_hour;
                 
                 return formated_date_hour;
