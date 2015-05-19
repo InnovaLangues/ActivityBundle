@@ -1,8 +1,7 @@
 (function () {
     'use strict';
-
-    // activity sequence player module
-    angular.module('ActivitySequenceApp', [
+    // activity sequence administration module
+    angular.module('ActivitySequenceAdminApp', [
         'ngSanitize',
         'ui.bootstrap',
         'ui.tinymce',
@@ -11,7 +10,6 @@
 
         'Utils',
         'ConfirmModule',
-        'ActivitySequence',
-        'ActivityPlayer'
+        'ActivitySequence'
     ]);
 })();
