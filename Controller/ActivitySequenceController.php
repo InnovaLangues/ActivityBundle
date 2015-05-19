@@ -132,7 +132,7 @@ class ActivitySequenceController
         $workspace = $activitySequence->getResourceNode()->getWorkspace();
         $wsDirectory = $this->resourceManager->getWorkspaceRoot($workspace);
         $resourceTypes = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceType')->findAll();
-
+        
         return array(
             'workspace' => $workspace,
             'wsDirectoryId' => $wsDirectory->getId(),

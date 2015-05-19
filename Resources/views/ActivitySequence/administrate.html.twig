@@ -40,30 +40,40 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
+    {% javascripts debug=true filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
+
+        '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
-        '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
+        
+
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/Directives/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Confirm/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Confirm/Controllers/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -77,7 +87,7 @@
         ActivityEditorApp.appDir    = "{{ app.request.getBaseUrl }}";
         ActivityEditorApp.wsDirectoryId = {{ wsDirectoryId }};
         
-         ActivityEditorApp.resourceTypes = {
+        ActivityEditorApp.resourceTypes = {
             {% for resourceType in resourceTypes %}
             "{{ resourceType.getName() }}": {
                 "name": "{{ resourceType.getName()|trans({}, 'resource') }}",
@@ -97,15 +107,6 @@
             }{% if loop.last != true %},{% endif %}
             {% endfor %}
         };
-        
-        /*
-         * 
-         * 
-         *  webPath: ActivityEditorApp.webDir,
-                appPath: ActivityEditorApp.appDir,
-                directoryId: ActivityEditorApp.wsDirectoryId,
-                resourceTypes: ActivityEditorApp.resourceTypes
-         */
     </script>
     
 {% endblock %}

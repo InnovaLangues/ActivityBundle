@@ -40,20 +40,24 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
-        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
+    {% javascripts debug=true filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
 
+               
         '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
+        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*' 
 
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/Directives/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Confirm/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Confirm/Controllers/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityPlayer/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
@@ -77,8 +81,10 @@
 
     {# Set some vars needed by Angular parts #}
     <script type="text/javascript">
+     
         var ActivityEditorApp = {};
 
-        ActivityEditorApp.webDir = "{{ asset('') }}";
+        ActivityEditorApp.webDir    = "{{ asset('') }}";
     </script>
+    
 {% endblock %}

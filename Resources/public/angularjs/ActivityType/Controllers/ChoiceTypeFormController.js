@@ -2,11 +2,12 @@
     'use strict';
 
     angular.module('ActivityType').controller('ChoiceTypeFormController', [
+        '$scope',
         '$document',
         '$modal',
         '$window',
         'ChoiceTypeService',
-        function ($document, $modal, $window, ChoiceTypeService) {
+        function ($scope, $document, $modal, $window, ChoiceTypeService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.activityType = {};
@@ -132,23 +133,50 @@
                 }
             };
             
-            
-              // Resource Picker base config
-            this.resourcePickerConfig = {
+            /*
+            // Resource Picker base config
+            $scope.resourcePickerConfig = {
                 isPickerMultiSelectAllowed: false,
-                webPath: ActivityEditorApp.webDir,
+                webPath: this.webDir,
                 appPath: ActivityEditorApp.appDir,
                 directoryId: ActivityEditorApp.wsDirectoryId,
                 resourceTypes: ActivityEditorApp.resourceTypes
             };
            
-            // Activity resource picker config
+            $scope.activitySequenceAudioResourcePicker = {
+                name: 'picker-audio',
+                parameters: angular.copy($scope.resourcePickerConfig)
+            };
+
+            $scope.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['innova_media_resource'];
+            
+            $scope.activitySequenceAudioResourcePicker.parameters.callback = function (nodes) {
+                if (typeof nodes === 'object' && nodes.length !== 0) {
+                    for (var nodeId in nodes) {
+                        console.log(nodes[nodeId]);
+                        
+                    }
+                }
+            };
+            */
+           
+           
+            // Resource Picker base config
+            this.resourcePickerConfig = {
+                isPickerMultiSelectAllowed: false,
+                webPath: this.webDir,
+                appPath: ActivityEditorApp.appDir,
+                directoryId: ActivityEditorApp.wsDirectoryId,
+                resourceTypes: ActivityEditorApp.resourceTypes
+            };
+           
             this.activitySequenceAudioResourcePicker = {
                 name: 'picker-audio',
                 parameters: angular.copy(this.resourcePickerConfig)
             };
 
-            //this.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['media-resource'];
+            this.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['innova_media_resource'];
+            
             this.activitySequenceAudioResourcePicker.parameters.callback = function (nodes) {
                 if (typeof nodes === 'object' && nodes.length !== 0) {
                     for (var nodeId in nodes) {

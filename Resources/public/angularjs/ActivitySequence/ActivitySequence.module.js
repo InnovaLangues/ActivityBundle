@@ -5,6 +5,5 @@
         'Loader',
         'Activity',
         'ActivityAvailable'
-        
     ]);
 })();
