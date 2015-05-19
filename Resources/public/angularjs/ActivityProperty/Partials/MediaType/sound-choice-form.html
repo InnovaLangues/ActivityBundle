@@ -1,11 +1,5 @@
-<!--
-<button data-ng-model="choice.media" data-ng-click="choiceTypeCtrl.openResourcePicker(choice)" class="btn btn-sm btn-default">
-    <span class="fa fa-plus"></span>
+<button class="btn btn-default fa fa-folder-open" type="button" role="button" id="{{$index}}" data-ui-resource-picker="choiceTypeCtrl.activitySequenceAudioResourcePicker" data-container="body" data-toggle="tooltip" title="{{ 'pick_a_resource' | trans:{}:'activity_editor' }}">
 </button>
--->
-<button class="btn btn-default" type="button" role="button" data-ui-resource-picker="choiceTypeCtrl.activitySequenceAudioResourcePicker" data-container="body" data-toggle="tooltip" title="youpi">
-   <span class="fa fa-folder-open"></span>
-</button>
-<!-- todo selected sound resource preview  -->
-<button class="btn btn-sm btn-default fa fa-play">
+<!-- selected sound-resource preview button  -->
+<button class="btn btn-sm btn-default fa fa-play" title="{{ 'resource_sound_preview_button' | trans:{}:'activity_editor' }}">
 </button>

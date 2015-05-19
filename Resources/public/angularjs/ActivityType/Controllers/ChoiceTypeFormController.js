@@ -2,12 +2,11 @@
     'use strict';
 
     angular.module('ActivityType').controller('ChoiceTypeFormController', [
-        '$scope',
         '$document',
         '$modal',
         '$window',
         'ChoiceTypeService',
-        function ($scope, $document, $modal, $window, ChoiceTypeService) {
+        function ($document, $modal, $window, ChoiceTypeService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.activityType = {};
@@ -131,53 +130,29 @@
                         }
                     }
                 }
-            };
-            
-            /*
-            // Resource Picker base config
-            $scope.resourcePickerConfig = {
-                isPickerMultiSelectAllowed: false,
-                webPath: this.webDir,
-                appPath: ActivityEditorApp.appDir,
-                directoryId: ActivityEditorApp.wsDirectoryId,
-                resourceTypes: ActivityEditorApp.resourceTypes
-            };
-           
-            $scope.activitySequenceAudioResourcePicker = {
-                name: 'picker-audio',
-                parameters: angular.copy($scope.resourcePickerConfig)
-            };
-
-            $scope.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['innova_media_resource'];
-            
-            $scope.activitySequenceAudioResourcePicker.parameters.callback = function (nodes) {
-                if (typeof nodes === 'object' && nodes.length !== 0) {
-                    for (var nodeId in nodes) {
-                        console.log(nodes[nodeId]);
-                        
-                    }
-                }
-            };
-            */
-           
+            };           
            
             // Resource Picker base config
             this.resourcePickerConfig = {
                 isPickerMultiSelectAllowed: false,
-                webPath: this.webDir,
+                webPath: ActivityEditorApp.webDir,
                 appPath: ActivityEditorApp.appDir,
                 directoryId: ActivityEditorApp.wsDirectoryId,
                 resourceTypes: ActivityEditorApp.resourceTypes
-            };
+            }; 
            
+           // AUDIO RESOURCE PICKER
             this.activitySequenceAudioResourcePicker = {
                 name: 'picker-audio',
                 parameters: angular.copy(this.resourcePickerConfig)
             };
-
-            this.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['innova_media_resource'];
+            
+            console.log(ActivityEditorApp.resourceTypes);
+            // can not filter the ressource picker on audio files only...
+            this.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['file'];
             
             this.activitySequenceAudioResourcePicker.parameters.callback = function (nodes) {
+                console.log('callback');
                 if (typeof nodes === 'object' && nodes.length !== 0) {
                     for (var nodeId in nodes) {
                         console.log(nodes[nodeId]);
@@ -185,6 +160,14 @@
                     }
                 }
             };
+            
+            // IMAGE RESOURCE PICKER
+            
+            // VIDEO RESOURCE PICKER
+            
+            // SEGMENT RESOURCE PICKER
+            
+            
         }
     ]);
 })();

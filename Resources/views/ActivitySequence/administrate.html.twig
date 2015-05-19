@@ -39,13 +39,18 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    
+    {# Angular UI Resource Picker #}
+    {% javascripts debug=false filter='jsmin' output='vendor/angular/angular-ui-activitybundle-resource-picker.js'
+        '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
 
-        '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
-        '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
 
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/Directives/*'
@@ -73,9 +78,6 @@
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Services/*'
-
-        '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
 
         '@InnovaActivityBundle/Resources/public/angularjs/app.admin.module.js'
 
@@ -111,15 +113,6 @@
             }{% if loop.last != true %},{% endif %}
             {% endfor %}
         };
-        
-        /*
-         * 
-         * 
-         *  webPath: ActivityEditorApp.webDir,
-                appPath: ActivityEditorApp.appDir,
-                directoryId: ActivityEditorApp.wsDirectoryId,
-                resourceTypes: ActivityEditorApp.resourceTypes
-         */
     </script>
     
 {% endblock %}
