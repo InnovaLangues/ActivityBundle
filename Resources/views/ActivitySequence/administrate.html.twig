@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="activity-sequence-editor" data-ng-app="ActivitySequenceApp" data-ng-cloak="">
+    <div class="activity-sequence-editor" data-ng-app="ActivitySequenceAdminApp" data-ng-cloak="">
         <activity-sequence-form data-sequence="{{ _resource | json_encode | raw | escape }}"></activity-sequence-form>
     </div>
 {% endblock %}
@@ -41,29 +41,38 @@
     {% endjavascripts %}
 
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Utils/Directives/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Confirm/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Confirm/Controllers/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityProperty/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivitySequence/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Activity/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Directives/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityType/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Controllers/*'
         '@InnovaActivityBundle/Resources/public/angularjs/ActivityAvailable/Services/*'
+
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
-        '@InnovaActivityBundle/Resources/public/angularjs/app.module.js'
+
+        '@InnovaActivityBundle/Resources/public/angularjs/app.admin.module.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
