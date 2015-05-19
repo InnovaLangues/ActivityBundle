@@ -79,8 +79,6 @@
                 for (var i=0; i<this.previousAnswers.length; i++) {
                     if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
                         previousDate = this.previousAnswers[i].dateCreated;
-                        console.log(previousDate.date);console.log("-");console.log(datetime.date);
-                        console.log(previousDate.date.localeCompare(datetime.date));
                         if (previousDate.date.localeCompare(datetime.date) === order || datetime === "") {
                             datetime = this.previousAnswers[i].dateCreated;
                         }
@@ -119,6 +117,28 @@
                 }
                 else {
                     return j;
+                }
+            };
+            
+            this.getRightAnswersGiven = function(index, right) {
+                var correct = 0;
+                var wrong = 0;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id && this.previousAnswers[i].numTrial === index) {
+                        if (this.previousAnswers[i].choiceProperties[0].correctAnswer === "correct") {
+                            correct++;
+                        }
+                        else if (this.previousAnswers[i].choiceProperties[0].correctAnswer === "wrong") {
+                            wrong++;
+                        }
+                    }
+                }
+                
+                if (right) {
+                    return correct;
+                }
+                else {
+                    return wrong;
                 }
             };
             

@@ -32,9 +32,9 @@
                 <td>{{ activityPlayerCtrl.getDate(-1) }}</td>
                 <td>{{ activityPlayerCtrl.getDate(1) }}</td>
                 <td>{{ activityPlayerCtrl.getExecutedActivities($index + 1) }}</td>
+                <td>{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, true) }}</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, false) }}</td>
                 <td></td>
             </tr>
         </table>
