@@ -42,6 +42,7 @@
 
     {% javascripts debug=false filter='jsmin' output='vendor/innovaactivity/activity_sequence_editor.js'
 
+        '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/*'
         '@InnovaActivityBundle/Resources/public/angularjs/Loader/Services/*'
         '@InnovaAngularUIResourcePickerBundle/Resources/public/js/*'
@@ -110,6 +111,15 @@
             }{% if loop.last != true %},{% endif %}
             {% endfor %}
         };
+        
+        /*
+         * 
+         * 
+         *  webPath: ActivityEditorApp.webDir,
+                appPath: ActivityEditorApp.appDir,
+                directoryId: ActivityEditorApp.wsDirectoryId,
+                resourceTypes: ActivityEditorApp.resourceTypes
+         */
     </script>
     
 {% endblock %}

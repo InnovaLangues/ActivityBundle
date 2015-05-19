@@ -12,6 +12,6 @@
         'Utils',
         'ConfirmModule',
         'ActivitySequence',
-        'ActivityPlayer'
+        //'ActivityPlayer'
     ]);
 })();
