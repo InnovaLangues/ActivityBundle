@@ -170,12 +170,25 @@
                 return usersPreviousAnswers;
             };
             
+            this.getUsersPreviousAnswersLength = function() {
+                return this.getUsersPreviousAnswers().length;
+            };
+            
             this.inputType = function() {
                 if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
                     return "checkbox";
                 }
                 else {
                     return "radio";
+                }
+            };
+            
+            this.isAuthorizedStart = function() {
+                if (this.getUsersPreviousAnswersLength() !== this.sequence.numTries || this.sequence.numTries === 0) {
+                    return true;
+                }
+                else {
+                    return false;
                 }
             };
             

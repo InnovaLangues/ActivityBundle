@@ -8,6 +8,7 @@ activity_type_MultipleChoiceType: Question à choix multiple
 activity_type_UniqueChoiceType: Question à choix unique
 add_activity : Ajouter une activité
 after_trials: Après ... essais (moyenne)
+all_tries_used: Vous avez effectué tous vos essais pour cette séquence!
 answer_is_correct: Votre réponse est correcte.
 answer_is_incorrect: Votre réponse est incorrecte. Cliquez sur la ou les icône(s) pour obtenir plus d'informations.
 answer_is_partially_correct: Votre réponse est partiellement correcte. Cliquez sur la ou les icône(s) pour obtenir plus d'informations.

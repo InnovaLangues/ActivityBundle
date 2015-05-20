@@ -86,6 +86,9 @@
             };
             
             this.update = function() {
+                if (this.limitedNumTries) {
+                    this.sequence.numTries = 0;
+                }
                 ActivitySequenceService.update(this.sequence);
             };
 

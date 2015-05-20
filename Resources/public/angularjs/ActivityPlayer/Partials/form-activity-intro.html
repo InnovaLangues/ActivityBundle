@@ -6,7 +6,7 @@
                 <span data-ng-bind-html="activityPlayerCtrl.sequence.description"></span>
             </div>
             <div class="col-md-2"></div>
-        
+            
             <table class="table-striped col-md-offset-1 col-md-10" data-ng-if="activityPlayerCtrl.answersGiven()" >
                 <tr>
                     <th class="intro-th">N°</th>
@@ -38,8 +38,11 @@
             <div class="col-md-1"></div>
         </div>
         
-        <button data-ng-click="activityPlayerCtrl.start()" class="btn btn-primary btn-save">
+        <button data-ng-if="activityPlayerCtrl.isAuthorizedStart()" data-ng-click="activityPlayerCtrl.start()" class="btn btn-primary btn-save">
             <span>{{ 'start' | trans:{}:'activity_editor' }}</span>
         </button>
+        <span data-ng-if="activityPlayerCtrl.isAuthorizedStart() === false">
+            {{ 'all_tries_used' | trans:{}:'activity_editor' }}
+        </span>
     </div>
 </div>
