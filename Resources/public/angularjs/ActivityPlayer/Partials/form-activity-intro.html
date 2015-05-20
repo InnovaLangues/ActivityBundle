@@ -3,15 +3,7 @@
         <div class="row"><h3>{{ activityPlayerCtrl.sequence.name}}</h3></div>
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
-                Etiam nisi arcu, iaculis ut neque eget, cursus accumsan erat.
-                Donec feugiat purus quis quam lobortis, quis commodo justo suscipit.
-                Quisque eu nunc nec sem vulputate fermentum at a metus. Fusce ac lorem a lacus tristique imperdiet.
-                Aenean et euismod turpis. Sed semper varius tincidunt.
-                Praesent at nibh laoreet, laoreet dui sed, accumsan ex. Nunc id tellus orci. Pellentesque dictum magna mi.
-                Duis a massa dignissim, porta tortor quis, aliquam erat.
-                Praesent pulvinar rutrum quam, ut vehicula sapien bibendum vitae. Morbi congue placerat molestie.
-                Aliquam at consectetur orci. Sed ultricies dolor eu odio ultricies, eget blandit lectus hendrerit.
-                Proin elementum, sapien vel malesuada aliquet, enim lorem consectetur est, in finibus lorem lacus a felis. 
+                <span data-ng-bind-html="activityPlayerCtrl.sequence.description"></span>
             </div>
             <div class="col-md-2"></div>
         
@@ -25,6 +17,9 @@
                     <th class="intro-th">{{ 'after_trials' | trans:{}:'activity_editor' }}</th>
                     <th class="intro-th">{{ 'answers_not_found' | trans:{}:'activity_editor' }}</th>
                     <th class="intro-th">{{ 'clues_asked' | trans:{}:'activity_editor' }}</th>
+                    <th class="intro-th">{{ 'see' | trans:{}:'activity_editor' }}Voir</th>
+                    <th class="intro-th">{{ 'share' | trans:{}:'activity_editor' }}Partager</th>
+                    <th class="intro-th">{{ 'tag' | trans:{}:'activity_editor' }}Marquer</th>
                 </tr>
                 <tr data-ng-repeat="answer in activityPlayerCtrl.getUsersPreviousAnswers()" >
                     <td class="intro-td">{{ $index + 1 }}</td>
@@ -34,6 +29,9 @@
                     <td class="intro-td">{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, true) }}</td>
                     <td class="intro-td"></td>
                     <td class="intro-td">{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, false) }}</td>
+                    <td class="intro-td"></td>
+                    <td class="intro-td"></td>
+                    <td class="intro-td"></td>
                     <td class="intro-td"></td>
                 </tr>
             </table>

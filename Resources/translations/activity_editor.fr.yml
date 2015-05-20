@@ -1,6 +1,8 @@
 #a
 
+activity_sequence_form_description: Description
 activity_sequence_form_name: Suite d'activités
+activity_sequence_form_numTries: Nombre de tentatives limité?
 activity_type_BooleanChoiceType: Vrai/Faux
 activity_type_MultipleChoiceType: Question à choix multiple
 activity_type_UniqueChoiceType: Question à choix unique
@@ -80,6 +82,8 @@ right_answers_found: Solutions trouvées
 #s
 
 save: Enregistrer
+see: Voir
+share: Partager
 start: Commencer
 start_date_hour: Début Date (Heure)
 submit: Valider
@@ -87,6 +91,7 @@ select_available_type: Selectionner un type en cliquant dessus
 
 #t
 
+tag: Marquer
 type: Type
 
 #w

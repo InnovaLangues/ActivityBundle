@@ -10,8 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Form\FormFactoryInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Form\FormInterface;
 use Innova\ActivityBundle\Entity\ActivitySequence;
+use Innova\ActivityBundle\Form\Handler\ActivitySequenceHandler;
 use Innova\ActivityBundle\Manager\ActivitySequenceManager;
 use Innova\ActivityBundle\Manager\ActivityManager;
 
@@ -51,6 +54,18 @@ class ActivitySequenceController
     protected $activityManager;
 
     /**
+     * Form factory
+     * @var \Symfony\Component\Form\FormFactoryInterface
+     */
+    protected $formFactory;
+
+    /**
+     * Activity form handler
+     * @var \Innova\ActivityBundle\Form\Handler\ActivitySequenceHandler
+     */
+    protected $activitySequenceHandler;
+
+    /**
      * Class constructor
      *
      * @DI\InjectParams({
@@ -58,19 +73,25 @@ class ActivitySequenceController
      *      "securityContext"         = @DI\Inject("security.context"),
      *      "activitySequenceManager" = @DI\Inject("innova.manager.activity_sequence_manager"),
      *      "activityManager"         = @DI\Inject("innova.manager.activity_manager"),
+     *      "formFactory"             = @DI\Inject("form.factory"),
+     *      "activitySequenceHandler" = @DI\Inject("innova_activity_sequence.form.handler.activity")
      * })
      */
     public function __construct(
         ObjectManager            $objectManager,
         SecurityContextInterface $securityContext,
         ActivitySequenceManager  $activitySequenceManager,
-        ActivityManager          $activityManager
+        ActivityManager          $activityManager,
+        FormFactoryInterface     $formFactory,
+        ActivitySequenceHandler  $activitySequenceHandler
     )
     {
         $this->om                      = $objectManager;
         $this->security                = $securityContext;
         $this->activitySequenceManager = $activitySequenceManager;
         $this->activityManager         = $activityManager;
+        $this->formFactory             = $formFactory;
+        $this->activitySequenceHandler = $activitySequenceHandler;
     }
 
     /**
@@ -126,15 +147,12 @@ class ActivitySequenceController
     /**
      * Update an ActivitySequence
      *
-     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     *
      * @Route(
      *      "/{activitySequenceId}",
      *      name    = "innova_activity_sequence_update",
      *      options = {"expose" = true}
      * )
+     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("PUT")
      */
     public function updateAction(ActivitySequence $activitySequence)
@@ -143,7 +161,48 @@ class ActivitySequenceController
             throw new AccessDeniedException();
         }
         
-        return new JsonResponse($activitySequence);
+        $params = array(
+            'method' => 'PUT',
+            'csrf_protection' => false,
+        );
+
+        // Create form
+        $form = $this->formFactory->create('innova_activity_sequence', $activitySequence, $params);
+
+        $response = array();
+
+        // Try to process data
+        $this->activitySequenceHandler->setForm($form);
+        if ($this->activitySequenceHandler->process()) {
+            // Add user message
+            $response['status']   = 'OK';
+            $response['messages'] = array ();
+            $response['data']     = $this->activitySequenceHandler->getData();
+        } else {
+            // Error
+            $response['status']   = 'ERROR_VALIDATION';
+            $response['messages'] = $this->getFormErrors($form);
+            $response['data']     = null;
+        }
+
+        return new JsonResponse($response);
+    }
+
+    private function getFormErrors(FormInterface $form)
+    {
+        $errors = array();
+        foreach ($form->getErrors() as $key => $error) {
+            $errors[$key] = $error->getMessage();
+        }
+
+        // Get errors from children
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getFormErrors($child);
+            }
+        }
+
+        return $errors;
     }
 
     /**

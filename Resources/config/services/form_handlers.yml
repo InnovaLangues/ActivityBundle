@@ -7,3 +7,11 @@ services:
         calls:
             - [setRequest, [@request]]
         scope: request
+    # Activity Sequence handler
+    innova_activity_sequence.form.handler.activity:
+        class: %innova_activity_sequence.form.handler.activity.class%
+        arguments:
+            activitySequenceManager: @innova.manager.activity_sequence_manager
+        calls:
+            - [setRequest, [@request]]
+        scope: request

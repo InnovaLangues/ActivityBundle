@@ -50,4 +50,13 @@ class ActivitySequenceManager
         
         return $this;
     }
+    
+    public function edit(ActivitySequence $activitySequence)
+    {
+        $this->em->persist($activitySequence);
+        
+        $this->em->flush();
+
+        return $activitySequence;
+    }
 }

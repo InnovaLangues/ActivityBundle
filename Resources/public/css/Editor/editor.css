@@ -112,8 +112,8 @@
     text-align: center;
 }
 
-.intro-th, .intro-td {
-    padding: 5px;
+.intro-th {
+    text-align: center;
 }
 
 .dots {
