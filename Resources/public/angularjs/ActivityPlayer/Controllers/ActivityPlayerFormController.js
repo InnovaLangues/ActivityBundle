@@ -248,9 +248,18 @@
             this.isSelectedDot = function (index, id) {
                 var cssClass = "";
                 
-                if (index === -1 || index === "end") {
+                if (index === -1) {
                     cssClass = "fa-square-o";
-                    if (this.currentFile === "intro" || this.currentFile === "end") {
+                    if (this.currentFile === "intro") {
+                        cssClass += " dot-selected";
+                    }
+                    else {
+                        cssClass += " dot-unselected";
+                    }
+                }
+                else if (index === "end") {
+                    cssClass = "fa-square-o";
+                    if (this.currentFile === "end") {
                         cssClass += " dot-selected";
                     }
                     else {
