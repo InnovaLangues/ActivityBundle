@@ -184,7 +184,7 @@
             };
             
             this.isAuthorizedStart = function() {
-                if (this.getUsersPreviousAnswersLength() !== this.sequence.numTries || this.sequence.numTries === 0) {
+                if (this.getUsersPreviousAnswersLength() < this.sequence.numTries || this.sequence.numTries === 0) {
                     return true;
                 }
                 else {
@@ -234,29 +234,56 @@
                 }
             };
             
-            this.isSelectedDot = function (index) {
-                if (index === -1) {
-                    if (this.currentFile === "intro") {
-                        return "fa-square dot-selected";
-                    }
-                    else {
-                        return "fa-square-o dot-unselected";
+            this.isExecutedActivity = function (id) {
+                var isExecuted = false;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.id === id) {
+                        isExecuted = true;
                     }
                 }
-                else if (index === "end") {
-                    if (this.currentFile === "end") {
-                        return "fa-square dot-selected";
+                
+                return isExecuted;
+            };
+            
+            this.isSelectedDot = function (index, id) {
+                var cssClass = "";
+                
+                if (index === -1 || index === "end") {
+                    cssClass = "fa-square-o";
+                    if (this.currentFile === "intro" || this.currentFile === "end") {
+                        cssClass += " dot-selected";
                     }
                     else {
-                        return "fa-square-o dot-unselected";
+                        cssClass += " dot-unselected";
                     }
-                }
-                else if (index === this.iterator && this.currentFile === "edit") {
-                    return "fa-circle dot-selected";
                 }
                 else {
-                    return "fa-circle-thin dot-unselected";
+                    cssClass = "fa-circle";
+                    if (!this.isExecutedActivity(id)) {
+                        cssClass += "-thin";
+                        
+                        if (index === this.iterator && this.currentFile === "edit") {
+                            cssClass += " dot-selected";
+                        }
+                        else {
+                            cssClass += " dot-not-executed";
+                        }
+                    }
+                    else {
+                        if (index === this.iterator && this.currentFile === "edit") {
+                            cssClass += " dot-selected";
+                        }
+                        else {
+                            cssClass += " dot-executed";
+                        }
+                    }
+                    
+                    if (!(index === this.iterator && this.currentFile === "edit")) {
+                        cssClass += " dot-unselected";
+                    }
                 }
+                
+                return cssClass;
             };
             
             this.jumpTo = function (index) {
