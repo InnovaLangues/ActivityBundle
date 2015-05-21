@@ -18,6 +18,9 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Form\FormInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Claroline\CoreBundle\Entity\Resource\ResourceNode;
+use Claroline\CoreBundle\Manager\ResourceManager;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ActivityController
@@ -28,12 +31,13 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * @ParamConverter("activity", class="InnovaActivityBundle:Activity", isOptional=true, options={"mapping": {"activityId": "id"}})
 
  */
-class ActivityController
-{
+class ActivityController {
+
     /**
      * @var \Symfony\Component\Security\Core\SecurityContextInterface
      */
     protected $security;
+
     /**
      * Activity Manager
      * @var \Innova\ActivityBundle\Manager\ActivityManager
@@ -53,6 +57,13 @@ class ActivityController
     protected $activityHandler;
 
     /**
+     * Resource Manager
+     * @var \Claroline\CoreBundle\Manager\ResourceManager 
+     */
+    protected $resourceManager;
+    protected $container;
+
+    /**
      * Class constructor
      *
      * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
@@ -64,21 +75,21 @@ class ActivityController
      *   "securityContext" = @DI\Inject("security.context"),
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      *   "formFactory"     = @DI\Inject("form.factory"),
-     *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")
+     *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity"),
+     *   "resourceManager" = @DI\Inject("claroline.manager.resource_manager"),
+     *   "container"       = @DI\Inject("service_container")
      * })
      */
     public function __construct(
-        SecurityContextInterface $securityContext,
-        ActivityManager      $activityManager,
-        FormFactoryInterface $formFactory,
-        ActivityHandler      $activityHandler)
-    {
-        $this->security        = $securityContext;
+    SecurityContextInterface $securityContext, ActivityManager $activityManager, FormFactoryInterface $formFactory, ActivityHandler $activityHandler, ResourceManager $resourceManager, $container) {
+        $this->security = $securityContext;
         $this->activityManager = $activityManager;
-        $this->formFactory     = $formFactory;
+        $this->formFactory = $formFactory;
         $this->activityHandler = $activityHandler;
+        $this->resourceManager = $resourceManager;
+        $this->container = $container;
     }
-    
+
     /**
      * Display an Activity
      *
@@ -93,8 +104,7 @@ class ActivityController
      * @Method("GET")
      * @Template()
      */
-    public function showAction(Activity $activity)
-    {
+    public function showAction(Activity $activity) {
         if (false === $this->security->isGranted('OPEN', $activity->getResourceNode())) {
             throw new AccessDeniedException();
         }
@@ -103,7 +113,7 @@ class ActivityController
             '_resource' => $activity,
         );
     }
-    
+
     /**
      * Display form to manage Activity
      *
@@ -118,18 +128,17 @@ class ActivityController
      * @Method("GET")
      * @Template()
      */
-    public function administrateAction(Activity $activity)
-    {
+    public function administrateAction(Activity $activity) {
         if (false === $this->security->isGranted('ADMINISTRATE', $activity->getResourceNode())) {
             throw new AccessDeniedException();
         }
-        
+
         return array(
             '_resource' => $activity,
         );
     }
-    
-        /**
+
+    /**
      * Create a new Activity
      * @Route(
      *      "/{activitySequenceId}/{typeAvailableId}",
@@ -140,13 +149,12 @@ class ActivityController
      * @ParamConverter("typeAvailable",    class="InnovaActivityBundle:ActivityAvailable\TypeAvailable", options = { "mapping" : {"typeAvailableId" : "id"} })
      * @Method("POST")
      */
-    public function createAction(ActivitySequence $activitySequence, TypeAvailable $typeAvailable)
-    {
+    public function createAction(ActivitySequence $activitySequence, TypeAvailable $typeAvailable) {
         $response = array();
         try {
             // Create the new Activity
             $activity = $this->activityManager->create($activitySequence, $typeAvailable);
-        
+
             // Build response object
             $response['status'] = 'OK';
             $response['messages'] = array(
@@ -159,7 +167,7 @@ class ActivityController
                 $e->getMessage(),
             );
         }
-        
+
         return new JsonResponse($response);
     }
 
@@ -172,8 +180,7 @@ class ActivityController
      * @ParamConverter("activity", class="InnovaActivityBundle:Activity", options={"mapping": {"activityId": "id"}})
      * @Method("PUT")
      */
-    public function updateAction(Activity $activity)
-    {
+    public function updateAction(Activity $activity) {
         $params = array(
             'method' => 'PUT',
             'csrf_protection' => false,
@@ -188,21 +195,20 @@ class ActivityController
         $this->activityHandler->setForm($form);
         if ($this->activityHandler->process()) {
             // Add user message
-            $response['status']   = 'OK';
-            $response['messages'] = array ();
-            $response['data']     = $this->activityHandler->getData();
+            $response['status'] = 'OK';
+            $response['messages'] = array();
+            $response['data'] = $this->activityHandler->getData();
         } else {
             // Error
-            $response['status']   = 'ERROR_VALIDATION';
+            $response['status'] = 'ERROR_VALIDATION';
             $response['messages'] = $this->getFormErrors($form);
-            $response['data']     = null;
+            $response['data'] = null;
         }
 
         return new JsonResponse($response);
     }
 
-    private function getFormErrors(FormInterface $form)
-    {
+    private function getFormErrors(FormInterface $form) {
         $errors = array();
         foreach ($form->getErrors() as $key => $error) {
             $errors[$key] = $error->getMessage();
@@ -217,4 +223,36 @@ class ActivityController
 
         return $errors;
     }
+
+    /**
+     * @Route(
+     *     "/get/audio/{activityId}/{nodeId}",
+     *     name="activity_get_resource_content",
+     *     options = {"expose" = true}
+     * )
+     * @ParamConverter("node", class="ClarolineCoreBundle:Resource\ResourceNode", options={"mapping": {"nodeId":"id"}})
+     * @Method("GET")
+     */
+    public function serveAudioResourceFile(ResourceNode $node) {
+
+        if ($node->getClass() === 'Claroline\CoreBundle\Entity\Resource\File') {
+            $resource = $this->resourceManager->getResourceFromNode($node);
+            if ($resource === null) {
+                throw new \Exception('The resource was removed.');
+            }
+
+            $item = $this->container->getParameter('claroline.param.files_directory') . '/' . $resource->getHashName();
+            $response = new Response();
+            $response->headers->set('Content-type', mime_content_type($item));
+            $response->headers->set('Content-type', 'audio/mpeg');
+            $response->headers->set('Content-Disposition', 'attachment; filename="'.basename($item).'";');
+            $response->headers->set("Content-Transfer-Encoding", 'binary');
+            $response->headers->set('Content-length', filesize($item));
+            $response->sendHeaders();
+            $response->setContent(file_get_contents($item));
+            return $response;
+        }
+        return;
+    }
+
 }
