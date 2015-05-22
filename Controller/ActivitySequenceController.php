@@ -160,18 +160,20 @@ class ActivitySequenceController
             'resourceTypes' => $resourceTypes,
              '_resource' => $activitySequence,
         );
-
     }
 
     /**
      * Update an ActivitySequence
+     *
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      * @Route(
      *      "/{activitySequenceId}",
      *      name    = "innova_activity_sequence_update",
      *      options = {"expose" = true}
      * )
-     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("PUT")
      */
     public function updateAction(ActivitySequence $activitySequence)
