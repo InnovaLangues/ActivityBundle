@@ -6,8 +6,8 @@
         'ui.bootstrap',
         'ui.tinymce',
         'ui.translation',
-        'ui.sortable',
-
+        'ui.sortable',,
+        'ui.resourcePicker',
         'Utils',
         'ConfirmModule',
         'ActivitySequence'
