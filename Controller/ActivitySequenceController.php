@@ -90,7 +90,7 @@ class ActivitySequenceController
         SecurityContextInterface $securityContext,
         ActivitySequenceManager  $activitySequenceManager,
         ActivityManager          $activityManager,
-        ResourceManager          $resourceManager 
+        ResourceManager          $resourceManager,
         FormFactoryInterface     $formFactory,
         ActivitySequenceHandler  $activitySequenceHandler
     )

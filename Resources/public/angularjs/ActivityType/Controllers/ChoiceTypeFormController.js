@@ -133,7 +133,6 @@
             };
 
             this.isAudioFile = function (mimeType) {
-                // mp3 is not reconized by claroline... so custom/file is for it... 
                 var types = ['audio/x-wav', 'audio/mpeg', 'audio/ogg', 'custom/file'];
                 return types.indexOf(mimeType) !== -1;
             };
