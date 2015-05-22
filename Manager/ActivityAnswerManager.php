@@ -26,7 +26,7 @@ class ActivityAnswerManager
         $this->em = $this->container->get('claroline.persistence.object_manager');
     }
 
-    public function create(Activity $activity, ChoiceProperty $choice)
+    public function create(Activity $activity, ChoiceProperty $choice, $trial)
     {
         //$choice = $this->em->getRepository("InnovaActivityBundle:ActivityProperty\ChoiceProperty")->find($choiceId);
                 
@@ -36,6 +36,7 @@ class ActivityAnswerManager
         $activityAnswer->setUser($security->getToken()->getUser());
         $activityAnswer->setActivity($activity);
         $activityAnswer->addChoiceProperty($choice);
+        $activityAnswer->setNumTrial($trial);
         $this->em->persist($activityAnswer);
         $this->em->flush();
         

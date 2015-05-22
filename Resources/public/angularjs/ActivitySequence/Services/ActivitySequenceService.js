@@ -21,9 +21,25 @@
                     var deferred = $q.defer();
 
                     LoaderService.startRequest();
+                    
+                    function ActivitySequence (sequence) {
+                        var innova_activity_sequence = {
+                            description:sequence.description,
+                            numTries:sequence.numTries
+                        };
+                        
+                        return innova_activity_sequence;
+                    }
+                    
+                    var newActivitySequence = new ActivitySequence(sequence);
 
                     $http
-                        .put(Routing.generate('innova_activity_sequence_update', { activitySequenceId : sequence.id }, sequence))
+                        .put(
+                            Routing.generate('innova_activity_sequence_update', { activitySequenceId : sequence.id }),
+                            {
+                                innova_activity_sequence: newActivitySequence
+                            }
+                        )
                         .success(function (response) {
                             LoaderService.endRequest();
 

@@ -41,6 +41,14 @@ class ActivitySequence extends AbstractResource implements \JsonSerializable
      * @ORM\OrderBy({"position" = "ASC"})
      */
     protected $activities;
+    
+    /**
+     *
+     * @var integer
+     * 
+     * @ORM\Column(name="numTries", type="integer")
+     */
+    protected $numTries;
 
     /**
      * Constructor
@@ -81,6 +89,28 @@ class ActivitySequence extends AbstractResource implements \JsonSerializable
     public function getDescription()
     {
         return $this->description;
+    }
+    
+    
+    /**
+     * 
+     * @param integer $numTries
+     * @return ActivitySequence
+     */
+    public function setNumTries($numTries)
+    {
+        $this->numTries = $numTries;
+        
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return integer
+     */
+    public function getNumTries()
+    {
+        return $this->numTries;
     }
 
     /**
@@ -152,8 +182,10 @@ class ActivitySequence extends AbstractResource implements \JsonSerializable
     {
         return array (
             'id'         => $this->id,
+            'description'=> $this->description,
             'name'       => $this->resourceNode->getName(),
             'activities' => $this->activities->toArray(),
+            'numTries'  => $this->numTries,
         );
     }
 }

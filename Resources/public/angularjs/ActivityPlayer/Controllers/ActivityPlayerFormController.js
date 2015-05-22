@@ -15,12 +15,23 @@
             this.currentAction = '';
             
             this.iterator = 0;
+            this.trial = 1;
             
             this.answers = [];
             this.correctAnswers = [];
             
             this.inputs = [];
             this.input = null;
+            
+            this.answersGiven = function() {
+                var numAnswers=0;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
+                        numAnswers++;
+                    }
+                }
+                return !(numAnswers === 0);
+            };
             
             this.checkInputs = function(choice) {
                 this.answers = [];
@@ -37,6 +48,15 @@
                         id: choice,
                         checked: true
                     });
+                }
+            };
+            
+            this.formatDate = function(number) {
+                if (number < 10) {
+                    return "0" + number;
+                }
+                else {
+                    return number;
                 }
             };
             
@@ -62,12 +82,113 @@
                 }
             };
             
+            this.getDate = function(index, order) {
+                var datetime = "";
+                var previousDate;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id && this.previousAnswers[i].numTrial === index) {
+                        previousDate = this.previousAnswers[i].dateCreated;
+                        if (previousDate.date.localeCompare(datetime.date) === order || datetime === "") {
+                            datetime = this.previousAnswers[i].dateCreated;
+                        }
+                    }
+                }
+                var regex=/^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) (?:([0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
+                var parts=datetime.date.replace(regex,"$1 $2 $3 $4 $5 $6").split(' ');
+                var date = new Date(parts[0],parts[1]-1,parts[2],parts[3],parts[4],parts[5]);
+                var formated_date = this.formatDate(date.getDate()) + "/" + this.formatDate(date.getMonth() + 1) + "/" + date.getFullYear();
+                var formated_hour = "(" + date.getHours() + ":" + this.formatDate(date.getMinutes()) + ":" + this.formatDate(date.getSeconds()) + ")";
+                var formated_date_hour = formated_date + " " + formated_hour;
+                
+                return formated_date_hour;
+            };
+            
+            this.getExecutedActivities = function(index) {
+                var j=0;
+                var activities = [];
+                var alreadySaved;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id && this.previousAnswers[i].numTrial === index) {
+                        alreadySaved = false;
+                        for (var k=0; k<activities.length; k++) {
+                            if (activities[k] === this.previousAnswers[i].activity.id) {
+                                alreadySaved = true;
+                            }
+                        }
+                        if (!alreadySaved) {
+                            activities.push(this.previousAnswers[i].activity.id);
+                            j++;
+                        }
+                    }
+                }
+                if (this.sequence.activities.length === j) {
+                    return j + " (terminé)";
+                }
+                else {
+                    return j;
+                }
+            };
+            
+            this.getRightAnswersGiven = function(index, right) {
+                var correct = 0;
+                var wrong = 0;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id && this.previousAnswers[i].numTrial === index) {
+                        if (this.previousAnswers[i].choiceProperties[0].correctAnswer === "correct") {
+                            correct++;
+                        }
+                        else if (this.previousAnswers[i].choiceProperties[0].correctAnswer === "wrong") {
+                            wrong++;
+                        }
+                    }
+                }
+                
+                if (right) {
+                    return correct;
+                }
+                else {
+                    return wrong;
+                }
+            };
+            
+            this.getUsersPreviousAnswers = function() {
+                var usersPreviousAnswers = [];
+                var alreadySaved;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
+                        alreadySaved = false;
+                        for (var j=0; j<usersPreviousAnswers.length;j++) {
+                            if (usersPreviousAnswers[j] === this.previousAnswers[i].numTrial) {
+                                alreadySaved = true;
+                            }
+                        }
+                        if (!alreadySaved) {
+                            usersPreviousAnswers.push(this.previousAnswers[i].numTrial);
+                        }
+                    }
+                }
+                return usersPreviousAnswers;
+            };
+            
+            this.getUsersPreviousAnswersLength = function() {
+                return this.getUsersPreviousAnswers().length;
+            };
+            
             this.inputType = function() {
                 if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
                     return "checkbox";
                 }
                 else {
                     return "radio";
+                }
+            };
+            
+            this.isAuthorizedStart = function() {
+                if (this.getUsersPreviousAnswersLength() < this.sequence.numTries || this.sequence.numTries === 0) {
+                    return true;
+                }
+                else {
+                    return false;
                 }
             };
             
@@ -113,29 +234,65 @@
                 }
             };
             
-            this.isSelectedDot = function (index) {
+            this.isExecutedActivity = function (id) {
+                var isExecuted = false;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.id === id) {
+                        isExecuted = true;
+                    }
+                }
+                
+                return isExecuted;
+            };
+            
+            this.isSelectedDot = function (index, id) {
+                var cssClass = "";
+                
                 if (index === -1) {
+                    cssClass = "fa-square-o";
                     if (this.currentFile === "intro") {
-                        return "fa-square dot-selected";
+                        cssClass += " dot-selected";
                     }
                     else {
-                        return "fa-square-o dot-unselected";
+                        cssClass += " dot-unselected";
                     }
                 }
                 else if (index === "end") {
+                    cssClass = "fa-square-o";
                     if (this.currentFile === "end") {
-                        return "fa-square dot-selected";
+                        cssClass += " dot-selected";
                     }
                     else {
-                        return "fa-square-o dot-unselected";
+                        cssClass += " dot-unselected";
                     }
                 }
-                else if (index === this.iterator && this.currentFile === "edit") {
-                    return "fa-circle dot-selected";
-                }
                 else {
-                    return "fa-circle-thin dot-unselected";
+                    cssClass = "fa-circle";
+                    if (!this.isExecutedActivity(id)) {
+                        cssClass += "-thin";
+                        
+                        if (index === this.iterator && this.currentFile === "edit") {
+                            cssClass += " dot-selected";
+                        }
+                        else {
+                            cssClass += " dot-not-executed";
+                        }
+                    }
+                    else {
+                        if (index === this.iterator && this.currentFile === "edit") {
+                            cssClass += " dot-selected";
+                        }
+                        else {
+                            cssClass += " dot-executed";
+                        }
+                    }
+                    
+                    if (!(index === this.iterator && this.currentFile === "edit")) {
+                        cssClass += " dot-unselected";
+                    }
                 }
+                
+                return cssClass;
             };
             
             this.jumpTo = function (index) {
@@ -180,9 +337,10 @@
             }.bind(this);
             
             this.save = function () {
+                    console.log(this.trial);
                 for (var i=0; i<this.answers.length; i++) {
                     if (this.answers[i].checked === true) {
-                        ActivityPlayerService.saveAnswer(this.sequence.activities[this.iterator].id, this.answers[0].id);
+                        ActivityPlayerService.saveAnswer(this.sequence.activities[this.iterator].id, this.answers[0].id, this.trial);
                     }
                 }
                 this.currentAction = 'feedback';
@@ -226,10 +384,14 @@
             this.start = function () {
                 this.currentAction = 'edit';
                 this.currentFile = 'edit';
-            };
-            
-            this.test = function () {
-                console.log(this.previousAnswers);
+                this.trial = 1;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
+                        if (this.trial <= this.previousAnswers[i].numTrial) {
+                            this.trial = this.previousAnswers[i].numTrial + 1;
+                        }
+                    }
+                }
             };
         }
     ]);

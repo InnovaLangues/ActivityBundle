@@ -51,6 +51,22 @@ class ActivityAnswer implements \JsonSerializable
     protected $choiceProperties;
     
     /**
+     * @var integer
+     * 
+     * @ORM\Column(name="numTrial", type="integer")
+     */
+    protected $numTrial;
+    
+    /**
+     * Creation date of the Answer
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="date_created", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    protected $dateCreated;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -91,6 +107,17 @@ class ActivityAnswer implements \JsonSerializable
         $this->activity = $activity;
         
         return $this;
+    }
+    
+    
+    public function getNumTrial()
+    {
+        return $this->numTrial;
+    }
+    
+    public function setNumTrial($numTrial)
+    {
+        $this->numTrial = $numTrial;
     }
     
     
@@ -140,6 +167,27 @@ class ActivityAnswer implements \JsonSerializable
     }
     
     /**
+     * Set dateCreated
+     * @param \Datetime
+     * @return \Innova\ActivityBundle\Entity\Activity
+     */
+    public function setDateCreated(\DateTime $dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+        
+        return $this;
+    }
+    
+    /**
+     * Get dateCreated
+     * @return \Datetime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+    
+    /**
      * Define how to serialize our entity ActivityAnswer
      * @return Array
      */
@@ -151,6 +199,8 @@ class ActivityAnswer implements \JsonSerializable
             'user'              => $this->user,
             'activity'          => $this->activity,
             'choiceProperties'  => $this->choiceProperties->toArray(),
+            'numTrial'          => $this->numTrial,
+            'dateCreated'       => $this->dateCreated,
         );
     }
 }

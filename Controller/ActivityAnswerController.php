@@ -69,18 +69,18 @@ class ActivityAnswerController
     /**
      * Save an answer
      * @Route(
-     *      "/{activityId}/{answerId}",
+     *      "/{activityId}/{answerId}/{trial}",
      *      name="innova_answer_create",
      *      options = { "expose" = true }
      * )
      * @Method("POST")
      */
-    public function answerCreateAction(Activity $activity, ChoiceProperty $choice)
+    public function answerCreateAction(Activity $activity, ChoiceProperty $choice, $trial)
     {
         $response = array();
         try {
             // Create the new Activity
-            $this->activityAnswerManager->create($activity, $choice);
+            $this->activityAnswerManager->create($activity, $choice, $trial);
         
             // Build response object
             $response['status'] = 'OK';

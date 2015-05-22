@@ -112,6 +112,10 @@
     text-align: center;
 }
 
+.intro-th {
+    text-align: center;
+}
+
 .dots {
     float: right;
     margin: 10px;
@@ -125,9 +129,17 @@
     color: #428BCA;
 }
 
-.dot-selected, .dot-unselected {
+.dot-selected, 
+.dot-unselected, 
+.dot-executed, 
+.dot-not-executed,
+.dots-arrows {
     font-size: 25px;
     margin: 3px;
+}
+
+.dot-executed, .dot-not-executed, .dot-unselected {
+    color: #96D4FF;
 }
 
 .navbar-brand{
