@@ -225,6 +225,8 @@ class ActivityController {
     }
 
     /**
+     * Serve a ressource file that is not in the web folder
+     * have to set this route in the source attribute to see/ear the ressource
      * @Route(
      *     "/get/audio/{activityId}/{nodeId}",
      *     name="activity_get_resource_content",
@@ -233,7 +235,7 @@ class ActivityController {
      * @ParamConverter("node", class="ClarolineCoreBundle:Resource\ResourceNode", options={"mapping": {"nodeId":"id"}})
      * @Method("GET")
      */
-    public function serveAudioResourceFile(ResourceNode $node) {
+    public function serveResourceFile(ResourceNode $node) {
 
         if ($node->getClass() === 'Claroline\CoreBundle\Entity\Resource\File') {
             $resource = $this->resourceManager->getResourceFromNode($node);
@@ -244,7 +246,6 @@ class ActivityController {
             $item = $this->container->getParameter('claroline.param.files_directory') . '/' . $resource->getHashName();
             $response = new Response();
             $response->headers->set('Content-type', mime_content_type($item));
-            $response->headers->set('Content-type', 'audio/mpeg');
             $response->headers->set('Content-Disposition', 'attachment; filename="'.basename($item).'";');
             $response->headers->set("Content-Transfer-Encoding", 'binary');
             $response->headers->set('Content-length', filesize($item));

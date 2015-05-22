@@ -67,6 +67,8 @@
             };
 
             this.stripIfText = function () {
+                console.log('change');
+                console.log(this.activityType.mediaType.name);
                 if (this.activityType.mediaType.name !== "Prosodic") {
                     for (var i = 0; i < this.activityType.type.choices.length; i++) {
                         this.activityType.type.choices[i].media = this.activityType.type.choices[i].media.replace(/<(?:.|\n)*?>/gm, '');
@@ -144,11 +146,20 @@
             };
 
             this.isAudioFile = function (mimeType) {
+                // mp3 is not reconized by claroline... so custom/file is for it... 
                 var types = ['audio/x-wav', 'audio/mpeg', 'audio/ogg', 'custom/file'];
                 return types.indexOf(mimeType) !== -1;
             };
 
-
+            this.isImageFile = function (mimeType) {
+                var types = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                return types.indexOf(mimeType) !== -1;
+            };
+            
+            this.isVideoFile = function (mimeType) {
+                var types = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm', 'video/mpeg'];
+                return types.indexOf(mimeType) !== -1;
+            };
 
 
             // Resource Picker base config
@@ -157,8 +168,11 @@
                 webPath: ActivityEditorApp.webDir,
                 appPath: ActivityEditorApp.appDir,
                 directoryId: ActivityEditorApp.wsDirectoryId,
-                resourceTypes: ActivityEditorApp.resourceTypes
+                resourceTypes: ActivityEditorApp.resourceTypes,
+                typeWhiteList: ['file']
             };
+
+            var my = this;
 
             // AUDIO RESOURCE PICKER
             this.activitySequenceAudioResourcePicker = {
@@ -166,25 +180,7 @@
                 parameters: angular.copy(this.resourcePickerConfig)
 
             };
-
             // can not filter the ressource picker on audio files only...
-            this.activitySequenceAudioResourcePicker.parameters.typeWhiteList = ['file'];
-
-            var my = this;
-
-            this.playSound = function (url) {
-                console.log('play called');
-                if (!this.audioIsPlaying) {
-                    my.audio = new Audio(ActivityEditorApp.webDir + '../files/' + url);
-                    my.audio.play();
-                    my.audioIsPlaying = true;
-                }
-                else {
-                    my.audio.pause();
-                    my.audio = null;
-                }
-            }
-
             this.activitySequenceAudioResourcePicker.parameters.callback = function (nodes) {
                 if (typeof nodes === 'object' && nodes.length !== 0) {
                     var resource = {};
@@ -202,6 +198,12 @@
                     if (my.isAudioFile(resource.mimeType)) {
                         var id = this.viewName;
                         var refNode = document.getElementById(id);
+
+                        var next = refNode.nextSibling;
+                        if (next && next.tagName === 'AUDIO') {
+                            refNode.parentNode.removeChild(next);
+                        }
+
                         var tag = document.createElement('audio');
                         tag.setAttribute('src', Routing.generate('activity_get_resource_content', {activityId: my.activityType.id, nodeId: resource.id}));
                         tag.setAttribute('controls', 'controls');
@@ -209,18 +211,103 @@
                         refNode.parentNode.insertBefore(tag, refNode.nextSibling);
                     }
                     else {
-                        console.log('not audio file' + resource.mimeType);
+                        console.log('not audio file ' + resource.mimeType);
                     }
                 }
+                // Remove checked nodes for next time
+                nodes = {};
             };
 
-
-
-
-
             // IMAGE RESOURCE PICKER
+            this.activitySequenceImageResourcePicker = {
+                name: 'picker-image',
+                parameters: angular.copy(this.resourcePickerConfig)
+
+            };
+
+            // can not filter the ressource picker on image files only...
+            this.activitySequenceImageResourcePicker.parameters.callback = function (nodes) {
+                if (typeof nodes === 'object' && nodes.length !== 0) {
+                    var resource = {};
+                    for (var nodeId in nodes) {
+                        // just one node to handle
+                        var node = nodes[nodeId];
+                        resource = {
+                            name: node[0],
+                            type: node[1],
+                            mimeType: node[2],
+                            id: nodeId
+                        }
+                    }
+                    // ensure that the selected resource is an audio file
+                    if (my.isImageFile(resource.mimeType)) {
+                        var id = this.viewName;
+                        var refNode = document.getElementById(id);
+
+                        var next = refNode.nextSibling;
+                        if (next && next.tagName === 'IMG') {
+                            refNode.parentNode.removeChild(next);
+                        }
+
+                        var tag = document.createElement('img');
+                        tag.setAttribute('src', Routing.generate('activity_get_resource_content', {activityId: my.activityType.id, nodeId: resource.id}));
+
+                        tag.setAttribute('style', 'width:80%;float:right;');
+                        refNode.parentNode.insertBefore(tag, refNode.nextSibling);
+                    }
+                    else {
+                        console.log('not image file ' + resource.mimeType);
+                    }
+                }
+                // Remove checked nodes for next time
+                nodes = {};
+            };
 
             // VIDEO RESOURCE PICKER
+            this.activitySequenceVideoResourcePicker = {
+                name: 'picker-video',
+                parameters: angular.copy(this.resourcePickerConfig)
+
+            };
+
+            // can not filter the ressource picker on image files only...
+            this.activitySequenceVideoResourcePicker.parameters.callback = function (nodes) {
+                if (typeof nodes === 'object' && nodes.length !== 0) {
+                    var resource = {};
+                    for (var nodeId in nodes) {
+                        // just one node to handle
+                        var node = nodes[nodeId];
+                        resource = {
+                            name: node[0],
+                            type: node[1],
+                            mimeType: node[2],
+                            id: nodeId
+                        }
+                    }
+                    // ensure that the selected resource is an video file
+                    if (my.isVideoFile(resource.mimeType)) {
+                        var id = this.viewName;
+                        var refNode = document.getElementById(id);
+
+                        var next = refNode.nextSibling;
+                        if (next && next.tagName === 'VIDEO') {
+                            refNode.parentNode.removeChild(next);
+                        }
+
+                        var tag = document.createElement('video');
+                        tag.setAttribute('controls', 'controls');
+                        tag.setAttribute('src', Routing.generate('activity_get_resource_content', {activityId: my.activityType.id, nodeId: resource.id}));
+
+                        tag.setAttribute('style', 'width:80%;float:right;');
+                        refNode.parentNode.insertBefore(tag, refNode.nextSibling);
+                    }
+                    else {
+                        console.log('not video file ' + resource.mimeType);
+                    }
+                }
+                // Remove checked nodes for next time
+                nodes = {};
+            };
 
             // SEGMENT RESOURCE PICKER
 

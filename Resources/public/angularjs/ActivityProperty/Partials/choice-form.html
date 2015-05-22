@@ -1,7 +1,7 @@
 <ul class="list-group list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
     <li class="row list-group-item draggable-item" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
         <span class="myHandle btn btn-default fa fa-arrows"></span>
-        <span class="col-md-7">
+        <span class="col-md-7">           
             <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/MediaType/' + choiceTypeCtrl.activityType.mediaType.template" ></div>
         </span>
         <span class="col-md-3">
