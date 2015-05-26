@@ -120,7 +120,8 @@
                                 innova_activity.type.choices.push({
                                     media: activity.type.choices[choice].media,
                                     correctAnswer: activity.type.choices[choice].correctAnswer,
-                                    position: activity.type.choices[choice].position
+                                    position: activity.type.choices[choice].position,
+                                    resource: activity.type.choices[choice].resource
                                 });
                             }
                         }

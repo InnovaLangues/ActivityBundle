@@ -5,6 +5,7 @@ namespace Innova\ActivityBundle\Entity\ActivityProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Innova\ActivityBundle\Entity\ActivityProperty\MediaTypeProperty;
+use Claroline\CoreBundle\Entity\Resource\ResourceNode;
 
 /**
  * Proposition
@@ -49,6 +50,15 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
      */
     protected $position;
     
+    /**
+     * Resource associated with the choice (audio / photo / video)
+     * @var ResourceNode
+     * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\Resource\ResourceNode")
+     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id", nullable=true)
+     */
+    protected $resource;
+    
+    
     public function getid()
     {
         return $this->id;
@@ -90,6 +100,16 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
         return $this;
     }
     
+    public function setResource(ResourceNode $resource){
+        $this->resource = $resource;
+        return $this;
+    }
+    
+    public function getResource(){
+        return $this->reource;
+    }
+
+
     public function jsonSerialize()
     {
         return array(
@@ -97,6 +117,7 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
             'media'         => $this->media,
             'correctAnswer' => $this->correctAnswer,
             'position'      => $this->position,
+            'resource'      => $this->resource
         );
     }
 }

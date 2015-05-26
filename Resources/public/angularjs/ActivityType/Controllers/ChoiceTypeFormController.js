@@ -61,13 +61,33 @@
                 }
             };
             
+            /**
+             * On Media Type change 
+             */
+            this.handleChoiceTypeChange = function () {
+               
+               var type = this.activityType.mediaType.name;
+                // check if we are choosing text remove html markups from text
+                if (type === "Text") {
+                    for (var i=0; i<this.activityType.type.choices.length; i++) {
+                        this.activityType.type.choices[i].media = this.activityType.type.choices[i].media.replace(/<(?:.|\n)*?>/gm, '');
+                    }
+                }
+                // if sound / video / picture -> set media to null
+                else if(type === "Sound" || type === "Video" || type === "Picture"){
+                    for (var i=0; i<this.activityType.type.choices.length; i++) {
+                        this.activityType.type.choices[i].media = null;
+                    }
+                }
+            };
+            /*
             this.stripIfText = function () {
                 if (this.activityType.mediaType.name !== "Prosodic") {
                     for (var i=0; i<this.activityType.type.choices.length; i++) {
                         this.activityType.type.choices[i].media = this.activityType.type.choices[i].media.replace(/<(?:.|\n)*?>/gm, '');
                     }
                 }
-            };
+            };*/
             
             this.sortableOptions = {
                 handle: "> .myHandle",
@@ -84,16 +104,21 @@
                 }
             };
 
+/* // update method is called from ActivityFormController -> update
             this.update = function () {
+                console.log('choice type form controller ??');
                 ChoiceTypeService.update(this.activityType.type);
             };
+            */
 
             this.addChoice = function () {
+                console.log('yep 2');
                 this.activityType.type.choices.push({
                     id: 1 ,
                     media: "",
                     correctAnswer: "wrong",
-                    position: this.activityType.type.choices.length + 1
+                    position: this.activityType.type.choices.length + 1,
+                    resource: null
                 });
             };
 

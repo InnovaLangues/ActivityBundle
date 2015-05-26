@@ -180,6 +180,7 @@
             };
             
             this.addContent = function () {
+                console.log('yep');
                 this.activity.contents.push({
                     id: 1 ,
                     media: "",
