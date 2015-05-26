@@ -3,7 +3,8 @@
 namespace Innova\ActivityBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -34,12 +35,17 @@ class ActivitySequenceController
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
     protected $om;
-
+    
     /**
-     * Security
-     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     * Security Authorization
+     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $securityAuth
      */
-    protected $security;
+    protected $securityAuth;
+    /**
+     * Security Token
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $securityToken
+     */
+    protected $securityToken;
 
     /**
      * ActivitySequence Manager
@@ -67,6 +73,9 @@ class ActivitySequenceController
 
     /**
      * Class constructor
+     * 
+     * @param \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface        $securityAuth
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $securityToken
      *
      * @DI\InjectParams({
      *      "objectManager"           = @DI\Inject("doctrine.orm.entity_manager"),
@@ -79,7 +88,8 @@ class ActivitySequenceController
      */
     public function __construct(
         ObjectManager            $objectManager,
-        SecurityContextInterface $securityContext,
+        AuthorizationCheckerInterface $securityAuth,
+        TokenStorageInterface         $securityToken,
         ActivitySequenceManager  $activitySequenceManager,
         ActivityManager          $activityManager,
         FormFactoryInterface     $formFactory,
@@ -87,7 +97,8 @@ class ActivitySequenceController
     )
     {
         $this->om                      = $objectManager;
-        $this->security                = $securityContext;
+        $this->securityAuth            = $securityAuth;
+        $this->securityToken           = $securityToken;
         $this->activitySequenceManager = $activitySequenceManager;
         $this->activityManager         = $activityManager;
         $this->formFactory             = $formFactory;
@@ -110,7 +121,7 @@ class ActivitySequenceController
      */
     public function showAction(ActivitySequence $activitySequence)
     {
-        if (false === $this->security->isGranted('OPEN', $activitySequence->getResourceNode())) {
+        if (false === $this->securityAuth->isGranted('OPEN', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
 
@@ -135,7 +146,7 @@ class ActivitySequenceController
      */
     public function administrateAction(ActivitySequence $activitySequence)
     {
-        if (false === $this->security->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
+        if (false === $this->securityAuth->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
 
@@ -157,7 +168,7 @@ class ActivitySequenceController
      */
     public function updateAction(ActivitySequence $activitySequence)
     {
-        if (false === $this->security->isGranted('EDIT', $activitySequence->getResourceNode())) {
+        if (false === $this->securityAuth->isGranted('EDIT', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
         
@@ -221,7 +232,7 @@ class ActivitySequenceController
      */
     public function updateActivitiesOrderAction(ActivitySequence $activitySequence, $order)
     {
-        if (false === $this->security->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
+        if (false === $this->securityAuth->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
 

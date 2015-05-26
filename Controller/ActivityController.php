@@ -14,7 +14,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Form\FormInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -31,9 +32,15 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActivityController
 {
     /**
-     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     * Security Authorization
+     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $securityAuth
      */
-    protected $security;
+    protected $securityAuth;
+    /**
+     * Security Token
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $securityToken
+     */
+    protected $securityToken;
     /**
      * Activity Manager
      * @var \Innova\ActivityBundle\Manager\ActivityManager
@@ -55,7 +62,8 @@ class ActivityController
     /**
      * Class constructor
      *
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
+     * @param \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface        $securityAuth
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $securityToken
      * @param \Innova\ActivityBundle\Manager\ActivityManager            $activityManager
      * @param \Symfony\Component\Form\FormFactoryInterface              $formFactory
      * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler       $activityHandler
@@ -68,12 +76,14 @@ class ActivityController
      * })
      */
     public function __construct(
-        SecurityContextInterface $securityContext,
+        AuthorizationCheckerInterface $securityAuth,
+        TokenStorageInterface         $securityToken,
         ActivityManager      $activityManager,
         FormFactoryInterface $formFactory,
         ActivityHandler      $activityHandler)
     {
-        $this->security        = $securityContext;
+        $this->securityAuth    = $securityAuth;
+        $this->securityToken   = $securityToken;
         $this->activityManager = $activityManager;
         $this->formFactory     = $formFactory;
         $this->activityHandler = $activityHandler;
@@ -95,7 +105,7 @@ class ActivityController
      */
     public function showAction(Activity $activity)
     {
-        if (false === $this->security->isGranted('OPEN', $activity->getResourceNode())) {
+        if (false === $this->securityAuth->isGranted('OPEN', $activity->getResourceNode())) {
             throw new AccessDeniedException();
         }
 
@@ -120,7 +130,7 @@ class ActivityController
      */
     public function administrateAction(Activity $activity)
     {
-        if (false === $this->security->isGranted('ADMINISTRATE', $activity->getResourceNode())) {
+        if (false === $this->securityAuth->isGranted('ADMINISTRATE', $activity->getResourceNode())) {
             throw new AccessDeniedException();
         }
         

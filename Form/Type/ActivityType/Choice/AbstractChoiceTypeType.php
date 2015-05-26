@@ -4,7 +4,7 @@ namespace Innova\ActivityBundle\Form\Type\ActivityType\Choice;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractChoiceTypeType extends AbstractType
 {
@@ -23,7 +23,7 @@ abstract class AbstractChoiceTypeType extends AbstractType
         $builder->add('randomlyOrdered', 'checkbox');
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults($this->getDefaultOptions());
 

@@ -25,7 +25,7 @@
     "require": {
         "php": ">=5.4.1",
         "doctrine/doctrine-fixtures-bundle" : "2.2.0",
-        "claroline/core-bundle" : "~4.0",
+        "claroline/core-bundle" : "~5.0",
         "innova/angular-ui-bootstrap-bundle" : ">=1.0",
         "innova/angular-ui-translation-bundle" : "3.*",
         "innova/angular-ui-sortable-bundle" : "1.*",
