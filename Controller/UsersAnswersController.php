@@ -55,7 +55,8 @@ class UsersAnswersController
      * @param \Innova\ActivityBundle\Manager\UsersAnswersManager            $usersAnswersManager
      *
      * @DI\InjectParams({
-     *   "securityContext" = @DI\Inject("security.context"),
+     *   "securityAuth" = @DI\Inject("security.authorization_checker"),
+     *   "securityToken" = @DI\Inject("security.token_storage"),
      *   "usersAnswersManager" = @DI\Inject("innova.manager.usersanswers_manager"),
      *   "router" = @DI\Inject("router"),
      * })

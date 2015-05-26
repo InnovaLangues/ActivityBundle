@@ -59,7 +59,8 @@ class ActivityAnswerController
      * @param \Innova\ActivityBundle\Manager\ActivityAnswerManager            $activityAnswerManager
      *
      * @DI\InjectParams({
-     *   "securityContext" = @DI\Inject("security.context"),
+     *   "securityAuth" = @DI\Inject("security.authorization_checker"),
+     *   "securityToken" = @DI\Inject("security.token_storage"),
      *   "activityAnswerManager" = @DI\Inject("innova.manager.answer_manager"),
      *   "router" = @DI\Inject("router"),
      * })

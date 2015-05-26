@@ -69,7 +69,8 @@ class ActivityController
      * @param \Innova\ActivityBundle\Form\Handler\ActivityHandler       $activityHandler
      *
      * @DI\InjectParams({
-     *   "securityContext" = @DI\Inject("security.context"),
+     *   "securityAuth" = @DI\Inject("security.authorization_checker"),
+     *   "securityToken" = @DI\Inject("security.token_storage"),
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      *   "formFactory"     = @DI\Inject("form.factory"),
      *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")

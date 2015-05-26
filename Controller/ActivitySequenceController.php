@@ -79,7 +79,8 @@ class ActivitySequenceController
      *
      * @DI\InjectParams({
      *      "objectManager"           = @DI\Inject("doctrine.orm.entity_manager"),
-     *      "securityContext"         = @DI\Inject("security.context"),
+     *      "securityAuth" = @DI\Inject("security.authorization_checker"),
+     *      "securityToken" = @DI\Inject("security.token_storage"),
      *      "activitySequenceManager" = @DI\Inject("innova.manager.activity_sequence_manager"),
      *      "activityManager"         = @DI\Inject("innova.manager.activity_manager"),
      *      "formFactory"             = @DI\Inject("form.factory"),

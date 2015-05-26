@@ -55,7 +55,8 @@ class MediaTypeController
      * @param \Innova\ActivityBundle\Manager\MediatypeManager            $MediaTypeManager
      *
      * @DI\InjectParams({
-     *   "securityContext" = @DI\Inject("security.context"),
+     *   "securityAuth" = @DI\Inject("security.authorization_checker"),
+     *   "securityToken" = @DI\Inject("security.token_storage"),
      *   "mediaTypeManager" = @DI\Inject("innova.manager.mediatype_manager"),
      *   "router" = @DI\Inject("router"),
      * })
