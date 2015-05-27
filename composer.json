@@ -32,7 +32,7 @@
         "innova/angular-js-bundle" : "~5.0",
         "innova/angular-ui-tinymce-bundle" : "~5.0",
         "innova/angular-ui-tree-bundle" : "~5.0",
-        "innova/angular-ui-resource-picker-bundle": "~5.0"
+        "innova/angular-ui-resource-picker-bundle": "dev-master"
     },
     "autoload": {
         "psr-0": {
