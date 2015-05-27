@@ -87,14 +87,16 @@
                 var previousDate;
                 for (var i=0; i<this.previousAnswers.length; i++) {
                     if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id && this.previousAnswers[i].numTrial === index) {
-                        previousDate = this.previousAnswers[i].dateCreated;
-                        if (previousDate.date.localeCompare(datetime.date) === order || datetime === "") {
-                            datetime = this.previousAnswers[i].dateCreated;
+                        previousDate = this.previousAnswers[i].dateCreated.date;
+                        if (previousDate.localeCompare(datetime.date) === order || datetime === "") {
+                            datetime = this.previousAnswers[i].dateCreated.date;
                         }
                     }
                 }
-                var regex=/^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) (?:([0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
-                var parts=datetime.date.replace(regex,"$1 $2 $3 $4 $5 $6").split(' ');
+                console.log(datetime);
+                var regex=/^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) (?:([0-2][0-9]):([0-5][0-9]):([0-5][0-9]).[0-9]*)?$/;
+                var parts=datetime.replace(regex,"$1 $2 $3 $4 $5 $6").split(' ');
+                console.log(parts);
                 var date = new Date(parts[0],parts[1]-1,parts[2],parts[3],parts[4],parts[5]);
                 var formated_date = this.formatDate(date.getDate()) + "/" + this.formatDate(date.getMonth() + 1) + "/" + date.getFullYear();
                 var formated_hour = "(" + date.getHours() + ":" + this.formatDate(date.getMinutes()) + ":" + this.formatDate(date.getSeconds()) + ")";
