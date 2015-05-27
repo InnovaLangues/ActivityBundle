@@ -58,6 +58,7 @@
                         var innova_activity = {
                             name:activity.name,
                             description:activity.description,
+                            numTries:activity.numTries,
                             questions: [],
                             mediaType:activity.mediaType.id,
                             contents: [],

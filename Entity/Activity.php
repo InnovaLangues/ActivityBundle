@@ -72,7 +72,6 @@ class Activity implements \JsonSerializable
      * @ORM\JoinColumn(name="media_type_id", referencedColumnName="id")
      **/
     protected $mediaType;
-
     /**
      * ActivityType (populated and persisted by Doctrine Event Listener)
      * @var \Innova\ActivityBundle\Entity\ActivityType\AbstractType
@@ -125,6 +124,14 @@ class Activity implements \JsonSerializable
     protected $dateUpdated;
     
     /**
+     *
+     * @var integer
+     * 
+     * @ORM\Column(name="numTries", type="integer")
+     */
+    protected $numTries;
+    
+    /**
      * Parent ActivitySequence
      * @var \Innova\ActivityBundle\Entity\ActivitySequence
      * 
@@ -140,6 +147,7 @@ class Activity implements \JsonSerializable
         $this->instructions = new ArrayCollection();
         $this->contents = new ArrayCollection();
         $this->functionalInstructions = new ArrayCollection();
+        $this->numTries = -1;
     }
     
     
@@ -533,6 +541,19 @@ class Activity implements \JsonSerializable
         return $this->dateUpdated;
     }
     
+    
+    public function setNumTries($numTries)
+    {
+        $this->numTries = $numTries;
+        
+        return $this;
+    }
+    
+    public function getNumTries()
+    {
+        return $this->numTries;
+    }
+    
     /**
      * Set activitySequence
      * 
@@ -578,6 +599,7 @@ class Activity implements \JsonSerializable
             'position'      => $this->position,
             'dateCreated'   => $this->dateCreated,
             'dateUpdated'   => $this->dateUpdated,
+            'numTries'      => $this->numTries,
             'activitySequenceId' => $this->activitySequence->getId(),
         );
     }

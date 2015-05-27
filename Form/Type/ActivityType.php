@@ -14,6 +14,7 @@ class ActivityType extends AbstractType
     {
         $builder->add('name', 'text', array('required' => true));
         $builder->add('description', 'text', array ('required' => false));
+        $builder->add('numTries', 'text', array ('required' => false));
 
         $builder->add('mediaType', 'entity', array(
             'class' => 'InnovaActivityBundle:ActivityProperty\MediaTypeProperty',

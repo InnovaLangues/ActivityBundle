@@ -32,6 +32,12 @@ class ActivityListener
             }
         }
         
+        if ($activity->getNumTries() === -1) {
+            $numTries = $activity->getActivitySequence()->getNumTries();
+            $activity->setNumTries($numTries);
+            $event->getEntityManager()->persist($activity);
+        }
+        
         return $this;
     }
 
