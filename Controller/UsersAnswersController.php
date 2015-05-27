@@ -10,7 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,9 +29,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class UsersAnswersController
 {
     /**
-     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     * Security Authorization
+     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $securityAuth
      */
-    protected $security;
+    protected $securityAuth;
+    /**
+     * Security Token
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $securityToken
+     */
+    protected $securityToken;
     
     /**
      * UsersAnswers Manager
@@ -43,20 +50,24 @@ class UsersAnswersController
     /**
      * Class constructor
      *
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
+     * @param \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface        $securityAuth
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $securityToken
      * @param \Innova\ActivityBundle\Manager\UsersAnswersManager            $usersAnswersManager
      *
      * @DI\InjectParams({
-     *   "securityContext" = @DI\Inject("security.context"),
+     *   "securityAuth" = @DI\Inject("security.authorization_checker"),
+     *   "securityToken" = @DI\Inject("security.token_storage"),
      *   "usersAnswersManager" = @DI\Inject("innova.manager.usersanswers_manager"),
      *   "router" = @DI\Inject("router"),
      * })
      */
     public function __construct(
-        SecurityContextInterface $securityContext,
+        AuthorizationCheckerInterface $securityAuth,
+        TokenStorageInterface         $securityToken,
         UsersAnswersManager      $usersAnswersManager)
     {
-        $this->security            = $securityContext;
+        $this->securityAuth    = $securityAuth;
+        $this->securityToken   = $securityToken;
         $this->usersAnswersManager = $usersAnswersManager;
     }
     

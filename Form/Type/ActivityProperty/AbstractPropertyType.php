@@ -4,7 +4,7 @@ namespace Innova\ActivityBundle\Form\Type\ActivityProperty;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractPropertyType extends AbstractType
 {
@@ -17,7 +17,7 @@ abstract class AbstractPropertyType extends AbstractType
         $builder->add('media', 'text', array ('required' => true));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults($this->getDefaultOptions());
 
