@@ -25,7 +25,8 @@
                     function ActivitySequence (sequence) {
                         var innova_activity_sequence = {
                             description:sequence.description,
-                            numTries:sequence.numTries
+                            numTries:sequence.numTries,
+                            numAttempts:sequence.numAttempts
                         };
                         
                         return innova_activity_sequence;

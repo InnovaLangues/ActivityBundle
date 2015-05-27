@@ -46,6 +46,14 @@ class ActivitySequence extends AbstractResource implements \JsonSerializable
      *
      * @var integer
      * 
+     * @ORM\Column(name="numAttempts", type="integer")
+     */
+    protected $numAttempts;
+    
+    /**
+     *
+     * @var integer
+     * 
      * @ORM\Column(name="numTries", type="integer")
      */
     protected $numTries;
@@ -91,6 +99,24 @@ class ActivitySequence extends AbstractResource implements \JsonSerializable
         return $this->description;
     }
     
+    
+    /**
+     * @param integer $numAttempts
+     * @return ActivitySequence
+     */
+    public function setNumAttempts($numAttempts)
+    {
+        $this->numAttempts = $numAttempts;
+    }
+    
+    /**
+     * 
+     * @return integer
+     */
+    public function getNumAttempts()
+    {
+        return $this->numAttempts;
+    }
     
     /**
      * 
@@ -185,7 +211,8 @@ class ActivitySequence extends AbstractResource implements \JsonSerializable
             'description'=> $this->description,
             'name'       => $this->resourceNode->getName(),
             'activities' => $this->activities->toArray(),
-            'numTries'  => $this->numTries,
+            'numTries'   => $this->numTries,
+            'numAttempts' => $this->numAttempts,
         );
     }
 }

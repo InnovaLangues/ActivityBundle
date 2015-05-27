@@ -14,18 +14,25 @@
                 <div class="col-md-9">
                     <input id="sequence_name" name="sequence_name" class="form-control" type="text" data-ng-model="activitySequenceCtrl.sequence.name" required="required" />
                 </div>
+                
                 <label class="control-label col-md-3 required" for="sequence_description">{{ 'activity_sequence_form_description'|trans:{}:'activity_editor' }}</label>
                 <div class="col-md-9">
                     <textarea id="sequence_description" name="sequence_description" data-ui-tinymce="activitySequenceCtrl.tinymceOptions" class="form-control" type="text" data-ng-model="activitySequenceCtrl.sequence.description" ></textarea>
                 </div>
-                <label class="control-label col-md-3 required" for="sequence_numTries">{{ 'activity_sequence_form_numTries'|trans:{}:'activity_editor' }}</label>
+                
+                <label class="control-label col-md-3 required" for="sequence_numAttempts">{{ 'activity_sequence_form_numAttempts'|trans:{}:'activity_editor' }}</label>
                 <div class="col-md-1">
-                    <input id="areLimitedNumTries" name="sequence_numTries" class="form-control" type="checkbox" data-ng-model="activitySequenceCtrl.limitedNumTries" data-ng-change="activitySequenceCtrl.areLimitedNumTries()" />
+                    <input id="areLimitedNumTries" name="sequence_numAttempts" class="form-control" type="checkbox" data-ng-model="activitySequenceCtrl.limitedNumTries" data-ng-change="activitySequenceCtrl.areLimitedNumTries()" />
                 </div>
+                <div class="col-md-1">
+                    <input id="sequence_numAttempts" name="sequence_numAttempts" class="form-control" type="number" data-ng-model="activitySequenceCtrl.sequence.numAttempts" />
+                </div>
+                <div class="col-md-7"></div>
+                
+                <label class="control-label col-md-3 required" for="sequence_numTries">{{ 'activity_sequence_form_numTries'|trans:{}:'activity_editor' }}</label>
                 <div class="col-md-1">
                     <input id="sequence_numTries" name="sequence_numTries" class="form-control" type="number" data-ng-model="activitySequenceCtrl.sequence.numTries" />
                 </div>
-                <div class="col-md-7"></div>
                 <div class="col-md-offset-10 col-md-1">
                     <button data-ng-click="activitySequenceCtrl.update()" class="btn btn-primary btn-save fa fa-floppy-o">
                         <span>{{ 'save' | trans:{}:'activity_editor' }}</span>

@@ -15,6 +15,7 @@ class ActivitySequenceType extends AbstractType
         $builder->add('name', 'text', array('required' => true));
         $builder->add('description', 'text', array ('required' => false));
         $builder->add('numTries');
+        $builder->add('numAttempts');
     }
     
     public function getName()

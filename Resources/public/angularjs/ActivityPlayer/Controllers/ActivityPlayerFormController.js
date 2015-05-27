@@ -184,7 +184,7 @@
             };
             
             this.isAuthorizedStart = function() {
-                if (this.getUsersPreviousAnswersLength() < this.sequence.numTries || this.sequence.numTries === 0) {
+                if (this.getUsersPreviousAnswersLength() < this.sequence.numAttempts || this.sequence.numAttempts === 0) {
                     return true;
                 }
                 else {
