@@ -34,6 +34,15 @@
                 return !(numAnswers === 0);
             };
             
+            this.canPlayActivityAgain = function() {
+                if (this.triesByActivity[this.iterator] < this.sequence.activities[this.iterator].numTries && this.currentAction === 'feedback') {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
+            
             this.checkInputs = function(choice) {
                 this.answers = [];
                 if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
@@ -308,6 +317,10 @@
                 }
                 else {
                     if (this.currentFile === 'intro') {
+                        for (var i=0; i<this.sequence.activities.length; i++) {
+                            this.triesByActivity.push(0);
+                        }
+                        console.log(this.triesByActivity);
                         this.trial = 1;
                         for (var i=0; i<this.previousAnswers.length; i++) {
                             if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
@@ -350,6 +363,18 @@
                     }
                 }
                 console.log(this.iterator);
+            };
+            
+            this.playActivityAgain = function () {
+                this.triesByActivity[this.iterator] = this.triesByActivity[this.iterator] + 1;
+                this.answers = [];
+                this.inputs = [];
+                this.correctAnswers = [];
+                this.currentAction = 'edit';
+                var inputs = document.getElementsByName('choices[]');
+                for (var i=0; i<inputs.length; i++) {
+                    inputs[i].removeAttribute('disabled');
+                }
             };
             
             this.previousActivity = function () {
@@ -425,6 +450,10 @@
             this.start = function () {
                 this.currentAction = 'edit';
                 this.currentFile = 'edit';
+                for (var i=0; i<this.sequence.activities.length; i++) {
+                    this.triesByActivity.push(0);
+                }
+                console.log(this.triesByActivity);
                 this.trial = 1;
                 for (var i=0; i<this.previousAnswers.length; i++) {
                     if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {

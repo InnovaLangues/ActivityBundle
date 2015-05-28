@@ -40,6 +40,11 @@
     <nav class="navbar navbar-default navbar-foot">
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
+                <li data-ng-if="activityPlayerCtrl.currentFile === 'edit'" >
+                    <button data-ng-if="activityPlayerCtrl.canPlayActivityAgain()" data-ng-click="activityPlayerCtrl.playActivityAgain()" class="btn btn-primary btn-save">
+                        <span>{{ 'play_again' | trans:{}:'activity_editor' }}</span>
+                    </button>
+                </li>
                 <li>
                     <button data-ng-if="activityPlayerCtrl.currentAction === 'edit'" data-ng-click="activityPlayerCtrl.save()" class="btn btn-primary btn-save">
                         <span>{{ 'submit' | trans:{}:'activity_editor' }}</span>

@@ -55,7 +55,7 @@
             
             
             this.areLimitedNumTries = function() {
-                var input = document.getElementById('sequence_numTries');
+                var input = document.getElementById('sequence_numAttempts');
                 if (this.limitedNumTries) {
                     input.setAttribute('disabled', 'disabled');
                 }
@@ -87,7 +87,7 @@
             
             this.update = function() {
                 if (this.limitedNumTries) {
-                    this.sequence.numTries = 0;
+                    this.sequence.numAttempts = 0;
                 }
                 ActivitySequenceService.update(this.sequence);
             };
