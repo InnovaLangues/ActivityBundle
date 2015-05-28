@@ -94,10 +94,8 @@
                         }
                     }
                 }
-                console.log(datetime);
                 var regex=/^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) (?:([0-2][0-9]):([0-5][0-9]):([0-5][0-9]).[0-9]*)?$/;
                 var parts=datetime.replace(regex,"$1 $2 $3 $4 $5 $6").split(' ');
-                console.log(parts);
                 var date = new Date(parts[0],parts[1]-1,parts[2],parts[3],parts[4],parts[5]);
                 var formated_date = this.formatDate(date.getDate()) + "/" + this.formatDate(date.getMonth() + 1) + "/" + date.getFullYear();
                 var formated_hour = "(" + date.getHours() + ":" + this.formatDate(date.getMinutes()) + ":" + this.formatDate(date.getSeconds()) + ")";
@@ -340,6 +338,33 @@
                 for (var i=0; i<inputs.length; i++) {
                     inputs[i].removeAttribute('disabled');
                 }
+            };
+            
+            this.nextActivity = function () {
+                if (this.currentFile !== "end") {
+                    if (this.currentFile === "intro") {
+                        this.start();
+                    }
+                    else {
+                        this.next();
+                    }
+                }
+                console.log(this.iterator);
+            };
+            
+            this.previousActivity = function () {
+                if (this.currentFile !== "intro" && this.iterator !== 0) {
+                    this.iterator = this.iterator - 1;
+                    this.answers = [];
+                    this.inputs = [];
+                    this.correctAnswers = [];
+                    this.currentAction = 'edit';
+                    var inputs = document.getElementsByName('choices[]');
+                    for (var i=0; i<inputs.length; i++) {
+                        inputs[i].removeAttribute('disabled');
+                    }
+                }
+                console.log(this.iterator);
             };
             
             this.randomSort = function(choice) {

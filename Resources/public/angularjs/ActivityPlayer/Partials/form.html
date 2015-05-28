@@ -10,7 +10,9 @@
                 </div>
             </div>
             <div class="dots">
-                <i class="fa fa-caret-left dots-arrows"></i>
+                <a href="#" data-ng-click="activityPlayerCtrl.previousActivity()">
+                    <i class="fa fa-caret-left dots-arrows"></i>
+                </a>
                 
                 <i class="fa {{ activityPlayerCtrl.isSelectedDot(-1) }}" data-toggle="tooltip" data-container="body" title="Introduction"></i>
                 
@@ -26,7 +28,9 @@
                 </a>
                 <i data-ng-if="activityPlayerCtrl.currentFile === 'intro'" class="fa {{ activityPlayerCtrl.isSelectedDot('end') }}" data-toggle="tooltip" data-container="body" title="Fin"></i>
                 
-                <i class="fa fa-caret-right dots-arrows"></i>
+                <a href="#" data-ng-click="activityPlayerCtrl.nextActivity()">
+                    <i class="fa fa-caret-right dots-arrows"></i>
+                </a>
             </div>
         </div>
     </nav>
