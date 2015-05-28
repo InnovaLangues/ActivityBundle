@@ -11,15 +11,14 @@
             </div>
             <div class="dots">
                 <i class="fa fa-caret-left dots-arrows"></i>
-                <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('intro')">
-                    <i class="fa {{ activityPlayerCtrl.isSelectedDot(-1) }}" data-toggle="tooltip" data-container="body" title="Introduction"></i>
-                </a>
+                <i class="fa {{ activityPlayerCtrl.isSelectedDot(-1) }}" data-toggle="tooltip" data-container="body" title="Introduction"></i>
                 <a href="#" data-ng-repeat="activity in activityPlayerCtrl.sequence.activities" data-ng-click="activityPlayerCtrl.jumpTo($index)">
                     <i class="fa {{ activityPlayerCtrl.isSelectedDot($index, activity.id) }}" data-toggle="tooltip" data-container="body" title="{{ activity.name }}"></i>
                 </a>
-                <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('intro')">
+                <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('end')" data-ng-if="activityPlayerCtrl.currentFile !== 'intro'" >
                     <i class="fa {{ activityPlayerCtrl.isSelectedDot('end') }}" data-toggle="tooltip" data-container="body" title="Fin"></i>
                 </a>
+                <i data-ng-if="activityPlayerCtrl.currentFile === 'intro'" class="fa {{ activityPlayerCtrl.isSelectedDot('end') }}" data-toggle="tooltip" data-container="body" title="Fin"></i>
                 <i class="fa fa-caret-right dots-arrows"></i>
             </div>
         </div>
