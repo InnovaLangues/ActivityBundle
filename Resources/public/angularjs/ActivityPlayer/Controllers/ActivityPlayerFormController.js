@@ -309,6 +309,16 @@
                     this.currentAction = '';
                 }
                 else {
+                    if (this.currentFile === 'intro') {
+                        this.trial = 1;
+                        for (var i=0; i<this.previousAnswers.length; i++) {
+                            if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
+                                if (this.trial <= this.previousAnswers[i].numTrial) {
+                                    this.trial = this.previousAnswers[i].numTrial + 1;
+                                }
+                            }
+                        }
+                    }
                     this.iterator = index;
                     this.currentFile = 'edit';
                     this.currentAction = 'edit';
