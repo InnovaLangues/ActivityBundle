@@ -16,6 +16,7 @@
             
             this.iterator = 0;
             this.trial = 1;
+            this.triesByActivity = [];
             
             this.answers = [];
             this.correctAnswers = [];
@@ -303,6 +304,10 @@
                     this.iterator = 0;
                     this.currentAction = '';
                 }
+                else if (index === "end") {
+                    this.currentFile = 'end';
+                    this.currentAction = '';
+                }
                 else {
                     this.iterator = index;
                     this.currentFile = 'edit';
@@ -339,7 +344,6 @@
             }.bind(this);
             
             this.save = function () {
-                    console.log(this.trial);
                 for (var i=0; i<this.answers.length; i++) {
                     if (this.answers[i].checked === true) {
                         ActivityPlayerService.saveAnswer(this.sequence.activities[this.iterator].id, this.answers[0].id, this.trial);
