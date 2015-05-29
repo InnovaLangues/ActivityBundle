@@ -2,11 +2,12 @@
     'use strict';
 
     angular.module('ActivityType').controller('ChoiceTypeFormController', [
+        '$scope',
         '$document',
         '$modal',
         '$window',
         'ChoiceTypeService',
-        function ($document, $modal, $window, ChoiceTypeService) {
+        function ($scope, $document, $modal, $window, ChoiceTypeService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.activityType = {};
@@ -114,7 +115,6 @@
              */
 
             this.addChoice = function () {
-                console.log('yep 2');
                 this.activityType.type.choices.push({
                     id: 1,
                     media: "",
@@ -164,7 +164,7 @@
                     }
                 }
             };
-
+/*
             this.isAudioFile = function (mimeType) {
                 var types = ['audio/x-wav', 'audio/mpeg', 'audio/ogg', 'custom/file'];
                 return types.indexOf(mimeType) !== -1;
@@ -180,7 +180,6 @@
                 return types.indexOf(mimeType) !== -1;
             };
 
-
             // Resource Picker base config
             this.resourcePickerConfig = {
                 isPickerMultiSelectAllowed: false,
@@ -190,15 +189,64 @@
                 resourceTypes: ActivityEditorApp.resourceTypes,
                 typeWhiteList: ['file']
             };
+            
+            
+            
+            this.addAudioResource = function (nodes){
+                if (typeof nodes === 'object' && nodes.length !== 0) {
+                    var resource = {};
+                    for (var nodeId in nodes) {
+                        // just one node to handle
+                        var node = nodes[nodeId];
+                        resource = {
+                            name: node[0],
+                            type: node[1],
+                            mimeType: node[2],
+                            id: nodeId
+                        };
+                    }
+                    // ensure that the selected resource is an audio file
+                    if (my.isAudioFile(resource.mimeType)) {
+                        var id = this.viewName;
+                        
+                        console.log('view name ?? ' + this.viewName);
+                        console.log(this);
+                        var refNode = document.getElementById(id);
+
+                        var next = refNode.nextSibling;
+                        if (next && next.tagName === 'AUDIO') {
+                            refNode.parentNode.removeChild(next);
+                        }
+
+                        var tag = document.createElement('audio');
+                        tag.setAttribute('src', Routing.generate('activity_get_resource_content', {activityId: my.activityType.id, nodeId: resource.id}));
+                        tag.setAttribute('controls', 'controls');
+                        tag.setAttribute('style', 'width:80%;float:right;');
+                        refNode.parentNode.insertBefore(tag, refNode.nextSibling);
+                    }
+                    else {
+                        console.log('not audio file ' + resource.mimeType);
+                    }
+                }
+            }
 
             var my = this;
 
             // AUDIO RESOURCE PICKER
             this.activitySequenceAudioResourcePicker = {
-                name: 'picker-audio',
-                parameters: angular.copy(this.resourcePickerConfig)
+                parameters: angular.copy(this.resourcePickerConfig),
+                callback: function selectResource(nodes){                    
+                    my.addAudioResource(nodes);
+                    nodes = {};
+                }
+               
+                //parameters: angular.copy(this.resourcePickerConfig)
 
             };
+            
+         
+            
+            
             // can not filter the ressource picker on audio files only...
             this.activitySequenceAudioResourcePicker.parameters.callback = function (nodes) {
                 if (typeof nodes === 'object' && nodes.length !== 0) {
@@ -235,7 +283,9 @@
                 }
                 // Remove checked nodes for next time
                 nodes = {};
-            };
+            };*/
+
+/*
 
             // IMAGE RESOURCE PICKER
             this.activitySequenceImageResourcePicker = {
@@ -329,7 +379,7 @@
             };
 
             // SEGMENT RESOURCE PICKER
-
+*/
 
         }
     ]);

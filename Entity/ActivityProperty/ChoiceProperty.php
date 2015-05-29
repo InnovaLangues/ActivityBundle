@@ -26,7 +26,7 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
     protected $id;
     
     /**
-    * Media UUID
+    * simple text or html
     * @var string
     *
     * @ORM\Column(name="media", type="text")
@@ -106,10 +106,13 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
     }
     
     public function getResource(){
-        return $this->reource;
+        return $this->resource;
     }
 
-
+    /**
+     * 
+     * @return type
+     */
     public function jsonSerialize()
     {
         return array(
@@ -117,7 +120,7 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
             'media'         => $this->media,
             'correctAnswer' => $this->correctAnswer,
             'position'      => $this->position,
-            'resource'      => $this->resource
+            'resource'      => $this->resource->getId()
         );
     }
 }

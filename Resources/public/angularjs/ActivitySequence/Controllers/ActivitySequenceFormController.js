@@ -77,7 +77,7 @@
              * Show the form for a specific Activity of the ActivitySequence
              * @param activity
              */
-            this.showActivity = function (activity) {
+            this.showActivity = function (activity) {                
                 if (activity) {
                     this.currentActivity = activity;
                 } else if (this.sequence.activities && this.sequence.length !== 0) {

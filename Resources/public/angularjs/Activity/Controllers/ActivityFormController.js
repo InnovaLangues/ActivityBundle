@@ -14,7 +14,7 @@
             this.tinymceOptions = {
                 relative_urls: false,
                 theme: 'modern',
-                browser_spellcheck : true,
+                browser_spellcheck: true,
                 autoresize_min_height: 100,
                 autoresize_max_height: 500,
                 plugins: [
@@ -36,77 +36,80 @@
                     }
                 }
             };
-            
+
             this.sortableContentsOptions = {
                 stop: function (e, ui) {
                     this.updateContentsOrder();
                 }.bind(this)
             };
-            
+
             this.updateContentsOrder = function () {
-                var j=1;
-                for (var i=0; i<this.activity.contents.length; i++) {
+                var j = 1;
+                for (var i = 0; i < this.activity.contents.length; i++) {
                     this.activity.contents[i].position = j;
                     j++;
                 }
             };
-            
+
             this.sortableComplementaryInfosOptions = {
                 stop: function (e, ui) {
                     this.updateComplementaryInfosOrder();
                 }.bind(this)
             };
-            
+
             this.updateComplementaryInfosOrder = function () {
-                var j=1;
-                for (var i=0; i<this.activity.complementaryInfos.length; i++) {
+                var j = 1;
+                for (var i = 0; i < this.activity.complementaryInfos.length; i++) {
                     this.activity.complementaryInfos[i].position = j;
                     j++;
                 }
             };
-            
+
             this.sortableFunctionalInstructionsOptions = {
                 stop: function (e, ui) {
                     this.updateFunctionalInstructionsOrder();
                 }.bind(this)
             };
-            
+
             this.updateFunctionalInstructionsOrder = function () {
-                var j=1;
-                for (var i=0; i<this.activity.functionalInstructions.length; i++) {
+                var j = 1;
+                for (var i = 0; i < this.activity.functionalInstructions.length; i++) {
                     this.activity.functionalInstructions[i].position = j;
                     j++;
                 }
             };
-            
+
             this.sortableInstructionsOptions = {
                 stop: function (e, ui) {
                     this.updateInstructionsOrder();
                 }.bind(this)
             };
-            
+
             this.updateInstructionsOrder = function () {
-                var j=1;
-                for (var i=0; i<this.activity.instructions.length; i++) {
+                var j = 1;
+                for (var i = 0; i < this.activity.instructions.length; i++) {
                     this.activity.instructions[i].position = j;
                     j++;
                 }
             };
-            
+
             this.sortableQuestionsOptions = {
                 stop: function (e, ui) {
                     this.updateQuestionsOrder();
                 }.bind(this)
             };
-            
+
             this.updateQuestionsOrder = function () {
-                var j=1;
-                for (var i=0; i<this.activity.questions.length; i++) {
+                var j = 1;
+                for (var i = 0; i < this.activity.questions.length; i++) {
                     this.activity.questions[i].position = j;
                     j++;
                 }
             };
 
+            /**
+             * Save the activity
+             */
             this.update = function () {
                 ActivityService.update(this.activity);
             };
@@ -114,82 +117,81 @@
             this.changeView = function (newView) {
                 this.view = newView;
             };
-            
+
             this.addQuestion = function () {
                 this.activity.questions.push({
-                    id: 1 ,
+                    id: 1,
                     media: "",
                     position: this.activity.questions.length + 1
                 });
             };
-            
+
             this.removeQuestion = function (question) {
-                for (var i=0; i<this.activity.questions.length; i++) {
+                for (var i = 0; i < this.activity.questions.length; i++) {
                     if (this.activity.questions[i] === question) {
                         this.activity.questions.splice(i, 1);
                     }
                 }
             };
-            
+
             this.addComplementaryInfo = function () {
                 this.activity.complementaryInfos.push({
-                    id: 1 ,
+                    id: 1,
                     media: "",
                     position: this.activity.complementaryInfos.length + 1
                 });
             };
-            
+
             this.removeComplementaryInfo = function (complementaryInfo) {
-                for (var i=0; i<this.activity.complementaryInfos.length; i++) {
+                for (var i = 0; i < this.activity.complementaryInfos.length; i++) {
                     if (this.activity.complementaryInfos[i] === complementaryInfo) {
                         this.activity.complementaryInfos.splice(i, 1);
                     }
                 }
             };
-            
+
             this.addInstruction = function () {
                 this.activity.instructions.push({
-                    id: 1 ,
+                    id: 1,
                     media: "",
                     position: this.activity.instructions.length + 1
                 });
             };
-            
+
             this.removeInstruction = function (instruction) {
-                for (var i=0; i<this.activity.instructions.length; i++) {
+                for (var i = 0; i < this.activity.instructions.length; i++) {
                     if (this.activity.instructions[i] === instruction) {
                         this.activity.instructions.splice(i, 1);
                     }
                 }
             };
-            
+
             this.addFunctionalInstruction = function () {
                 this.activity.functionalInstructions.push({
-                    id: 1 ,
+                    id: 1,
                     media: "",
                     position: this.activity.functionalInstructions.length + 1
                 });
             };
-            
+
             this.removeFunctionalInstruction = function (functionalInstruction) {
-                for (var i=0; i<this.activity.functionalInstructions.length; i++) {
+                for (var i = 0; i < this.activity.functionalInstructions.length; i++) {
                     if (this.activity.functionalInstructions[i] === functionalInstruction) {
                         this.activity.functionalInstructions.splice(i, 1);
                     }
                 }
             };
-            
+
             this.addContent = function () {
-                console.log('yep');
                 this.activity.contents.push({
-                    id: 1 ,
+                    id: 1,
                     media: "",
                     position: this.activity.contents.length + 1
                 });
             };
-            
+
             this.removeContent = function (content) {
-                for (var i=0; i<this.activity.contents.length; i++) {
+                for (var i = 0; i < this.activity.contents.length; i++) {
                     if (this.activity.contents[i] === content) {
                         this.activity.contents.splice(i, 1);
                     }

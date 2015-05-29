@@ -130,7 +130,7 @@
                     }
                     var newActivity = new Activity(activity);
                         
-                    console.log(newActivity);
+                    //console.log(newActivity);
 
                     var deferred = $q.defer();
                     $http

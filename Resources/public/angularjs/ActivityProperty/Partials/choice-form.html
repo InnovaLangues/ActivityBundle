@@ -1,8 +1,13 @@
 <ul class="list-group list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
     <li class="row list-group-item draggable-item" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
         <span class="myHandle btn btn-default fa fa-arrows"></span>
-        <span class="col-md-7">           
+        <span class="col-md-7">   
+            <!--
             <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/MediaType/' + choiceTypeCtrl.activityType.mediaType.template" ></div>
+        -->
+
+            <media-type-sound-choice data-choice="choice" data-type="choiceTypeCtrl.activityType.type"></media-type-sound-choice>
+            
         </span>
         <span class="col-md-3">
             <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="correct" > {{ 'correct' | trans:{}:'activity_editor' }}

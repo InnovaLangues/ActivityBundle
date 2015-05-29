@@ -22,6 +22,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Claroline\CoreBundle\Entity\Resource\ResourceNode;
 use Claroline\CoreBundle\Manager\ResourceManager;
 use Symfony\Component\HttpFoundation\Response;
+use \finfo;
 
 /**
  * Class ActivityController
@@ -66,7 +67,12 @@ class ActivityController
      * @var \Claroline\CoreBundle\Manager\ResourceManager 
      */
     protected $resourceManager;
-    protected $container;
+
+    /**
+     * Claroline parameter for resource file directory
+     * @var string 
+     */
+    protected $claroFileDir;
 
     /**
      * Class constructor
@@ -84,23 +90,26 @@ class ActivityController
      *   "formFactory"     = @DI\Inject("form.factory"),
      *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity"),
      *   "resourceManager" = @DI\Inject("claroline.manager.resource_manager"),
-     *   "container"       = @DI\Inject("service_container")
+     *   "claroFileDir"    = @DI\Inject("%claroline.param.files_directory%"),
      * })
      */
     public function __construct(
-        AuthorizationCheckerInterface $securityAuth,
-        TokenStorageInterface         $securityToken,
-        ActivityManager      $activityManager,
-        FormFactoryInterface $formFactory,
-        ActivityHandler      $activityHandler)
+        AuthorizationCheckerInterface   $securityAuth,
+        TokenStorageInterface           $securityToken,
+        ActivityManager                 $activityManager,
+        FormFactoryInterface            $formFactory,
+        ActivityHandler                 $activityHandler,
+        ResourceManager                 $resourceManager,
+                                        $claroFileDir
+        )
     {
-        $this->securityAuth    = $securityAuth;
-        $this->securityToken   = $securityToken;
-        $this->activityManager = $activityManager;
-        $this->formFactory     = $formFactory;
-        $this->activityHandler = $activityHandler;
-        $this->resourceManager = $resourceManager;
-        $this->container = $container;
+        $this->securityAuth     = $securityAuth;
+        $this->securityToken    = $securityToken;
+        $this->activityManager  = $activityManager;
+        $this->formFactory      = $formFactory;
+        $this->activityHandler  = $activityHandler;
+        $this->resourceManager  = $resourceManager;
+        $this->claroFileDir     = $claroFileDir;
     }
     
     /**
@@ -246,7 +255,7 @@ class ActivityController
      * Serve a ressource file that is not in the web folder
      * have to set this route in the source attribute to see/ear the ressource
      * @Route(
-     *     "/get/audio/{activityId}/{nodeId}",
+     *     "/get/resource/{activityId}/{nodeId}",
      *     name="activity_get_resource_content",
      *     options = {"expose" = true}
      * )
@@ -254,16 +263,20 @@ class ActivityController
      * @Method("GET")
      */
     public function serveResourceFile(ResourceNode $node) {
-
+        
         if ($node->getClass() === 'Claroline\CoreBundle\Entity\Resource\File') {
             $resource = $this->resourceManager->getResourceFromNode($node);
             if ($resource === null) {
                 throw new \Exception('The resource was removed.');
             }
 
-            $item = $this->container->getParameter('claroline.param.files_directory') . '/' . $resource->getHashName();
+            $item = $this->claroFileDir.'/'.$resource->getHashName();
             $response = new Response();
-            $response->headers->set('Content-type', mime_content_type($item));
+            
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $type = $finfo->file($item);
+            //$response->headers->set('Content-type', mime_content_type($item));
+            $response->headers->set('Content-type', $type);
             $response->headers->set('Content-Disposition', 'attachment; filename="'.basename($item).'";');
             $response->headers->set("Content-Transfer-Encoding", 'binary');
             $response->headers->set('Content-length', filesize($item));
