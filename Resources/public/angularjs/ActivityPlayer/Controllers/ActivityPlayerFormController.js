@@ -307,6 +307,27 @@
             };
             
             this.jumpTo = function (index) {
+                if (this.currentAction === 'edit') {
+                    var modalInstance = $modal.open({
+                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
+                        controller: 'ConfirmModalCtrl',
+                        resolve: {
+                            title: function () { return "jump_to" },
+                            message: function () { return "confirm_jump_to" },
+                            confirmButton: function () { return "yes" }
+                        }
+                    });
+                    modalInstance.result.then(function () {
+                        this.confirmJumpTo(index);
+                    }.bind(this));
+                }
+                else {
+                    this.confirmJumpTo(index);
+                }
+            };
+            
+            this.confirmJumpTo = function (index) {
+                        console.log(index);
                 if (index === "intro") {
                     this.currentFile = 'intro';
                     this.iterator = 0;
