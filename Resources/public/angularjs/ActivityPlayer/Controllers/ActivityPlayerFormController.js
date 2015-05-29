@@ -2,8 +2,9 @@
     'use strict';
 
     angular.module('ActivityPlayer').controller('ActivityPlayerFormController', [
+        '$modal',
         'ActivityPlayerService',
-        function (ActivityPlayerService) {
+        function ($modal, ActivityPlayerService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.view = 'properties';
@@ -320,7 +321,6 @@
                         for (var i=0; i<this.sequence.activities.length; i++) {
                             this.triesByActivity.push(0);
                         }
-                        console.log(this.triesByActivity);
                         this.trial = 1;
                         for (var i=0; i<this.previousAnswers.length; i++) {
                             if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
@@ -354,6 +354,26 @@
             };
             
             this.nextActivity = function () {
+                if (this.currentAction === 'edit') {
+                    var modalInstance = $modal.open({
+                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
+                        controller: 'ConfirmModalCtrl',
+                        resolve: {
+                            title: function () { return "next_activity" },
+                            message: function () { return "confirm_next_activity" },
+                            confirmButton: function () { return "yes" }
+                        }
+                    });
+                    modalInstance.result.then(function () {
+                        this.confirmNextActivity();
+                    }.bind(this));
+                }
+                else {
+                    this.confirmNextActivity();
+                }
+            };
+            
+            this.confirmNextActivity = function () {
                 if (this.currentFile !== "end") {
                     if (this.currentFile === "intro") {
                         this.start();
@@ -362,7 +382,6 @@
                         this.next();
                     }
                 }
-                console.log(this.iterator);
             };
             
             this.playActivityAgain = function () {
@@ -378,6 +397,26 @@
             };
             
             this.previousActivity = function () {
+                if (this.currentAction === "edit") {
+                    var modalInstance = $modal.open({
+                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
+                        controller: 'ConfirmModalCtrl',
+                        resolve: {
+                            title: function () { return "previous_activity" },
+                            message: function () { return "confirm_previous_activity" },
+                            confirmButton: function () { return "yes" }
+                        }
+                    });
+                    modalInstance.result.then(function () {
+                        this.confirmPreviousActivity();
+                    }.bind(this));
+                }
+                else {
+                    this.confirmPreviousActivity();
+                }
+            };
+            
+            this.confirmPreviousActivity = function () {
                 if (this.currentFile !== "intro" && this.iterator !== 0) {
                     this.iterator = this.iterator - 1;
                     this.answers = [];
@@ -389,8 +428,43 @@
                         inputs[i].removeAttribute('disabled');
                     }
                 }
-                console.log(this.iterator);
             };
+            
+            /*
+             * 
+            
+            this.nextActivity = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
+                    controller: 'ConfirmModalCtrl',
+                    resolve: {
+                        title: function () { return "next_activity" },
+                        message: function () { return "confirm_next_activity" },
+                        confirmButton: function () { return "yes" }
+                    }
+                });
+                
+                if (this.currentAction === 'edit') {
+                    modalInstance.result.then(function () {
+                        this.confirmNextActivity();
+                    }.bind(this));
+                }
+                else {
+                    this.confirmNextActivity();
+                }
+            };
+            
+            this.confirmNextActivity = function () {
+                if (this.currentFile !== "end") {
+                    if (this.currentFile === "intro") {
+                        this.start();
+                    }
+                    else {
+                        this.next();
+                    }
+                }
+            };
+             */
             
             this.randomSort = function(choice) {
                 this.value = null;
@@ -453,7 +527,6 @@
                 for (var i=0; i<this.sequence.activities.length; i++) {
                     this.triesByActivity.push(0);
                 }
-                console.log(this.triesByActivity);
                 this.trial = 1;
                 for (var i=0; i<this.previousAnswers.length; i++) {
                     if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
