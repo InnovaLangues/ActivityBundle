@@ -327,7 +327,6 @@
             };
             
             this.confirmJumpTo = function (index) {
-                        console.log(index);
                 if (index === "intro") {
                     this.currentFile = 'intro';
                     this.iterator = 0;
@@ -450,42 +449,6 @@
                     }
                 }
             };
-            
-            /*
-             * 
-            
-            this.nextActivity = function () {
-                var modalInstance = $modal.open({
-                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
-                    controller: 'ConfirmModalCtrl',
-                    resolve: {
-                        title: function () { return "next_activity" },
-                        message: function () { return "confirm_next_activity" },
-                        confirmButton: function () { return "yes" }
-                    }
-                });
-                
-                if (this.currentAction === 'edit') {
-                    modalInstance.result.then(function () {
-                        this.confirmNextActivity();
-                    }.bind(this));
-                }
-                else {
-                    this.confirmNextActivity();
-                }
-            };
-            
-            this.confirmNextActivity = function () {
-                if (this.currentFile !== "end") {
-                    if (this.currentFile === "intro") {
-                        this.start();
-                    }
-                    else {
-                        this.next();
-                    }
-                }
-            };
-             */
             
             this.randomSort = function(choice) {
                 this.value = null;
