@@ -22,6 +22,8 @@
             this.answers = [];
             this.correctAnswers = [];
             
+            this.inputElements = [];
+            
             this.inputs = [];
             this.input = null;
             
@@ -138,6 +140,20 @@
                 else {
                     return j;
                 }
+            };
+            
+            this.getModalInstance = function(name) {
+                var modalInstance = $modal.open({
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
+                    controller: 'ConfirmModalCtrl',
+                    resolve: {
+                        title: function () { return name },
+                        message: function () { return "confirm_" + name },
+                        confirmButton: function () { return "yes" }
+                    }
+                });
+                
+                return modalInstance;
             };
             
             this.getRightAnswersGiven = function(index, right) {
@@ -308,15 +324,7 @@
             
             this.jumpTo = function (index) {
                 if (this.currentAction === 'edit') {
-                    var modalInstance = $modal.open({
-                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
-                        controller: 'ConfirmModalCtrl',
-                        resolve: {
-                            title: function () { return "jump_to" },
-                            message: function () { return "confirm_jump_to" },
-                            confirmButton: function () { return "yes" }
-                        }
-                    });
+                    var modalInstance = this.getModalInstance("jump_to");
                     modalInstance.result.then(function () {
                         this.confirmJumpTo(index);
                     }.bind(this));
@@ -341,19 +349,14 @@
                         for (var i=0; i<this.sequence.activities.length; i++) {
                             this.triesByActivity.push(0);
                         }
-                        this.trial = 1;
-                        for (var i=0; i<this.previousAnswers.length; i++) {
-                            if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
-                                if (this.trial <= this.previousAnswers[i].numTrial) {
-                                    this.trial = this.previousAnswers[i].numTrial + 1;
-                                }
-                            }
-                        }
+                        this.setTrialValue();
                     }
                     this.iterator = index;
                     this.currentFile = 'edit';
                     this.currentAction = 'edit';
                 }
+                this.answers = [];
+                this.inputs = [];
             };
             
             this.next = function () {
@@ -375,15 +378,7 @@
             
             this.nextActivity = function () {
                 if (this.currentAction === 'edit') {
-                    var modalInstance = $modal.open({
-                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
-                        controller: 'ConfirmModalCtrl',
-                        resolve: {
-                            title: function () { return "next_activity" },
-                            message: function () { return "confirm_next_activity" },
-                            confirmButton: function () { return "yes" }
-                        }
-                    });
+                    var modalInstance = this.getModalInstance("next_activity");
                     modalInstance.result.then(function () {
                         this.confirmNextActivity();
                     }.bind(this));
@@ -418,15 +413,7 @@
             
             this.previousActivity = function () {
                 if (this.currentAction === "edit") {
-                    var modalInstance = $modal.open({
-                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
-                        controller: 'ConfirmModalCtrl',
-                        resolve: {
-                            title: function () { return "previous_activity" },
-                            message: function () { return "confirm_previous_activity" },
-                            confirmButton: function () { return "yes" }
-                        }
-                    });
+                    var modalInstance = this.getModalInstance("previous_activity");
                     modalInstance.result.then(function () {
                         this.confirmPreviousActivity();
                     }.bind(this));
@@ -474,6 +461,17 @@
                 }
             };
             
+            this.setTrialValue = function () {
+                this.trial = 1;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
+                        if (this.trial <= this.previousAnswers[i].numTrial) {
+                            this.trial = this.previousAnswers[i].numTrial + 1;
+                        }
+                    }
+                }
+            };
+            
             this.specificFeedback = function(correctAnswer, choiceId) {
                 var checked = false;
                 for (var i=0; i<this.answers.length; i++) {
@@ -511,14 +509,7 @@
                 for (var i=0; i<this.sequence.activities.length; i++) {
                     this.triesByActivity.push(0);
                 }
-                this.trial = 1;
-                for (var i=0; i<this.previousAnswers.length; i++) {
-                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
-                        if (this.trial <= this.previousAnswers[i].numTrial) {
-                            this.trial = this.previousAnswers[i].numTrial + 1;
-                        }
-                    }
-                }
+                this.setTrialValue();
             };
         }
     ]);
