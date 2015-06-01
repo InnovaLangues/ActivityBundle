@@ -3,14 +3,14 @@
 
     angular
             .module('ActivityMediaType')
-            .controller('ActivityMediaTypeSoundController', [
+            .controller('ActivityMediaTypeVideoController', [
                 function () {
                     this.resourcePickerElement;
                     this.type;
                     this.choice;
 
                     this.checkFile = function (mimeType) {
-                        var types = ['audio/x-wav', 'audio/mpeg', 'audio/ogg', 'custom/file'];
+                        var types = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm', 'video/mpeg', 'video/ogg'];
                         return types.indexOf(mimeType) !== -1;
                     };
 
@@ -37,13 +37,13 @@
                                     id: nodeId
                                 };
                             }
-                            // ensure that the selected resource is an audio file
+                            // ensure that the selected resource is a video file
                             if (this.checkFile(resource.mimeType)) {
                                 this.choice.resource = resource.id;
                                 this.appendElement();
                             }
                             else {
-                                console.log('not audio file ' + resource.mimeType);
+                                console.log('not video file ' + resource.mimeType);
                             }
                         }
                     }.bind(this);
@@ -51,31 +51,34 @@
                     this.appendElement = function () {
                         var root = this.resourcePickerElement;
                         var next = root.nextSibling;
-                        if (next && next.tagName === 'AUDIO') {
+
+                        if (next && next.tagName === 'VIDEO') {
                             root.parentNode.removeChild(next);
                         }
 
-                        var tag = document.createElement('audio');
-                        tag.setAttribute('src', Routing.generate('activity_get_resource_content', {activityId: this.activityType.id, nodeId: this.choice.resource}));
+                        var tag = document.createElement('video');
                         tag.setAttribute('controls', 'controls');
+                        tag.setAttribute('src', Routing.generate('activity_get_resource_content', {activityId: this.activityType.id, nodeId: this.choice.resource}));
+
                         tag.setAttribute('style', 'width:80%;float:right;');
                         root.parentNode.insertBefore(tag, root.nextSibling);
+
                     }.bind(this);
 
                     /**
-                     * Called by ActivitySoundChoice directive when link is done
-                     * Each ressource picker is not created first so this method tells us it's ok to add audio tag if needed          
+                     * Called by ActivityImageChoice directive when link is done
+                     * Each ressource picker is not created first so this method tells us it's ok to add video tag if needed          
                      */
                     this.appendTagIfNecessary = function () {
-                        if (this.choice.resource) {                            
+                        if (this.choice.resource) {
                             this.appendElement();
                         }
                     }
 
 
                     var my = this;
-                    // AUDIO RESOURCE PICKER
-                    this.activitySequenceAudioResourcePicker = {
+                    // RESOURCE PICKER
+                    this.activitySequenceVideoResourcePicker = {
                         parameters: angular.copy(this.resourcePickerConfig),
                         callback: function selectResource(nodes) {
                             my.addResource(nodes);

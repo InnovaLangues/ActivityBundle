@@ -32,7 +32,6 @@
 
                     // Watch for child Activities delete event
                     scope.$on('activityDelete', function (event, activity) {
-                        console.log('activity deleted');
                         activitySequenceCtrl.removeActivity(activity);
                         activitySequenceCtrl.showActivity();
                     });

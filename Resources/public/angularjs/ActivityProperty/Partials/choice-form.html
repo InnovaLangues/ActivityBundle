@@ -1,19 +1,29 @@
 <ul class="list-group list-unstyled" data-ui-sortable="choiceTypeCtrl.sortableOptions" data-ng-model="choiceTypeCtrl.activityType.type.choices" >
-    <li class="row list-group-item draggable-item" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices | orderBy:'position'" id="choice-{{ $index }}" >
+    <li class="row list-group-item draggable-item" data-ng-repeat="choice in choiceTypeCtrl.activityType.type.choices| orderBy:'position'" id="choice-{{ $index}}" >
         <span class="myHandle btn btn-default fa fa-arrows"></span>
-        <span class="col-md-7">   
+        <span class="col-md-7" data-ng-switch="choiceTypeCtrl.activityType.mediaType.name">   
             <!--
             <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/MediaType/' + choiceTypeCtrl.activityType.mediaType.template" ></div>
-        -->
+            -->
 
-            <media-type-sound-choice data-choice="choice" data-type="choiceTypeCtrl.activityType.type"></media-type-sound-choice>
-            
+            <media-type-sound-choice data-ng-switch-when="Sound" data-choice="choice" data-type="choiceTypeCtrl.activityType.type"></media-type-sound-choice>
+            <media-type-image-choice data-ng-switch-when="Picture" data-choice="choice" data-type="choiceTypeCtrl.activityType.type"></media-type-image-choice>
+            <media-type-video-choice data-ng-switch-when="Video" data-choice="choice" data-type="choiceTypeCtrl.activityType.type"></media-type-video-choice>
+            <media-type-text-choice data-ng-switch-when="Text" data-choice="choice" data-type="choiceTypeCtrl.activityType.type"></media-type-text-choice>
+            <!--
+            <media-type-prosodic-choice data-ng-switch-when="Prosodic" data-choice="choice" data-index="$index"></media-type-prosodic-choice>
+            -->
+            <!--
+            <div data-ng-switch-default>
+                <div data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/MediaType/' + choiceTypeCtrl.activityType.mediaType.template"></div>
+            </div>
+            -->
         </span>
         <span class="col-md-3">
-            <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="correct" > {{ 'correct' | trans:{}:'activity_editor' }}
+            <input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index}}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="correct" > {{ 'correct' | trans:{}:'activity_editor' }}
             <span data-ng-if="choiceTypeCtrl.activityType.typeAvailable.name === 'MultipleChoiceType'" >
-                <br/><input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="neutral" > {{ 'neutral' | trans:{}:'activity_editor' }}
-                <br/><input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index }}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="wrong" > {{ 'wrong' | trans:{}:'activity_editor' }}
+                <br/><input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index}}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="neutral" > {{ 'neutral' | trans:{}:'activity_editor' }}
+                <br/><input type="radio" data-ng-model="choice.correctAnswer" name="correct-{{ $index}}" data-ng-change="choiceTypeCtrl.selectChoice(choice)" value="wrong" > {{ 'wrong' | trans:{}:'activity_editor' }}
             </span>
         </span>
         <span class="col-md-1">

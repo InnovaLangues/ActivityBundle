@@ -129,8 +129,6 @@
                         return innova_activity;
                     }
                     var newActivity = new Activity(activity);
-                        
-                    //console.log(newActivity);
 
                     var deferred = $q.defer();
                     $http

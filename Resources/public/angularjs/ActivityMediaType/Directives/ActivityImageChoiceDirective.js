@@ -6,24 +6,24 @@
     'use strict';
     angular
         .module('ActivityMediaType')
-        .directive('mediaTypeSoundChoice', [
+        .directive('mediaTypeImageChoice', [
             function () {
                     return {
                         restrict: 'E',
                         replace: false,
                         //transclude: true,
-                        controller: 'ActivityMediaTypeSoundController',
-                        controllerAs: 'activityMediaTypeSndCtrl',
+                        controller: 'ActivityMediaTypeImageController',
+                        controllerAs: 'activityMediaTypeImgCtrl',
                         scope: {
                             choice: '=',
                             activityType: '=type'
                         },
                         bindToController: true,
-                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityMediaType/Partials/sound-choice-form.html',
+                        templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityMediaType/Partials/image-choice-form.html',
                         
-                        link: function (scope, element, attrs, activityMediaTypeSndCtrl) { 
-                            activityMediaTypeSndCtrl.resourcePickerElement = element[0];
-                            activityMediaTypeSndCtrl.appendTagIfNecessary();
+                        link: function (scope, element, attrs, activityMediaTypeImgCtrl) {  
+                            activityMediaTypeImgCtrl.resourcePickerElement = element[0];
+                            activityMediaTypeImgCtrl.appendTagIfNecessary();
                         }
                     };
             }
