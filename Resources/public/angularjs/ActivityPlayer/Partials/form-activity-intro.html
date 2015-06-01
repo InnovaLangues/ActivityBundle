@@ -23,8 +23,8 @@
                 </tr>
                 <tr data-ng-repeat="answer in activityPlayerCtrl.getUsersPreviousAnswers()" >
                     <td class="intro-td">{{ $index + 1 }}</td>
-                    <td class="intro-td">{{ activityPlayerCtrl.getDate($index + 1, -1) }}</td>
                     <td class="intro-td">{{ activityPlayerCtrl.getDate($index + 1, 1) }}</td>
+                    <td class="intro-td">{{ activityPlayerCtrl.getDate($index + 1, -1) }}</td>
                     <td class="intro-td">{{ activityPlayerCtrl.getExecutedActivities($index + 1) }}</td>
                     <td class="intro-td">{{ activityPlayerCtrl.getRightAnswersGiven($index + 1, true) }}</td>
                     <td class="intro-td"></td>
