@@ -5,7 +5,7 @@ namespace Innova\ActivityBundle\Event\Log;
 use Claroline\CoreBundle\Event\Log\AbstractLogResourceEvent;
 use Innova\ActivityBundle\Entity\Activity;
 
-class CreateActivityEvent extends AbstractLogResourceEvent
+class CreateNewEvent extends AbstractLogResourceEvent
 {
     const ACTION = 'resource-innova_activity-create_activity';
 
