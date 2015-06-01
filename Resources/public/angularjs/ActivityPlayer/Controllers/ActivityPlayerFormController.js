@@ -24,7 +24,8 @@
             
             this.inputElements = [];
             
-            this.inputs = [];
+            this.inputsUnique = [];
+            this.inputsMultiple = [];
             this.input = null;
             
             this.answersGiven = function() {
@@ -48,20 +49,28 @@
             
             this.checkInputs = function(choice) {
                 this.answers = [];
+                console.log("----------");
+                console.log("m");
+                console.log(this.inputsMultiple);
+                console.log("u");
+                console.log(this.inputsUnique);
                 if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
                     for (var i=0; i<this.sequence.activities[this.iterator].type.choices.length; i++) {
                         this.answers.push({
                             id: this.sequence.activities[this.iterator].type.choices[i].id,
-                            checked: this.inputs[i]
+                            checked: this.inputsMultiple[i]
                         });
                     }
+                    console.log("mult");
                 }
                 else {
                     this.answers.push({
                         id: choice,
                         checked: true
                     });
+                    console.log("uniq");
                 }
+                console.log(this.answers);
             };
             
             this.formatDate = function(number) {
@@ -356,13 +365,15 @@
                     this.currentAction = 'edit';
                 }
                 this.answers = [];
-                this.inputs = [];
+                this.inputsMultiple = [];
+                this.inputsUnique = [];
             };
             
             this.next = function () {
                 this.iterator = this.iterator + 1;
                 this.answers = [];
-                this.inputs = [];
+                this.inputsMultiple = [];
+                this.inputsUnique = [];
                 this.correctAnswers = [];
                 if (this.iterator >= this.sequence.activities.length) {
                     this.currentFile = 'end';
@@ -402,7 +413,8 @@
             this.playActivityAgain = function () {
                 this.triesByActivity[this.iterator] = this.triesByActivity[this.iterator] + 1;
                 this.answers = [];
-                this.inputs = [];
+                this.inputsMultiple = [];
+                this.inputsUnique = [];
                 this.correctAnswers = [];
                 this.currentAction = 'edit';
                 var inputs = document.getElementsByName('choices[]');
@@ -427,7 +439,8 @@
                 if (this.currentFile !== "intro" && this.iterator !== 0) {
                     this.iterator = this.iterator - 1;
                     this.answers = [];
-                    this.inputs = [];
+                    this.inputsMultiple = [];
+                    this.inputsUnique = [];
                     this.correctAnswers = [];
                     this.currentAction = 'edit';
                     var inputs = document.getElementsByName('choices[]');
