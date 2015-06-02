@@ -208,12 +208,8 @@
             };
             
             this.isAuthorizedStart = function() {
-                if (this.getUsersPreviousAnswersLength() < this.sequence.numAttempts || this.sequence.numAttempts === 0) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                
+                return (this.getUsersPreviousAnswersLength() < this.sequence.numAttempts || this.sequence.numAttempts === 0);
             };
             
             this.isChecked = function(choiceId) {
@@ -407,9 +403,15 @@
                 this.currentAction = 'edit';
                 var inputs = document.getElementsByName('choices[]');
                 for (var i=0; i<inputs.length; i++) {
-                    inputs[i].removeAttribute('disabled');
+                    for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
+                        if (this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && !(inputs[i].checked && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct")) {
+                            inputs[i].removeAttribute('disabled');
+                        }
+                    }
                 }
             };
+            
+            
             
             this.previousActivity = function () {
                 if (this.currentAction === "edit") {
