@@ -8,9 +8,6 @@
                 '$document',
                 function ($window, $document) {
 
-                    this.index;
-                    this.choice;
-
                     this.getSelectionParentElement = function () {
                         var parentEl = null, sel;
                         if ($window.getSelection) {
@@ -47,11 +44,10 @@
                         }
                     };
 
-                    this.annotate = function (color) { 
-                        console.log('yep');
+                    this.annotate = function (color, index) { 
                         var text = this.getSelectedText();
                         var elem = this.getSelectionParentElement();
-                        var id = "choice-" + this.index.toString();
+                        var id = "choice-" + index.toString();
                         while (elem.tagName !== "LI") {
                             elem = elem.parentNode;
                         }

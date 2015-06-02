@@ -11,10 +11,6 @@
                     return {
                         restrict: 'E',
                         replace: false,
-                        scope: {
-                            choice: '=',
-                            activityType: '=type'
-                        },
                         templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/ActivityMediaType/Partials/text-choice-form.html',
                         
                         link: function (scope, element, attrs) { 

@@ -100,7 +100,7 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
         return $this;
     }
     
-    public function setResource(ResourceNode $resource){
+    public function setResource(ResourceNode $resource = null){
         $this->resource = $resource;
         return $this;
     }
@@ -109,10 +109,7 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
         return $this->resource;
     }
 
-    /**
-     * 
-     * @return type
-     */
+    
     public function jsonSerialize()
     {
         return array(
@@ -120,7 +117,7 @@ class ChoiceProperty extends AbstractProperty implements \JsonSerializable
             'media'         => $this->media,
             'correctAnswer' => $this->correctAnswer,
             'position'      => $this->position,
-            'resource'      => $this->resource->getId()
+            'resource'      => $this->resource ? $this->resource->getId() : null
         );
     }
 }

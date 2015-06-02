@@ -117,12 +117,17 @@
         
                         for (var choice in activity.type.choices) {
                             if (activity.type.choices.hasOwnProperty(choice)) {
-                                innova_activity.type.choices.push({
+                                
+                                var c = {
                                     media: activity.type.choices[choice].media,
                                     correctAnswer: activity.type.choices[choice].correctAnswer,
-                                    position: activity.type.choices[choice].position,
-                                    resource: activity.type.choices[choice].resource
-                                });
+                                    position: activity.type.choices[choice].position
+                                };
+                                
+                                if(activity.type.choices[choice].resource && Object.keys(activity.type.choices[choice].resource).length !== 0){
+                                    c.resource = activity.type.choices[choice].resource;
+                                }
+                                innova_activity.type.choices.push(c);
                             }
                         }
         
