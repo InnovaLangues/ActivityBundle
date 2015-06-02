@@ -49,11 +49,6 @@
             
             this.checkInputs = function(choice) {
                 this.answers = [];
-                console.log("----------");
-                console.log("m");
-                console.log(this.inputsMultiple);
-                console.log("u");
-                console.log(this.inputsUnique);
                 if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
                     for (var i=0; i<this.sequence.activities[this.iterator].type.choices.length; i++) {
                         this.answers.push({
@@ -61,16 +56,13 @@
                             checked: this.inputsMultiple[i]
                         });
                     }
-                    console.log("mult");
                 }
                 else {
                     this.answers.push({
                         id: choice,
                         checked: true
                     });
-                    console.log("uniq");
                 }
-                console.log(this.answers);
             };
             
             this.formatDate = function(number) {

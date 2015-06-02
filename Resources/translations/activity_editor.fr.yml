@@ -24,6 +24,9 @@ choices: Choix
 clues_asked: Indice(s) demandé(s)
 complementary_infos: Informations complémentaires
 confirm_delete_choice: Êtes-vous sûr de vouloir supprimer ce choix?
+confirm_jump_to: Êtes-vous sûr(e) de vouloir changer d'activité? Vos réponses actuelles ne seront pas enregistrées.
+confirm_next_activity: Êtes-vous sûr(e) de vouloir passer à l'activité suivante? Vos réponses actuelles ne seront pas enregistrées.
+confirm_previous_activity: Êtes-vous sûr(e) de vouloir retourner à l'activité précédente? Vos réponses actuelles ne seront pas enregistrées.
 contents: Objets
 correct: Correcte
 correct_answer: Bonne réponse
@@ -54,6 +57,10 @@ instructions: Instructions
 innova_activity_type_boolean: Oui/Non
 innova_activity_type_unique: Choix unique
 innova_activity_type_multiple: Choix multiple
+
+#j
+
+jump_to: Changer d'activité
 
 #m
 
@@ -97,3 +104,6 @@ type: Type
 
 #w
 wrong: Fausse
+
+#y
+yes: Oui
