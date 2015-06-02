@@ -145,7 +145,7 @@
             
             this.getModalInstance = function(name) {
                 var modalInstance = $modal.open({
-                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm.html',
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm-blue.html',
                     controller: 'ConfirmModalCtrl',
                     resolve: {
                         title: function () { return name },
