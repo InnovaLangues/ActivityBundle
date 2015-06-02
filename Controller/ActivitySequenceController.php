@@ -18,6 +18,7 @@ use Innova\ActivityBundle\Entity\ActivitySequence;
 use Innova\ActivityBundle\Form\Handler\ActivitySequenceHandler;
 use Innova\ActivityBundle\Manager\ActivitySequenceManager;
 use Innova\ActivityBundle\Manager\ActivityManager;
+use Claroline\CoreBundle\Manager\ResourceManager;
 
 /**
  * Class ActivitySequenceController
@@ -60,6 +61,12 @@ class ActivitySequenceController
     protected $activityManager;
 
     /**
+     * Resource Manager
+     * @var \Claroline\CoreBundle\Manager\ResourceManager 
+     */
+    protected $resourceManager;
+
+	/**
      * Form factory
      * @var \Symfony\Component\Form\FormFactoryInterface
      */
@@ -83,6 +90,7 @@ class ActivitySequenceController
      *      "securityToken" = @DI\Inject("security.token_storage"),
      *      "activitySequenceManager" = @DI\Inject("innova.manager.activity_sequence_manager"),
      *      "activityManager"         = @DI\Inject("innova.manager.activity_manager"),
+     *      "resourceManager"         = @DI\Inject("claroline.manager.resource_manager"),
      *      "formFactory"             = @DI\Inject("form.factory"),
      *      "activitySequenceHandler" = @DI\Inject("innova_activity_sequence.form.handler.activity")
      * })
@@ -93,6 +101,7 @@ class ActivitySequenceController
         TokenStorageInterface         $securityToken,
         ActivitySequenceManager  $activitySequenceManager,
         ActivityManager          $activityManager,
+        ResourceManager          $resourceManager,
         FormFactoryInterface     $formFactory,
         ActivitySequenceHandler  $activitySequenceHandler
     )
@@ -102,6 +111,7 @@ class ActivitySequenceController
         $this->securityToken           = $securityToken;
         $this->activitySequenceManager = $activitySequenceManager;
         $this->activityManager         = $activityManager;
+        $this->resourceManager          = $resourceManager;
         $this->formFactory             = $formFactory;
         $this->activitySequenceHandler = $activitySequenceHandler;
     }
@@ -150,21 +160,32 @@ class ActivitySequenceController
         if (false === $this->securityAuth->isGranted('ADMINISTRATE', $activitySequence->getResourceNode())) {
             throw new AccessDeniedException();
         }
-
+        
+        // Get workspace root directory
+        $workspace = $activitySequence->getResourceNode()->getWorkspace();
+        $wsDirectory = $this->resourceManager->getWorkspaceRoot($workspace);
+        $resourceTypes = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceType')->findAll();
+        
         return array(
-            '_resource' => $activitySequence,
+            'workspace' => $workspace,
+            'wsDirectoryId' => $wsDirectory->getId(),
+            'resourceTypes' => $resourceTypes,
+             '_resource' => $activitySequence,
         );
     }
 
     /**
      * Update an ActivitySequence
      *
+     * @param  \Innova\ActivityBundle\Entity\ActivitySequence                   $activitySequence
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
      * @Route(
      *      "/{activitySequenceId}",
      *      name    = "innova_activity_sequence_update",
      *      options = {"expose" = true}
      * )
-     * @ParamConverter("activitySequence", class="InnovaActivityBundle:ActivitySequence", options={"mapping": {"activitySequenceId": "id"}})
      * @Method("PUT")
      */
     public function updateAction(ActivitySequence $activitySequence)

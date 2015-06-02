@@ -7,7 +7,7 @@
         'ui.tinymce',
         'ui.translation',
         'ui.sortable',
-
+        'ui.resourcePicker',
         'Utils',
         'ConfirmModule',
         'ActivitySequence'

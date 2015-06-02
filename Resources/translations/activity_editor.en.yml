@@ -70,6 +70,7 @@ next_activity: Next activity
 #p
 
 previous_activity: Previous activity
+pick_a_resource: Choose resource
 
 #q
 
@@ -89,6 +90,7 @@ share: Share
 start: Start
 start_date_hour: Start Date (Hour)
 submit: Submit
+select_available_type: Select a type by clicking on it
 
 #t
 

@@ -10,7 +10,12 @@ class ChoicePropertyType extends AbstractPropertyType
     {
         parent::buildForm($builder, $options);
         $builder->add('correctAnswer', 'text', array ('required' => true));
-        $builder->add('position');
+        $builder->add('position');        
+        $builder->add('resource', 'entity', array (
+            'class' => 'ClarolineCoreBundle:Resource\ResourceNode',
+            'required' => false
+            )
+        );
     }
     
     public function getDefaultOptions()

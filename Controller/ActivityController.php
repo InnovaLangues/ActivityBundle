@@ -19,6 +19,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Form\FormInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Claroline\CoreBundle\Entity\Resource\ResourceNode;
+use Claroline\CoreBundle\Manager\ResourceManager;
+use Symfony\Component\HttpFoundation\Response;
+use \finfo;
 
 /**
  * Class ActivityController
@@ -32,8 +36,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActivityController
 {
     /**
-     * Security Authorization
-     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $securityAuth
+     * @var \Symfony\Component\Security\Core\SecurityContextInterface
      */
     protected $securityAuth;
     /**
@@ -60,6 +63,18 @@ class ActivityController
     protected $activityHandler;
 
     /**
+     * Resource Manager
+     * @var \Claroline\CoreBundle\Manager\ResourceManager 
+     */
+    protected $resourceManager;
+
+    /**
+     * Claroline parameter for resource file directory
+     * @var string 
+     */
+    protected $claroFileDir;
+
+    /**
      * Class constructor
      *
      * @param \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface        $securityAuth
@@ -73,21 +88,28 @@ class ActivityController
      *   "securityToken" = @DI\Inject("security.token_storage"),
      *   "activityManager" = @DI\Inject("innova.manager.activity_manager"),
      *   "formFactory"     = @DI\Inject("form.factory"),
-     *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity")
+     *   "activityHandler" = @DI\Inject("innova_activity.form.handler.activity"),
+     *   "resourceManager" = @DI\Inject("claroline.manager.resource_manager"),
+     *   "claroFileDir"    = @DI\Inject("%claroline.param.files_directory%"),
      * })
      */
     public function __construct(
-        AuthorizationCheckerInterface $securityAuth,
-        TokenStorageInterface         $securityToken,
-        ActivityManager      $activityManager,
-        FormFactoryInterface $formFactory,
-        ActivityHandler      $activityHandler)
+        AuthorizationCheckerInterface   $securityAuth,
+        TokenStorageInterface           $securityToken,
+        ActivityManager                 $activityManager,
+        FormFactoryInterface            $formFactory,
+        ActivityHandler                 $activityHandler,
+        ResourceManager                 $resourceManager,
+                                        $claroFileDir
+        )
     {
-        $this->securityAuth    = $securityAuth;
-        $this->securityToken   = $securityToken;
-        $this->activityManager = $activityManager;
-        $this->formFactory     = $formFactory;
-        $this->activityHandler = $activityHandler;
+        $this->securityAuth     = $securityAuth;
+        $this->securityToken    = $securityToken;
+        $this->activityManager  = $activityManager;
+        $this->formFactory      = $formFactory;
+        $this->activityHandler  = $activityHandler;
+        $this->resourceManager  = $resourceManager;
+        $this->claroFileDir     = $claroFileDir;
     }
     
     /**
@@ -106,7 +128,7 @@ class ActivityController
      */
     public function showAction(Activity $activity)
     {
-        if (false === $this->securityAuth->isGranted('OPEN', $activity->getResourceNode())) {
+        if (false === $this->security->isGranted('OPEN', $activity->getResourceNode())) {
             throw new AccessDeniedException();
         }
 
@@ -131,7 +153,7 @@ class ActivityController
      */
     public function administrateAction(Activity $activity)
     {
-        if (false === $this->securityAuth->isGranted('ADMINISTRATE', $activity->getResourceNode())) {
+        if (false === $this->security->isGranted('ADMINISTRATE', $activity->getResourceNode())) {
             throw new AccessDeniedException();
         }
         
@@ -228,4 +250,41 @@ class ActivityController
 
         return $errors;
     }
+
+    /**
+     * Serve a ressource file that is not in the web folder
+     * have to set this route in the source attribute to see/ear the ressource
+     * @Route(
+     *     "/get/resource/{activityId}/{nodeId}",
+     *     name="activity_get_resource_content",
+     *     options = {"expose" = true}
+     * )
+     * @ParamConverter("node", class="ClarolineCoreBundle:Resource\ResourceNode", options={"mapping": {"nodeId":"id"}})
+     * @Method("GET")
+     */
+    public function serveResourceFile(ResourceNode $node) {
+        
+        if ($node->getClass() === 'Claroline\CoreBundle\Entity\Resource\File') {
+            $resource = $this->resourceManager->getResourceFromNode($node);
+            if ($resource === null) {
+                throw new \Exception('The resource was removed.');
+            }
+
+            $item = $this->claroFileDir.'/'.$resource->getHashName();
+            $response = new Response();
+            
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $type = $finfo->file($item);
+            //$response->headers->set('Content-type', mime_content_type($item));
+            $response->headers->set('Content-type', $type);
+            $response->headers->set('Content-Disposition', 'attachment; filename="'.basename($item).'";');
+            $response->headers->set("Content-Transfer-Encoding", 'binary');
+            $response->headers->set('Content-length', filesize($item));
+            $response->sendHeaders();
+            $response->setContent(file_get_contents($item));
+            return $response;
+        }
+        return;
+    }
+
 }
