@@ -39,12 +39,8 @@
             };
             
             this.canPlayActivityAgain = function() {
-                if (this.triesByActivity[this.iterator] < this.sequence.activities[this.iterator].numTries && this.currentAction === 'feedback') {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                
+                return (this.triesByActivity[this.iterator] < this.sequence.activities[this.iterator].numTries && this.currentAction === 'feedback');
             };
             
             this.checkInputs = function(choice) {
