@@ -2,7 +2,8 @@
 
 activity_sequence_form_description: Description
 activity_sequence_form_name: Suite d'activités
-activity_sequence_form_numTries: Nombre de tentatives limité?
+activity_sequence_form_numAttempts: Limite de tentatives pour la séquence?
+activity_sequence_form_numTries: Nombre d'essais possibles par défaut pour une activité
 activity_type_BooleanChoiceType: Vrai/Faux
 activity_type_MultipleChoiceType: Question à choix multiple
 activity_type_UniqueChoiceType: Question à choix unique
@@ -73,9 +74,11 @@ name: Nom
 neutral: Neutre
 next: Suivant
 next_activity: Activité suivante
+num_tries: Nombre d'essais possibles pour une activité
 
 #p
 
+play_again: Rejouer
 previous_activity: Activité précédente
 
 #q
