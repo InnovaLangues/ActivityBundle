@@ -2,8 +2,8 @@
 
 namespace Innova\ActivityBundle\Entity\ActivityProperty;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Claroline\CoreBundle\Entity\Resource\ResourceNode;
 
 /**
  * Proposition
@@ -37,15 +37,16 @@ class MediaTypeProperty extends AbstractProperty implements \JsonSerializable
      * 
      * @ORM\Column(name="description", type="text")
      */
-    protected $description;
+    protected $description;  
     
-    /**
-     * Name of the template file to load
-     * @var string
-     * 
-     * @ORM\Column(name="template", type="text")
+     /**
+     * Resource associated with the choice (audio / photo / video)
+     * @var ResourceNode
+     * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\Resource\ResourceNode")
+     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id", nullable=true)
      */
-    protected $template;
+    protected $resource;
+    
     
     public function getName()
     {
@@ -71,16 +72,13 @@ class MediaTypeProperty extends AbstractProperty implements \JsonSerializable
         return $this;
     }
     
-    public function getTemplate()
-    {
-        return $this->template;
+    public function setResource(ResourceNode $resource = null){
+        $this->resource = $resource;
+        return $this;
     }
     
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-        
-        return $this;
+    public function getResource(){
+        return $this->resource;
     }
     
     public function jsonSerialize()
@@ -89,7 +87,7 @@ class MediaTypeProperty extends AbstractProperty implements \JsonSerializable
             'id'            => $this->id,
             'name'          => $this->name,
             'description'   => $this->description,
-            'template'      => $this->template,
+            'resource'      => $this->resource ? $this->resource->getId() : null
         );
     }
 }

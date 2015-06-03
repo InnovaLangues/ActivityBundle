@@ -252,7 +252,7 @@ class ActivityController
     }
 
     /**
-     * Serve a ressource file that is not in the web folder
+     * Serve a Claroline ressource file that is not in the web folder
      * have to set this route in the source attribute to see/ear the ressource
      * @Route(
      *     "/get/resource/{activityId}/{nodeId}",
@@ -262,7 +262,7 @@ class ActivityController
      * @ParamConverter("node", class="ClarolineCoreBundle:Resource\ResourceNode", options={"mapping": {"nodeId":"id"}})
      * @Method("GET")
      */
-    public function serveResourceFile(ResourceNode $node) {
+    public function serveCalrolineResourceFile(ResourceNode $node) {
         
         if ($node->getClass() === 'Claroline\CoreBundle\Entity\Resource\File') {
             $resource = $this->resourceManager->getResourceFromNode($node);
@@ -282,6 +282,90 @@ class ActivityController
             $response->headers->set('Content-length', filesize($item));
             $response->sendHeaders();
             $response->setContent(file_get_contents($item));
+            return $response;
+        }
+        return;
+    }
+    
+    /**
+     * Get segments for a given InnovaMediaResource
+     * @Route(
+     *     "/get/mediaresource/segments/{activityId}/{nodeId}",
+     *     name="activity_get_mediaresource_segments",
+     *     options = {"expose" = true}
+     * )
+     * @ParamConverter("node", class="ClarolineCoreBundle:Resource\ResourceNode", options={"mapping": {"nodeId":"id"}})
+     * @Method("GET")
+     */
+    public function getMediaResourceSegments(ResourceNode $node) {
+        
+        if ($node->getClass() === 'Claroline\CoreBundle\Entity\Resource\File') {
+            $resource = $this->resourceManager->getResourceFromNode($node);
+            if ($resource === null) {
+                throw new \Exception('The resource was removed.');
+            }
+            
+            echo $resource->getName().'<br/>';
+            echo count($resource->getRegions());
+            die;
+            
+            $response = new Response();
+
+            /*$item = $this->claroFileDir.'/'.$resource->getHashName();
+            $response = new Response();
+            
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $type = $finfo->file($item);
+            //$response->headers->set('Content-type', mime_content_type($item));
+            $response->headers->set('Content-type', $type);
+            $response->headers->set('Content-Disposition', 'attachment; filename="'.basename($item).'";');
+            $response->headers->set("Content-Transfer-Encoding", 'binary');
+            $response->headers->set('Content-length', filesize($item));
+            $response->sendHeaders();
+            $response->setContent(file_get_contents($item));*/
+            return $response;
+        }
+        return;
+    }
+    
+    /**
+     * Get file for a given InnovaMediaResource
+     * @Route(
+     *     "/get/mediaresource/file/{activityId}/{nodeId}",
+     *     name="activity_get_mediaresource_file",
+     *     options = {"expose" = true}
+     * )
+     * @ParamConverter("node", class="ClarolineCoreBundle:Resource\ResourceNode", options={"mapping": {"nodeId":"id"}})
+     * @Method("GET")
+     */
+    public function getMediaResourceFile(ResourceNode $node) {
+        
+        if ($node->getClass() === 'Claroline\CoreBundle\Entity\Resource\File') {
+            $resource = $this->resourceManager->getResourceFromNode($node);
+            if ($resource === null) {
+                throw new \Exception('The resource was removed.');
+            }
+            
+            echo $resource->getName().'<br/>';
+            
+            $medias = $resource->getMedias();
+            echo $medias[0]->getUrl();
+            die;
+            
+            $response = new Response();
+
+            /*$item = $this->claroFileDir.'/'.$resource->getHashName();
+            $response = new Response();
+            
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $type = $finfo->file($item);
+            //$response->headers->set('Content-type', mime_content_type($item));
+            $response->headers->set('Content-type', $type);
+            $response->headers->set('Content-Disposition', 'attachment; filename="'.basename($item).'";');
+            $response->headers->set("Content-Transfer-Encoding", 'binary');
+            $response->headers->set('Content-length', filesize($item));
+            $response->sendHeaders();
+            $response->setContent(file_get_contents($item));*/
             return $response;
         }
         return;

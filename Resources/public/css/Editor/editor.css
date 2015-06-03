@@ -310,3 +310,7 @@ li {
 .mediaType {
     padding-bottom: 10px;
 }
+
+.media-type-resource-picker-container{
+    padding-top: 4%;
+}

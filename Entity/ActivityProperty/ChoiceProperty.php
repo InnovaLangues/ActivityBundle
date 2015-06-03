@@ -2,9 +2,8 @@
 
 namespace Innova\ActivityBundle\Entity\ActivityProperty;
 
-use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
-use Innova\ActivityBundle\Entity\ActivityProperty\MediaTypeProperty;
 use Claroline\CoreBundle\Entity\Resource\ResourceNode;
 
 /**

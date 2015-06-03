@@ -6,7 +6,7 @@
 
     angular.module('ActivityType', [
         'Loader',
-        'ConfirmModule',
-        'ActivityProperty'
+        //'ConfirmModule',
+        //'ActivityProperty'
     ]);
 })();

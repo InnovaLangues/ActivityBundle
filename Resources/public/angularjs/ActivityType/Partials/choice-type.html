@@ -11,7 +11,12 @@
                 <select class="form-control" id="mediaTypeSelect" data-ng-model="choiceTypeCtrl.activityType.mediaType" data-ng-options="mediaType.name for mediaType in choiceTypeCtrl.mediaTypes track by mediaType.id | orderBy:'name'" data-ng-change="choiceTypeCtrl.handleChoiceTypeChange()" >
                 </select>
             </span>
-            <span class="col-md-6"></span>
+            <span class="col-md-6 media-type-resource-picker-container">   
+                <span data-ng-if="choiceTypeCtrl.activityType.mediaType.name == 'Segment'">
+                    <btn-resource-picker class="btn btn-default fa fa-folder-open" data-parameters="choiceTypeCtrl.activityMediaTypeSegmentResourcePicker" data-container="body" data-toggle="tooltip" title="{{ 'pick_a_resource' | trans:{}:'activity_editor' }}">
+                    </btn-resource-picker>
+                </span>
+            </span>
         </div>
         <div data-ng-if="choiceTypeCtrl.activityType.mediaType !== null" data-ng-include="choiceTypeCtrl.webDir + 'bundles/innovaactivity/angularjs/ActivityProperty/Partials/choice-form.html'" ></div>
         <div class="col-md-10">
