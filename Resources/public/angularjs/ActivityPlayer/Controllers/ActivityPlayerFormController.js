@@ -398,26 +398,20 @@
                 this.triesByActivity[this.iterator] = this.triesByActivity[this.iterator] + 1;
                 this.answers = [];
                 
-                var inputs = document.getElementsByName('choices[]');/*
+                var inputs = document.getElementsByName('choices[]');
                 for (var i=0; i<this.inputsMultiple.length; i++) {
-                    console.log(this.inputsMultiple);
+                    var suppress = true;
                     for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
-                        // la condition est bonne, mais on reboucle à cause du for (ci dessus) et on efface donc la valeur au loop suivant...
-                        if (!(this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct")) {
-                            this.inputsMultiple[i] = null;
+                        if (this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct") {
+                            suppress = false;
                         }
+                    }
+                    
+                    if (suppress) {
+                        this.inputsMultiple[i] = null;
                     }
                 }
-                for (var i=0; i<this.inputsUnique.length; i++) {
-                    console.log(this.inputsUnique);
-                    for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
-                        if (!(this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct")) {
-                            this.inputsUnique[i] = null;
-                        }
-                    }
-                }*/
                 
-                this.inputsMultiple = [];
                 this.inputsUnique = [];
                 this.correctAnswers = [];
                 this.currentAction = 'edit';
