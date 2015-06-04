@@ -39,8 +39,35 @@
             };
             
             this.canPlayActivityAgain = function() {
+                if (this.sequence.activities[this.iterator].typeAvailable.name === "MultipleChoiceType") {
+                    var complete = true;
+                    for (var i=0; i<this.answers.length; i++) {
+                        for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
+                            if (this.answers[i].id === this.sequence.activities[this.iterator].type.choices[j].id) {
+                                if (!this.answers[i].checked && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct") {
+                                    complete = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    var inputs = document.getElementsByName('choices[]');
+                    var complete = false;
+                    for (var i=0; i<inputs.length; i++) {
+                        for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
+                            console.log(inputs[i].checked);
+                            console.log(this.sequence.activities[this.iterator].type.choices[j].id);
+                            console.log(inputs[i].value);
+                            console.log(this.sequence.activities[this.iterator].type.choices[j].correctAnswer);
+                            if (inputs[i].checked && this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct") {
+                                complete = true;
+                            }
+                        }
+                    }
+                }
                 
-                return (this.triesByActivity[this.iterator] < this.sequence.activities[this.iterator].numTries && this.currentAction === 'feedback');
+                return (this.triesByActivity[this.iterator] < this.sequence.activities[this.iterator].numTries && this.currentAction === 'feedback' && !complete);
             };
             
             this.checkInputs = function(choice) {
@@ -422,16 +449,6 @@
                         }
                     }
                 }
-            };
-            
-            this.persistentFeedback = function () {
-                /*
-                 * Recuperer liste des inputs du document
-                 * et la comparer dans l'ordre avec listes inputs multiple/unique
-                 * DANS playActivityAgain
-                 * pour garder les éléments dans inputsMultiple/unique
-                 */
-                
             };
             
             this.previousActivity = function () {
