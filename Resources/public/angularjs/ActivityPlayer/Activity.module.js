@@ -5,6 +5,7 @@
     'use strict';
 
     angular.module('ActivityPlayer', [
-        'Loader'
+        'Loader',
+        'ConfirmModule'
     ]);
 })();

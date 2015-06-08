@@ -10,17 +10,27 @@
                 </div>
             </div>
             <div class="dots">
-                <i class="fa fa-caret-left dots-arrows"></i>
-                <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('intro')">
-                    <i class="fa {{ activityPlayerCtrl.isSelectedDot(-1) }}" data-toggle="tooltip" data-container="body" title="Introduction"></i>
+                <a href="#" data-ng-click="activityPlayerCtrl.previousActivity()">
+                    <i class="fa fa-caret-left dots-arrows"></i>
                 </a>
-                <a href="#" data-ng-repeat="activity in activityPlayerCtrl.sequence.activities" data-ng-click="activityPlayerCtrl.jumpTo($index)">
+                
+                <i class="fa {{ activityPlayerCtrl.isSelectedDot(-1) }}" data-toggle="tooltip" data-container="body" title="Introduction"></i>
+                
+                <a data-ng-if="activityPlayerCtrl.currentFile !== 'end'" href="#" data-ng-repeat="activity in activityPlayerCtrl.sequence.activities" data-ng-click="activityPlayerCtrl.jumpTo($index)">
                     <i class="fa {{ activityPlayerCtrl.isSelectedDot($index, activity.id) }}" data-toggle="tooltip" data-container="body" title="{{ activity.name }}"></i>
                 </a>
-                <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('intro')">
+                <span data-ng-repeat="activity in activityPlayerCtrl.sequence.activities" >
+                    <i data-ng-if="activityPlayerCtrl.currentFile === 'end'" class="fa {{ activityPlayerCtrl.isSelectedDot($index, activity.id) }}" data-toggle="tooltip" data-container="body" title="{{ activity.name }}"></i>
+                </span>
+                
+                <a href="#" data-ng-click="activityPlayerCtrl.jumpTo('end')" data-ng-if="activityPlayerCtrl.currentFile !== 'intro'" >
                     <i class="fa {{ activityPlayerCtrl.isSelectedDot('end') }}" data-toggle="tooltip" data-container="body" title="Fin"></i>
                 </a>
-                <i class="fa fa-caret-right dots-arrows"></i>
+                <i data-ng-if="activityPlayerCtrl.currentFile === 'intro'" class="fa {{ activityPlayerCtrl.isSelectedDot('end') }}" data-toggle="tooltip" data-container="body" title="Fin"></i>
+                
+                <a href="#" data-ng-click="activityPlayerCtrl.nextActivity()">
+                    <i class="fa fa-caret-right dots-arrows"></i>
+                </a>
             </div>
         </div>
     </nav>
@@ -30,6 +40,11 @@
     <nav class="navbar navbar-default navbar-foot">
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
+                <li data-ng-if="activityPlayerCtrl.currentFile === 'edit'" >
+                    <button data-ng-if="activityPlayerCtrl.canPlayActivityAgain()" data-ng-click="activityPlayerCtrl.playActivityAgain()" class="btn btn-primary btn-save">
+                        <span>{{ 'play_again' | trans:{}:'activity_editor' }}</span>
+                    </button>
+                </li>
                 <li>
                     <button data-ng-if="activityPlayerCtrl.currentAction === 'edit'" data-ng-click="activityPlayerCtrl.save()" class="btn btn-primary btn-save">
                         <span>{{ 'submit' | trans:{}:'activity_editor' }}</span>

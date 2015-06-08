@@ -1,10 +1,8 @@
 <div class="panel-body">
     <div class="row">
-        <span class="col-md-1">
-            <label for="numTries">{{ 'num_tries' | trans:{}:'activity_editor' }}</label>
-            <input class="form-control" id="numTries" type="number" data-ng-model="activityCtrl.activity.numTries" />
-        </span>
-        <span class="col-md-11"></span>
+        <label class="col-md-3" for="numTries">{{ 'num_tries' | trans:{}:'activity_editor' }}</label>
+        <span class="col-md-1" ><input class="form-control" id="numTries" type="number" data-ng-model="activityCtrl.activity.numTries" /></span>
+        <span class="col-md-8"></span>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">

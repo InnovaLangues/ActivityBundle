@@ -2,7 +2,8 @@
 
 activity_sequence_form_description: Description
 activity_sequence_form_name: Suite d'activités
-activity_sequence_form_numTries: Nombre de tentatives limité?
+activity_sequence_form_numAttempts: Limite de tentatives pour la séquence?
+activity_sequence_form_numTries: Nombre d'essais possibles par défaut pour une activité
 activity_type_BooleanChoiceType: Vrai/Faux
 activity_type_MultipleChoiceType: Question à choix multiple
 activity_type_UniqueChoiceType: Question à choix unique
@@ -24,6 +25,9 @@ choices: Choix
 clues_asked: Indice(s) demandé(s)
 complementary_infos: Informations complémentaires
 confirm_delete_choice: Êtes-vous sûr de vouloir supprimer ce choix?
+confirm_jump_to: Êtes-vous sûr(e) de vouloir changer d'activité? Vos réponses actuelles ne seront pas enregistrées.
+confirm_next_activity: Êtes-vous sûr(e) de vouloir passer à l'activité suivante? Vos réponses actuelles ne seront pas enregistrées.
+confirm_previous_activity: Êtes-vous sûr(e) de vouloir retourner à l'activité précédente? Vos réponses actuelles ne seront pas enregistrées.
 contents: Objets
 correct: Correcte
 correct_answer: Bonne réponse
@@ -55,6 +59,10 @@ innova_activity_type_boolean: Oui/Non
 innova_activity_type_unique: Choix unique
 innova_activity_type_multiple: Choix multiple
 
+#j
+
+jump_to: Changer d'activité
+
 #m
 
 media: Média
@@ -66,9 +74,11 @@ name: Nom
 neutral: Neutre
 next: Suivant
 next_activity: Activité suivante
+num_tries: Nombre d'essais possibles pour une activité
 
 #p
 
+play_again: Rejouer
 previous_activity: Activité précédente
 pick_a_resource: Choisir une ressource
 
@@ -98,3 +108,6 @@ type: Type
 
 #w
 wrong: Fausse
+
+#y
+yes: Oui

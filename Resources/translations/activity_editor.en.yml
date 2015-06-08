@@ -2,7 +2,8 @@
 
 activity_sequence_form_description: Description
 activity_sequence_form_name: Activity sequence
-activity_sequence_form_numTries: Limited tries?
+activity_sequence_form_numAttempts: Limit of attempts for the sequence?
+activity_sequence_form_numTries: Default limit of tries for activities
 activity_type_BooleanChoiceType: True/False
 activity_type_MultipleChoiceType: Multiple choices question
 activity_type_UniqueChoiceType: Unique choice question
@@ -24,6 +25,9 @@ choices: Choices
 clues_asked: Asked clues
 complementary_infos: Complementary informations
 confirm_delete_choice: Are you sure you want to delete this choice?
+confirm_jump_to: Are you sure you want to change activity? Your answer will not be saved.
+confirm_next_activity: Are you sure you want to go to the next activity? Your answer will not be saved.
+confirm_previous_activity: Are you sure you want to go to the previous activity? Your answer will not be saved.
 contents: Contents
 correct: Correct
 correct_answer: Correct answer
@@ -55,6 +59,10 @@ innova_activity_type_boolean: Yes/No
 innova_activity_type_unique: Unique choice
 innova_activity_type_multiple: Multiple choice
 
+#j
+
+jump_to: Change activity
+
 #m
 
 media: Media
@@ -66,9 +74,11 @@ name: Name
 neutral: Neutral
 next: Next
 next_activity: Next activity
+num_tries: Number of tries authorized for this activity
 
 #p
 
+play_again: Play again
 previous_activity: Previous activity
 pick_a_resource: Choose resource
 
@@ -100,3 +110,7 @@ type: Type
 #w
 
 wrong: Wrong
+
+#y
+
+yes: Yes

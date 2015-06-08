@@ -2,8 +2,9 @@
     'use strict';
 
     angular.module('ActivityPlayer').controller('ActivityPlayerFormController', [
+        '$modal',
         'ActivityPlayerService',
-        function (ActivityPlayerService) {
+        function ($modal, ActivityPlayerService) {
             this.webDir = ActivityEditorApp.webDir;
 
             this.view = 'properties';
@@ -16,11 +17,15 @@
             
             this.iterator = 0;
             this.trial = 1;
+            this.triesByActivity = [];
             
             this.answers = [];
             this.correctAnswers = [];
             
-            this.inputs = [];
+            this.inputElements = [];
+            
+            this.inputsUnique = [];
+            this.inputsMultiple = [];
             this.input = null;
             
             this.answersGiven = function() {
@@ -33,13 +38,45 @@
                 return !(numAnswers === 0);
             };
             
+            this.canPlayActivityAgain = function() {
+                if (this.sequence.activities[this.iterator].typeAvailable.name === "MultipleChoiceType") {
+                    var complete = true;
+                    for (var i=0; i<this.answers.length; i++) {
+                        for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
+                            if (this.answers[i].id === this.sequence.activities[this.iterator].type.choices[j].id) {
+                                if (!this.answers[i].checked && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct") {
+                                    complete = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    var inputs = document.getElementsByName('choices[]');
+                    var complete = false;
+                    for (var i=0; i<inputs.length; i++) {
+                        for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
+                            console.log(inputs[i].checked);
+                            console.log(this.sequence.activities[this.iterator].type.choices[j].id);
+                            console.log(inputs[i].value);
+                            console.log(this.sequence.activities[this.iterator].type.choices[j].correctAnswer);
+                            if (inputs[i].checked && this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct") {
+                                complete = true;
+                            }
+                        }
+                    }
+                }
+                
+                return (this.triesByActivity[this.iterator] < this.sequence.activities[this.iterator].numTries && this.currentAction === 'feedback' && !complete);
+            };
+            
             this.checkInputs = function(choice) {
                 this.answers = [];
                 if (this.sequence.activities[this.iterator].typeAvailable.name === 'MultipleChoiceType') {
                     for (var i=0; i<this.sequence.activities[this.iterator].type.choices.length; i++) {
                         this.answers.push({
                             id: this.sequence.activities[this.iterator].type.choices[i].id,
-                            checked: this.inputs[i]
+                            checked: this.inputsMultiple[i]
                         });
                     }
                 }
@@ -93,10 +130,8 @@
                         }
                     }
                 }
-                console.log(datetime);
                 var regex=/^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) (?:([0-2][0-9]):([0-5][0-9]):([0-5][0-9]).[0-9]*)?$/;
                 var parts=datetime.replace(regex,"$1 $2 $3 $4 $5 $6").split(' ');
-                console.log(parts);
                 var date = new Date(parts[0],parts[1]-1,parts[2],parts[3],parts[4],parts[5]);
                 var formated_date = this.formatDate(date.getDate()) + "/" + this.formatDate(date.getMonth() + 1) + "/" + date.getFullYear();
                 var formated_hour = "(" + date.getHours() + ":" + this.formatDate(date.getMinutes()) + ":" + this.formatDate(date.getSeconds()) + ")";
@@ -129,6 +164,20 @@
                 else {
                     return j;
                 }
+            };
+            
+            this.getModalInstance = function(name) {
+                var modalInstance = $modal.open({
+                    templateUrl: ActivityEditorApp.webDir + 'bundles/innovaactivity/angularjs/Confirm/Partials/confirm-blue.html',
+                    controller: 'ConfirmModalCtrl',
+                    resolve: {
+                        title: function () { return name },
+                        message: function () { return "confirm_" + name },
+                        confirmButton: function () { return "yes" }
+                    }
+                });
+                
+                return modalInstance;
             };
             
             this.getRightAnswersGiven = function(index, right) {
@@ -186,12 +235,8 @@
             };
             
             this.isAuthorizedStart = function() {
-                if (this.getUsersPreviousAnswersLength() < this.sequence.numAttempts || this.sequence.numAttempts === 0) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                
+                return (this.getUsersPreviousAnswersLength() < this.sequence.numAttempts || this.sequence.numAttempts === 0);
             };
             
             this.isChecked = function(choiceId) {
@@ -298,22 +343,48 @@
             };
             
             this.jumpTo = function (index) {
+                if (this.currentAction === 'edit') {
+                    var modalInstance = this.getModalInstance("jump_to");
+                    modalInstance.result.then(function () {
+                        this.confirmJumpTo(index);
+                    }.bind(this));
+                }
+                else {
+                    this.confirmJumpTo(index);
+                }
+            };
+            
+            this.confirmJumpTo = function (index) {
                 if (index === "intro") {
                     this.currentFile = 'intro';
                     this.iterator = 0;
                     this.currentAction = '';
                 }
+                else if (index === "end") {
+                    this.currentFile = 'end';
+                    this.currentAction = '';
+                }
                 else {
+                    if (this.currentFile === 'intro') {
+                        for (var i=0; i<this.sequence.activities.length; i++) {
+                            this.triesByActivity.push(0);
+                        }
+                        this.setTrialValue();
+                    }
                     this.iterator = index;
                     this.currentFile = 'edit';
                     this.currentAction = 'edit';
                 }
+                this.answers = [];
+                this.inputsMultiple = [];
+                this.inputsUnique = [];
             };
             
             this.next = function () {
                 this.iterator = this.iterator + 1;
                 this.answers = [];
-                this.inputs = [];
+                this.inputsMultiple = [];
+                this.inputsUnique = [];
                 this.correctAnswers = [];
                 if (this.iterator >= this.sequence.activities.length) {
                     this.currentFile = 'end';
@@ -324,6 +395,86 @@
                 var inputs = document.getElementsByName('choices[]');
                 for (var i=0; i<inputs.length; i++) {
                     inputs[i].removeAttribute('disabled');
+                }
+            };
+            
+            this.nextActivity = function () {
+                if (this.currentAction === 'edit') {
+                    var modalInstance = this.getModalInstance("next_activity");
+                    modalInstance.result.then(function () {
+                        this.confirmNextActivity();
+                    }.bind(this));
+                }
+                else {
+                    this.confirmNextActivity();
+                }
+            };
+            
+            this.confirmNextActivity = function () {
+                if (this.currentFile !== "end") {
+                    if (this.currentFile === "intro") {
+                        this.start();
+                    }
+                    else {
+                        this.next();
+                    }
+                }
+            };
+            
+            this.playActivityAgain = function () {
+                this.triesByActivity[this.iterator] = this.triesByActivity[this.iterator] + 1;
+                this.answers = [];
+                
+                var inputs = document.getElementsByName('choices[]');
+                for (var i=0; i<this.inputsMultiple.length; i++) {
+                    var suppress = true;
+                    for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
+                        if (this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct") {
+                            suppress = false;
+                        }
+                    }
+                    
+                    if (suppress) {
+                        this.inputsMultiple[i] = null;
+                    }
+                }
+                
+                this.inputsUnique = [];
+                this.correctAnswers = [];
+                this.currentAction = 'edit';
+                for (var i=0; i<inputs.length; i++) {
+                    for (var j=0; j<this.sequence.activities[this.iterator].type.choices.length; j++) {
+                        if (this.sequence.activities[this.iterator].type.choices[j].id.toString() === inputs[i].value && !(inputs[i].checked && this.sequence.activities[this.iterator].type.choices[j].correctAnswer === "correct")) {
+                            inputs[i].removeAttribute('disabled');
+                        }
+                    }
+                }
+            };
+            
+            this.previousActivity = function () {
+                if (this.currentAction === "edit") {
+                    var modalInstance = this.getModalInstance("previous_activity");
+                    modalInstance.result.then(function () {
+                        this.confirmPreviousActivity();
+                    }.bind(this));
+                }
+                else {
+                    this.confirmPreviousActivity();
+                }
+            };
+            
+            this.confirmPreviousActivity = function () {
+                if (this.currentFile !== "intro" && this.iterator !== 0) {
+                    this.iterator = this.iterator - 1;
+                    this.answers = [];
+                    this.inputsMultiple = [];
+                    this.inputsUnique = [];
+                    this.correctAnswers = [];
+                    this.currentAction = 'edit';
+                    var inputs = document.getElementsByName('choices[]');
+                    for (var i=0; i<inputs.length; i++) {
+                        inputs[i].removeAttribute('disabled');
+                    }
                 }
             };
             
@@ -348,6 +499,17 @@
                 var inputs = document.getElementsByName('choices[]');
                 for (var i=0; i<inputs.length; i++) {
                     inputs[i].setAttribute('disabled', 'disabled');
+                }
+            };
+            
+            this.setTrialValue = function () {
+                this.trial = 1;
+                for (var i=0; i<this.previousAnswers.length; i++) {
+                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
+                        if (this.trial <= this.previousAnswers[i].numTrial) {
+                            this.trial = this.previousAnswers[i].numTrial + 1;
+                        }
+                    }
                 }
             };
             
@@ -385,14 +547,10 @@
             this.start = function () {
                 this.currentAction = 'edit';
                 this.currentFile = 'edit';
-                this.trial = 1;
-                for (var i=0; i<this.previousAnswers.length; i++) {
-                    if (this.previousAnswers[i].activity.activitySequenceId === this.sequence.id) {
-                        if (this.trial <= this.previousAnswers[i].numTrial) {
-                            this.trial = this.previousAnswers[i].numTrial + 1;
-                        }
-                    }
+                for (var i=0; i<this.sequence.activities.length; i++) {
+                    this.triesByActivity.push(0);
                 }
+                this.setTrialValue();
             };
         }
     ]);
